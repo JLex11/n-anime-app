@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  /* outline: 1px solid red; */
+}
+
+:root {
+  --max-width: min(100%, 1280px);
+  --primary-color: rgb(28, 28, 37);
+  --banner-height: 80vh;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--primary-color);
+  font-family: var(----inter-font);
+  color: white;
+}
+
+code {
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+li {
+  color: inherit;
+  list-style: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
