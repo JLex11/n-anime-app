@@ -1,0 +1,27 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: min(100%, var(--max-width));
+  margin: 0 auto;
+}
+
+.latestEpisodes {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.8rem;
+}
