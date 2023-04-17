@@ -10,11 +10,13 @@ export const AnimeHeader = ({ title, otherTitles }: Props) => {
   return (
     <header className={styles.header}>
       <h1 className={styles.headerTitle}>{title}</h1>
-      <ul className={styles.otherNames}>
-        {otherTitles.map(title => (
-          <CustomLi key={title}>{title.trim()}</CustomLi>
-        ))}
-      </ul>
+      {otherTitles && (
+        <ul className={styles.otherNames}>
+          {otherTitles.map(title => (
+            <CustomLi key={title}>{title.trim()}</CustomLi>
+          ))}
+        </ul>
+      )}
     </header>
   )
 }
