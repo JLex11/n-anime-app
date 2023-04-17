@@ -1,0 +1,150 @@
+.banner {
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  height: var(--banner-height);
+  position: relative;
+}
+
+.banner::before {
+  content: '';
+  width: 100%;
+  height: 70%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to bottom, transparent, var(--primary-color));
+  z-index: 1;
+}
+
+.scroller {
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.bannerItem {
+  min-width: 100%;
+  scroll-snap-align: start;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.bannerPicture {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  z-index: 0;
+}
+
+.bannerItem picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--bg-position);
+}
+
+.info {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  opacity: 0;
+  transform: translateX(10%);
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  z-index: 2;
+}
+
+.info.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.info .content {
+  width: var(--max-width);
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.infoTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info ul {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 20px;
+}
+
+.navigateButtons {
+  align-items: center;
+  bottom: -30px;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.containerButtons {
+  width: var(--max-width);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 5px;
+  padding: 0 30px;
+}
+
+.navigateButton {
+  --size: 8px;
+  padding: var(--size);
+  border-radius: 50%;
+  border: none;
+  background: #095cc2d2;
+  transform: translateY(-45px);
+  transition: 
+    background 0.2s,
+    padding 0.3s,
+    border-radius 0.3s;
+}
+
+.navigateButton:focus, .navigateButton:focus-visible {
+  outline: none;
+}
+
+.navigateButton:hover {
+  background: #0777ff;
+}
+
+.navigateButton.active {
+  background: #fff;
+  padding: var(--size) 20px;
+  border-radius: 10px;
+}
