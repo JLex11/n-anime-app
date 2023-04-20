@@ -54,14 +54,14 @@ export interface AnimeBase {
   status?: string
 }
 
-type otherTitle = string
-type genre = string | undefined
+type OtherTitle = string
+type Genre = string | undefined
 
 export interface Anime extends AnimeBase {
   description: string
-  genres: genre[]
+  genres: Genre[]
   originalLink: string
-  otherTitles: otherTitle[]
+  otherTitles: OtherTitle[]
   episodes: Episode[]
 }
 
