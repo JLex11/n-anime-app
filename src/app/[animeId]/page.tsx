@@ -1,10 +1,8 @@
 import { Banner } from '@/components/Banner/Banner'
-import Header from '@/components/Header'
-import { API, APP_ROUTES } from '@/constants'
+import { API } from '@/constants'
+import { getRatingAnimes } from '@/services/getAnimes'
 import { Anime } from '@/types'
 import { monthsToSeconds } from '@/utils/convertTime'
-import Head from 'next/head'
-import RootLayout from '../layout'
 import styles from './Anime.module.css'
 import { AnimeAside } from './AnimeAside'
 import { AnimeHeader } from './AnimeHeader'
@@ -15,27 +13,24 @@ interface Props {
   }
 }
 
-const getAnimeInfo = async (animeId: string) => {
+export async function generateStaticParams() {
+  const animes = await getRatingAnimes(20)
+  return animes.map(anime => ({ slug: anime.animeId }))
+}
+
+const getAnimeInfo = async (animeId: string): Promise<Anime> => {
   const animeInfoResponse = await fetch(`${API.routes.InfoAnime}/${animeId}`, {
     next: { revalidate: monthsToSeconds(1) },
   })
 
-  const animeInfo: Anime = await animeInfoResponse.json()
-  return animeInfo
+  return animeInfoResponse.json()
 }
 
-export default async function AnimePage({ params }: Props) {
-  const { animeId } = params
+export default async function AnimePage({ params: { animeId } }: Props) {
   const animeInfo = await getAnimeInfo(animeId)
 
   return (
-    <RootLayout>
-      <Head>
-        <title>{animeInfo.title}</title>
-        <link rel='preload' as='image' href={animeInfo.images?.bannerImages?.at(0)?.link ?? ''} />
-        <link rel='preload' as='image' href={animeInfo.images?.coverImage ?? ''} />
-      </Head>
-      <Header pages={APP_ROUTES} />
+    <>
       <Banner animes={[animeInfo]} />
       <main className={styles.main}>
         <AnimeAside
@@ -47,6 +42,6 @@ export default async function AnimePage({ params }: Props) {
           <AnimeHeader title={animeInfo.title} otherTitles={animeInfo.otherTitles} />
         </section>
       </main>
-    </RootLayout>
+    </>
   )
 }
