@@ -9,7 +9,7 @@ export default function CustomLi({ children, padding, borderRadius, backgroundCo
   const style = {
     padding: padding || '5px 10px',
     borderRadius: borderRadius || '10px',
-    backgroundColor: backgroundColor || '#ffffff2c'
+    backgroundColor: backgroundColor || '#ffffff38',
   }
 
   return (
