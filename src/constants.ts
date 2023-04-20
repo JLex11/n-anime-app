@@ -1,5 +1,6 @@
 // const API_BASE_URL = 'https://anime-scrapper-two.vercel.app/api'
 const API_BASE_URL = 'http://localhost:3002/api'
+export const IMG_DOMAIN = 'anime-app.s3.us-east-1.amazonaws.com'
 
 export const API = {
   baseUrl: API_BASE_URL,
