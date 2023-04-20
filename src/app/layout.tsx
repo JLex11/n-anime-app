@@ -1,3 +1,5 @@
+import Header from '@/components/Header'
+import { APP_ROUTES } from '@/constants'
 import { Inter } from 'next/font/google'
 import '../styles/globals.css'
 
@@ -15,7 +17,10 @@ const interFont = Inter({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
-      <body className={interFont.variable}>{children}</body>
+      <body className={interFont.variable}>
+        <Header pages={APP_ROUTES} />
+        {children}
+      </body>
     </html>
   )
 }
