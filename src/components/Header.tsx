@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import styles from '../styles/Header.module.css'
+import UserIcon from './Icons/UserIcon'
 
 type Page = {
   name: string
@@ -32,21 +33,26 @@ export default function Header({ pages }: Props) {
       <div className={styles.headerContainer}>
         <div className={styles.headerSection}>
           <div className={styles.logo}>
-              <Image
-                src='/Nika_Logo.svg'
-                alt='logo: Nika dios del sol (one piece)'
-                width={40}
-                height={40}
-              />
+            <Image
+              src='/Nika_Logo.svg'
+              alt='logo: Nika dios del sol (one piece)'
+              width={40}
+              height={40}
+            />
           </div>
           <nav className={styles.headerNav}>
             <ul className={styles.pages}>
-              {pages && pages.map(page => (
-                <li key={page.link}>
-                  <Link href={page.link}>{page.name}</Link>
-                </li>
-              ))}
+              {pages &&
+                pages.map(page => (
+                  <li key={page.link}>
+                    <Link href={page.link}>{page.name}</Link>
+                  </li>
+                ))}
             </ul>
+            <div className={styles.tools}>
+              <input type='search' name='search' id='search' />
+              <UserIcon />
+            </div>
           </nav>
         </div>
       </div>
