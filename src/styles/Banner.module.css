@@ -123,7 +123,7 @@
 }
 
 .navigateButton {
-  --size: 8px;
+  --size: 9px;
   padding: var(--size);
   border-radius: 50%;
   border: none;
