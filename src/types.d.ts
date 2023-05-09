@@ -1,14 +1,20 @@
+declare global {
+  interface Array<T> {
+    toSorted(fn?: (a: T, b: T) => number): T[]
+  }
+}
+
 export interface Episode {
   originalLink: string
   title: string
   link: string
   episode: number
   image?: string
+  episodeId: string
 }
 
 export interface LastEpisode extends Episode {
-  episodeId?: string
-  animeId?: string
+  animeId: string
 }
 
 export interface EpisodeVideo {
@@ -31,7 +37,7 @@ export interface EpisodeSources {
   videos: VideoList
 }
 
-export type BannerImage = {
+export type CarouselImage = {
   link: string
   position: string
   width?: number
@@ -40,54 +46,20 @@ export type BannerImage = {
 }
 
 type AnimeImages = {
-  coverImage?: string
-  bannerImages?: BannerImage[]
+  coverImage: string
+  carouselImages: CarouselImage[]
 }
 
-export interface AnimeBase {
-  images?: AnimeImages
+export interface Anime {
+  images: AnimeImages | null
   title: string
-  type?: string
-  rank?: string
-  link: string
+  type: string | null
+  rank: number | null
   animeId: string
-  status?: string
-}
-
-type OtherTitle = string
-type Genre = string | undefined
-
-export interface Anime extends AnimeBase {
-  description: string
-  genres: Genre[]
-  originalLink: string
-  otherTitles: OtherTitle[]
-  episodes: Episode[]
-}
-
-export interface ShortAnime extends AnimeBase {
-  shortDescription: string
-}
-
-export interface GoogleImage {
-  contextLink: string
-  height: number
-  width: number
-  byteSize: number
-  thumbnailLink: string
-  thumbnailHeight: number
-  thumbnailWidth: number
-}
-
-export interface GoogleImageSearchItem {
-  kind: string
-  title: string
-  htmlTitle: string
   link: string
-  displayLink: string
-  snippet: string
-  htmlSnippet: string
-  mime: string
-  fileFormat: string
-  image: GoogleImage
+  otherTitles: string[] | []
+  description: string
+  originalLink: string | null
+  status: string
+  genres: string[] | []
 }
