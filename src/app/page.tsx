@@ -1,29 +1,25 @@
-import { Banner } from '@/components/Banner/Banner'
-import { EpisodeCard } from '@/components/EpisodeCard'
-import LatestIcon from '@/components/Icons/LatestIcon'
-import { getRatingAnimes } from '@/services/getAnimes'
-import { getLatestEpisodes } from '@/services/getEpisodes'
-import styles from './Home.module.css'
+import { CarouselHero } from '@/components/CarouselHero/Carousel'
+import { HomeAside } from '@/components/HomePage/HomeAside'
+import { LatestAnimes } from '@/components/HomePage/LatestAnimes'
+import { LatestEpisodes } from '@/components/HomePage/LatestEpisodes'
+import { getRatingAnimes } from '@/services/getRatingAnimes'
+import styles from '@/styles/Home.module.css'
 
 export default async function HomePage() {
-  const animes = await getRatingAnimes()
-  const episodes = await getLatestEpisodes()
+  const ratingAnimes = await getRatingAnimes(10)
 
   return (
     <>
-      <Banner animes={animes} showInfo />
+      <CarouselHero animes={ratingAnimes} showInfo />
       <main className={styles.main}>
-        <section className={styles.latestEpisodes}>
-          <h2 className={styles.title}>
-            <LatestIcon />
-            Latest Episodes
-          </h2>
-          <div className={styles.gridContainer}>
-            {episodes.map(episode => (
-              <EpisodeCard key={episode.episodeId} episode={episode} />
-            ))}
-          </div>
-        </section>
+        {/* @ts-expect-error Server Component */}
+        <HomeAside />
+        <div className={styles.content}>
+          {/* @ts-expect-error Server Component */}
+          <LatestEpisodes />
+          {/* @ts-expect-error Server Component */}
+          <LatestAnimes />
+        </div>
       </main>
     </>
   )
