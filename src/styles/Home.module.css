@@ -1,0 +1,60 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  /* flex-direction: column; */
+  min-height: calc(100vh - 4rem - 100px);
+  margin: 2rem auto;
+  padding: 2rem;
+  gap: 3rem;
+}
+
+.aside {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 1.8rem;
+  order: 1;
+}
+
+.asideInner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.26);
+}
+
+.asideList {
+  overflow-y: auto;
+  --scrollbar-width: 0.3rem;
+}
+
+.asideList::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+.asideList::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.asideList::-webkit-scrollbar-thumb {
+  background-color: #fdfdfd;
+  border-radius: 1rem;
+}
+
+.aside ul li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}

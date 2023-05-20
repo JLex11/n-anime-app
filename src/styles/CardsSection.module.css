@@ -1,0 +1,33 @@
+.latestSection {
+  display: grid;
+  grid-template-columns: 1fr;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 1.8rem;
+}
+
+.latestSection.hasAside {
+  grid-template-columns: 3fr 1fr;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  height: fit-content;
+}
+
+.contentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  gap: 0.5rem;
+}

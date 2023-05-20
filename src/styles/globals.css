@@ -6,18 +6,18 @@
 }
 
 :root {
-  --max-width: min(100%, 1280px);
-  --primary-color: rgb(28, 28, 37);
-  --banner-height: 80vh;
+  --max-width: min(100%, 1400px);
+  --primary-color: rgb(19, 19, 25);
+  --carousel-height: 80vh;
 }
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: var(--primary-color);
-  font-family: var(----inter-font);
   color: white;
+  font-weight: 350;
+  background-color: var(--primary-color);
 }
 
 code {
@@ -33,6 +33,24 @@ a {
 li {
   color: inherit;
   list-style: none;
+}
+
+main {
+  width: min(100%, var(--max-width));
+  margin: 100px auto;
+}
+
+.page-loader {
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  place-items: center;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-color-scheme: dark) {

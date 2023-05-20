@@ -1,14 +1,15 @@
 .header {
-  background: linear-gradient(to bottom, var(--primary-color) -15%, transparent);
+  z-index: 99;
   position: fixed;
   top: 0;
-  z-index: 99;
-  color: white;
-  text-align: center;
+  right: 0;
+  left: 0;
   width: 100%;
   margin: 0 auto;
-  left: 0;
-  right: 0;
+  color: white;
+  text-align: center;
+  background: linear-gradient(to bottom, var(--primary-color) -15%, transparent);
+  transition: background 0.3s ease-in-out;
 }
 
 .header.scrolled {
@@ -17,13 +18,13 @@
 
 .headerContainer {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 30px;
-  padding: 2rem 2rem 0.5rem 2rem;
-  margin-inline: auto;
+  align-items: center;
   width: var(--max-width);
+  padding: 2rem 2rem 0.5rem 2rem;
   transition: padding 0.2s ease-in-out;
+  gap: 30px;
+  margin-inline: auto;
 }
 
 .header.scrolled .headerContainer {
@@ -33,8 +34,8 @@
 .headerSection {
   display: flex;
   align-items: center;
-  gap: 15px;
   width: 100%;
+  gap: 1rem;
 }
 
 .logo {
@@ -48,23 +49,107 @@
 }
 
 .logo img {
-  width: 100%;
   filter: invert(1);
 }
 
 .headerNav {
-  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-.headerNav ul {
+.pages {
   display: flex;
   align-items: center;
-  gap: 35px;
+  gap: 1rem;
 }
 
-.header a {
-  font-size: 1.2rem;
+.pageItem {
+  position: relative;
+  padding: 0.3rem 0.7rem;
+  font-weight: 400;
+  transition: font-weight 0.2s ease-in-out;
+}
+
+.pageItem::after {
+  opacity: 0;
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  content: "";
+  background-color: var(--primary-color);
+  transform: translateX(-10px);
+  inset: 0;
+  transition:
+    opacity 0.2s ease-in-out,
+    color 0.2s ease-in-out,
+    transform 0.2s ease-in-out;
+}
+
+.pageItem:is(:hover, .active) {
+  font-weight: 600;
+}
+
+.pageItem:is(:hover, .active)::after {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.header.scrolled .pageItem::after {
+  background-color: #505055;
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.searchButton {
+  --borderWidth: 0.07rem;
+  --input-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 0.5rem;
+  border: none;
+  border-radius: calc(6 * var(--borderWidth));
+  color: white;
+  background-color: rgba(59, 59, 59, 0.85);
+  transition: .3s ease-in-out;
+  gap: 2.5rem;
+}
+
+.searchButton:hover {
+  background-color: rgba(59, 59, 59, 0.3);
+}
+
+.searchButton:after {
+  z-index: -1;
+  position: absolute;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  width: calc(100% + var(--borderWidth) * 2);
+  height: calc(100% + var(--borderWidth) * 2);
+  border-radius: calc(7 * var(--borderWidth));
+  content: '';
+  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  background-size: 300% 300%;
+  box-shadow: var(--input-shadow);
+  animation: animateGradient 5s ease alternate infinite;
+}
+
+@keyframes animateGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

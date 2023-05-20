@@ -1,0 +1,48 @@
+/* Badge */
+.badge {
+  padding: var(--padding);
+  border-radius: var(--bd-radius);
+  font-weight: 600;
+  background-color: var(--bg-color);
+}
+
+/* Breadcrumb */
+.breadcrumbContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.breadcrumbList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.breadcrumbItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.breadcrumbItem:not(.breadcrumbItem:first-child):before {
+  content: ">";
+  color: var(--text-color);
+}
+
+/* ShortcutLetters */
+.shortcutLetters {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.shortcutLetters code {
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.2rem 0.2rem 0.3rem 0.3rem;
+  font-weight: 500;
+  background-color: rgba(59, 59, 59, 0.5);
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3);
+}
