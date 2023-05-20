@@ -1,0 +1,32 @@
+import { AutocompleteAnimeItem } from '@/hooks/useAutocomplete'
+import styles from '@/styles/Autocomplete.module.css'
+import { Collection } from './Collection'
+import { CollectionsPanelFooter } from './CollectionsPanelFooter'
+
+interface Props {
+  className: string
+  panelRef: React.RefObject<HTMLDivElement>
+  panelProps: {
+    onMouseDown(event: MouseEvent): void
+    onMouseLeave(): void
+  }
+  collections: {
+    items: AutocompleteAnimeItem[]
+    source: {
+      sourceId: string
+    }
+  }[]
+}
+
+export const CollectionsPanel = ({ className: cssClass, panelRef, panelProps, collections }: Props) => {
+  return (
+    <div className={cssClass} ref={panelRef} {...(panelProps as any)}>
+      <div className={styles.resultsContainer}>
+        {collections.map(collection => (
+          <Collection key={collection.source.sourceId} sourceId={collection.source.sourceId} items={collection.items} />
+        ))}
+      </div>
+      <CollectionsPanelFooter />
+    </div>
+  )
+}
