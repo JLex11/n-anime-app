@@ -2,17 +2,18 @@ interface Props {
   width?: number
   height?: number
   strokeWidth?: number
+  className?: string
 }
 
-export default function LatestIcon({ width = 24, height = 24, strokeWidth = 2 }: Props) {
+export default function LatestIcon({ width = 24, height, strokeWidth = 1.5, className: cssClass }: Props) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      /* className='icon icon-tabler icon-tabler-24-hours' */
+      className={cssClass}
       width={width}
-      height={height}
+      height={height ?? width}
       viewBox='0 0 24 24'
-      stroke-width={strokeWidth}
+      strokeWidth={strokeWidth}
       stroke='currentColor'
       fill='none'
       strokeLinecap='round'

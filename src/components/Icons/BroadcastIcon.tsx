@@ -5,7 +5,7 @@ interface Props {
   className?: string
 }
 
-export default function UserIcon({ width = 24, height, strokeWidth = 1.5, className: cssClass }: Props) {
+export default function BroadcastIcon({ width = 24, height, strokeWidth = 1.5, className: cssClass }: Props) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -20,8 +20,9 @@ export default function UserIcon({ width = 24, height, strokeWidth = 1.5, classN
       strokeLinejoin='round'
     >
       <path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
-      <path d='M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0'></path>
-      <path d='M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2'></path>
+      <path d='M18.364 19.364a9 9 0 1 0 -12.728 0'></path>
+      <path d='M15.536 16.536a5 5 0 1 0 -7.072 0'></path>
+      <path d='M12 13m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0'></path>
     </svg>
   )
 }
