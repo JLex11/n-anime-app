@@ -76,7 +76,7 @@
   outline: none;
   color: #fff;
   font-size: 12pt;
-  background-color: rgba(59, 59, 59, 0.90);
+  background-color: rgba(59, 59, 59, 0.9);
 }
 
 .inputSearch::-webkit-search-cancel-button {
@@ -136,7 +136,9 @@
   --scrollbar-width: 0.3rem;
   overflow-y: auto;
   width: 100%;
-  max-height: calc(100vh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 - var(--pd) * 2 - var(--footer-height));
+  max-height: calc(
+    100vh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 - var(--pd) * 2 - var(--footer-height)
+  );
 }
 
 .resultsContainer::-webkit-scrollbar {
@@ -253,17 +255,56 @@
   background-color: rgba(255, 255, 255, 0.098);
 }
 
+.childsItemsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0.5rem;
+  padding-left: 4.3rem;
+  border-radius: 0.4rem;
+}
+
 .childsItems {
   display: flex;
-  align-items: flex-start;
+  gap: 0.3rem;
+  width: 100%;
+  overflow-x: auto;
+  padding-block: 0.5rem;
+  --scrollbar-height: 0.3rem;
+}
+
+.childsItems::-webkit-scrollbar {
+  height: var(--scrollbar-height);
+}
+
+.childsItems::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.childsItems::-webkit-scrollbar-thumb {
+  background-color: #fdfdfd;
+  border-radius: 1rem;
+}
+
+.childItem {
+  padding: 0.3rem;
+}
+
+.childItem:hover {
+  background-color: #1f1f1f;
+  border-radius: 0.3rem;
+}
+
+.childItemLink {
+  display: flex;
+  align-items: center;
   gap: 0.3rem;
 }
 
-.childItem {}
+.childItemTitle {
+}
 
-.childItemLink {}
-
-.childItemTitle {}
 .footer {
   display: flex;
   justify-content: space-between;
