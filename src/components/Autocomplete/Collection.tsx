@@ -20,7 +20,7 @@ export const Collection = ({ items, sourceId }: Props) => {
         <span className={styles.itemsCount}>{items.length} founded</span>
       </header>
       {items.map(item => (
-        <ResultsItem key={item.link ?? item.title} item={item} sourceId={sourceId} />
+        <ResultsItem key={item.link ?? item.title} item={item} />
       ))}
     </section>
   )
