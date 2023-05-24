@@ -1,4 +1,4 @@
-import { AutocompleteAnimeItem } from '@/hooks/useAutocomplete'
+import { AutocompleteItem } from '@/hooks/useAutocomplete'
 import styles from '@/styles/Autocomplete.module.css'
 import { Collection } from './Collection'
 import { CollectionsPanelFooter } from './CollectionsPanelFooter'
@@ -11,7 +11,7 @@ interface Props {
     onMouseLeave(): void
   }
   collections: {
-    items: AutocompleteAnimeItem[]
+    items: AutocompleteItem[]
     source: {
       sourceId: string
     }

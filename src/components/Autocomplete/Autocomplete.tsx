@@ -31,6 +31,7 @@ export const Autocomplete = ({ handleLaunchAutocomplete }: Props) => {
   const providerValue = {
     activeItemId: autocomplete.activeItemId ?? 0,
     setActiveItemId,
+    handleLaunchAutocomplete,
   }
 
   return (

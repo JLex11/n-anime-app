@@ -1,4 +1,4 @@
-import { AutocompleteAnimeItem } from '@/hooks/useAutocomplete'
+import { AutocompleteItem } from '@/hooks/useAutocomplete'
 import styles from '@/styles/Autocomplete.module.css'
 import { toCap } from '@/utils/textConverts'
 import dynamic from 'next/dynamic'
@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic'
 const ResultsItem = dynamic(() => import('./ResultsItem').then(m => m.ResultsItem))
 
 interface Props {
-  items: AutocompleteAnimeItem[]
+  items: AutocompleteItem[]
   sourceId: string
 }
 
@@ -19,9 +19,9 @@ export const Collection = ({ items, sourceId }: Props) => {
         <h3 className={styles.resultsCollectionTitle}>{toCap(sourceId)}</h3>
         <span className={styles.itemsCount}>{items.length} founded</span>
       </header>
-      {items.map(item => {
-        return <ResultsItem key={item.link ?? item.title} item={item} />
-      })}
+      {items.map(item => (
+        <ResultsItem key={item.link ?? item.title} item={item} sourceId={sourceId} />
+      ))}
     </section>
   )
 }
