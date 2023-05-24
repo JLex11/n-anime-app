@@ -11,6 +11,7 @@ export interface Episode {
   episode: number
   image?: string
   episodeId: string
+  animeId: string
 }
 
 export interface LastEpisode extends Episode {
@@ -62,4 +63,5 @@ export interface Anime {
   originalLink: string | null
   status: string
   genres: string[] | []
+  created_at: string
 }
