@@ -8,38 +8,39 @@ import { toCap } from '@/utils/textConverts'
 
 interface Props {
   params: {
-    episodeId: string
+    animeId: string
+    episode: number
   }
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { episodeId } = params
+  const { animeId, episode } = params
 
   return {
-    title: toCap(episodeId).replace(/\-/g, ' '),
+    title: toCap(`Episode ${episode} - ${toCap(animeId.replace(/\-/g, ' '))}`),
   }
 }
 
 export async function generateStaticParams() {
   const latestEpisodes = await getLatestEpisodes()
-  return latestEpisodes.map(episode => ({ episodeId: episode.episodeId }))
+  return latestEpisodes.map(episode => ({ animeId: episode.animeId, episode: episode.episode.toString() }))
 }
 
 export default async function AnimePage({ params }: Props) {
-  const { episodeId } = params
-  const episodeSources = await getEpisodeSources(episodeId)
+  const { animeId, episode } = params
+  const episodeSources = await getEpisodeSources(`${animeId}-${episode}`)
 
   const iframeId = 'episode_iframe'
 
   const src = episodeSources.videos.SUB?.[0].code
   const title = episodeSources.videos.SUB?.[0].title
 
-  const crumbs = [{ name: 'Episodes', path: `/episodes` }, { name: `Episode ${episodeId}` }]
+  const crumbs = [{ name: toCap(animeId.replaceAll('-', ' ')), path: `/animes/${animeId}` }, { name: `Episode ${episode}` }]
 
   return (
     <main className={styles.main}>
       <BreadCrumb crumbs={crumbs} />
-      <h1>{toCap(episodeId).replace(/\-/g, ' ')}</h1>
+      <h1>{toCap(`${episode} - ${animeId}`).replace(/\-/g, ' ')}</h1>
       <div className={styles.videoContainer}>
         <IframeToggle iframesData={episodeSources.videos.SUB || episodeSources.videos.DUB || []} iframeId={iframeId} />
         {src && <Iframe src={src} title={title} id={iframeId} />}
