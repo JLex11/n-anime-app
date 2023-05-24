@@ -15,6 +15,11 @@ export interface AutocompleteItemChild {
   link: string
 }
 
+export interface AutocompleteItemChilds {
+  items: AutocompleteItemChild[]
+  title: string
+}
+
 export interface AutocompleteItem extends BaseItem {
   id: string
   title: string
@@ -23,7 +28,7 @@ export interface AutocompleteItem extends BaseItem {
   description: string
   type?: string
   rank?: number
-  childsCallback?: () => Promise<AutocompleteItemChild[]>
+  childsCallback?: () => Promise<AutocompleteItemChilds>
 }
 
 export interface AutocompleteProps extends AutocompleteOptionsWithMetadata<AutocompleteItem> {
@@ -75,17 +80,20 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
       rank: anime.rank ?? 0,
       childsCallback: async () => {
         const episodes = await getAnimeEpisodes(anime.animeId, 0, 10)
-        return episodes
-          .sort((a, b) => b.episode - a.episode)
-          .map(episode => ({
-            id: episode.episodeId,
-            title: episode.episode,
-            image: {
-              src: episode.image,
-              alt: episode.title,
-            },
-            link: `/animes/${episode.animeId}/${episode.episode}`,
-          }))
+        const mappedEpisodes = episodes.map(episode => ({
+          id: episode.episodeId,
+          title: episode.episode,
+          image: {
+            src: episode.image,
+            alt: episode.title,
+          },
+          link: `/animes/${episode.animeId}/${episode.episode}`,
+        }))
+
+        return {
+          items: mappedEpisodes,
+          title: 'Episodes',
+        }
       },
     }))
   }
