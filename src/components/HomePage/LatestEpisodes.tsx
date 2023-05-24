@@ -10,7 +10,7 @@ export const LatestEpisodes = async () => {
       key: episode.episodeId,
       imageSrc: episode.image ?? '',
       title: episode.title,
-      link: `/episodes/${episode.episodeId}`,
+      link: `/animes/${episode.animeId}/${episode.episode}`,
       pill: { label: `Episode ${episode.episode}` },
       width: 350,
       height: 250,
