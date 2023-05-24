@@ -51,8 +51,8 @@ export default async function AnimePage({ params: { animeId } }: Props) {
         <div className={styles.content}>
           <AnimeHeader title={anime.title} otherTitles={anime.otherTitles} />
           <Description description={anime.description} />
-          {anime.genres?.length && <Genres genres={anime.genres} />}
-          {episodes?.length && <Episodes episodes={episodes} animeTitle={anime.title} />}
+          <Genres genres={anime.genres} />
+          <Episodes episodes={episodes} animeTitle={anime.title} />
         </div>
       </main>
     </>
