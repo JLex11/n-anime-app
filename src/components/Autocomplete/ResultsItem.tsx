@@ -1,35 +1,42 @@
-import { AutocompleteAnimeItem } from '@/hooks/useAutocomplete'
+import { AutocompleteItem, AutocompleteItemChild } from '@/hooks/useAutocomplete'
+import { useToggle } from '@/hooks/useToggle'
 import styles from '@/styles/Autocomplete.module.css'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { FoldIcon } from '../Icons/FoldIcon'
 import PictureIcon from '../Icons/PictureIcon'
 import { AutocompleteContext } from './Contexts'
 
 interface Props {
-  item: AutocompleteAnimeItem
+  item: AutocompleteItem
 }
 
 export const ResultsItem = ({ item }: Props) => {
-  const [expanded, setExpanded] = useState(false)
+  const [childItems, setChildItems] = useState<AutocompleteItemChild[]>([])
+  const [expanded, toggleExpanded] = useToggle(false)
+  const { activeItemId, setActiveItemId, handleLaunchAutocomplete } = useContext(AutocompleteContext)
 
-  const { activeItemId, setActiveItemId } = useContext(AutocompleteContext)
-
-  const isActive = activeItemId === (item.__autocomplete_id as number)
+  const isActive = useMemo(() => activeItemId === (item.__autocomplete_id as number), [activeItemId, item])
 
   const handleHover = () => {
+    if (activeItemId === (item.__autocomplete_id as number)) return
     setActiveItemId(item.__autocomplete_id as number)
   }
+
+  useEffect(() => {
+    if (!expanded) return
+    if (item.childsCallback) item.childsCallback().then(setChildItems)
+  }, [expanded, item])
 
   const resultsItemClassName = clsx(styles.resultsItem, isActive && styles.isActive, expanded && styles.expanded)
 
   return (
     <article onMouseMove={handleHover} id={`autocompleteItem-${item.link}`}>
       <div className={resultsItemClassName}>
-        <Link href={item.link} className={styles.itemContainer}>
+        <Link href={item.link} className={styles.itemContainer} onClick={() => handleLaunchAutocomplete(false)}>
           {/* <Image src={item.image} alt={item.title} width={50} height={50} quality={10} className={styles.itemImage} loading={'lazy'} /> */}
-          <PictureIcon />
+          <PictureIcon width={50} />
           <div className={styles.itemInfo}>
             <div className={styles.itemContent}>
               <h4 className={styles.itemTitle}>{item.title}</h4>
@@ -38,20 +45,22 @@ export const ResultsItem = ({ item }: Props) => {
             <span className={styles.itemType}>{item.type}</span>
           </div>
         </Link>
-        <button className={styles.itemIcon} type='button' onClick={() => setExpanded(!expanded)}>
+        <button className={styles.itemIcon} type='button' onClick={toggleExpanded}>
           <FoldIcon />
         </button>
       </div>
       {expanded && (
-        <div className={styles.itemDetails}>
-          <div className={styles.itemDetailsContent}>
-            <p className={styles.itemDetailsDescription}>{item.description}</p>
-            <div className={styles.itemDetailsInfo}>
-              <span className={styles.itemDetailsType}>{item.type}</span>
-              <span className={styles.itemDetailsStatus}>{item.rank}</span>
-            </div>
-          </div>
-        </div>
+        <ul className={styles.childsItems}>
+          {childItems.map(childItem => (
+            <li key={childItem.link} className={styles.childItem}>
+              <Link href={childItem.link} className={styles.childItemLink} onClick={() => handleLaunchAutocomplete(false)}>
+                {/* <img {...childItem.image} width={30} height={25} /> */}
+                <PictureIcon width={30} height={25} />
+                <span className={styles.childItemTitle}>{childItem.title}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       )}
     </article>
   )

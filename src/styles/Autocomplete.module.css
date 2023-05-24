@@ -57,9 +57,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -100,6 +102,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -123,6 +126,7 @@
   from {
     grid-template-rows: 0fr;
   }
+
   to {
     grid-template-rows: 1fr;
   }
@@ -132,9 +136,7 @@
   --scrollbar-width: 0.3rem;
   overflow-y: auto;
   width: 100%;
-  max-height: calc(
-    100vh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 - var(--pd) * 2 - var(--footer-height)
-  );
+  max-height: calc(100vh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 - var(--pd) * 2 - var(--footer-height));
 }
 
 .resultsContainer::-webkit-scrollbar {
@@ -190,7 +192,7 @@
 }
 
 .itemContainer {
-  width: 100%;
+  width: 95%;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -251,6 +253,17 @@
   background-color: rgba(255, 255, 255, 0.098);
 }
 
+.childsItems {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.3rem;
+}
+
+.childItem {}
+
+.childItemLink {}
+
+.childItemTitle {}
 .footer {
   display: flex;
   justify-content: space-between;
