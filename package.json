@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -11,7 +11,7 @@
   "dependencies": {
     "@algolia/autocomplete-core": "1.9.2",
     "clsx": "1.2.1",
-    "next": "13.4.1",
+    "next": "13.4.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hotkeys-hook": "4.4.0",
@@ -19,11 +19,11 @@
   },
   "devDependencies": {
     "@types/jsdom": "21.1.1",
-    "@types/node": "18.16.3",
-    "@types/react": "18.2.5",
-    "@types/react-dom": "18.2.3",
-    "eslint": "8.39.0",
-    "eslint-config-next": "13.4.1",
-    "typescript": "5.0.4"
+    "@types/node": "20.2.1",
+    "@types/react": "18.2.6",
+    "@types/react-dom": "18.2.4",
+    "eslint": "8.41.0",
+    "eslint-config-next": "13.4.3",
+    "typescript": "5.1.0-beta"
   }
 }
