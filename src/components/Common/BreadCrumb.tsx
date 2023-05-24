@@ -17,7 +17,6 @@ export const BreadCrumb = ({ crumbs }: Props) => {
         {crumbs.map(({ name, path }, index) => (
           <li key={path ?? name} className={styles.breadcrumbItem}>
             {path ? <Link href={path}>{name}</Link> : <span>{name}</span>}
-            {/* {index < crumbs.length - 1 && <span className={styles.separator}>/</span>} */}
           </li>
         ))}
       </ul>
