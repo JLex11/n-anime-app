@@ -9,18 +9,8 @@ export const APP_ROUTES = [
     description: 'View most recent episodes and animes',
   },
   {
-    name: 'Directory',
-    link: '/directory',
-    description: 'View all animes',
-  },
-  {
     name: 'Animes',
     link: '/animes',
     description: 'View Animes',
-  },
-  {
-    name: 'Episodes',
-    link: '/episodes',
-    description: 'View episodes',
   },
 ]
