@@ -1,5 +1,5 @@
 import { APIRoutes } from '@/enums'
-import { LastEpisode } from '@/types'
+import { Episode } from '@/types'
 import { minToSeconds } from '@/utils/convertTime'
 
 export const getLatestEpisodes = async () => {
@@ -7,6 +7,6 @@ export const getLatestEpisodes = async () => {
     next: { revalidate: minToSeconds(5) },
   })
 
-  const episodes: LastEpisode[] = await response.json()
+  const episodes: Episode[] = await response.json()
   return episodes ?? []
 }
