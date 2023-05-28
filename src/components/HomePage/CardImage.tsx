@@ -41,6 +41,7 @@ export const CardImage = ({
       priority={priority ?? false}
       className={cssClass}
       onError={handleImageError}
+      decoding='async'
     />
   )
 }
