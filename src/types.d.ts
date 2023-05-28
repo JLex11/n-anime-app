@@ -12,10 +12,7 @@ export interface Episode {
   image?: string
   episodeId: string
   animeId: string
-}
-
-export interface LastEpisode extends Episode {
-  animeId: string
+  created_at?: string
 }
 
 export interface EpisodeVideo {
