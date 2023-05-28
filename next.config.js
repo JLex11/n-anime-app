@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
+
+const IMAGE_MONTHS_CACHE = 12
+
 const nextConfig = {
   images: {
+    minimumCacheTTL: IMAGE_MONTHS_CACHE * 30 * 24 * 60 * 60,
     remotePatterns: [
       {
         protocol: 'https',
