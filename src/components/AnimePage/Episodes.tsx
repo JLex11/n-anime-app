@@ -18,7 +18,14 @@ export const Episodes = ({ episodes, animeTitle }: EpisodesProps) => {
       <div className={episodesClass}>
         {episodes.map(episode => (
           <Link key={episode.episodeId} href={`/animes/${episode.animeId}/${episode.episode}`}>
-            <Image src={episode.image ?? ''} alt={`Episode ${episode.episode} of ${animeTitle}`} width={150} height={100} loading='lazy' />
+            <Image
+              src={episode.image ?? ''}
+              alt={`Episode ${episode.episode} of ${animeTitle}`}
+              width={150}
+              height={100}
+              loading='lazy'
+              decoding='async'
+            />
             <span className={styles.episodeNumber}>Episode {episode.episode}</span>
           </Link>
         ))}
