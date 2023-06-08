@@ -14,10 +14,10 @@ interface Props {
 }
 
 export const CarouselHero = ({ animes, showInfo, timeBetweenSlides = 7000 }: Props) => {
-  const { carouselElementsRef, currentSlideId, scrollerRef, changeCurrentSlide } = useCarousel(
-    animes.map(({ animeId }) => animeId),
-    timeBetweenSlides
-  )
+  const { carouselElementsRef, currentSlideId, scrollerRef, changeCurrentSlide } = useCarousel({
+    itemIds: animes.map(({ animeId }) => animeId),
+    timeBetweenSlides,
+  })
 
   const handleCarouselItemsRef = (e: HTMLDivElement | null, index: number) => {
     if (!e) return
