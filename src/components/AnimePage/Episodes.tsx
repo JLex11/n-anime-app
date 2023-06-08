@@ -1,7 +1,6 @@
 import styles from '@/styles/Anime.module.css'
 import { Episode } from '@/types'
 import clsx from 'clsx'
-import Image from 'next/image'
 import Link from 'next/link'
 
 interface EpisodesProps {
@@ -14,11 +13,11 @@ export const Episodes = ({ episodes, animeTitle }: EpisodesProps) => {
 
   return (
     <section className={styles.section}>
-      <h2 className={styles.sectionTitle}>Episodes</h2>
+      <h2 className={styles.sectionTitle}>Episodios</h2>
       <div className={episodesClass}>
         {episodes.map(episode => (
           <Link key={episode.episodeId} href={`/animes/${episode.animeId}/${episode.episode}`}>
-            <Image
+            <img
               src={episode.image ?? ''}
               alt={`Episode ${episode.episode} of ${animeTitle}`}
               width={150}
@@ -26,7 +25,7 @@ export const Episodes = ({ episodes, animeTitle }: EpisodesProps) => {
               loading='lazy'
               decoding='async'
             />
-            <span className={styles.episodeNumber}>Episode {episode.episode}</span>
+            <span className={styles.episodeNumber}>Episodio {episode.episode}</span>
           </Link>
         ))}
       </div>
