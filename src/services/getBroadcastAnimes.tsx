@@ -7,5 +7,6 @@ export const getBroadcastAnimes = async (limit?: number) => {
     next: { revalidate: hoursToSeconds(1) },
   })
 
-  return (await response.json()) as Anime[]
+  const broadcastAnimes: Anime[] = await response.json()
+  return broadcastAnimes
 }
