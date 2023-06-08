@@ -20,5 +20,5 @@ export const LatestAnimes = async () => {
     }
   })
 
-  return <CardsSection title='Latest Animes' icon={<LatestIcon />} data={animeData} />
+  return <CardsSection title='Últimos animes' icon={<LatestIcon />} data={animeData} />
 }

@@ -75,7 +75,7 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
       title: anime.title,
       image: anime.images.coverImage,
       link: `/animes/${anime.animeId}`,
-      description: anime.description ?? 'Description not available',
+      description: anime.description ?? 'Descripcion no disponible',
       type: anime.type ?? 'Anime',
       rank: anime.rank ?? 0,
       childsCallback: async () => {
@@ -92,7 +92,7 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
 
         return {
           items: mappedEpisodes,
-          title: 'Episodes',
+          title: 'Episodios',
         }
       },
     }))
@@ -103,12 +103,12 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
       createAutocomplete<AutocompleteItem>({
         autoFocus: true,
         id: `autocomplete-${autocompleteId}`,
-        placeholder: placeholder ?? 'what do you want to find?',
+        placeholder: placeholder ?? 'Que quieres encontrar?',
         onStateChange: ({ state }) => setAutocompleteState(state),
         defaultActiveItemId: 0,
         getSources: ({ query }) => [
           {
-            sourceId: 'App',
+            sourceId: 'Ir a',
             getItemUrl: ({ item }) => item.link,
             getItems: () => getRoutesItems(query),
           },

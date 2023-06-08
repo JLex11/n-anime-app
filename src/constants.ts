@@ -4,13 +4,13 @@ export const IMG_DOMAIN = /anime-app.s3|cdn.animeflv.net/
 
 export const APP_ROUTES = [
   {
-    name: 'Home',
+    name: 'Inicio',
     link: '/',
-    description: 'View most recent episodes and animes',
+    description: 'Ver los episodios y animes mas recientes',
   },
   {
     name: 'Animes',
     link: '/animes',
-    description: 'View Animes',
+    description: 'Ver el listado de animes',
   },
 ]

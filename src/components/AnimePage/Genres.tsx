@@ -5,7 +5,7 @@ import { Badge } from '../Common/Badge'
 export const Genres = ({ genres }: { genres: string[] }) => {
   return (
     <section className={styles.section}>
-      <h2 className={styles.sectionTitle}>Genres</h2>
+      <h2 className={styles.sectionTitle}>Generos</h2>
       <ul className={styles.sectionList}>
         {genres.map(genre => (
           <li key={genre}>

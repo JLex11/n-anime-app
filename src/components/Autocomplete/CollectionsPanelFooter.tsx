@@ -6,14 +6,14 @@ export const CollectionsPanelFooter = () => {
     <footer className={styles.footer}>
       <div className={styles.shortcuts}>
         <ShortcutLetter letters='↵' className={styles.footerIcon}>
-          <span className={styles.footerText}>To select</span>
+          <span className={styles.footerText}>Seleccionar</span>
         </ShortcutLetter>
         <ShortcutLetter letters='↑ ↓' className={styles.footerIcon}>
-          <span className={styles.footerText}>To navigate</span>
+          <span className={styles.footerText}>Navegar</span>
         </ShortcutLetter>
       </div>
       <p className={styles.footerText}>
-        <span className={styles.footerText}>Create by Alex ❤️</span>
+        <span className={styles.footerText}>Creado por Alex ❤️</span>
       </p>
     </footer>
   )

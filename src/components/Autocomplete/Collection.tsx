@@ -17,7 +17,7 @@ export const Collection = ({ items, sourceId }: Props) => {
     <section className={styles.resultsCollection}>
       <header className={styles.collectionHeader}>
         <h3 className={styles.resultsCollectionTitle}>{toCap(sourceId)}</h3>
-        <span className={styles.itemsCount}>{items.length} founded</span>
+        <span className={styles.itemsCount}>{items.length} encontrados</span>
       </header>
       {items.map(item => (
         <ResultsItem key={item.link ?? item.title} item={item} />
