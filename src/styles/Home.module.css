@@ -1,11 +1,15 @@
 .main {
   display: grid;
   grid-template-columns: 1fr 300px;
-  /* flex-direction: column; */
   min-height: calc(100vh - 4rem - 100px);
   margin: 2rem auto;
   padding: 2rem;
   gap: 3rem;
+}
+@media screen and (max-width: 768px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
 }
 
 .aside {
