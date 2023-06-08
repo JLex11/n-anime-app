@@ -92,7 +92,7 @@
   overflow: hidden;
   color: #fff;
   font-weight: 700;
-  font-size: 3rem;
+  font-size: clamp(1.8rem, 3vw, 4rem);
   max-width: 900px;
   text-overflow: ellipsis;
   -webkit-line-clamp: 3;
