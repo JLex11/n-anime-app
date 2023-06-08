@@ -3,7 +3,7 @@ import { useScrolled } from '@/hooks/useScrolled'
 import styles from '@/styles/Header.module.css'
 import clsx from 'clsx'
 import Image from 'next/image'
-import Nav from './Nav'
+import { Nav } from './Nav'
 import Tools from './Tools'
 
 export type Page = {
