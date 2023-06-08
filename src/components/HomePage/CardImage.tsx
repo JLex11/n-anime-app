@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 
 interface Props {
   src: string
@@ -15,16 +14,7 @@ interface Props {
 
 type HandleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => void
 
-export const CardImage = ({
-  src,
-  fbSrc,
-  alt,
-  width,
-  height,
-  loading,
-  priority,
-  className: cssClass,
-}: Props) => {
+export const CardImage = ({ src, fbSrc, alt, width, height, loading, priority, className: cssClass }: Props) => {
   const handleImageError: HandleImageError = e => {
     const target = e.target as HTMLImageElement
     if (target.src === fbSrc) return
@@ -32,13 +22,13 @@ export const CardImage = ({
   }
 
   return (
-    <Image
+    <img
       src={src}
       alt={alt}
       width={width}
       height={height}
       loading={loading ?? 'lazy'}
-      priority={priority ?? false}
+      /* priority={priority ?? false} */
       className={cssClass}
       onError={handleImageError}
       decoding='async'
