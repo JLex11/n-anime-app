@@ -14,7 +14,7 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow: hidden auto;
   color: white;
   font-weight: 350;
   background-color: var(--primary-color);
@@ -45,6 +45,24 @@ main {
   width: 100%;
   height: 100vh;
   place-items: center;
+}
+
+.page-loader img {
+  position: absolute;
+  filter: brightness(0) invert(1);
+  animation: zoom 1s ease-in-out infinite alternate;
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+.page-loader svg {
   animation: spin 1s linear infinite;
 }
 
