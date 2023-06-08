@@ -28,7 +28,7 @@
 }
 
 .breadcrumbItem:not(.breadcrumbItem:first-child):before {
-  content: ">";
+  content: "/";
   color: var(--text-color);
 }
 
