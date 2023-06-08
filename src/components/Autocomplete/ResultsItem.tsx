@@ -7,6 +7,8 @@ import { useContext, useEffect, useMemo, useState } from 'react'
 import { FoldIcon } from '../Icons/FoldIcon'
 import PictureIcon from '../Icons/PictureIcon'
 import { AutocompleteContext } from './Contexts'
+import { ItemChilds } from './ItemChilds'
+import { ItemInfo } from './ItemInfo'
 
 interface Props {
   item: AutocompleteItem
@@ -37,34 +39,13 @@ export const ResultsItem = ({ item }: Props) => {
         <Link href={item.link} className={styles.itemContainer} onClick={() => handleLaunchAutocomplete(false)}>
           {/* <Image src={item.image} alt={item.title} width={50} height={50} quality={10} className={styles.itemImage} loading={'lazy'} /> */}
           <PictureIcon width={50} />
-          <div className={styles.itemInfo}>
-            <div className={styles.itemContent}>
-              <h4 className={styles.itemTitle}>{item.title}</h4>
-              <p className={styles.itemDescription}>{item.description.slice(0, 100)}</p>
-            </div>
-            <span className={styles.itemType}>{item.type}</span>
-          </div>
+          <ItemInfo item={item} />
         </Link>
         <button className={styles.itemIcon} type='button' onClick={toggleExpanded}>
           <FoldIcon />
         </button>
       </div>
-      {expanded && (
-        <div className={styles.childsItemsContainer}>
-          <h5 className={styles.childsItemsTitle}>{childItems.title}</h5>
-          <ul className={styles.childsItems}>
-            {childItems.items.map(childItem => (
-              <li key={childItem.link} className={styles.childItem}>
-                <Link href={childItem.link} className={styles.childItemLink} onClick={() => handleLaunchAutocomplete(false)}>
-                  {/* <img {...childItem.image} width={30} height={25} /> */}
-                  <PictureIcon width={30} height={25} />
-                  <span className={styles.childItemTitle}>{childItem.title}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {expanded && <ItemChilds childItems={childItems} handleLaunchAutocomplete={handleLaunchAutocomplete} />}
     </article>
   )
 }
