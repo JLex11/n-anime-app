@@ -2,7 +2,12 @@ import { viewHeight } from '@/utils/calculateClientViewport'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useVisibilityChange } from './useVisibilityChange'
 
-export const useCarousel = (itemIds: string[], timeBetweenSlides: number) => {
+interface Props {
+  itemIds: string[]
+  timeBetweenSlides: number
+}
+
+export const useCarousel = ({ itemIds, timeBetweenSlides }: Props) => {
   const [currentItemIndex, setCurrentItemIndex] = useState(0)
   const [sliding, setSliding] = useState(itemIds.length > 1)
   const isVisible = useVisibilityChange()
