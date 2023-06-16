@@ -3,25 +3,11 @@
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  transition: 
-    box-shadow 0.3s ease,
-    transform 0.3s ease;
-  animation: card-appear 0.5s ease;
-}
-
-@keyframes card-appear {
-  from {
-    opacity: 0.5;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .card:hover {
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.80);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
   transform: scale(1.03);
 }
 
