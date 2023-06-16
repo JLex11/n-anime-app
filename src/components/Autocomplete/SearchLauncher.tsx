@@ -27,8 +27,8 @@ export const SearchLauncher = ({ className: cssClass, children }: Props) => {
     enableOnFormTags: true,
   }
 
-  useHotkeys(autoCompleteHotKeys.CTRL_K, handleToggleSearch, hotkeysOptions)
-  useHotkeys(autoCompleteHotKeys.ESCAPE, handleCloseAutocomplete, hotkeysOptions)
+  useHotkeys(autoCompleteHotKeys.LAUNCH, handleToggleSearch, hotkeysOptions)
+  useHotkeys(autoCompleteHotKeys.OUT, handleCloseAutocomplete, hotkeysOptions)
 
   return (
     <>
