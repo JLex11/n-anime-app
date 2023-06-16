@@ -37,7 +37,8 @@ li {
 
 main {
   width: min(100%, var(--max-width));
-  margin: 100px auto;
+  margin: 70px auto;
+  padding: 2rem;
 }
 
 .page-loader {
