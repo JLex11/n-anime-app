@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function Header({ pages }: Props) {
-  const scrolled = useScrolled(20)
+  const scrolled = useScrolled(10)
 
   const headerClass = clsx(styles.header, scrolled && styles.scrolled)
 
