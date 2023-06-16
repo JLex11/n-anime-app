@@ -26,11 +26,11 @@ export enum APIRoutes {
 
 export enum autoCompleteHotKeys {
   ENTER = 'enter',
-  ESCAPE = 'escape',
   SPACE = 'space',
   TAB = 'tab',
   ARROW_DOWN = 'arrowdown',
   ARROW_UP = 'arrowup',
   CTRL_SPACE = 'ctrl+space',
-  CTRL_K = 'ctrl+k',
+  OUT = 'escape',
+  LAUNCH = '/',
 }
