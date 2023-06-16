@@ -1,3 +1,4 @@
+import { autoCompleteHotKeys } from '@/enums'
 import styles from '@/styles/Header.module.css'
 import { memo } from 'react'
 import { SearchLauncher } from '../Autocomplete/SearchLauncher'
@@ -8,8 +9,8 @@ const Tools = () => {
   return (
     <div className={styles.tools}>
       <SearchLauncher className={styles.searchButton}>
-        Search
-        <ShortcutLetter letters='Ctrl K' />
+        Buscar
+        <ShortcutLetter letters={autoCompleteHotKeys.LAUNCH} />
       </SearchLauncher>
       <UserIcon />
     </div>
