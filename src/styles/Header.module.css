@@ -70,32 +70,11 @@
   padding: 0.3rem 0.7rem;
   font-weight: 400;
   transition: font-weight 0.2s ease-in-out;
-}
-
-.pageItem::after {
-  opacity: 0;
-  z-index: -1;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-  content: "";
-  background-color: var(--primary-color);
-  transform: translateX(-10px);
-  inset: 0;
-  transition:
-    opacity 0.2s ease-in-out,
-    color 0.2s ease-in-out,
-    transform 0.2s ease-in-out;
+  border-radius: 0.4rem;
 }
 
 .pageItem:is(:hover, .active) {
-  font-weight: 600;
-}
-
-.pageItem:is(:hover, .active)::after {
-  opacity: 1;
-  transform: translateX(0px);
+  background-color: var(--primary-color);
 }
 
 .header.scrolled .pageItem::after {
@@ -114,7 +93,7 @@
   display: flex;
   position: relative;
   align-items: center;
-  padding: 0.5rem;
+  padding: 0.4rem;
   border: none;
   border-radius: calc(6 * var(--borderWidth));
   color: white;
@@ -139,6 +118,10 @@
   background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
   background-size: 300% 300%;
   box-shadow: var(--input-shadow);
+  /* animation: animateGradient 5s ease alternate infinite; */
+}
+
+.searchButton:hover:after {
   animation: animateGradient 5s ease alternate infinite;
 }
 
@@ -152,4 +135,17 @@
   100% {
     background-position: 0% 50%;
   }
+}
+
+.hoverIndicator {
+  position: absolute;
+  top: var(--indicator-top);
+  left: var(--indicator-left);
+  width: var(--indicator-width);
+  height: var(--indicator-height);
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.5rem;
+  background-color: var(--primary-color);
+  transition: .3s .1s ease-in-out;
+  z-index: -1;
 }
