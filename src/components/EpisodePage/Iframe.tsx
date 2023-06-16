@@ -1,13 +1,23 @@
+'use client'
+
 import styles from '@/styles/Episode.module.css'
+import { EpisodeVideo } from '@/types'
 
 interface Props {
-  src: string
-  title?: string
-  id: string
+  iframeRef: React.RefObject<HTMLIFrameElement>
+  currentIframeData: EpisodeVideo
 }
 
-export const Iframe = ({ src, title = 'Episode video', id }: Props) => {
+export const Iframe = ({ iframeRef, currentIframeData }: Props) => {
   return (
-    <iframe name={id} className={styles.iframe} src={src} title={title} width={720} allowFullScreen loading={'eager'} />
+    <iframe
+      className={styles.iframe}
+      src={currentIframeData?.code}
+      title={currentIframeData?.title}
+      width={720}
+      allowFullScreen
+      loading={'eager'}
+      ref={iframeRef}
+    />
   )
 }
