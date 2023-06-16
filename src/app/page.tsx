@@ -12,12 +12,9 @@ export default async function HomePage() {
     <>
       <CarouselHero animes={ratingAnimes} showInfo />
       <main className={styles.main}>
-        {/* @ts-expect-error Server Component */}
         <HomeAside />
         <div className={styles.content}>
-          {/* @ts-expect-error Server Component */}
           <LatestEpisodes />
-          {/* @ts-expect-error Server Component */}
           <LatestAnimes />
         </div>
       </main>
