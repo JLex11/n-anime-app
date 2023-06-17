@@ -21,7 +21,7 @@ export const Aside = ({ episodes, animeInfo }: AsideProps) => {
             <Link href={`/animes/${animeInfo.animeId}/${episode.episode}`} className={styles.asideItem}>
               <span>{episode.episode}</span>
               {episode.image || animeInfo.images?.coverImage ? (
-                <Image
+                <img
                   src={episode.image ?? animeInfo.images?.coverImage ?? ''}
                   alt={`Episodio ${episode.episode} de ${animeInfo.title}`}
                   width={150}
