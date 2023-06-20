@@ -37,7 +37,7 @@ li {
 
 main {
   width: min(100%, var(--max-width));
-  margin: 70px auto;
+  margin: 5rem auto;
   padding: 2rem;
 }
 

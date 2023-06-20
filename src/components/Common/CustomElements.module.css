@@ -7,15 +7,9 @@
 }
 
 /* Breadcrumb */
-.breadcrumbContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .breadcrumbList {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 0.5rem;
 }
@@ -25,11 +19,7 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-}
-
-.breadcrumbItem:not(.breadcrumbItem:first-child):before {
-  content: "/";
-  color: var(--text-color);
+  padding-block: 0.5rem;
 }
 
 /* ShortcutLetters */
