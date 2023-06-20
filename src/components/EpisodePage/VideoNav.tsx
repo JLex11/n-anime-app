@@ -1,5 +1,5 @@
-import styles from '@/styles/Episode.module.css'
 import { useEffect, useRef, useState } from 'react'
+import styles from './Episode.module.css'
 import { VideoNavItem } from './VideoNavItem'
 import { IframeData } from './VideoSection'
 

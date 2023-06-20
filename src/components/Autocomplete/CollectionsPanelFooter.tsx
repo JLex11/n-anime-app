@@ -1,5 +1,5 @@
-import styles from '@/styles/Autocomplete.module.css'
 import { ShortcutLetter } from '../Common/ShortcutLetter'
+import styles from './Autocomplete.module.css'
 
 export const CollectionsPanelFooter = () => {
   return (

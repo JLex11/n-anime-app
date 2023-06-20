@@ -1,7 +1,7 @@
 import { useAutocomplete } from '@/hooks/useAutocomplete'
-import styles from '@/styles/Autocomplete.module.css'
 import clsx from 'clsx'
 import { useId } from 'react'
+import styles from './Autocomplete.module.css'
 import { CollectionsPanel } from './CollectionsPanel'
 import { AutocompleteContext } from './Contexts'
 import { Input } from './Input'

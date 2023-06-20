@@ -1,4 +1,4 @@
-import styles from '@/styles/CustomElements.module.css'
+import styles from './CustomElements.module.css'
 
 interface CSSProperties extends React.CSSProperties {
   '--padding'?: string

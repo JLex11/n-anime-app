@@ -1,7 +1,7 @@
 import Header from '@/components/Header/Header'
 import { APP_ROUTES } from '@/constants'
-import '@/styles/globals.css'
 import { Inter } from 'next/font/google'
+import '../globals.css'
 
 export const metadata = {
   title: 'One Anime',

@@ -1,7 +1,7 @@
 import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
-import styles from '@/styles/Home.module.css'
 import BroadcastIcon from '../Icons/BroadcastIcon'
 import { AsideList } from './AsideList'
+import styles from './Home.module.css'
 
 export const HomeAside = async () => {
   const broadcastAnimes = await getBroadcastAnimes(100)

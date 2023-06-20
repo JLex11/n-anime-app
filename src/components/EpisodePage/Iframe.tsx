@@ -1,7 +1,7 @@
 'use client'
 
-import styles from '@/styles/Episode.module.css'
 import { EpisodeVideo } from '@/types'
+import styles from './Episode.module.css'
 
 interface Props {
   iframeRef: React.RefObject<HTMLIFrameElement>

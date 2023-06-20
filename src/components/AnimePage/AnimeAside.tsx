@@ -1,6 +1,6 @@
-import styles from '@/styles/Anime.module.css'
 import { placeholderImgs } from '@/utils/placeHolderImgs'
 import Image from 'next/image'
+import styles from './Anime.module.css'
 
 interface Props {
   image: string

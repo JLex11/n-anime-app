@@ -1,6 +1,6 @@
-import styles from '@/styles/Home.module.css'
 import { Anime } from '@/types'
 import Link from 'next/link'
+import styles from './Home.module.css'
 
 export const AsideList = ({ animes }: { animes: Anime[] }) => {
   return (

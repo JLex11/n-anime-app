@@ -1,8 +1,8 @@
-import styles from '@/styles/Header.module.css'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Page } from './Header'
+import styles from './Header.module.css'
 
 interface NavProps {
   pages?: Page[]

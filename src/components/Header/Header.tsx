@@ -1,8 +1,8 @@
 'use client'
 import { useScrolled } from '@/hooks/useScrolled'
-import styles from '@/styles/Header.module.css'
 import clsx from 'clsx'
 import Image from 'next/image'
+import styles from './Header.module.css'
 import { Nav } from './Nav'
 import Tools from './Tools'
 

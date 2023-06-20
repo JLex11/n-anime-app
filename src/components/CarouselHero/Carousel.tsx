@@ -1,9 +1,9 @@
 'use client'
 
 import { useCarousel } from '@/hooks/useCarousel'
-import styles from '@/styles/Carousel.module.css'
 import { Anime } from '@/types'
 import clsx from 'clsx'
+import styles from './Carousel.module.css'
 import { Item } from './Item'
 import { CarouselNavigation } from './Navigation'
 

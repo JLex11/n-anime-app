@@ -1,6 +1,5 @@
-import styles from '@/styles/CustomElements.module.css'
-import clsx from 'clsx'
 import Link from 'next/link'
+import styles from './CustomElements.module.css'
 
 type Crumb = {
   name: string
@@ -9,21 +8,19 @@ type Crumb = {
 
 interface Props {
   crumbs: Crumb[]
-  className?: string
 }
 
-export const BreadCrumb = ({ crumbs, className: externalClass }: Props) => {
-  const breadcrumbContainerClass = clsx(styles.breadcrumbContainer, externalClass)
-
+export const BreadCrumb = ({ crumbs }: Props) => {
   return (
-    <div className={breadcrumbContainerClass}>
-      <ul className={styles.breadcrumbList}>
-        {crumbs.map(({ name, path }) => (
+    <ul className={styles.breadcrumbList}>
+      {crumbs.map(({ name, path }, index) => (
+        <>
           <li key={path ?? name} className={styles.breadcrumbItem}>
             {path ? <Link href={path}>{name}</Link> : <span>{name}</span>}
           </li>
-        ))}
-      </ul>
-    </div>
+          {index < crumbs.length - 1 && <span className={styles.breadcrumbSeparator}>/</span>}
+        </>
+      ))}
+    </ul>
   )
 }

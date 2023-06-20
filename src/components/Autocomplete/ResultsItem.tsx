@@ -1,11 +1,11 @@
 import { AutocompleteItem, AutocompleteItemChilds } from '@/hooks/useAutocomplete'
 import { useToggle } from '@/hooks/useToggle'
-import styles from '@/styles/Autocomplete.module.css'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { FoldIcon } from '../Icons/FoldIcon'
 import PictureIcon from '../Icons/PictureIcon'
+import styles from './Autocomplete.module.css'
 import { AutocompleteContext } from './Contexts'
 import { ItemChilds } from './ItemChilds'
 import { ItemInfo } from './ItemInfo'
@@ -41,9 +41,11 @@ export const ResultsItem = ({ item }: Props) => {
           <PictureIcon width={50} />
           <ItemInfo item={item} />
         </Link>
-        <button className={styles.itemIcon} type='button' onClick={toggleExpanded}>
-          <FoldIcon />
-        </button>
+        {item.childsCallback && (
+          <button className={styles.itemIcon} type='button' onClick={toggleExpanded}>
+            <FoldIcon />
+          </button>
+        )}
       </div>
       {expanded && <ItemChilds childItems={childItems} handleLaunchAutocomplete={handleLaunchAutocomplete} />}
     </article>

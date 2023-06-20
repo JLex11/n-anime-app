@@ -1,5 +1,5 @@
 import { getLatestAnimes } from '@/services/getLatestAnimes'
-import { CardsSection } from '../CardsSection'
+import { CardsSection } from '../CardsSection/CardsSection'
 import LatestIcon from '../Icons/LatestIcon'
 
 export const LatestAnimes = async () => {

@@ -3,7 +3,7 @@ import { getAnimesByQuery } from '@/services/getAnimeByQuery'
 import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
 import { AutocompleteOptionsWithMetadata, AutocompleteState, BaseItem, createAutocomplete } from '@algolia/autocomplete-core'
 import { useRouter } from 'next/navigation'
-import { useId, useMemo, useRef, useState } from 'react'
+import { useCallback, useId, useMemo, useRef, useState } from 'react'
 
 export interface AutocompleteItemChild {
   id: string
@@ -46,6 +46,8 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
     status: 'idle',
   })
 
+  const inputRef = useRef<HTMLInputElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const autocompleteId = useId()
 
@@ -64,7 +66,25 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
     }))
   }
 
-  const getAnimeItems = async (query: string) => {
+  const getAnimeItemChilds = async (animeId: AutocompleteItem['id']): Promise<AutocompleteItemChilds> => {
+    const episodes = await getAnimeEpisodes(animeId, 0, 10)
+    const mappedEpisodes = episodes.map(episode => ({
+      id: episode.episodeId,
+      title: episode.episode,
+      image: {
+        src: episode.image,
+        alt: episode.title,
+      },
+      link: `/animes/${episode.animeId}/${episode.episode}`,
+    }))
+
+    return {
+      items: mappedEpisodes,
+      title: 'Episodios',
+    }
+  }
+
+  const getAnimeItems = useCallback(async (query: string) => {
     if (query.length < 2) return []
 
     const limit = 10 + query.length * 2
@@ -78,25 +98,9 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
       description: anime.description ?? 'Descripcion no disponible',
       type: anime.type ?? 'Anime',
       rank: anime.rank ?? 0,
-      childsCallback: async () => {
-        const episodes = await getAnimeEpisodes(anime.animeId, 0, 10)
-        const mappedEpisodes = episodes.map(episode => ({
-          id: episode.episodeId,
-          title: episode.episode,
-          image: {
-            src: episode.image,
-            alt: episode.title,
-          },
-          link: `/animes/${episode.animeId}/${episode.episode}`,
-        }))
-
-        return {
-          items: mappedEpisodes,
-          title: 'Episodios',
-        }
-      },
+      childsCallback: () => getAnimeItemChilds(anime.animeId),
     }))
-  }
+  }, [])
 
   const autoComplete = useMemo(
     () =>
@@ -138,11 +142,8 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
           },
         },
       }),
-    [placeholder, autocompleteId, router, handleLaunchAutocomplete]
+    [placeholder, autocompleteId, router, handleLaunchAutocomplete, getAnimeItems]
   )
-
-  const inputRef = useRef<HTMLInputElement>(null)
-  const panelRef = useRef<HTMLDivElement>(null)
 
   const formProps = autoComplete.getFormProps({ inputElement: inputRef.current })
   const inputProps = autoComplete.getInputProps({ inputElement: inputRef.current })

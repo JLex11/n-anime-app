@@ -5,7 +5,7 @@ import { filterUnsupportDomains } from '@/utils/filterUnsupportDomains'
 
 export const getAnimesByQuery = async (query: string, limit?: number) => {
   const response = await fetch(`${APIRoutes.SearchAnimes}/${query}?limit=${limit}`, {
-    next: { revalidate: hoursToSeconds(5) },
+    next: { revalidate: hoursToSeconds(1) },
   })
 
   const animes: Anime[] = await response.json()

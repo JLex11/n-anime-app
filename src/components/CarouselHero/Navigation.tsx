@@ -1,4 +1,4 @@
-import styles from '@/styles/Carousel.module.css'
+import styles from './Carousel.module.css'
 
 type buttonData = {
   title: string

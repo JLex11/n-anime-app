@@ -1,6 +1,6 @@
-import styles from '@/styles/Episode.module.css'
 import { EpisodeVideo } from '@/types'
 import AdsIcon from '../Icons/AdsIcon'
+import styles from './Episode.module.css'
 
 interface VideoNavItemProps {
   iframe: EpisodeVideo

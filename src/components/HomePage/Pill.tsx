@@ -1,4 +1,4 @@
-import styles from '@/styles/HomeCard.module.css'
+import styles from '@/components/HomePage/HomeCard.module.css'
 
 interface CSSProperties extends React.CSSProperties {
   '--pill-color'?: string

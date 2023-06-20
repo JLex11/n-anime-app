@@ -6,7 +6,7 @@ import { filterUnsupportDomains } from '../utils/filterUnsupportDomains'
 
 export const getRatingAnimes = async (limit = 10): Promise<Anime[]> => {
   const response = await fetch(`${APIRoutes.RatingAnimes}?limit=${limit}`, {
-    next: { revalidate: hoursToSeconds(5) },
+    next: { revalidate: hoursToSeconds(2) },
   })
 
   const animes: Anime[] = await response.json()

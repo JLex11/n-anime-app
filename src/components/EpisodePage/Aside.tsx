@@ -1,7 +1,7 @@
-import styles from '@/styles/Episode.module.css'
 import { Anime, Episode } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
+import styles from './Episode.module.css'
 
 interface AsideProps {
   episodes: Episode[]

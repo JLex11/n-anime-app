@@ -1,9 +1,9 @@
 'use client'
 
-import styles from '@/styles/Episode.module.css'
 import { EpisodeVideo } from '@/types'
 import { toCap } from '@/utils/textConverts'
 import { useRef, useState } from 'react'
+import styles from './Episode.module.css'
 import { Iframe } from './Iframe'
 import { VideoNav } from './VideoNav'
 

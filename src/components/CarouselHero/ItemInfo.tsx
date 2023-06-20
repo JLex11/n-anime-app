@@ -1,6 +1,6 @@
-import styles from '@/styles/Carousel.module.css'
 import Link from 'next/link'
 import { Badge } from '../Common/Badge'
+import styles from './Carousel.module.css'
 
 interface Props {
   animeId: string

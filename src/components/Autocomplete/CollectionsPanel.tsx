@@ -1,5 +1,5 @@
 import { AutocompleteItem } from '@/hooks/useAutocomplete'
-import styles from '@/styles/Autocomplete.module.css'
+import styles from './Autocomplete.module.css'
 import { Collection } from './Collection'
 import { CollectionsPanelFooter } from './CollectionsPanelFooter'
 

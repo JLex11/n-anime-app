@@ -1,3 +1,4 @@
+import styles from '@/components/AnimePage/Anime.module.css'
 import { AnimeAside } from '@/components/AnimePage/AnimeAside'
 import { AnimeHeader } from '@/components/AnimePage/AnimeHeader'
 import { Description } from '@/components/AnimePage/Description'
@@ -9,7 +10,6 @@ import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
 import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
 import { getLatestEpisodes } from '@/services/getLatestEpisodes'
 import { getRatingAnimes } from '@/services/getRatingAnimes'
-import styles from '@/styles/Anime.module.css'
 import { Metadata } from 'next'
 
 interface Props {

@@ -1,9 +1,9 @@
 import { autoCompleteHotKeys } from '@/enums'
-import styles from '@/styles/Header.module.css'
 import { memo } from 'react'
 import { SearchLauncher } from '../Autocomplete/SearchLauncher'
 import { ShortcutLetter } from '../Common/ShortcutLetter'
 import UserIcon from '../Icons/UserIcon'
+import styles from './Header.module.css'
 
 const Tools = () => {
   return (

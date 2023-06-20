@@ -1,7 +1,7 @@
-import styles from '@/styles/CardsSection.module.css'
 import clsx from 'clsx'
-import { GridContainer } from './Common/GridContainer'
-import { HomeCard } from './HomePage/HomeCard'
+import { GridContainer } from '../Common/GridContainer'
+import { HomeCard } from '../HomePage/HomeCard'
+import styles from './CardsSection.module.css'
 
 interface SectionData {
   key: string

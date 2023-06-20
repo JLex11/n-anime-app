@@ -1,4 +1,4 @@
-import styles from '@/styles/Anime.module.css'
+import styles from './Anime.module.css'
 
 export const Description = ({ description }: { description: string }) => {
   return (

@@ -1,7 +1,7 @@
-import styles from '@/styles/Anime.module.css'
 import { Episode } from '@/types'
 import clsx from 'clsx'
 import Link from 'next/link'
+import styles from './Anime.module.css'
 
 interface EpisodesProps {
   episodes: Episode[]

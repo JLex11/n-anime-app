@@ -1,8 +1,8 @@
 'use client'
-import styles from '@/styles/Autocomplete.module.css'
 import clsx from 'clsx'
 import { ShortcutLetter } from '../Common/ShortcutLetter'
 import LoadingIcon from '../Icons/LoadingIcon'
+import styles from './Autocomplete.module.css'
 
 interface InputProps {
   status: 'loading' | 'idle' | 'stalled' | 'error'

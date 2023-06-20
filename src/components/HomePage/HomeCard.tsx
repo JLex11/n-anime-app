@@ -1,7 +1,7 @@
-import styles from '@/styles/HomeCard.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CardImage } from './CardImage'
+import styles from './HomeCard.module.css'
 import { Pill, PillProps } from './Pill'
 
 type Image = {

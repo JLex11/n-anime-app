@@ -1,5 +1,5 @@
-import styles from '@/styles/CustomElements.module.css'
 import clsx from 'clsx'
+import styles from './CustomElements.module.css'
 
 interface Props {
   letters: string | string[]

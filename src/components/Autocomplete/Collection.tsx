@@ -1,7 +1,7 @@
 import { AutocompleteItem } from '@/hooks/useAutocomplete'
-import styles from '@/styles/Autocomplete.module.css'
 import { toCap } from '@/utils/textConverts'
 import dynamic from 'next/dynamic'
+import styles from './Autocomplete.module.css'
 
 const ResultsItem = dynamic(() => import('./ResultsItem').then(m => m.ResultsItem))
 

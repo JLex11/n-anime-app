@@ -1,5 +1,5 @@
 import { Badge } from '@/components/Common/Badge'
-import styles from '@/styles/Anime.module.css'
+import styles from './Anime.module.css'
 
 interface Props {
   title: string

@@ -1,8 +1,8 @@
-import styles from '@/styles/Carousel.module.css'
 import { CarouselImage } from '@/types'
 import { placeholderImgs } from '@/utils/placeHolderImgs'
 import Image from 'next/image'
 import { useRef } from 'react'
+import styles from './Carousel.module.css'
 
 interface Props {
   animeId: string

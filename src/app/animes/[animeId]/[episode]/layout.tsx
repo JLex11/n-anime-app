@@ -1,8 +1,8 @@
 import { BreadCrumb } from '@/components/Common/BreadCrumb'
 import { Aside } from '@/components/EpisodePage/Aside'
+import styles from '@/components/EpisodePage/Episode.module.css'
 import { getAnime } from '@/services/getAnime'
 import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
-import styles from '@/styles/Episode.module.css'
 import { toCap } from '@/utils/textConverts'
 import Image from 'next/image'
 
@@ -29,7 +29,9 @@ export default async function EpisodeLayout({ children, params }: Props) {
 
   return (
     <main className={styles.main}>
-      <BreadCrumb crumbs={crumbs} className={styles.breadcrumb} />
+      <div className={styles.breadcrumb}>
+        <BreadCrumb crumbs={crumbs} />
+      </div>
       <section className={styles.mainContent}>
         {children}
         <Aside animeInfo={animeInfo} episodes={episodes} />

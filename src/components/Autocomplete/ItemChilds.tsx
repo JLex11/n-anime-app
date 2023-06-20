@@ -1,7 +1,7 @@
 import { AutocompleteItemChilds } from '@/hooks/useAutocomplete'
-import styles from '@/styles/Autocomplete.module.css'
 import Link from 'next/link'
 import PictureIcon from '../Icons/PictureIcon'
+import styles from './Autocomplete.module.css'
 
 interface Props {
   childItems: AutocompleteItemChilds

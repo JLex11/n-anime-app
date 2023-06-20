@@ -1,6 +1,6 @@
-import styles from '@/styles/Anime.module.css'
 import Link from 'next/link'
 import { Badge } from '../Common/Badge'
+import styles from './Anime.module.css'
 
 export const Genres = ({ genres }: { genres: string[] }) => {
   return (

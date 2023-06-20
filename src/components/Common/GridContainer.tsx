@@ -1,4 +1,4 @@
-import styles from '@/styles/GridContainer.module.css'
+import styles from './GridContainer.module.css'
 
 interface Props {
   children: React.ReactNode
