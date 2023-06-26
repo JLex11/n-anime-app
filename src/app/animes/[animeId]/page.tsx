@@ -48,12 +48,12 @@ export default async function AnimePage({ params: { animeId } }: Props) {
       <CarouselHero animes={[anime]} />
       <main className={styles.main}>
         <AnimeAside image={anime.images?.coverImage ?? ''} status={anime.status} title={anime.title} />
-        <div className={styles.content}>
+        <section className={styles.content}>
           <AnimeHeader title={anime.title} otherTitles={anime.otherTitles} />
           <Description description={anime.description} />
           <Genres genres={anime.genres} />
           <Episodes episodes={episodes} animeTitle={anime.title} />
-        </div>
+        </section>
       </main>
     </>
   )
