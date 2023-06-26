@@ -1,4 +1,4 @@
-import { AutocompleteItem, AutocompleteItemChilds } from '@/hooks/useAutocomplete'
+import { AutocompleteItem, AutocompleteItemChilds } from '@/hooks/useAutocomplete.types'
 import { useToggle } from '@/hooks/useToggle'
 import clsx from 'clsx'
 import Link from 'next/link'
