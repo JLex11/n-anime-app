@@ -65,7 +65,6 @@ export const VideoNav = ({ iframesData, handleIframeChange }: VideoNavProps) => 
   const handleButtonClick = (e: React.MouseEvent<HTMLLIElement>) => {
     handleIframeChange(e)
     activeIframeRef.current = e.currentTarget as HTMLLIElement
-    console.log(activeIframeRef.current)
   }
 
   return (
