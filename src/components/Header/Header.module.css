@@ -66,6 +66,8 @@
 }
 
 .pageItem {
+  --page-item-bg-color: var(--primary-color);
+  --page-item-text-color: white;
   position: relative;
   padding: 0.3rem 0.7rem;
   font-weight: 400;
@@ -74,11 +76,13 @@
 }
 
 .pageItem:is(:hover, .active) {
-  background-color: var(--primary-color);
+  background-color: var(--page-item-bg-color);
+  color: var(--page-item-text-color);
 }
 
-.header.scrolled .pageItem::after {
-  background-color: #505055;
+.header.scrolled .pageItem {
+  --page-item-bg-color: white;
+  --page-item-text-color: var(--primary-color);
 }
 
 .tools {
