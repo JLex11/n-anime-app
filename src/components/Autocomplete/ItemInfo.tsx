@@ -1,4 +1,4 @@
-import { AutocompleteItem } from '@/hooks/useAutocomplete'
+import { AutocompleteItem } from '@/hooks/useAutocomplete.types'
 import styles from './Autocomplete.module.css'
 
 export const ItemInfo = ({ item }: { item: AutocompleteItem }) => {

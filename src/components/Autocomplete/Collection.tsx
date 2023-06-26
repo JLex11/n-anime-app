@@ -1,4 +1,4 @@
-import { AutocompleteItem } from '@/hooks/useAutocomplete'
+import { AutocompleteItem } from '@/hooks/useAutocomplete.types'
 import { toCap } from '@/utils/textConverts'
 import dynamic from 'next/dynamic'
 import styles from './Autocomplete.module.css'

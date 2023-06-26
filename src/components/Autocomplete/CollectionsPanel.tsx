@@ -1,4 +1,4 @@
-import { AutocompleteItem } from '@/hooks/useAutocomplete'
+import { AutocompleteItem } from '@/hooks/useAutocomplete.types'
 import styles from './Autocomplete.module.css'
 import { Collection } from './Collection'
 import { CollectionsPanelFooter } from './CollectionsPanelFooter'

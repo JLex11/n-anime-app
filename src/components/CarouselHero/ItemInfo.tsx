@@ -15,17 +15,15 @@ export const ItemInfo = ({ animeId, title, genres }: Props) => {
         <Link href={`/animes/${animeId}`}>
           <h1 className={styles.infoTitle}>{title}</h1>
         </Link>
-        {genres.length > 0 && (
-          <ul>
-            {genres.map(genre => (
-              <li key={genre}>
-                <Badge>
-                  <Link href={`/search/?genre=${genre}`}>{genre}</Link>
-                </Badge>
-              </li>
-            ))}
-          </ul>
-        )}
+        <ul>
+          {genres.map(genre => (
+            <li key={genre}>
+              <Badge>
+                <Link href={`/search/?genre=${genre}`}>{genre}</Link>
+              </Badge>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   )

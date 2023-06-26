@@ -1,4 +1,4 @@
-import { AutocompleteItemChilds } from '@/hooks/useAutocomplete'
+import { AutocompleteItemChilds } from '@/hooks/useAutocomplete.types'
 import Link from 'next/link'
 import PictureIcon from '../Icons/PictureIcon'
 import styles from './Autocomplete.module.css'
