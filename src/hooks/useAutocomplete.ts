@@ -1,57 +1,51 @@
 import { APP_ROUTES } from '@/constants'
 import { getAnimesByQuery } from '@/services/getAnimeByQuery'
 import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
-import { AutocompleteOptionsWithMetadata, AutocompleteState, BaseItem, createAutocomplete } from '@algolia/autocomplete-core'
+import { AutocompleteOptionsWithMetadata, AutocompleteState, OnActiveParams, createAutocomplete } from '@algolia/autocomplete-core'
 import { useRouter } from 'next/navigation'
 import { useCallback, useId, useMemo, useRef, useState } from 'react'
+import { AutocompleteItem, AutocompleteItemChilds, AutocompleteItemId } from './useAutocomplete.types'
 
-export interface AutocompleteItemChild {
-  id: string
-  title: string | number
-  image: {
-    src: string | undefined
-    alt: string
-  }
-  link: string
+const autocompleteInitialState: AutocompleteState<AutocompleteItem> = {
+  collections: [],
+  isOpen: false,
+  activeItemId: 0,
+  completion: null,
+  context: {},
+  query: '',
+  status: 'idle',
 }
 
-export interface AutocompleteItemChilds {
-  items: AutocompleteItemChild[]
-  title: string
-}
-
-export interface AutocompleteItem extends BaseItem {
-  id: string
-  title: string
-  image: string
-  link: string
-  description: string
-  type?: string
-  rank?: number
-  childsCallback?: () => Promise<AutocompleteItemChilds>
-}
-
-export interface AutocompleteProps extends AutocompleteOptionsWithMetadata<AutocompleteItem> {
+interface AutocompleteProps extends AutocompleteOptionsWithMetadata<AutocompleteItem> {
   handleLaunchAutocomplete: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: AutocompleteProps) => {
-  const [autocompleteState, setAutocompleteState] = useState<AutocompleteState<AutocompleteItem>>({
-    collections: [],
-    isOpen: false,
-    activeItemId: 0,
-    completion: null,
-    context: {},
-    query: '',
-    status: 'idle',
-  })
+  const [autocompleteState, setAutocompleteState] = useState(autocompleteInitialState)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const autocompleteId = useId()
 
-  const getRoutesItems = async (query: string) => {
+  const createAutocompleteItemId = (value: string | number): AutocompleteItemId => `autocompleteItem-${value}`
+
+  const handleActiveItem = useCallback(
+    ({ item, event, state }: OnActiveParams<AutocompleteItem>) => {
+      router.prefetch(item.link)
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        const itemId = item.__autocomplete_id as number
+        const totalItems = state.collections.reduce((acc, collection) => acc + collection.items.length, 0)
+        const block = itemId < 4 || itemId > totalItems - 4 ? 'center' : 'nearest'
+
+        const itemElement = document.getElementById(`autocompleteItem-${item.id}`)
+        itemElement?.scrollIntoView({ behavior: 'smooth', block: block })
+      }
+    },
+    [router]
+  )
+
+  const getRoutesItems = useCallback(async (query: string) => {
     if (query.length < 1) return []
 
     const regex = new RegExp(query, 'gi')
@@ -63,8 +57,9 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
       image: '/app-window.svg',
       link: route.link,
       description: route.description,
+      _autocomplete_item_id: createAutocompleteItemId(route.link),
     }))
-  }
+  }, [])
 
   const getAnimeItemChilds = async (animeId: AutocompleteItem['id']): Promise<AutocompleteItemChilds> => {
     const episodes = await getAnimeEpisodes(animeId, 0, 10)
@@ -87,7 +82,7 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
   const getAnimeItems = useCallback(async (query: string) => {
     if (query.length < 2) return []
 
-    const limit = 10 + query.length * 2
+    const limit = 10 + query.length * 4
     const animes = await getAnimesByQuery(encodeURIComponent(query), limit)
 
     return animes.map(anime => ({
@@ -99,6 +94,7 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
       type: anime.type ?? 'Anime',
       rank: anime.rank ?? 0,
       childsCallback: () => getAnimeItemChilds(anime.animeId),
+      _autocomplete_item_id: createAutocompleteItemId(anime.animeId),
     }))
   }, [])
 
@@ -118,19 +114,7 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
           },
           {
             sourceId: 'Animes',
-            onActive: ({ item, event, state }) => {
-              router.prefetch(item.link)
-              if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-                const itemId = item.__autocomplete_id as number
-                const totalItems = state.collections.reduce((acc, collection) => acc + collection.items.length, 0)
-                const block = itemId < 4 || itemId > totalItems - 4 ? 'center' : 'nearest'
-
-                document.getElementById(`autocompleteItem-${item.link}`)?.scrollIntoView({
-                  behavior: 'smooth',
-                  block: block,
-                })
-              }
-            },
+            onActive: handleActiveItem,
             getItemUrl: ({ item }) => item.link,
             getItems: () => getAnimeItems(query),
           },
@@ -142,7 +126,7 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
           },
         },
       }),
-    [placeholder, autocompleteId, router, handleLaunchAutocomplete, getAnimeItems]
+    [placeholder, autocompleteId, router, handleLaunchAutocomplete, getAnimeItems, handleActiveItem, getRoutesItems]
   )
 
   const formProps = autoComplete.getFormProps({ inputElement: inputRef.current })
