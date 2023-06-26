@@ -50,6 +50,7 @@
   align-items: flex-start;
   margin-top: -150px;
   animation: fadeIn 0.3s ease-in-out;
+  width: min(100%, 45rem);
   gap: 3rem;
 }
 
