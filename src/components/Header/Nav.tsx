@@ -15,13 +15,15 @@ export const Nav = ({ pages }: NavProps) => {
   return (
     <nav className={styles.headerNav}>
       <ul className={styles.pages}>
-        {pages?.map(page => {
+        {pages && pages.map(page => {
           const activePage = paths.some(path => page.link.includes(path) && path !== '') || page.link === pathname
           const pageClass = clsx(styles.pageItem, activePage && styles.active)
 
           return (
-            <li key={page.link} className={pageClass}>
-              <Link href={page.link}>{page.name}</Link>
+            <li key={page.link}>
+              <Link href={page.link} className={pageClass}>
+                {page.name}
+              </Link>
             </li>
           )
         })}
