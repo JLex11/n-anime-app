@@ -153,7 +153,7 @@
   border: none;
   border-radius: 50%;
   background: #095cc2d2;
-  transform: translateY(-45px);
+  transform: translateY(-2.65rem);
   --size: 7px;
   transition: 
     background 0.2s,
