@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",
+    "tscheck": "tsc --noEmit",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
