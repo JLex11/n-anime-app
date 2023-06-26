@@ -23,10 +23,9 @@ export const Picture: React.FC<Props> = ({ animeId, title, images, index }) => {
     if (images?.length === 0) return
 
     const fallbackImage = images?.at(currentImageRef.current++)
-    if (!fallbackImage) return
     if (target.src === fallbackImage?.link) return
 
-    target.src = fallbackImage?.link ?? ''
+    target.src = fallbackImage?.link ?? '/lights-blur.webp'
     target.width = (fallbackImage?.width ?? 0) * 0.75
     target.height = (fallbackImage?.height ?? 0) * 0.75
   }
@@ -34,7 +33,7 @@ export const Picture: React.FC<Props> = ({ animeId, title, images, index }) => {
   return (
     <picture className={styles.carouselPicture}>
       <Image
-        src={carouselImage?.link ?? ''}
+        src={carouselImage?.link ?? '/lights-blur.webp'}
         alt={title}
         width={(carouselImage?.width ?? 1080) * 0.75}
         height={(carouselImage?.height ?? 650) * 0.75}
