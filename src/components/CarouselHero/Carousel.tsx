@@ -13,7 +13,7 @@ interface Props {
   timeBetweenSlides?: number
 }
 
-export const CarouselHero = ({ animes, showInfo, timeBetweenSlides = 7000 }: Props) => {
+export const CarouselHero = ({ animes, showInfo, timeBetweenSlides = 10000 }: Props) => {
   const { carouselElementsRef, currentSlideId, scrollerRef, changeCurrentSlide } = useCarousel({
     itemIds: animes.map(({ animeId }) => animeId),
     timeBetweenSlides,
