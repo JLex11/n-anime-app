@@ -1,3 +1,5 @@
+'use client'
+
 import { CarouselImage } from '@/types'
 import { placeholderImgs } from '@/utils/placeHolderImgs'
 import Image from 'next/image'
@@ -15,7 +17,14 @@ type HandleImageError = (e: React.SyntheticEvent<HTMLImageElement>, carouselImag
 
 export const Picture: React.FC<Props> = ({ animeId, title, images, index }) => {
   const currentImageRef = useRef(1)
-  const carouselImage = images?.at(0)
+  const dfImage = images.at(0)
+  const carouselImage = {
+    ...dfImage,
+    link: dfImage?.link ?? '/lights-blur.webp',
+    width: dfImage?.width ?? 1080,
+    height: dfImage?.height ?? 650,
+    position: dfImage?.position ?? 'center',
+  }
   const placeholderImg = placeholderImgs.at(0)
 
   const handleImageError: HandleImageError = (e, images) => {
@@ -32,20 +41,33 @@ export const Picture: React.FC<Props> = ({ animeId, title, images, index }) => {
 
   return (
     <picture className={styles.carouselPicture}>
-      <Image
-        src={carouselImage?.link ?? '/lights-blur.webp'}
-        alt={title}
-        width={(carouselImage?.width ?? 1080) * 0.75}
-        height={(carouselImage?.height ?? 650) * 0.75}
-        style={{ backgroundPosition: carouselImage?.position }}
-        loading={index === 0 ? 'eager' : 'lazy'}
-        priority={!index}
-        quality={60}
-        onError={e => handleImageError(e, images)}
-        id={animeId}
-        blurDataURL={placeholderImg}
-        placeholder='blur'
-      />
+      {!carouselImage.link.includes('.webp') ? (
+        <Image
+          src={carouselImage.link}
+          alt={title}
+          width={carouselImage.width * 0.75}
+          height={carouselImage.height * 0.75}
+          style={{ backgroundPosition: carouselImage.position }}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          priority={!index}
+          quality={60}
+          onError={e => handleImageError(e, images)}
+          id={animeId}
+          blurDataURL={placeholderImg}
+          placeholder='blur'
+        />
+      ) : (
+        <img
+          src={carouselImage.link}
+          alt={title}
+          width={carouselImage.width * 0.75}
+          height={carouselImage.height * 0.75}
+          style={{ backgroundPosition: carouselImage.position }}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          onError={e => handleImageError(e, images)}
+          id={animeId}
+        />
+      )}
     </picture>
   )
 }
