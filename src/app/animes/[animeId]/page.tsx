@@ -52,7 +52,7 @@ export default async function AnimePage({ params: { animeId } }: Props) {
           <AnimeHeader title={anime.title} otherTitles={anime.otherTitles} />
           <Description description={anime.description} />
           <Genres genres={anime.genres} />
-          <Episodes episodes={episodes} animeTitle={anime.title} />
+          <Episodes episodes={episodes} fallbackImg={anime.images?.coverImage} animeTitle={anime.title} />
         </section>
       </main>
     </>

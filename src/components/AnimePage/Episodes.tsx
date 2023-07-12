@@ -6,9 +6,10 @@ import styles from './Anime.module.css'
 interface EpisodesProps {
   episodes: Episode[]
   animeTitle: string
+  fallbackImg?: string
 }
 
-export const Episodes = ({ episodes, animeTitle }: EpisodesProps) => {
+export const Episodes = ({ episodes, animeTitle, fallbackImg }: EpisodesProps) => {
   const episodesClass = clsx(styles.sectionGrid, styles.episodesList)
 
   return (
@@ -18,12 +19,13 @@ export const Episodes = ({ episodes, animeTitle }: EpisodesProps) => {
         {episodes.map(episode => (
           <Link key={episode.episodeId} href={`/animes/${episode.animeId}/${episode.episode}`}>
             <img
-              src={episode.image ?? ''}
+              src={episode.image || fallbackImg || '/lights-blur.webp'}
               alt={`Episode ${episode.episode} of ${animeTitle}`}
               width={150}
               height={100}
               loading='lazy'
               decoding='async'
+              style={{ backgroundImage: `image-set(url(${episode.image}) 1x, url(${fallbackImg}) 2x)` }}
             />
             <span className={styles.episodeNumber}>Episodio {episode.episode}</span>
           </Link>
