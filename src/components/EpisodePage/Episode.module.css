@@ -47,13 +47,30 @@
 }
 
 .asideItem {
+  --borderWidth: 0.2rem;
   display: flex;
   align-items: center;
   background: #ffffff33;
   backdrop-filter: blur(5px);
-  border-radius: 1rem;
+  border-radius: calc(6 * var(--borderWidth));
+  border: var(--borderWidth) solid transparent;
   padding: 0.3rem;
   margin-inline-end: var(--scrollbar-width);
+  position: relative;
+}
+
+.asideItem.active::after {
+  z-index: -1;
+  position: absolute;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  width: calc(100% + var(--borderWidth) * 2);
+  height: calc(100% + var(--borderWidth) * 2);
+  border-radius: calc(6 * var(--borderWidth));
+  content: '';
+  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  background-size: 300% 300%;
+  box-shadow: var(--input-shadow);
 }
 
 .asideItem span {
