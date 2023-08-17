@@ -1,35 +1,38 @@
 import { Anime, Episode } from '@/types'
+import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './Episode.module.css'
+import { EpisodeImage } from './EpisodeImage'
 
 interface AsideProps {
   episodes: Episode[]
   animeInfo: Anime
+  currentEpisode: number
 }
 
-export const Aside = ({ episodes, animeInfo }: AsideProps) => {
+export const Aside = ({ episodes, animeInfo, currentEpisode }: AsideProps) => {
+  const { animeId, images, title } = animeInfo
+
   return (
     <aside className={styles.aside}>
       <header className={styles.asideHeader}>
-        <Image src={animeInfo.images?.coverImage ?? ''} alt={animeInfo.title} width={50} height={50} />
+        {images?.coverImage && <Image src={images?.coverImage} alt={title} width={50} height={50} />}
         <h2>Episodios</h2>
       </header>
       <ul className={styles.asideList}>
         {episodes.map(episode => (
           <li key={episode.episode}>
-            <Link href={`/animes/${animeInfo.animeId}/${episode.episode}`} className={styles.asideItem}>
+            <Link
+              href={`/animes/${animeId}/${episode.episode}`}
+              className={clsx(styles.asideItem, currentEpisode == episode.episode && styles.active)}
+            >
               <span>{episode.episode}</span>
-              {episode.image || animeInfo.images?.coverImage ? (
-                <img
-                  src={episode.image ?? animeInfo.images?.coverImage ?? ''}
-                  alt={`Episodio ${episode.episode} de ${animeInfo.title}`}
-                  width={150}
-                  height={100}
-                />
-              ) : (
-                <div className={styles.noImage}></div>
-              )}
+              <EpisodeImage
+                images={[{ link: episode.image || images.coverImage }]}
+                episode={episode.episode}
+                title={title}
+              />
             </Link>
           </li>
         ))}
