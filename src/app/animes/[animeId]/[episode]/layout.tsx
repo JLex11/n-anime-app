@@ -19,7 +19,7 @@ export default async function EpisodeLayout({ children, params }: Props) {
   const animeInfo = await getAnime(animeId)
   const episodes = await getAnimeEpisodes(animeId)
 
-  const bgImage = animeInfo.images?.coverImage
+  const bgImage = animeInfo.images?.carouselImages[0]?.link ?? animeInfo.images?.coverImage
 
   const crumbs = [
     { name: 'Inicio', path: '/' },
@@ -34,9 +34,9 @@ export default async function EpisodeLayout({ children, params }: Props) {
       </div>
       <section className={styles.mainContent}>
         {children}
-        <Aside animeInfo={animeInfo} episodes={episodes} />
+        <Aside animeInfo={animeInfo} episodes={episodes} currentEpisode={episode} />
       </section>
-      {bgImage && <Image src={bgImage} alt={animeInfo.title} width={1000} height={900} className={styles.bgImage} priority={true} />}
+      {bgImage && <Image src={bgImage} alt={animeInfo.title} width={1000} height={900} className={styles.bgImage} />}
     </main>
   )
 }
