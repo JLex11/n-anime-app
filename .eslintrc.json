@@ -3,5 +3,6 @@
   "rules": {
     "semi": ["error", "never"],
     "object-curly-spacing": ["error", "always"]
-  }
+  },
+  "ignorePatterns": ["node_modules/", "**/node_modules/", "/**/node_modules/*", "out/", "dist/", "build/"]
 }
