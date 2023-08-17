@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 
-const IMAGE_MONTHS_CACHE = 3
+const IMAGE_DAYS_CACHE = 30
 
 const nextConfig = {
   images: {
-    minimumCacheTTL: IMAGE_MONTHS_CACHE * 30 * 24 * 60 * 60,
+    minimumCacheTTL: IMAGE_DAYS_CACHE * 24 * 60 * 60,
     remotePatterns: [
       {
         protocol: 'https',
@@ -13,10 +13,22 @@ const nextConfig = {
         pathname: '/**',
       },
       {
+        protocol: 'http',
+        hostname: 'anime-scrapper-lake.vercel.app',
+        port: '',
+        pathname: '/api/image/**',
+      },
+      {
         protocol: 'https',
         hostname: 'cdn.animeflv.net',
         port: '',
         pathname: '/screenshots/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www3.animeflv.net',
+        port: '',
+        pathname: '/uploads/animes/covers/**',
       },
     ],
   },
