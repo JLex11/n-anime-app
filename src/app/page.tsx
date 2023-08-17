@@ -4,9 +4,11 @@ import { HomeAside } from '@/components/HomePage/HomeAside'
 import { LatestAnimes } from '@/components/HomePage/LatestAnimes'
 import { LatestEpisodes } from '@/components/HomePage/LatestEpisodes'
 import { getRatingAnimes } from '@/services/getRatingAnimes'
+import { Suspense } from 'react'
 
 export default async function HomePage() {
-  const ratingAnimes = await getRatingAnimes(10)
+  const ratingAnimes = await getRatingAnimes(5)
+  //const ratingAnimes = await getLatestAnimes(10)
 
   return (
     <>
@@ -14,8 +16,10 @@ export default async function HomePage() {
       <main className={styles.main}>
         <HomeAside />
         <div className={styles.content}>
-          <LatestEpisodes />
-          <LatestAnimes />
+          <Suspense fallback={<span>Loading...</span>}>
+            <LatestEpisodes />
+            <LatestAnimes />
+          </Suspense>
         </div>
       </main>
     </>
