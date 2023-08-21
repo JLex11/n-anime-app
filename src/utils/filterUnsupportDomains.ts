@@ -5,8 +5,8 @@ export const filterUnsupportDomains = (anime: Anime) => {
   return {
     ...anime,
     images: {
-      coverImage: anime.images?.coverImage?.match(IMG_DOMAIN) ? anime.images?.coverImage : '',
-      carouselImages: anime.images?.carouselImages?.filter(img => img?.link?.match(IMG_DOMAIN)) || [],
+      coverImage: anime?.images?.coverImage?.match(IMG_DOMAIN) ? anime.images?.coverImage : '',
+      carouselImages: anime?.images?.carouselImages?.filter(img => img?.link?.match(IMG_DOMAIN)) || [],
     },
   }
 }
