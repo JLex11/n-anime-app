@@ -1,6 +1,6 @@
-export const API_BASE_URL = 'https://anime-scrapper-lake.vercel.app/api'
+export const API_BASE_URL = 'https://anime-scrapper-alpha.vercel.app/api'
 //export const API_BASE_URL = 'http://localhost:3002/api'
-export const IMG_DOMAIN = /anime-app.s3|cdn.animeflv.net|anime-scrapper-lake.vercel.app|www3.animeflv.net/
+export const IMG_DOMAIN = /anime-app.s3|cdn.animeflv.net|anime-scrapper-alpha.vercel.app|www3.animeflv.net/
 
 export const APP_ROUTES = [
   {
