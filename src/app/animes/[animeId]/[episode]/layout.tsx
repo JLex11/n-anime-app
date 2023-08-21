@@ -29,9 +29,9 @@ export default async function EpisodeLayout({ children, params }: Props) {
 
   return (
     <main className={styles.main}>
-      <div className={styles.breadcrumb}>
+      <nav className={styles.breadcrumb}>
         <BreadCrumb crumbs={crumbs} />
-      </div>
+      </nav>
       <section className={styles.mainContent}>
         {children}
         <Aside animeInfo={animeInfo} episodes={episodes} currentEpisode={episode} />
