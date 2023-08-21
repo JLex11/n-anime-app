@@ -3,6 +3,7 @@ import { getAnime } from '@/services/getAnime'
 import { getEpisodeSources } from '@/services/getEpisodeSources'
 import { getLatestEpisodes } from '@/services/getLatestEpisodes'
 import { toCap } from '@/utils/textConverts'
+import { redirect } from 'next/navigation'
 
 interface Props {
   params: {
@@ -28,6 +29,8 @@ export default async function AnimePage({ params }: Props) {
   const { animeId, episode } = params
   const episodeSources = await getEpisodeSources(`${animeId}-${episode}`)
   const animeInfo = await getAnime(animeId)
+
+  if (!animeInfo || !animeInfo.animeId) redirect('/404')
 
   return <VideoSection iframesData={episodeSources.videos} title={toCap(`episodio ${episode} de ${animeInfo.title}`)} />
 }

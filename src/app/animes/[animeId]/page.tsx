@@ -11,6 +11,7 @@ import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
 import { getLatestEpisodes } from '@/services/getLatestEpisodes'
 import { getRatingAnimes } from '@/services/getRatingAnimes'
 import { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
 interface Props {
   params: {
@@ -42,6 +43,8 @@ export async function generateStaticParams() {
 export default async function AnimePage({ params: { animeId } }: Props) {
   const anime = await getAnime(animeId)
   const episodes = await getAnimeEpisodes(animeId)
+
+  if (!anime || !anime.animeId) redirect('/404')
 
   return (
     <>
