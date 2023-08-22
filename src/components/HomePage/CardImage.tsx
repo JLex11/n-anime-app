@@ -4,8 +4,10 @@ interface Props {
   src: string
   fbSrc?: string
   alt: string
-  width: number
-  height: number
+  dimensions: {
+    width: number
+    height: number
+  }
   loading?: 'lazy' | 'eager'
   priority?: boolean
   className?: string
@@ -13,7 +15,7 @@ interface Props {
 
 type HandleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => void
 
-export const CardImage = ({ src, fbSrc, alt, width, height, loading, priority, className: cssClass }: Props) => {
+export const CardImage = ({ src, fbSrc, alt, dimensions, loading, className: cssClass }: Props) => {
   const handleImageError: HandleImageError = e => {
     const target = e.target as HTMLImageElement
     if (target.src === fbSrc) return
@@ -24,10 +26,9 @@ export const CardImage = ({ src, fbSrc, alt, width, height, loading, priority, c
     <img
       src={src}
       alt={alt}
-      width={width}
-      height={height}
+      width={dimensions.width}
+      height={dimensions.height}
       loading={loading ?? 'lazy'}
-      /* priority={priority ?? false} */
       className={cssClass}
       onError={handleImageError}
       decoding='async'
