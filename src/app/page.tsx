@@ -7,8 +7,7 @@ import { getRatingAnimes } from '@/services/getRatingAnimes'
 import { Suspense } from 'react'
 
 export default async function HomePage() {
-  const ratingAnimes = await getRatingAnimes(5)
-  //const ratingAnimes = await getLatestAnimes(10)
+  const ratingAnimes = await getRatingAnimes(7)
 
   return (
     <>
