@@ -29,7 +29,7 @@ export const Aside = ({ episodes, animeInfo, currentEpisode }: AsideProps) => {
             >
               <span>{episode.episode}</span>
               <EpisodeImage
-                images={[{ link: episode.image || images.coverImage }]}
+                images={[{ link: episode.image ?? '' }, { link: images.coverImage }]}
                 episode={episode.episode}
                 title={title}
               />
