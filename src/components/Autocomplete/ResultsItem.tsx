@@ -1,7 +1,6 @@
 import { AutocompleteItem, AutocompleteItemChilds } from '@/hooks/useAutocomplete.types'
 import { useToggle } from '@/hooks/useToggle'
 import clsx from 'clsx'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { FoldIcon } from '../Icons/FoldIcon'
@@ -37,7 +36,15 @@ export const ResultsItem = ({ item }: Props) => {
     <article onMouseMove={handleHover} id={`autocompleteItem-${item.link}`}>
       <div className={resultsItemClassName}>
         <Link href={item.link} className={styles.itemContainer} onClick={() => handleLaunchAutocomplete(false)}>
-          <Image src={item.image} alt={item.title} width={50} height={50} quality={10} className={styles.itemImage} loading={'lazy'} />
+          <img
+            src={item.image}
+            alt={item.title}
+            width={50}
+            height={50}
+            className={styles.itemImage}
+            loading={'lazy'}
+            decoding='async'
+          />
           {/* <PictureIcon width={50} /> */}
           <ItemInfo item={item} />
         </Link>
