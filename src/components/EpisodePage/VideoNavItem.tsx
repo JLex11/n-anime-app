@@ -10,7 +10,13 @@ interface VideoNavItemProps {
   activeIframeRef: React.MutableRefObject<HTMLLIElement | null>
 }
 
-export const VideoNavItem = ({ iframe, handleMouseEnter, handleButtonClick, isActive, activeIframeRef }: VideoNavItemProps) => {
+export const VideoNavItem = ({
+  iframe,
+  handleMouseEnter,
+  handleButtonClick,
+  isActive,
+  activeIframeRef,
+}: VideoNavItemProps) => {
   return (
     <li
       className={styles.iframeOption}
