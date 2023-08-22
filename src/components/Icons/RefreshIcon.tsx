@@ -5,23 +5,22 @@ interface Props {
   className?: string
 }
 
-export default function BroadcastIcon({ width = 24, height, strokeWidth = 1.5, className: cssClass }: Props) {
+export default function RefreshIcon({ width = 24, height, strokeWidth = 1.5, className: cssClass }: Props) {
   return (
     <svg
       className={cssClass}
       width={width}
-      height={height ?? width}
+      height={height || width}
       viewBox={`0 0 ${width} ${height || width}`}
       strokeWidth={strokeWidth}
       stroke='currentColor'
       fill='none'
-      strokeLinecap='round'
-      strokeLinejoin='round'
+      stroke-linecap='round'
+      stroke-linejoin='round'
     >
       <path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
-      <path d='M18.364 19.364a9 9 0 1 0 -12.728 0'></path>
-      <path d='M15.536 16.536a5 5 0 1 0 -7.072 0'></path>
-      <path d='M12 13m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0'></path>
+      <path d='M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4'></path>
+      <path d='M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4'></path>
     </svg>
   )
 }

@@ -8,11 +8,10 @@ interface Props {
 export default function PlayIcon({ width = 24, height, strokeWidth = 1.5, className: cssClass }: Props) {
   return (
     <svg
-      xmlns='http://www.w3.org/2000/svg'
       className={cssClass}
       width={width}
       height={height ?? width}
-      viewBox='0 0 24 24'
+      viewBox={`0 0 ${width} ${height || width}`}
       strokeWidth={strokeWidth}
       stroke='currentColor'
       fill='none'
