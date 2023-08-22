@@ -24,7 +24,7 @@ export const Picture = ({ title, images, lazy }: Props) => {
   return (
     <picture className={styles.carouselPicture}>
       <Image
-        src={carouselImage.link}
+        src={carouselImage.link ?? ''}
         alt={title}
         width={carouselImage?.width || 1080}
         height={carouselImage?.height || 650}

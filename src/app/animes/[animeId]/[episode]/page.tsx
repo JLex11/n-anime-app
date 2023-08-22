@@ -6,7 +6,6 @@ import { toCap } from '@/utils/textConverts'
 import { redirect } from 'next/navigation'
 
 interface Props {
-  _id: string
   params: {
     animeId: string
     episode: number
