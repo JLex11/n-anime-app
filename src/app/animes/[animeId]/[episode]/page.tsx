@@ -6,10 +6,21 @@ import { toCap } from '@/utils/textConverts'
 import { redirect } from 'next/navigation'
 
 interface Props {
+  _id: string
   params: {
     animeId: string
     episode: number
   }
+}
+
+export default async function AnimePage({ params }: Props) {
+  const { animeId, episode } = params
+  const episodeSources = await getEpisodeSources(`${animeId}-${episode}`)
+  const animeInfo = await getAnime(animeId)
+
+  if (!animeInfo || !animeInfo.animeId) redirect('/404')
+
+  return <VideoSection iframesData={episodeSources.videos} title={toCap(`episodio ${episode} de ${animeInfo.title}`)} />
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -23,14 +34,4 @@ export async function generateMetadata({ params }: Props) {
 export async function generateStaticParams() {
   const latestEpisodes = await getLatestEpisodes()
   return latestEpisodes.map(episode => ({ animeId: episode.animeId, episode: episode.episode.toString() }))
-}
-
-export default async function AnimePage({ params }: Props) {
-  const { animeId, episode } = params
-  const episodeSources = await getEpisodeSources(`${animeId}-${episode}`)
-  const animeInfo = await getAnime(animeId)
-
-  if (!animeInfo || !animeInfo.animeId) redirect('/404')
-
-  return <VideoSection iframesData={episodeSources.videos} title={toCap(`episodio ${episode} de ${animeInfo.title}`)} />
 }
