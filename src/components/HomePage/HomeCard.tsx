@@ -18,27 +18,29 @@ interface CardProps {
   link: string
   image: Image
   pill?: PillProps
+  showOnHover?: React.ReactNode
 }
 
-export const HomeCard = ({ title, link, image, pill }: CardProps) => {
+export const HomeCard = ({ title, link, image, pill, showOnHover }: CardProps) => {
+  const mappedImage = {
+    ...image,
+    dimensions: {
+      width: image.width,
+      height: image.height,
+    },
+    alt: title,
+  }
+
   return (
     <article className={styles.card}>
       <Link href={link ?? ''} className={styles.card_anchor}>
-        <CardImage
-          src={image.src}
-          fbSrc={image.fbSrc}
-          alt={title}
-          width={image.width}
-          height={image.height}
-          loading={image.loading ?? 'lazy'}
-          priority={image.priority ?? false}
-          className={styles.card_img}
-        />
+        <CardImage {...mappedImage} className={styles.card_img} />
         <div className={styles.content}>
           {pill?.label && <Pill label={pill.label} />}
           <h3 className={styles.title}>{title}</h3>
         </div>
       </Link>
+      {showOnHover && <div className={styles.showOnHoverContainer}>{showOnHover}</div>}
     </article>
   )
 }

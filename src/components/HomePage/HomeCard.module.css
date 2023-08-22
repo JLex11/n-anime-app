@@ -1,12 +1,32 @@
 .card {
   position: relative;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.card:hover {
+.showOnHoverContainer {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  z-index: 1;
+  background: #00000089;
+  color: inherit;
+  top: 2rem;
+  right: -10rem;
+  backdrop-filter: blur(5px);
+  padding: 1rem;
+  border-radius: 1rem;
+  max-width: calc(var(--grid-width) * 1.2);
+  max-height: calc(var(--grid-width) * 1.5);
+  overflow: hidden;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.card:hover .showOnHoverContainer {
+  visibility: visible;
+  opacity: 1;
+}
+
+.card:hover .card_anchor {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
   transform: scale(1.03);
 }
@@ -16,6 +36,9 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .content {
