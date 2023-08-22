@@ -36,7 +36,7 @@ export const Autocomplete = ({ handleLaunchAutocomplete }: Props) => {
 
   return (
     <AutocompleteContext.Provider value={providerValue}>
-      <div className={styles.autoCompleteLayer} id={autocompleteId} onClick={handleClick}>
+      <div className={styles.autocompleteLayer} id={autocompleteId} onClick={handleClick}>
         <form className={formClassName} {...(formProps as any)}>
           <Input status={autocomplete.status} inputRef={inputRef} inputProps={inputProps} />
           {autocomplete.isOpen && (

@@ -1,4 +1,4 @@
-.autoCompleteLayer {
+.autocompleteLayer {
   --form-top: 20vh;
   --form-pd: 0.4rem;
   --form-gap: 0.5rem;
@@ -137,7 +137,8 @@
   overflow-y: auto;
   width: 100%;
   max-height: calc(
-    100vh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 - var(--pd) * 2 - var(--footer-height)
+    100vh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 - var(--pd) * 2 -
+      var(--footer-height)
   );
 }
 
