@@ -18,6 +18,7 @@ export const Iframe = ({ iframeRef, currentIframeData }: Props) => {
       allowFullScreen
       loading={'eager'}
       ref={iframeRef}
+      name='episode-iframe-video'
     />
   )
 }
