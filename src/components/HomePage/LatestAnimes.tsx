@@ -1,6 +1,7 @@
 import { getLatestAnimes } from '@/services/getLatestAnimes'
 import { CardsSection } from '../CardsSection/CardsSection'
 import LatestIcon from '../Icons/LatestIcon'
+import { CardDetails } from './LatestAnimesCardDetails'
 
 export const LatestAnimes = async () => {
   const latestAnimes = await getLatestAnimes()
@@ -17,6 +18,9 @@ export const LatestAnimes = async () => {
       fbSrc,
       width: 300,
       height: 350,
+      showOnHover: (
+        <CardDetails description={anime.description} status={anime.status} rank={anime.rank} genres={anime.genres} />
+      ),
     }
   })
 

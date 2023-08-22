@@ -17,5 +17,7 @@ export const LatestEpisodes = async () => {
     }
   })
 
-  return <CardsSection title='Últimos episodios' icon={<LatestIcon />} data={episodeData} gridWidth={230} gridHeight={190} />
+  return (
+    <CardsSection title='Últimos episodios' icon={<LatestIcon />} data={episodeData} gridWidth={230} gridHeight={190} />
+  )
 }
