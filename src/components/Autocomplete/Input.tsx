@@ -1,4 +1,5 @@
 'use client'
+
 import clsx from 'clsx'
 import { ShortcutLetter } from '../Common/ShortcutLetter'
 import LoadingIcon from '../Icons/LoadingIcon'
