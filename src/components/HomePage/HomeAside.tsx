@@ -4,7 +4,7 @@ import { AsideList } from './AsideList'
 import styles from './Home.module.css'
 
 export const HomeAside = async () => {
-  const broadcastAnimes = await getBroadcastAnimes(100)
+  const broadcastAnimes = await getBroadcastAnimes(30)
 
   return (
     <aside className={styles.aside} id={'home-aside'}>
