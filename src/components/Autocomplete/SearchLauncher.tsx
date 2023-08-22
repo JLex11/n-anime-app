@@ -1,4 +1,5 @@
 'use client'
+
 import { autoCompleteHotKeys } from '@/enums'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
@@ -12,14 +13,14 @@ interface Props {
 }
 
 export const SearchLauncher = ({ className: cssClass, children }: Props) => {
-  const [autocompleteIsLaunch, setAutocompleteIsLaunch] = useState(false)
+  const [autocompleteLaunched, setAutocompleteLaunched] = useState(false)
 
   const handleToggleSearch = () => {
-    setAutocompleteIsLaunch(!autocompleteIsLaunch)
+    setAutocompleteLaunched(!autocompleteLaunched)
   }
 
   const handleCloseAutocomplete = () => {
-    setAutocompleteIsLaunch(false)
+    setAutocompleteLaunched(false)
   }
 
   const hotkeysOptions = {
@@ -32,10 +33,10 @@ export const SearchLauncher = ({ className: cssClass, children }: Props) => {
 
   return (
     <>
-      <button onClick={() => setAutocompleteIsLaunch(true)} className={cssClass}>
+      <button onClick={() => setAutocompleteLaunched(true)} className={cssClass}>
         {children}
       </button>
-      {autocompleteIsLaunch && <Autocomplete handleLaunchAutocomplete={setAutocompleteIsLaunch} />}
+      {autocompleteLaunched && <Autocomplete handleLaunchAutocomplete={setAutocompleteLaunched} />}
     </>
   )
 }
