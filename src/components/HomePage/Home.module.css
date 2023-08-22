@@ -79,6 +79,5 @@
 .content {
   display: flex;
   flex-direction: column;
-  overflow-x: auto;
   gap: 3rem;
 }
