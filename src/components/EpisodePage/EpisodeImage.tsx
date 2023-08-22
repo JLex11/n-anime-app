@@ -11,9 +11,10 @@ interface Props {
   }[]
   episode: number
   title: string
+  className?: string
 }
 
-export const EpisodeImage = ({ images, episode, title }: Props) => {
+export const EpisodeImage = ({ images, episode, title, className }: Props) => {
   const { currentImage: episodeImage, onError } = useFallbackImage(images)
 
   return (
@@ -24,6 +25,7 @@ export const EpisodeImage = ({ images, episode, title }: Props) => {
       height={episodeImage.height || 100}
       onError={onError}
       decoding='async'
+      className={className}
     />
   )
 }
