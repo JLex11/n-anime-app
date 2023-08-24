@@ -1,6 +1,5 @@
 .card {
   position: relative;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .showOnHoverContainer {
@@ -28,7 +27,7 @@
 
 .card:hover .card_anchor {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
-  transform: scale(1.03);
+  scale: 1.03;
 }
 
 .card_anchor {
@@ -39,6 +38,7 @@
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease, scale 0.3s ease;
 }
 
 .content {
