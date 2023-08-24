@@ -8,10 +8,10 @@
   opacity: 0;
   position: absolute;
   z-index: 1;
-  background: #00000089;
+  background: #000000a1;
   color: inherit;
   top: 2rem;
-  right: -10rem;
+  right: -15rem;
   backdrop-filter: blur(5px);
   padding: 1rem;
   border-radius: 1rem;
