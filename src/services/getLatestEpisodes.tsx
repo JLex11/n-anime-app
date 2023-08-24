@@ -3,10 +3,14 @@ import { Episode } from '@/types'
 import { minToSeconds } from '@/utils/convertTime'
 
 export const getLatestEpisodes = async () => {
-  const response = await fetch(APIRoutes.LatestEpisodes, {
+  const episodes: Episode[] = await fetch(APIRoutes.LatestEpisodes, {
     next: { revalidate: minToSeconds(10) },
   })
+    .then(response => response.json())
+    .catch(err => {
+      console.log(err)
+      return []
+    })
 
-  const episodes: Episode[] = await response.json()
-  return episodes ?? []
+  return episodes
 }

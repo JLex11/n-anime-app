@@ -4,10 +4,14 @@ import { hoursToSeconds } from '@/utils/convertTime'
 import { filterUnsupportDomains } from '@/utils/filterUnsupportDomains'
 
 export const getAnimesByQuery = async (query: string, limit?: number) => {
-  const response = await fetch(`${APIRoutes.SearchAnimes}/${query}?limit=${limit}`, {
+  const animes: Anime[] = await fetch(`${APIRoutes.SearchAnimes}/${query}?limit=${limit}`, {
     next: { revalidate: hoursToSeconds(1) },
   })
+    .then(response => response.json())
+    .catch(err => {
+      console.log(err)
+      return []
+    })
 
-  const animes: Anime[] = await response.json()
   return animes.map(filterUnsupportDomains)
 }

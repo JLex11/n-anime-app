@@ -3,10 +3,14 @@ import { Anime } from '@/types'
 import { hoursToSeconds } from '@/utils/convertTime'
 
 export const getBroadcastAnimes = async (limit?: number) => {
-  const response = await fetch(`${APIRoutes.BroadcastAnimes}?limit=${limit}`, {
+  const broadcastAnimes: Anime[] = await fetch(`${APIRoutes.BroadcastAnimes}?limit=${limit}`, {
     next: { revalidate: hoursToSeconds(12) },
   })
+    .then(response => response.json())
+    .catch(err => {
+      console.log(err)
+      return []
+    })
 
-  const broadcastAnimes: Anime[] = await response.json()
   return broadcastAnimes
 }
