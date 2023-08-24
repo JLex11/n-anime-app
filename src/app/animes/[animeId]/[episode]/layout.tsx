@@ -36,7 +36,16 @@ export default async function EpisodeLayout({ children, params }: Props) {
         {children}
         <Aside animeInfo={animeInfo} episodes={episodes} currentEpisode={episode} />
       </section>
-      {bgImage && <Image src={bgImage} alt={animeInfo.title} width={500} height={600} className={styles.bgImage} />}
+      {bgImage && (
+        <Image
+          src={bgImage}
+          alt={animeInfo.title}
+          width={500}
+          height={600}
+          decoding='async'
+          className={styles.bgImage}
+        />
+      )}
     </main>
   )
 }
