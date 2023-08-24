@@ -34,21 +34,24 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
     return itemRefs.current[index]
   }, [])
 
-  const getRoutesItems = useCallback(async (query: string) => {
-    if (query.length < 1) return []
+  const getRoutesItems = useCallback(
+    async (query: string) => {
+      if (query.length < 1) return []
 
-    const regex = new RegExp(query, 'gi')
-    const filteredRoutes = APP_ROUTES.filter(route => route.name.match(regex))
+      const regex = new RegExp(query, 'gi')
+      const filteredRoutes = APP_ROUTES.filter(route => route.name.match(regex))
 
-    return filteredRoutes.map(route => ({
-      id: route.link,
-      title: route.name,
-      image: '/app-window.svg',
-      link: route.link,
-      description: route.description,
-      getItemRef,
-    }))
-  }, [])
+      return filteredRoutes.map(route => ({
+        id: route.link,
+        title: route.name,
+        image: '/app-window.svg',
+        link: route.link,
+        description: route.description,
+        getItemRef,
+      }))
+    },
+    [getItemRef]
+  )
 
   const getAnimeItemChilds = async (animeId: AutocompleteItem['id']): Promise<AutocompleteItemChilds> => {
     const episodes = await getAnimeEpisodes(animeId, 0, 10)
@@ -68,24 +71,27 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
     }
   }
 
-  const getAnimeItems = useCallback(async (query: string) => {
-    if (query.length < 2) return []
+  const getAnimeItems = useCallback(
+    async (query: string) => {
+      if (query.length < 2) return []
 
-    const limit = 10 + query.length * 6
-    const animes = await getAnimesByQuery(encodeURIComponent(query), limit)
+      const limit = 10 + query.length * 6
+      const animes = await getAnimesByQuery(encodeURIComponent(query), limit)
 
-    return animes.map(anime => ({
-      id: anime.animeId,
-      title: anime.title,
-      image: anime.images.coverImage,
-      link: `/animes/${anime.animeId}`,
-      description: anime.description ?? 'Descripcion no disponible',
-      type: anime.type ?? 'Anime',
-      rank: anime.rank ?? 0,
-      getItemRef,
-      childsCallback: () => getAnimeItemChilds(anime.animeId),
-    }))
-  }, [])
+      return animes.map(anime => ({
+        id: anime.animeId,
+        title: anime.title,
+        image: anime.images.coverImage,
+        link: `/animes/${anime.animeId}`,
+        description: anime.description ?? 'Descripcion no disponible',
+        type: anime.type ?? 'Anime',
+        rank: anime.rank ?? 0,
+        getItemRef,
+        childsCallback: () => getAnimeItemChilds(anime.animeId),
+      }))
+    },
+    [getItemRef]
+  )
 
   const debouncedGetAnimeItems = debouncePromise(getAnimeItems, 300) as (query: string) => Promise<AutocompleteItem[]>
 
@@ -132,7 +138,8 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
           },
         },
       }),
-    [placeholder, autocompleteId, router, handleLaunchAutocomplete, getAnimeItems, handleActiveItem, getRoutesItems]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [placeholder, autocompleteId, router, handleLaunchAutocomplete, handleActiveItem, getRoutesItems]
   )
 
   const formProps = autoComplete.getFormProps({ inputElement: inputRef.current })
