@@ -16,7 +16,11 @@ export const ItemChilds = ({ childItems, handleLaunchAutocomplete }: Props) => {
         <ul className={styles.childsItems}>
           {childItems.items.map(childItem => (
             <li key={childItem.link} className={styles.childItem}>
-              <Link href={childItem.link} className={styles.childItemLink} onClick={() => handleLaunchAutocomplete(false)}>
+              <Link
+                href={childItem.link}
+                className={styles.childItemLink}
+                onClick={() => handleLaunchAutocomplete(false)}
+              >
                 {/* <img {...childItem.image} width={30} height={25} /> */}
                 <PictureIcon width={30} height={25} />
                 <span className={styles.childItemTitle}>{childItem.title}</span>

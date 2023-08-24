@@ -1,4 +1,4 @@
-import { BaseItem } from '@algolia/autocomplete-core'
+import { AutocompleteOptionsWithMetadata, BaseItem } from '@algolia/autocomplete-core'
 
 export interface AutocompleteItemChild {
   id: string
@@ -25,6 +25,11 @@ export interface AutocompleteItem extends BaseItem {
   description: string
   type?: string
   rank?: number
-  _autocomplete_item_id: AutocompleteItemId
+  getItemRef: (index: number) => RefObject<HTMLElement>
+  /* _autocomplete_item_id: AutocompleteItemId */
   childsCallback?: () => Promise<AutocompleteItemChilds>
+}
+
+export interface AutocompleteProps extends AutocompleteOptionsWithMetadata<AutocompleteItem> {
+  handleLaunchAutocomplete: React.Dispatch<React.SetStateAction<boolean>>
 }

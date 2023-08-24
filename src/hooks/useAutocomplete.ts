@@ -1,10 +1,11 @@
 import { APP_ROUTES } from '@/constants'
 import { getAnimesByQuery } from '@/services/getAnimeByQuery'
 import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
-import { AutocompleteOptionsWithMetadata, AutocompleteState, OnActiveParams, createAutocomplete } from '@algolia/autocomplete-core'
+import { debouncePromise } from '@/utils/debouncePromise'
+import { AutocompleteState, OnActiveParams, createAutocomplete } from '@algolia/autocomplete-core'
 import { useRouter } from 'next/navigation'
-import { useCallback, useId, useMemo, useRef, useState } from 'react'
-import { AutocompleteItem, AutocompleteItemChilds, AutocompleteItemId } from './useAutocomplete.types'
+import { createRef, useCallback, useId, useMemo, useRef, useState } from 'react'
+import { AutocompleteItem, AutocompleteItemChilds, AutocompleteProps } from './useAutocomplete.types'
 
 const autocompleteInitialState: AutocompleteState<AutocompleteItem> = {
   collections: [],
@@ -16,34 +17,22 @@ const autocompleteInitialState: AutocompleteState<AutocompleteItem> = {
   status: 'idle',
 }
 
-interface AutocompleteProps extends AutocompleteOptionsWithMetadata<AutocompleteItem> {
-  handleLaunchAutocomplete: React.Dispatch<React.SetStateAction<boolean>>
-}
-
 export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: AutocompleteProps) => {
   const [autocompleteState, setAutocompleteState] = useState(autocompleteInitialState)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
+  const itemRefs = useRef<React.RefObject<HTMLElement>[]>([])
+
   const router = useRouter()
   const autocompleteId = useId()
 
-  const createAutocompleteItemId = (value: string | number): AutocompleteItemId => `autocompleteItem-${value}`
-
-  const handleActiveItem = useCallback(
-    ({ item, event, state }: OnActiveParams<AutocompleteItem>) => {
-      router.prefetch(item.link)
-      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-        const itemId = item.__autocomplete_id as number
-        const totalItems = state.collections.reduce((acc, collection) => acc + collection.items.length, 0)
-        const block = itemId < 4 || itemId > totalItems - 4 ? 'center' : 'nearest'
-
-        const itemElement = document.getElementById(`autocompleteItem-${item.id}`)
-        itemElement?.scrollIntoView({ behavior: 'smooth', block: block })
-      }
-    },
-    [router]
-  )
+  const getItemRef = useCallback((index: number) => {
+    if (!itemRefs.current[index]) {
+      itemRefs.current[index] = createRef<HTMLElement>()
+    }
+    return itemRefs.current[index]
+  }, [])
 
   const getRoutesItems = useCallback(async (query: string) => {
     if (query.length < 1) return []
@@ -57,7 +46,7 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
       image: '/app-window.svg',
       link: route.link,
       description: route.description,
-      _autocomplete_item_id: createAutocompleteItemId(route.link),
+      getItemRef,
     }))
   }, [])
 
@@ -82,7 +71,7 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
   const getAnimeItems = useCallback(async (query: string) => {
     if (query.length < 2) return []
 
-    const limit = 10 + query.length * 4
+    const limit = 10 + query.length * 6
     const animes = await getAnimesByQuery(encodeURIComponent(query), limit)
 
     return animes.map(anime => ({
@@ -93,10 +82,27 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
       description: anime.description ?? 'Descripcion no disponible',
       type: anime.type ?? 'Anime',
       rank: anime.rank ?? 0,
+      getItemRef,
       childsCallback: () => getAnimeItemChilds(anime.animeId),
-      _autocomplete_item_id: createAutocompleteItemId(anime.animeId),
     }))
   }, [])
+
+  const debouncedGetAnimeItems = debouncePromise(getAnimeItems, 300) as (query: string) => Promise<AutocompleteItem[]>
+
+  const handleActiveItem = useCallback(
+    ({ item, event, state }: OnActiveParams<AutocompleteItem>) => {
+      router.prefetch(item.link)
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        const itemId = Number(item.__autocomplete_id)
+        const totalItems = state.collections.reduce((acc, collection) => acc + collection.items.length, 0)
+        const block = itemId < 4 || itemId > totalItems - 4 ? 'center' : 'nearest'
+
+        const itemElement = itemRefs.current[itemId].current
+        itemElement?.scrollIntoView({ behavior: 'smooth', block: block })
+      }
+    },
+    [router]
+  )
 
   const autoComplete = useMemo(
     () =>
@@ -116,7 +122,7 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
             sourceId: 'Animes',
             onActive: handleActiveItem,
             getItemUrl: ({ item }) => item.link,
-            getItems: () => getAnimeItems(query),
+            getItems: () => debouncedGetAnimeItems(query),
           },
         ],
         navigator: {

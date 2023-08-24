@@ -2,6 +2,7 @@ import { AutocompleteItem, AutocompleteItemChilds } from '@/hooks/useAutocomplet
 import { useToggle } from '@/hooks/useToggle'
 import clsx from 'clsx'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { FoldIcon } from '../Icons/FoldIcon'
 import styles from './Autocomplete.module.css'
@@ -14,26 +15,34 @@ interface Props {
 }
 
 export const ResultsItem = ({ item }: Props) => {
-  const [childItems, setChildItems] = useState<AutocompleteItemChilds>({ title: '', items: [] })
+  const [childItems, setChildItems] = useState<AutocompleteItemChilds | null>(null)
   const [expanded, toggleExpanded] = useToggle(false)
   const { activeItemId, setActiveItemId, handleLaunchAutocomplete } = useContext(AutocompleteContext)
 
-  const isActive = useMemo(() => activeItemId === (item.__autocomplete_id as number), [activeItemId, item])
+  const router = useRouter()
+
+  const isActive = useMemo(() => activeItemId === Number(item.__autocomplete_id), [activeItemId, item])
 
   const handleHover = () => {
-    if (activeItemId === (item.__autocomplete_id as number)) return
-    setActiveItemId(item.__autocomplete_id as number)
+    if (activeItemId === Number(item.__autocomplete_id)) return
+    setActiveItemId(Number(item.__autocomplete_id))
   }
 
   useEffect(() => {
-    if (!expanded) return
+    if (!isActive) return
+    const timeoutId = setTimeout(() => router.prefetch(item.link), 200)
+    return () => clearInterval(timeoutId)
+  }, [isActive, item, router])
+
+  useEffect(() => {
+    if (!expanded || childItems) return
     if (item.childsCallback) item.childsCallback().then(setChildItems)
   }, [expanded, item])
 
   const resultsItemClassName = clsx(styles.resultsItem, isActive && styles.isActive, expanded && styles.expanded)
 
   return (
-    <article onMouseMove={handleHover} id={`autocompleteItem-${item.link}`}>
+    <article onMouseMove={handleHover} ref={item.getItemRef(Number(item.__autocomplete_id))}>
       <div className={resultsItemClassName}>
         <Link href={item.link} className={styles.itemContainer} onClick={() => handleLaunchAutocomplete(false)}>
           <img
@@ -45,7 +54,6 @@ export const ResultsItem = ({ item }: Props) => {
             loading={'lazy'}
             decoding='async'
           />
-          {/* <PictureIcon width={50} /> */}
           <ItemInfo item={item} />
         </Link>
         {item.childsCallback && (
@@ -54,7 +62,9 @@ export const ResultsItem = ({ item }: Props) => {
           </button>
         )}
       </div>
-      {expanded && <ItemChilds childItems={childItems} handleLaunchAutocomplete={handleLaunchAutocomplete} />}
+      {expanded && childItems && (
+        <ItemChilds childItems={childItems} handleLaunchAutocomplete={handleLaunchAutocomplete} />
+      )}
     </article>
   )
 }
