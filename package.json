@@ -13,6 +13,7 @@
     "@algolia/autocomplete-core": "1.10.0",
     "@uidotdev/usehooks": "2.0.1",
     "clsx": "1.2.1",
+    "million": "2.6.0-beta.2",
     "next": "13.4.9",
     "react": "18.2.0",
     "react-dom": "18.2.0",
