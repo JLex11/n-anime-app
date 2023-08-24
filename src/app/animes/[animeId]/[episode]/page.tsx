@@ -17,9 +17,14 @@ export default async function AnimePage({ params }: Props) {
   const episodeSources = await getEpisodeSources(`${animeId}-${episode}`)
   const animeInfo = await getAnime(animeId)
 
-  if (!episodeSources.videos.SUB) return redirect('/404')
+  if (!episodeSources?.videos?.SUB) return redirect('/404')
 
-  return <VideoSection iframesData={episodeSources.videos} title={toCap(`episodio ${episode} de ${animeInfo.title}`)} />
+  return (
+    <VideoSection
+      iframesData={episodeSources.videos}
+      title={toCap(`episodio ${episode} de ${animeInfo?.title ?? animeId.replaceAll('-', ' ')}`)}
+    />
+  )
 }
 
 export async function generateMetadata({ params }: Props) {

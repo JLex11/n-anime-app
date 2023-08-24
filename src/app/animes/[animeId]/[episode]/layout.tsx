@@ -5,6 +5,7 @@ import { getAnime } from '@/services/getAnime'
 import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
 import { toCap } from '@/utils/textConverts'
 import Image from 'next/image'
+import { redirect } from 'next/navigation'
 
 interface Props {
   children: React.ReactNode
@@ -18,6 +19,8 @@ export default async function EpisodeLayout({ children, params }: Props) {
   const { animeId, episode } = params
   const animeInfo = await getAnime(animeId)
   const episodes = await getAnimeEpisodes(animeId)
+
+  if (!animeInfo) redirect('/404')
 
   const bgImage = animeInfo.images?.carouselImages[0]?.link ?? animeInfo.images?.coverImage
 

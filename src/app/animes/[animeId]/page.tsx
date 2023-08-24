@@ -19,27 +19,6 @@ interface Props {
   }
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { animeId } = params
-  const anime = await getAnime(animeId)
-  const title = anime.title ?? 'Anime'
-  const keywords = `${anime.genres?.join(', ')} ${anime.title} ${anime.otherTitles?.join(', ')}`
-
-  return {
-    title,
-    description: anime.description,
-    keywords,
-  }
-}
-
-export async function generateStaticParams() {
-  const animes = await getRatingAnimes(20)
-  const animesFromEpisodes = await getLatestEpisodes()
-  const animesFromBroadcast = await getBroadcastAnimes()
-
-  return [...animes, ...animesFromEpisodes, ...animesFromBroadcast].map(anime => ({ animeId: anime.animeId }))
-}
-
 export default async function AnimePage({ params: { animeId } }: Props) {
   const anime = await getAnime(animeId)
   const episodes = await getAnimeEpisodes(animeId)
@@ -60,4 +39,28 @@ export default async function AnimePage({ params: { animeId } }: Props) {
       </main>
     </>
   )
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { animeId } = params
+  const anime = await getAnime(animeId)
+
+  if (!anime) return {}
+
+  const title = anime.title ?? 'Anime'
+  const keywords = `${anime.genres?.join(', ')} ${anime.title} ${anime.otherTitles?.join(', ')}`
+
+  return {
+    title,
+    description: anime.description,
+    keywords,
+  }
+}
+
+export async function generateStaticParams() {
+  const animes = await getRatingAnimes(20)
+  const animesFromEpisodes = await getLatestEpisodes()
+  const animesFromBroadcast = await getBroadcastAnimes()
+
+  return [...animes, ...animesFromEpisodes, ...animesFromBroadcast].map(anime => ({ animeId: anime.animeId }))
 }
