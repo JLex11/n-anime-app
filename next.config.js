@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const IMAGE_DAYS_CACHE = 30
+const IMAGE_DAYS_CACHE = 60
 
 const nextConfig = {
   images: {
