@@ -28,9 +28,7 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
   const autocompleteId = useId()
 
   const getItemRef = useCallback((index: number) => {
-    if (!itemRefs.current[index]) {
-      itemRefs.current[index] = createRef<HTMLElement>()
-    }
+    if (!itemRefs.current[index]) itemRefs.current[index] = createRef<HTMLElement>()
     return itemRefs.current[index]
   }, [])
 
@@ -47,7 +45,7 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
         image: '/app-window.svg',
         link: route.link,
         description: route.description,
-        getItemRef,
+        getItemRef
       }))
     },
     [getItemRef]
@@ -60,14 +58,14 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
       title: episode.episode,
       image: {
         src: episode.image,
-        alt: episode.title,
+        alt: episode.title
       },
-      link: `/animes/${episode.animeId}/${episode.episode}`,
+      link: `/animes/${episode.animeId}/${episode.episode}`
     }))
 
     return {
       items: mappedEpisodes,
-      title: 'Episodios',
+      title: 'Episodios'
     }
   }
 
@@ -75,7 +73,7 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
     async (query: string) => {
       if (query.length < 2) return []
 
-      const limit = 10 + query.length * 6
+      const limit = 10 + query.length * 2
       const animes = await getAnimesByQuery(encodeURIComponent(query), limit)
 
       return animes.map(anime => ({
@@ -87,7 +85,7 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
         type: anime.type ?? 'Anime',
         rank: anime.rank ?? 0,
         getItemRef,
-        childsCallback: () => getAnimeItemChilds(anime.animeId),
+        childsCallback: () => getAnimeItemChilds(anime.animeId)
       }))
     },
     [getItemRef]
@@ -122,27 +120,26 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
           {
             sourceId: 'Ir a',
             getItemUrl: ({ item }) => item.link,
-            getItems: () => getRoutesItems(query),
+            getItems: () => getRoutesItems(query)
           },
           {
             sourceId: 'Animes',
             onActive: handleActiveItem,
             getItemUrl: ({ item }) => item.link,
-            getItems: () => debouncedGetAnimeItems(query),
-          },
+            getItems: () => debouncedGetAnimeItems(query)
+          }
         ],
         navigator: {
           navigate: ({ itemUrl }) => {
             router.push(itemUrl)
             handleLaunchAutocomplete(false)
-          },
-        },
+          }
+        }
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [placeholder, autocompleteId, router, handleLaunchAutocomplete, handleActiveItem, getRoutesItems]
   )
 
-  const formProps = autoComplete.getFormProps({ inputElement: inputRef.current })
   const inputProps = autoComplete.getInputProps({ inputElement: inputRef.current })
   const panelProps = autoComplete.getPanelProps({ ref: panelRef.current })
 
@@ -152,7 +149,6 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
     inputRef,
     panelRef,
     inputProps,
-    formProps,
-    panelProps,
+    panelProps
   }
 }
