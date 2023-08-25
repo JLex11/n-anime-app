@@ -5,7 +5,6 @@ import { getAnime } from '@/services/getAnime'
 import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
 import { toCap } from '@/utils/textConverts'
 import Image from 'next/image'
-import { redirect } from 'next/navigation'
 
 interface Props {
   children: React.ReactNode
@@ -20,13 +19,11 @@ export default async function EpisodeLayout({ children, params }: Props) {
   const animeInfo = await getAnime(animeId)
   const episodes = await getAnimeEpisodes(animeId)
 
-  if (!animeInfo) redirect('/404')
-
-  const bgImage = animeInfo.images?.carouselImages[0]?.link ?? animeInfo.images?.coverImage
+  const bgImage = animeInfo?.images?.carouselImages[0]?.link ?? animeInfo?.images?.coverImage
 
   const crumbs = [
     { name: 'Inicio', path: '/' },
-    { name: toCap(animeInfo.title), path: `/animes/${animeInfo.animeId}` },
+    { name: toCap(animeInfo?.title ?? animeId.replaceAll('-', ' ')), path: `/animes/${animeId}` },
     { name: `Episodio ${episode}` },
   ]
 
@@ -37,12 +34,18 @@ export default async function EpisodeLayout({ children, params }: Props) {
       </nav>
       <section className={styles.mainContent}>
         {children}
-        <Aside animeInfo={animeInfo} episodes={episodes} currentEpisode={episode} />
+        <Aside
+          animeId={animeId}
+          animeTitle={animeInfo?.title ?? animeId.replaceAll('-', ' ')}
+          animeImage={animeInfo?.images?.coverImage}
+          episodes={episodes}
+          currentEpisode={episode}
+        />
       </section>
       {bgImage && (
         <Image
           src={bgImage}
-          alt={animeInfo.title}
+          alt={animeInfo?.title ?? animeId.replaceAll('-', ' ')}
           width={500}
           height={600}
           decoding='async'
