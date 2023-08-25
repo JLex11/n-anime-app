@@ -19,21 +19,20 @@ interface Props {
 }
 
 export const Picture = ({ title, images, lazy }: Props) => {
-  const { currentImage: carouselImage, onError } = useFallbackImage(images)
+  const { currentImage: carouselImage, onError } = useFallbackImage(images, { width: 1080, height: 650 })
 
   return (
     <picture className={styles.carouselPicture}>
       <Image
-        src={carouselImage.link ?? ''}
+        src={carouselImage.link}
         alt={title}
-        width={carouselImage?.width || 1080}
-        height={carouselImage?.height || 650}
+        width={carouselImage.width}
+        height={carouselImage.height}
         style={{ backgroundPosition: carouselImage.position }}
         loading={lazy ? 'lazy' : 'eager'}
         decoding={lazy ? 'sync' : 'async'}
         priority={!lazy}
-        quality={60}
-        onError={onError}
+        /* onError={onError} */
         blurDataURL={placeholderImgs[0]}
         placeholder='blur'
       />

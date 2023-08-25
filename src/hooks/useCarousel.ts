@@ -7,60 +7,60 @@ interface Props {
   timeBetweenSlides: number
 }
 
+type HandleCurrentSlideProps = {
+  itemId: string
+  smooth?: boolean
+}
+
 export const useCarousel = ({ itemIds, timeBetweenSlides }: Props) => {
   const [currentItemIndex, setCurrentItemIndex] = useState(0)
   const [sliding, setSliding] = useState(itemIds.length > 1)
-  const isVisible = useVisibilityChange()
-  const first = useRef(true)
+  const pageIsVisible = useVisibilityChange()
 
-  const carouselElementsRef = useRef<HTMLDivElement[]>([])
-  const scrollerRef = useRef<HTMLDivElement>(null)
+  const scrollerRef = useRef<HTMLUListElement>(null)
 
   const handleCurrentSlide = useCallback(
-    (itemId: string, smooth = true, scroll = true) => {
-      if (!scrollerRef.current || window.scrollY > viewHeight(20) || !isVisible || !scroll) return
+    ({ itemId, smooth = true }: HandleCurrentSlideProps) => {
+      if (!scrollerRef.current || !pageIsVisible) return
+
+      const scrollerRefItems = [...scrollerRef.current.childNodes] as HTMLElement[]
+
+      const element = scrollerRefItems.find(({ id }) => id === itemId)
+      scrollerRef.current.scrollTo({ left: element?.offsetLeft, behavior: smooth ? 'smooth' : 'auto' })
 
       setCurrentItemIndex(itemIds.indexOf(itemId))
       sessionStorage.setItem('currentSlideId', itemId)
-
-      const element = carouselElementsRef.current.find(({ id }) => id === itemId)
-      element?.scrollIntoView({
-        behavior: smooth ? 'smooth' : 'auto',
-      })
     },
-    [itemIds, isVisible]
+    [itemIds, pageIsVisible]
   )
 
-  const changeCurrentSlide = (itemId: string) => {
-    handleCurrentSlide(itemId)
-  }
+  const setCurrentSlide = (itemId: string) => handleCurrentSlide({ itemId })
+
+  useEffect(
+    () => {
+      const storageSlideId = sessionStorage.getItem('currentSlideId')
+      if (!sliding || !storageSlideId) return
+      handleCurrentSlide({ itemId: storageSlideId, smooth: true })
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
 
   useEffect(() => {
-    const storageSlideId = sessionStorage.getItem('currentSlideId')
-    if (!sliding || !storageSlideId) return
-
-    handleCurrentSlide(storageSlideId, !first.current)
-    first.current = false
-  }, [sliding, handleCurrentSlide])
-
-  useEffect(() => {
-    if (itemIds.length <= 1) return
+    if (itemIds.length <= 1 || window.scrollY > viewHeight(20)) return
 
     const interval = setInterval(() => {
-      handleCurrentSlide(itemIds[(currentItemIndex + 1) % itemIds.length])
+      handleCurrentSlide({ itemId: itemIds[(currentItemIndex + 1) % itemIds.length] })
     }, timeBetweenSlides)
 
     return () => clearInterval(interval)
-  }, [itemIds, timeBetweenSlides, isVisible, currentItemIndex, handleCurrentSlide])
-
-  const currentSlideId = itemIds[currentItemIndex]
+  }, [itemIds, timeBetweenSlides, pageIsVisible, currentItemIndex, handleCurrentSlide])
 
   return {
-    currentSlideId,
+    currentSlideId: itemIds[currentItemIndex],
     sliding,
     setSliding,
-    carouselElementsRef,
     scrollerRef,
-    changeCurrentSlide,
+    setCurrentSlide
   }
 }
