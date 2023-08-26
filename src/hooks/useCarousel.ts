@@ -40,7 +40,7 @@ export const useCarousel = ({ itemIds, timeBetweenSlides }: Props) => {
     () => {
       const storageSlideId = sessionStorage.getItem('currentSlideId')
       if (!sliding || !storageSlideId) return
-      handleCurrentSlide({ itemId: storageSlideId, smooth: true })
+      handleCurrentSlide({ itemId: storageSlideId, smooth: false })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
