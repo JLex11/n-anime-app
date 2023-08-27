@@ -50,17 +50,20 @@
 }
 
 .asideItem {
-  display: flex;
-  align-items: center;
+  display: grid;
+  place-items: center;
   position: relative;
-  width: fit-content;
-  padding: 0.3rem;
+  width: 100%;
+  height: 7rem;
   border: var(--borderWidth) solid transparent;
   border-radius: calc(6 * var(--borderWidth));
   background: #ffffff33;
   --borderWidth: 0.2rem;
   backdrop-filter: blur(5px);
   margin-inline-end: var(--scrollbar-width);
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
 .asideItem.active::after {
@@ -78,25 +81,27 @@
 }
 
 .asideItem span {
-  width: 3.5rem;
-  height: 100%;
-  font-size: 18pt;
+  font-size: 30pt;
   text-align: center;
+  z-index: 1;
 }
 
 .asideItem img {
-  border-radius: 0.6rem;
+  border-radius: calc(5 * var(--borderWidth));
   object-fit: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 .bgImage {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   z-index: -1;
   width: 100%;
   height: 100%;
-  filter: blur(10px) opacity(0.1);
+  filter: blur(15px) opacity(0.1);
   object-fit: cover;
 }
 
