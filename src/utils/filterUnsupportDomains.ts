@@ -8,13 +8,12 @@ const isValidDomain = (url?: string) => domainsRegexp.test(url ?? '')
 
 export const filterUnsupportDomains = (anime: Anime) => {
   const { images } = anime
-  const { coverImage, carouselImages } = images
 
   return {
     ...anime,
     images: {
-      coverImage: isValidDomain(coverImage) ? coverImage : null,
-      carouselImages: carouselImages?.filter(img => isValidDomain(img.link)) || []
+      coverImage: isValidDomain(images?.coverImage ?? '') ? images?.coverImage : null,
+      carouselImages: images?.carouselImages?.filter(img => isValidDomain(img.link)) || []
     }
   }
 }

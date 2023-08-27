@@ -6,7 +6,7 @@ import { AsideListItems } from './AsideListItems'
 export interface AsideProps {
   episodes: Episode[]
   animeId: string
-  animeImage?: string
+  animeImage?: string | null
   animeTitle?: string
   currentEpisode: number
 }

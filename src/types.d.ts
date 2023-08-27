@@ -44,7 +44,7 @@ export type CarouselImage = {
 }
 
 type AnimeImages = {
-  coverImage: string
+  coverImage: string | null
   carouselImages: CarouselImage[]
 }
 

@@ -7,7 +7,7 @@ import styles from './Anime.module.css'
 interface EpisodesProps {
   episodes: Episode[]
   animeTitle: string
-  fallbackImg?: string
+  fallbackImg?: string | null
 }
 
 export const Episodes = ({ episodes, animeTitle, fallbackImg }: EpisodesProps) => {

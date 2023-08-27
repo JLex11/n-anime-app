@@ -9,7 +9,7 @@ interface AsideListItemProps {
   animeId: string
   episode: Episode
   currentEpisode: number
-  animeImage?: string
+  animeImage?: string | null
   animeTitle?: string
 }
 
