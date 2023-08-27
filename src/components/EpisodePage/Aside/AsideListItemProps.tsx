@@ -1,3 +1,4 @@
+import PlayIcon from '@/components/Icons/PlayIcon'
 import { Episode } from '@/types'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -13,16 +14,22 @@ interface AsideListItemProps {
 }
 
 export const AsideListItem = ({ animeId, episode, currentEpisode, animeImage, animeTitle }: AsideListItemProps) => {
-  const itemClass = clsx(styles.asideItem, currentEpisode === episode.episode && styles.active)
+  const isSeeing = currentEpisode == episode.episode
+  const itemClass = clsx(styles.asideItem, isSeeing && styles.active)
+  const episodeImage = {
+    link: episode.image ?? animeImage ?? '/lights-blur.webp',
+    width: 150,
+    height: 100
+  }
 
   return (
     <li>
       <Link href={`/animes/${animeId}/${episode.episode}`} className={itemClass}>
-        <span>{episode.episode}</span>
+        <span>{isSeeing ? <PlayIcon /> : episode.episode}</span>
         <EpisodeImage
-          images={[{ link: episode.image }, { link: animeImage }]}
+          image={episodeImage}
           episode={episode.episode}
-          title={animeTitle ?? ''}
+          title={animeTitle ?? animeId.replaceAll('-', ' ')}
         />
       </Link>
     </li>

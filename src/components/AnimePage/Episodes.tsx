@@ -20,7 +20,11 @@ export const Episodes = ({ episodes, animeTitle, fallbackImg }: EpisodesProps) =
         {episodes.map(episode => (
           <Link key={episode.episodeId} href={`/animes/${episode.animeId}/${episode.episode}`}>
             <EpisodeImage
-              images={[{ link: episode.image }, { link: fallbackImg }]}
+              image={{
+                link: episode.image ?? fallbackImg ?? '/lights-blur.webp',
+                width: 150,
+                height: 100
+              }}
               episode={episode.episode}
               title={animeTitle}
               className={styles.episodeImage}

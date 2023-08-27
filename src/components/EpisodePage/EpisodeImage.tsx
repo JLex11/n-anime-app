@@ -1,30 +1,24 @@
-'use client'
-
-import { useFallbackImage } from '@/hooks/useFallbackImage'
-
 interface Props {
-  images: {
-    link?: string
+  image: {
+    link: string
     width?: number
     height?: number
     position?: string
-  }[]
+  }
   episode: number
   title: string
   className?: string
 }
 
-export const EpisodeImage = ({ images, episode, title, className }: Props) => {
-  const { currentImage: episodeImage, onError } = useFallbackImage(images, { width: 150, height: 100 })
-
+export const EpisodeImage = ({ image, episode, title, className }: Props) => {
   return (
     <img
-      src={episodeImage.link}
+      src={image.link}
       alt={`Episodio ${episode} de ${title}`}
-      width={episodeImage.width}
-      height={episodeImage.height}
-      onError={onError}
+      width={image.width}
+      height={image.height}
       decoding='async'
+      loading='lazy'
       className={className}
     />
   )
