@@ -1,3 +1,6 @@
+'use client'
+
+import { useFallbackImage } from '@/hooks/useFallbackImage'
 import { placeholderImgs } from '@/utils/placeHolderImgs'
 import Image from 'next/image'
 import styles from './Carousel.module.css'
@@ -9,10 +12,6 @@ interface PictureImage {
   position?: string
 }
 
-interface FilteredImage extends PictureImage {
-  link: string
-}
-
 interface Props {
   title: string
   images: PictureImage[]
@@ -20,12 +19,7 @@ interface Props {
 }
 
 export const Picture = ({ title, images, lazy }: Props) => {
-  // const { currentImage: carouselImage, onError } = useFallbackImage(images, { width: 1080, height: 650 })
-  const mappedImages = [
-    ...(images.filter(({ link }) => Boolean(link)) as FilteredImage[]),
-    { link: '/lights-blur.webp' }
-  ]
-  const [carouselImage] = mappedImages
+  const { currentImage: carouselImage, onError } = useFallbackImage(images, { width: 1080, height: 650 })
 
   return (
     <picture className={styles.carouselPicture}>
@@ -36,9 +30,8 @@ export const Picture = ({ title, images, lazy }: Props) => {
         height={/* carouselImage.height ||  */ 650}
         style={{ backgroundPosition: carouselImage.position }}
         loading={lazy ? 'lazy' : 'eager'}
-        decoding={lazy ? 'sync' : 'async'}
         priority={!lazy}
-        /* onError={onError} */
+        onError={onError}
         blurDataURL={placeholderImgs[0]}
         placeholder='blur'
       />

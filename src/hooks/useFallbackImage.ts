@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 interface Image {
-  link?: string
+  link?: string | null
   width?: number
   height?: number
   position?: string
@@ -31,8 +31,8 @@ export const useFallbackImage = (images: Image[], defaultDimensions: DefaultDime
 
   const currentImage = {
     link: indexedImages[currentImageIndex].link,
-    width: (indexedImages[currentImageIndex]?.width || defaultDimensions.width) * 0.75,
-    height: (indexedImages[currentImageIndex]?.height || defaultDimensions.height) * 0.75,
+    width: indexedImages[currentImageIndex]?.width || defaultDimensions.width /*  * 0.75 */,
+    height: indexedImages[currentImageIndex]?.height || defaultDimensions.height /*  * 0.75 */,
     position: indexedImages[currentImageIndex]?.position ?? 'center'
   }
 

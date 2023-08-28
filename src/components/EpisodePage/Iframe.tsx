@@ -1,5 +1,3 @@
-'use client'
-
 import { EpisodeVideo } from '@/types'
 import styles from './Episode.module.css'
 
@@ -16,7 +14,7 @@ export const Iframe = ({ iframeRef, currentIframeData }: Props) => {
       title={currentIframeData?.title}
       width={720}
       allowFullScreen
-      loading={'eager'}
+      loading='eager'
       ref={iframeRef}
       name='episode-iframe-video'
     />

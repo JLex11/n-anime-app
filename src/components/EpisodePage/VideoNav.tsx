@@ -69,20 +69,22 @@ export const VideoNav = ({ iframesData, handleIframeChange }: VideoNavProps) => 
 
   return (
     <nav className={styles.iframeNav} style={indicatorProps}>
-      <ul className={styles.iframeNavOptions} onMouseLeave={handleMouseLeave}>
-        {iframesData?.SUB?.map((iframe, i) => {
-          return (
-            <VideoNavItem
-              key={iframe.code}
-              iframe={iframe}
-              handleMouseEnter={handleMouseEnter}
-              handleButtonClick={handleButtonClick}
-              isActive={i === 0}
-              activeIframeRef={activeIframeRef}
-            />
-          )
-        })}
-      </ul>
+      {iframesData.SUB && (
+        <ul className={styles.iframeNavOptions} onMouseLeave={handleMouseLeave}>
+          {iframesData.SUB.map((iframe, i) => {
+            return (
+              <VideoNavItem
+                key={iframe.code}
+                iframe={iframe}
+                handleMouseEnter={handleMouseEnter}
+                handleButtonClick={handleButtonClick}
+                isActive={i === 0}
+                activeIframeRef={activeIframeRef}
+              />
+            )
+          })}
+        </ul>
+      )}
       <div className={styles.hoverIndicator}></div>
     </nav>
   )
