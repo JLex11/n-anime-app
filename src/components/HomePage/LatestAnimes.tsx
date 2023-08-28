@@ -1,6 +1,5 @@
 import { getLatestAnimes } from '@/services/getLatestAnimes'
-import { CardsSection } from '../CardsSection/CardsSection'
-import LatestIcon from '../Icons/LatestIcon'
+import { HomeCard } from './HomeCard'
 import { CardDetails } from './LatestAnimesCardDetails'
 
 export const LatestAnimes = async () => {
@@ -20,9 +19,21 @@ export const LatestAnimes = async () => {
       height: 350,
       showOnHover: (
         <CardDetails description={anime.description} status={anime.status} rank={anime.rank} genres={anime.genres} />
-      ),
+      )
     }
   })
 
-  return <CardsSection title='Últimos animes' icon={<LatestIcon />} data={animeData} />
+  return (
+    <>
+      {animeData.map(({ key, title, link, imageSrc, fbSrc, width, height, showOnHover }) => (
+        <HomeCard
+          key={key}
+          image={{ src: imageSrc, fbSrc, width, height }}
+          title={title}
+          link={link}
+          showOnHover={showOnHover}
+        />
+      ))}
+    </>
+  )
 }

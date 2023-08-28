@@ -82,3 +82,19 @@
   font-size: 10pt;
   background: var(--pill-bg);
 }
+
+.cardSkeleton .card_anchor {
+  background-color: rgb(117, 117, 117);
+}
+
+.cardSkeleton .title {
+  width: 85%;
+  height: 1.3rem;
+  background: linear-gradient(to right bottom, rgb(148, 148, 148), rgb(194, 194, 194), rgb(148, 148, 148));
+  border-radius: 1rem;
+}
+
+.cardSkeleton .pill {
+  width: 25%;
+  height: 1rem;
+}

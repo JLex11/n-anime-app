@@ -1,6 +1,5 @@
 import { getLatestEpisodes } from '@/services/getLatestEpisodes'
-import { CardsSection } from '../CardsSection/CardsSection'
-import LatestIcon from '../Icons/LatestIcon'
+import { HomeCard } from './HomeCard'
 
 export const LatestEpisodes = async () => {
   const latestEpisodes = await getLatestEpisodes()
@@ -13,11 +12,15 @@ export const LatestEpisodes = async () => {
       link: `/animes/${episode.animeId}/${episode.episode}`,
       pill: { label: `Episodio ${episode.episode}` },
       width: 350,
-      height: 250,
+      height: 250
     }
   })
 
   return (
-    <CardsSection title='Últimos episodios' icon={<LatestIcon />} data={episodeData} gridWidth={230} gridHeight={190} />
+    <>
+      {episodeData.map(({ key, title, link, pill, imageSrc, width, height }) => (
+        <HomeCard key={key} image={{ src: imageSrc, width, height }} title={title} link={link} pill={pill} />
+      ))}
+    </>
   )
 }
