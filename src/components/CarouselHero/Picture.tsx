@@ -32,8 +32,8 @@ export const Picture = ({ title, images, lazy }: Props) => {
       <Image
         src={carouselImage.link}
         alt={title}
-        width={carouselImage.width || 1080}
-        height={carouselImage.height || 650}
+        width={/* carouselImage.width ||  */ 1080}
+        height={/* carouselImage.height ||  */ 650}
         style={{ backgroundPosition: carouselImage.position }}
         loading={lazy ? 'lazy' : 'eager'}
         decoding={lazy ? 'sync' : 'async'}
