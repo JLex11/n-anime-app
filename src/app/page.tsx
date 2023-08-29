@@ -1,5 +1,5 @@
 import { CardsSection } from '@/components/CardsSection'
-import { CarouselHero } from '@/components/CarouselHero/Carousel'
+import { CarouselHero } from '@/components/Carousel'
 import styles from '@/components/HomePage/Home.module.css'
 import { HomeAside } from '@/components/HomePage/HomeAside'
 import { LatestAnimes } from '@/components/HomePage/LatestAnimes'
