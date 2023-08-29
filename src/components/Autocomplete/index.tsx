@@ -1,6 +1,6 @@
 import { useAutocomplete } from '@/hooks/useAutocomplete'
 import clsx from 'clsx'
-import { useId } from 'react'
+import { useId, useMemo } from 'react'
 import styles from './Autocomplete.module.css'
 import { CollectionsPanel } from './CollectionsPanel'
 import { AutocompleteContext } from './Contexts'
@@ -28,11 +28,14 @@ export const Autocomplete = ({ handleLaunchAutocomplete }: Props) => {
   const resultsPanelClassName = clsx(styles.resultsPanel, autocomplete.isOpen && styles.isOpen)
   const formClassName = clsx(styles.form, autocomplete.isOpen && styles.isOpen)
 
-  const providerValue = {
-    activeItemId: autocomplete.activeItemId ?? 0,
-    setActiveItemId,
-    handleLaunchAutocomplete
-  }
+  const providerValue = useMemo(
+    () => ({
+      activeItemId: autocomplete.activeItemId ?? 0,
+      setActiveItemId,
+      handleLaunchAutocomplete
+    }),
+    [autocomplete.activeItemId, setActiveItemId, handleLaunchAutocomplete]
+  )
 
   return (
     <AutocompleteContext.Provider value={providerValue}>
