@@ -14,22 +14,21 @@ export const Nav = ({ pages }: NavProps) => {
   const pathname = usePathname()
   const paths = pathname.split('/')
 
+  const createPageClass = (page: Page) => {
+    const activePage = paths.some(path => page.link.includes(path) && path !== '') || page.link === pathname
+    return clsx(styles.pageItem, activePage && styles.active)
+  }
+
   return (
     <nav className={styles.headerNav}>
       <ul className={styles.pages}>
-        {pages &&
-          pages.map(page => {
-            const activePage = paths.some(path => page.link.includes(path) && path !== '') || page.link === pathname
-            const pageClass = clsx(styles.pageItem, activePage && styles.active)
-
-            return (
-              <li key={page.link}>
-                <Link href={page.link} className={pageClass}>
-                  {page.name}
-                </Link>
-              </li>
-            )
-          })}
+        {pages?.map(page => (
+          <li key={page.link}>
+            <Link href={page.link} className={createPageClass(page)}>
+              {page.name}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   )

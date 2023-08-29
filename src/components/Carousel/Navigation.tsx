@@ -13,22 +13,23 @@ interface Props {
 }
 
 export const CarouselNavigation = ({ buttonsData, currentSlideId, setCurrentSlide }: Props) => {
+  const createButtonClass = (animeId: string) =>
+    clsx(styles.navigateButton, animeId === currentSlideId && styles.active)
+
+  const createHandleClick = (animeId: string) => () => setCurrentSlide(animeId)
+
   return (
     <div className={styles.navigateButtons}>
       <div className={styles.containerButtons}>
-        {buttonsData.map(({ title, animeId }) => {
-          const buttonClass = clsx(styles.navigateButton, animeId === currentSlideId && styles.active)
-
-          return (
-            <button
-              key={animeId}
-              className={buttonClass}
-              data-anime-id={animeId}
-              title={title}
-              onClick={() => setCurrentSlide(animeId)}
-            />
-          )
-        })}
+        {buttonsData.map(({ title, animeId }) => (
+          <button
+            key={animeId}
+            className={createButtonClass(animeId)}
+            data-anime-id={animeId}
+            title={title}
+            onClick={createHandleClick(animeId)}
+          />
+        ))}
       </div>
     </div>
   )

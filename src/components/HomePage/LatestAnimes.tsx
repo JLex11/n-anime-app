@@ -12,11 +12,13 @@ export const LatestAnimes = async () => {
     return {
       key: anime.animeId,
       title: anime.title,
+      image: {
+        src: imageSrc,
+        fbSrc,
+        width: 300,
+        height: 350
+      },
       link: `/animes/${anime.animeId}`,
-      imageSrc,
-      fbSrc,
-      width: 300,
-      height: 350,
       showOnHover: (
         <CardDetails description={anime.description} status={anime.status} rank={anime.rank} genres={anime.genres} />
       )
@@ -25,14 +27,8 @@ export const LatestAnimes = async () => {
 
   return (
     <>
-      {animeData.map(({ key, title, link, imageSrc, fbSrc, width, height, showOnHover }) => (
-        <HomeCard
-          key={key}
-          image={{ src: imageSrc, fbSrc, width, height }}
-          title={title}
-          link={link}
-          showOnHover={showOnHover}
-        />
+      {animeData.map(({ key, title, link, image, showOnHover }) => (
+        <HomeCard key={key} image={image} title={title} link={link} showOnHover={showOnHover} />
       ))}
     </>
   )

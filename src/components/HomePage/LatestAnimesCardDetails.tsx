@@ -17,11 +17,13 @@ export const CardDetails = ({ description, status, genres, rank }: CardDetailsPr
         </span>
       </header>
       <p>{description}</p>
-      <ul>
-        {genres?.map(genre => (
-          <li key={genre}>{genre}</li>
-        ))}
-      </ul>
+      {genres && (
+        <ul>
+          {genres.map(genre => (
+            <li key={genre}>{genre}</li>
+          ))}
+        </ul>
+      )}
     </>
   )
 }
