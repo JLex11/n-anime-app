@@ -91,7 +91,7 @@ export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: Autoc
     [getItemRef]
   )
 
-  const debouncedGetAnimeItems = debouncePromise<string[], AutocompleteItem[]>(getAnimeItems, 500)
+  const debouncedGetAnimeItems = debouncePromise<string[], AutocompleteItem[]>(getAnimeItems, 300)
 
   const handleActiveItem = useCallback(
     ({ item, event, state }: OnActiveParams<AutocompleteItem>) => {
