@@ -11,6 +11,8 @@ interface EpisodesProps {
 }
 
 export const Episodes = ({ episodes, animeTitle, fallbackImg }: EpisodesProps) => {
+  if (episodes.length === 0) return null
+
   const episodesClass = clsx(styles.sectionGrid, styles.episodesList)
 
   return (

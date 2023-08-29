@@ -7,12 +7,11 @@ import { CarouselNavigation } from './Navigation'
 
 interface Props {
   animes: Anime[]
-  showInfo?: boolean
   timeBetweenSlides?: number
   children: React.ReactNode
 }
 
-export const CarouselClient = ({ animes, showInfo, children, timeBetweenSlides = 10000 }: Props) => {
+export const CarouselWrapper = ({ animes, children, timeBetweenSlides = 10000 }: Props) => {
   const { currentSlideId, setCurrentSlide, scrollerRef } = useCarousel({
     itemIds: animes.map(({ animeId }) => animeId),
     timeBetweenSlides

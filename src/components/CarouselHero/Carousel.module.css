@@ -140,13 +140,10 @@
   padding: var(--size);
   border: none;
   border-radius: 50%;
-  background: #095cc2d2;
-  transform: translateY(-2.65rem);
-  --size: 7px;
-  transition: 
-    background 0.2s,
-    padding 0.3s,
-    border-radius 0.3s;
+  background-color: #095cc2d2;
+  transform: translateY(-2.6rem);
+  transition: background-color 0.2s, padding 0.3s, border-radius 0.3s;
+  --size: 0.6rem;
 }
 
 .navigateButton:focus, .navigateButton:focus-visible {
@@ -154,11 +151,17 @@
 }
 
 .navigateButton:hover {
-  background: #0777ff;
+  background-color: #0777ff;
 }
 
 .navigateButton.active {
-  padding: var(--size) 20px;
+  padding: var(--size) calc(var(--size) * 2);
   border-radius: 10px;
-  background: #fff;
+  background-color: #fff;
 }
+
+/* @media (width <= 48rem) {
+  .navigateButton {
+    transform: translatey(-6.15rem);
+  }
+} */

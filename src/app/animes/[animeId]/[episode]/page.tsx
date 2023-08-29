@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props) {
   const { animeId, episode } = params
 
   return {
-    title: `Episodio ${episode} de ${animeId.replace(/\-/g, ' ')}`,
+    title: `Episodio ${episode} de ${animeId.replace(/\-/g, ' ')}`
   }
 }
 

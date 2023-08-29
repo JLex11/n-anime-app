@@ -4,7 +4,7 @@ import { useId } from 'react'
 import styles from './Autocomplete.module.css'
 import { CollectionsPanel } from './CollectionsPanel'
 import { AutocompleteContext } from './Contexts'
-import { Input } from './Input'
+import { AutocompleteInput } from './Input'
 
 interface Props {
   handleLaunchAutocomplete: React.Dispatch<React.SetStateAction<boolean>>
@@ -31,14 +31,14 @@ export const Autocomplete = ({ handleLaunchAutocomplete }: Props) => {
   const providerValue = {
     activeItemId: autocomplete.activeItemId ?? 0,
     setActiveItemId,
-    handleLaunchAutocomplete,
+    handleLaunchAutocomplete
   }
 
   return (
     <AutocompleteContext.Provider value={providerValue}>
       <div className={styles.autocompleteLayer} id={autocompleteId} onClick={handleClick}>
         <form className={formClassName}>
-          <Input status={autocomplete.status} inputRef={inputRef} inputProps={inputProps} />
+          <AutocompleteInput status={autocomplete.status} inputRef={inputRef} inputProps={inputProps} />
           {autocomplete.isOpen && (
             <CollectionsPanel
               collections={autocomplete.collections}

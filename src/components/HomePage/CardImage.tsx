@@ -1,5 +1,7 @@
 'use client'
 
+import { useFallbackImage } from '@/hooks/useFallbackImage'
+
 interface Props {
   src: string
   fbSrc?: string
@@ -16,21 +18,23 @@ interface Props {
 type HandleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => void
 
 export const CardImage = ({ src, fbSrc, alt, dimensions, loading, className: cssClass }: Props) => {
-  const handleImageError: HandleImageError = e => {
-    const target = e.target as HTMLImageElement
-    if (target.src === fbSrc) return
-    target.src = fbSrc ?? ''
-  }
+  const { currentImage, onError } = useFallbackImage(
+    [
+      { link: src, ...dimensions },
+      { link: fbSrc, ...dimensions }
+    ],
+    { width: 300, height: 350 }
+  )
 
   return (
     <img
-      src={src}
+      src={currentImage.link}
       alt={alt}
-      width={dimensions.width}
-      height={dimensions.height}
+      width={currentImage.width}
+      height={currentImage.height}
       loading={loading ?? 'lazy'}
       className={cssClass}
-      onError={handleImageError}
+      onError={onError}
       decoding='async'
     />
   )

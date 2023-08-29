@@ -80,7 +80,8 @@
 .otherNames {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 1rem;
+  align-items: center;
 }
 
 .section {

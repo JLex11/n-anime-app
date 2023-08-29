@@ -1,5 +1,3 @@
-'use client'
-
 import clsx from 'clsx'
 import { ShortcutLetter } from '../Common/ShortcutLetter'
 import LoadingIcon from '../Icons/LoadingIcon'
@@ -11,7 +9,7 @@ interface InputProps {
   inputProps: any
 }
 
-export function Input({ status, inputRef, inputProps }: InputProps) {
+export const AutocompleteInput = ({ status, inputRef, inputProps }: InputProps) => {
   const loadingIconClass = clsx(styles.inputIcon, styles.loadingIcon)
 
   return (
