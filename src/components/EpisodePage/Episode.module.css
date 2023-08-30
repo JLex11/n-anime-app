@@ -58,14 +58,12 @@
   display: grid;
   place-items: center;
   position: relative;
-  width: 100%;
+  width: calc(100% - var(--borderWidth) * 2);
   height: 7rem;
   border: var(--borderWidth) solid transparent;
   border-radius: calc(6 * var(--borderWidth));
   background: #ffffff33;
   --borderWidth: 0.2rem;
-  backdrop-filter: blur(5px);
-  margin-inline-end: var(--scrollbar-width);
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -181,7 +179,7 @@
   color: orange;
   position: absolute;
   top: 0.2rem;
-  right: 0.3rem;
+  right: 0.5rem;
 }
 
 .hoverIndicator {

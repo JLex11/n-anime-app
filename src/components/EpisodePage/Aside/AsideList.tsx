@@ -2,7 +2,7 @@ import { AsideProps } from '.'
 import styles from '../Episode.module.css'
 import { AsideListItem } from './AsideListItem'
 
-export function AsideListItems({ episodes, animeId, currentEpisode, animeImage, animeTitle }: AsideProps) {
+export function AsideList({ episodes, animeId, currentEpisode, animeImage, animeTitle }: AsideProps) {
   return (
     <ul className={styles.asideList}>
       {episodes.map(episode => (
@@ -15,6 +15,9 @@ export function AsideListItems({ episodes, animeId, currentEpisode, animeImage, 
           animeTitle={animeTitle}
         />
       ))}
+      <li>
+        <span>Cargar mas</span>
+      </li>
     </ul>
   )
 }
