@@ -1,6 +1,6 @@
 import { AsideProps } from '.'
 import styles from '../Episode.module.css'
-import { AsideListItem } from './AsideListItemProps'
+import { AsideListItem } from './AsideListItem'
 
 export const AsideListItems = ({ episodes, animeId, currentEpisode, animeImage, animeTitle }: AsideProps) => {
   return (

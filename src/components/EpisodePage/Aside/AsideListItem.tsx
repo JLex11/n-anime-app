@@ -25,11 +25,12 @@ export const AsideListItem = ({ animeId, episode, currentEpisode, animeImage, an
   return (
     <li>
       <Link href={`/animes/${animeId}/${episode.episode}`} className={itemClass}>
-        <span>{isSeeing ? <PlayIcon /> : episode.episode}</span>
+        <span>{isSeeing ? <PlayIcon width={50} /> : episode.episode}</span>
         <EpisodeImage
           image={episodeImage}
           episode={episode.episode}
           title={animeTitle ?? animeId.replaceAll('-', ' ')}
+          className={styles.episodeImage}
         />
       </Link>
     </li>

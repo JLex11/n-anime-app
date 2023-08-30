@@ -3,7 +3,6 @@ import { getAnime } from '@/services/getAnime'
 import { getEpisodeSources } from '@/services/getEpisodeSources'
 import { getLatestEpisodes } from '@/services/getLatestEpisodes'
 import { toCap } from '@/utils/textConverts'
-import { redirect } from 'next/navigation'
 
 interface Props {
   params: {
@@ -12,12 +11,12 @@ interface Props {
   }
 }
 
-export default async function AnimePage({ params }: Props) {
+export default async function EpisodePage({ params }: Props) {
   const { animeId, episode } = params
   const episodeSources = await getEpisodeSources(`${animeId}-${episode}`)
   const animeInfo = await getAnime(animeId)
 
-  if (!episodeSources?.videos?.SUB) return redirect('/404')
+  if (!(episodeSources?.videos.SUB || episodeSources?.videos.SUB)) return <h2>Episodio no encontrado.</h2>
 
   return (
     <VideoSection

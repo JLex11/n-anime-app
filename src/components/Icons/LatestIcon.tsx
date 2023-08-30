@@ -11,7 +11,7 @@ export default function LatestIcon({ width = 24, height, strokeWidth = 1.5, clas
       className={cssClass}
       width={width}
       height={height ?? width}
-      viewBox={`0 0 ${width} ${height || width}`}
+      viewBox='0 0 24 24'
       strokeWidth={strokeWidth}
       stroke='currentColor'
       fill='none'

@@ -23,7 +23,7 @@ export default async function AnimePage({ params: { animeId } }: Props) {
   const anime = await getAnime(animeId)
   const episodes = await getAnimeEpisodes(animeId)
 
-  if (!anime || !anime.animeId) redirect('/404')
+  if (!anime) redirect('/404')
 
   return (
     <>

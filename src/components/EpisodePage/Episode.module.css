@@ -15,18 +15,24 @@
 
 .mainContent {
   display: flex;
-  gap: 3rem;
+  column-gap: 2rem;
+  row-gap: 1rem;
   width: 100%;
+}
+
+.mainContent.episodeNotFound {
+  flex-direction: column;
 }
 
 .aside {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 1rem;
   overflow-y: auto;
   overflow-x: hidden;
-  width: 17rem;
 }
+
 
 .asideHeader {
   display: flex;
@@ -43,8 +49,8 @@
 }
 
 .asideList {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   gap: 0.5rem;
   width: 100%;
 }
@@ -86,12 +92,13 @@
   z-index: 1;
 }
 
-.asideItem img {
+.asideItem .episodeImage {
   border-radius: calc(5 * var(--borderWidth));
   object-fit: cover;
   position: absolute;
   width: 100%;
   height: 100%;
+  filter: brightness(0.7);
 }
 
 .bgImage {
@@ -111,6 +118,7 @@
   align-items: center;
   width: 100%;
   gap: 1rem;
+  flex: 5;
 }
 
 .videoHeader {
@@ -146,11 +154,13 @@
   width: 100%;
   height: 100%;
   border-radius: 0.5rem;
+  overflow-x: auto;
 }
 
 .iframeOption {
   width: 100%;
   height: 100%;
+  min-width: 5rem;
   padding: 0.7rem 0.5rem;
   position: relative;
   z-index: 1;
@@ -183,8 +193,8 @@
   width: var(--indicator-width);
   height: 100%;
   border-radius: 0.5rem;
-  background-color: rgba(253, 254, 254, 0.2);
-  transition: left 0.3s ease;
+  background-color: rgba(253, 254, 254, 0.126);
+  transition: left 0.2s ease;
 }
 
 .iframe {
@@ -193,4 +203,11 @@
   opacity: 1;
   aspect-ratio: 16/9;
   box-shadow: 0 0 5rem rgba(0, 0, 0, 0.9);
+}
+
+@media (width <= 68rem) {
+  .mainContent {
+    flex-direction: column;
+    row-gap: 2rem;
+  }
 }
