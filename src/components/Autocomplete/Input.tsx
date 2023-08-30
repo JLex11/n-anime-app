@@ -9,7 +9,7 @@ interface InputProps {
   inputProps: any
 }
 
-export const AutocompleteInput = ({ status, inputRef, inputProps }: InputProps) => {
+export function AutocompleteInput({ status, inputRef, inputProps }: InputProps) {
   const loadingIconClass = clsx(styles.inputIcon, styles.loadingIcon)
 
   return (

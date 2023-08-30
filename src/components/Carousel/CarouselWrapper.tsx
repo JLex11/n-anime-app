@@ -11,7 +11,7 @@ interface Props {
   children: React.ReactNode
 }
 
-export const CarouselWrapper = ({ animes, children, timeBetweenSlides = 10000 }: Props) => {
+export function CarouselWrapper({ animes, children, timeBetweenSlides = 10000 }: Props) {
   const { currentSlideId, setCurrentSlide, scrollerRef } = useCarousel({
     itemIds: animes.map(({ animeId }) => animeId),
     timeBetweenSlides

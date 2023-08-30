@@ -1,6 +1,6 @@
 import styles from './Anime.module.css'
 
-export const Description = ({ description }: { description: string }) => {
+export function Description({ description }: { description: string }) {
   return (
     <section className={styles.section}>
       <h2 className={styles.sectionTitle}>Descripcion</h2>

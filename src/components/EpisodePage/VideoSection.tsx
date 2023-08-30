@@ -13,7 +13,7 @@ interface Props {
   title?: string
 }
 
-export const VideoSection = ({ iframesData, title }: Props) => {
+export function VideoSection({ iframesData, title }: Props) {
   return (
     <VideoSectionWrapper iframesData={iframesData}>
       <header className={styles.videoHeader}>

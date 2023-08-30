@@ -9,7 +9,7 @@ interface Props {
   index: number
 }
 
-export const Item = ({ anime, showInfo, index }: Props) => {
+export function Item({ anime, showInfo, index }: Props) {
   const pictureImages = anime.images?.carouselImages.filter(carouselImage => carouselImage.link)
   const fbImage = { link: anime.images.coverImage }
 

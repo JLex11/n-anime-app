@@ -13,7 +13,7 @@ interface AsideListItemProps {
   animeTitle?: string
 }
 
-export const AsideListItem = ({ animeId, episode, currentEpisode, animeImage, animeTitle }: AsideListItemProps) => {
+export function AsideListItem({ animeId, episode, currentEpisode, animeImage, animeTitle }: AsideListItemProps) {
   const isSeeing = currentEpisode == episode.episode
   const itemClass = clsx(styles.asideItem, isSeeing && styles.active)
   const episodeImage = {

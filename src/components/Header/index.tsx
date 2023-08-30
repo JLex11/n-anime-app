@@ -13,7 +13,7 @@ interface Props {
   pages?: Page[]
 }
 
-export const Header = ({ pages }: Props) => {
+export function Header ({ pages }: Props) {
   return (
     <HeaderWrapper>
       <div className={styles.headerContainer}>

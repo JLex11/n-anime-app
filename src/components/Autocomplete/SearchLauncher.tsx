@@ -12,7 +12,7 @@ interface Props {
   children?: React.ReactNode
 }
 
-export const SearchLauncher = ({ className: cssClass, children }: Props) => {
+export function SearchLauncher({ className: cssClass, children }: Props) {
   const [autocompleteLaunched, setAutocompleteLaunched] = useState(false)
 
   const handleToggleSearch = () => setAutocompleteLaunched(!autocompleteLaunched)
@@ -20,7 +20,7 @@ export const SearchLauncher = ({ className: cssClass, children }: Props) => {
 
   const hotkeysOptions = {
     preventDefault: true,
-    enableOnFormTags: true,
+    enableOnFormTags: true
   }
 
   useHotkeys(autoCompleteHotKeys.LAUNCH, handleToggleSearch, hotkeysOptions)

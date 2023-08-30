@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Badge } from '../Common/Badge'
 import styles from './Anime.module.css'
 
-export const Genres = ({ genres }: { genres: string[] }) => {
+export function Genres({ genres }: { genres: string[] }) {
   if (genres.length === 0) return null
 
   return (

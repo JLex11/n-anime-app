@@ -7,7 +7,7 @@ interface CardDetailsProps {
   genres?: Anime['genres']
 }
 
-export const CardDetails = ({ description, status, genres, rank }: CardDetailsProps) => {
+export function CardDetails({ description, status, genres, rank }: CardDetailsProps) {
   return (
     <>
       <header>

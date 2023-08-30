@@ -8,7 +8,7 @@ interface Props {
   genres: string[]
 }
 
-export const ItemInfo = ({ animeId, title, genres }: Props) => {
+export function ItemInfo({ animeId, title, genres }: Props) {
   return (
     <div className={styles.info}>
       <div className={styles.content}>

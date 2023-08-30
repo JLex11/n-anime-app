@@ -10,7 +10,7 @@ interface Props {
   className?: string
 }
 
-export const EpisodeImage = ({ image, episode, title, className }: Props) => {
+export function EpisodeImage({ image, episode, title, className }: Props) {
   return (
     <img
       src={image.link}

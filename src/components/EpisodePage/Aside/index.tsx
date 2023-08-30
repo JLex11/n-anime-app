@@ -11,7 +11,7 @@ export interface AsideProps {
   currentEpisode: number
 }
 
-export const Aside = ({ episodes, animeId, animeImage, animeTitle, currentEpisode }: AsideProps) => {
+export function Aside({ episodes, animeId, animeImage, animeTitle, currentEpisode }: AsideProps) {
   return (
     <aside className={styles.aside}>
       <AsideHeader animeImage={animeImage} animeTitle={animeTitle} />

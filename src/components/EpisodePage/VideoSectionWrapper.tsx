@@ -16,7 +16,7 @@ interface Props {
   children: React.ReactNode
 }
 
-export const VideoSectionWrapper = ({ iframesData, children }: Props) => {
+export function VideoSectionWrapper({ iframesData, children }: Props) {
   const [currentIframeData, setCurrentIframeData] = useState(iframesData.SUB?.[0])
 
   const iframeRef = useRef<HTMLIFrameElement>(null)

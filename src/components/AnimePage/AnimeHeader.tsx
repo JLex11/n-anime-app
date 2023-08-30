@@ -6,7 +6,7 @@ interface Props {
   otherTitles: string[]
 }
 
-export const AnimeHeader = ({ title, otherTitles }: Props) => {
+export function AnimeHeader({ title, otherTitles }: Props) {
   return (
     <header className={styles.header}>
       <h1 className={styles.headerTitle}>{title}</h1>

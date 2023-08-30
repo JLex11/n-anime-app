@@ -18,7 +18,7 @@ interface Props {
   }[]
 }
 
-export const CollectionsPanel = ({ className: cssClass, panelRef, panelProps, collections }: Props) => {
+export function CollectionsPanel({ className: cssClass, panelRef, panelProps, collections }: Props) {
   return (
     <div className={cssClass} ref={panelRef} {...(panelProps as any)}>
       <div className={styles.resultsContainer}>

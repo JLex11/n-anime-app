@@ -10,7 +10,7 @@ interface Props {
   handleLaunchAutocomplete: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const Autocomplete = ({ handleLaunchAutocomplete }: Props) => {
+export function Autocomplete({ handleLaunchAutocomplete }: Props) {
   const { autocomplete, setActiveItemId, inputRef, panelRef, inputProps, panelProps } = useAutocomplete({
     handleLaunchAutocomplete,
     placeholder: 'Rey de los Piratas, Gabimaru el Hueco...'

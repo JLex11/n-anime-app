@@ -8,7 +8,7 @@ interface Props {
   title: string
 }
 
-export const AnimeAside = ({ image, status, title }: Props) => {
+export function AnimeAside({ image, status, title }: Props) {
   const aspectRatio = 9 / 12
   const placeholderImg = placeholderImgs.at(0)
 

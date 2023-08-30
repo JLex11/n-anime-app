@@ -18,10 +18,10 @@ interface VideoNavProps {
   handleIframeChange: (e: React.MouseEvent<HTMLLIElement>) => void
 }
 
-export const VideoNav = ({ iframesData, handleIframeChange }: VideoNavProps) => {
+export function VideoNav({ iframesData, handleIframeChange }: VideoNavProps) {
   const [indicatorProps, setIndicatorProps] = useState<CSSProperties>({
     '--indicator-left': '0px',
-    '--indicator-width': '0px',
+    '--indicator-width': '0px'
   })
 
   const activeIframeRef = useRef<HTMLLIElement | null>(null)
@@ -29,7 +29,7 @@ export const VideoNav = ({ iframesData, handleIframeChange }: VideoNavProps) => 
   const handleActiveIframe = ({ left, width }: handleActiveProps) => {
     setIndicatorProps({
       '--indicator-left': `${left}px`,
-      '--indicator-width': `${width}px`,
+      '--indicator-width': `${width}px`
     })
   }
 

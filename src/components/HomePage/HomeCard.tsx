@@ -21,14 +21,14 @@ interface CardProps {
   showOnHover?: React.ReactNode
 }
 
-export const HomeCard = ({ title, link, image, pill, showOnHover }: CardProps) => {
+export function HomeCard({ title, link, image, pill, showOnHover }: CardProps) {
   const mappedImage = {
     ...image,
     dimensions: {
       width: image.width,
-      height: image.height,
+      height: image.height
     },
-    alt: title,
+    alt: title
   }
 
   return (

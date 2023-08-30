@@ -17,7 +17,7 @@ const autocompleteInitialState: AutocompleteState<AutocompleteItem> = {
   status: 'idle',
 }
 
-export const useAutocomplete = ({ placeholder, handleLaunchAutocomplete }: AutocompleteProps) => {
+export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: AutocompleteProps) {
   const [autocompleteState, setAutocompleteState] = useState(autocompleteInitialState)
 
   const inputRef = useRef<HTMLInputElement>(null)

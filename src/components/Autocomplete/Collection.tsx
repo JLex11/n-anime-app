@@ -10,7 +10,7 @@ interface Props {
   sourceId: string
 }
 
-export const Collection = ({ items, sourceId }: Props) => {
+export function Collection({ items, sourceId }: Props) {
   if (items.length === 0) return null
 
   return (

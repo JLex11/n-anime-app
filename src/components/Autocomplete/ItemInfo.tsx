@@ -1,7 +1,7 @@
 import { AutocompleteItem } from '@/hooks/useAutocomplete.types'
 import styles from './Autocomplete.module.css'
 
-export const ItemInfo = ({ item }: { item: AutocompleteItem }) => {
+export function ItemInfo({ item }: { item: AutocompleteItem }) {
   return (
     <div className={styles.itemInfo}>
       <div className={styles.itemContent}>

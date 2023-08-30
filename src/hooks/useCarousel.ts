@@ -12,7 +12,7 @@ type HandleCurrentSlideProps = {
   smooth?: boolean
 }
 
-export const useCarousel = ({ itemIds, timeBetweenSlides }: Props) => {
+export function useCarousel({ itemIds, timeBetweenSlides }: Props) {
   const [currentItemIndex, setCurrentItemIndex] = useState(0)
   const [sliding, setSliding] = useState(itemIds.length > 1)
   const pageIsVisible = useVisibilityChange()

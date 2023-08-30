@@ -10,7 +10,7 @@ interface NavProps {
   pages?: Page[]
 }
 
-export const Nav = ({ pages }: NavProps) => {
+export function Nav({ pages }: NavProps) {
   const pathname = usePathname()
   const paths = pathname.split('/')
 

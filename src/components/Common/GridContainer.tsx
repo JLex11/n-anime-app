@@ -13,11 +13,11 @@ interface CSSProperties extends React.CSSProperties {
   '--grid-gap'?: string
 }
 
-export const GridContainer = ({ children, width, height, gap }: Props) => {
+export function GridContainer({ children, width, height, gap }: Props) {
   const gridStyles: CSSProperties = {
     '--grid-width': `${width || 270}px`,
     '--grid-height': `${height || 450}px`,
-    '--grid-gap': gap || '2rem',
+    '--grid-gap': gap || '2rem'
   }
 
   return (

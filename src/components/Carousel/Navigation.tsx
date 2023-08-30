@@ -12,7 +12,7 @@ interface Props {
   setCurrentSlide: (animeId: string) => void
 }
 
-export const CarouselNavigation = ({ buttonsData, currentSlideId, setCurrentSlide }: Props) => {
+export function CarouselNavigation({ buttonsData, currentSlideId, setCurrentSlide }: Props) {
   const createButtonClass = (animeId: string) =>
     clsx(styles.navigateButton, animeId === currentSlideId && styles.active)
 

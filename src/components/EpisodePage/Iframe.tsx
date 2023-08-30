@@ -6,7 +6,7 @@ interface Props {
   currentIframeData: EpisodeVideo
 }
 
-export const Iframe = ({ iframeRef, currentIframeData }: Props) => {
+export function Iframe({ iframeRef, currentIframeData }: Props) {
   return (
     <iframe
       className={styles.iframe}

@@ -11,7 +11,7 @@ interface Props {
   crumbs: Crumb[]
 }
 
-export const BreadCrumb = ({ crumbs }: Props) => {
+export function BreadCrumb({ crumbs }: Props) {
   const createItemClass = (path?: string) => clsx(styles.breadcrumbItem, !path && styles.notHover)
 
   return (

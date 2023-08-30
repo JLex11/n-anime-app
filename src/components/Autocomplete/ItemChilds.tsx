@@ -8,7 +8,7 @@ interface Props {
   handleLaunchAutocomplete: (value: boolean) => void
 }
 
-export const ItemChilds = ({ childItems, handleLaunchAutocomplete }: Props) => {
+export function ItemChilds({ childItems, handleLaunchAutocomplete }: Props) {
   return (
     <div className={styles.childsItemsContainer}>
       <h5 className={styles.childsItemsTitle}>{childItems.title}</h5>

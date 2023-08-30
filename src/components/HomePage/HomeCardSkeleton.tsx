@@ -6,7 +6,7 @@ interface CardProps {
   hasPill?: boolean
 }
 
-export const HomeCardSkeleton = ({ hasPill = false }: CardProps) => {
+export function HomeCardSkeleton({ hasPill = false }: CardProps) {
   return (
     <article className={clsx(styles.cardSkeleton, styles.card)}>
       <div className={styles.card_anchor}>

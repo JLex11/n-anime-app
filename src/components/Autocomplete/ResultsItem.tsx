@@ -14,7 +14,7 @@ interface Props {
   item: AutocompleteItem
 }
 
-export const ResultsItem = ({ item }: Props) => {
+export function ResultsItem({ item }: Props) {
   const [childItems, setChildItems] = useState<AutocompleteItemChilds | null>(null)
   const [expanded, toggleExpanded] = useToggle(false)
   const { activeItemId, setActiveItemId, handleLaunchAutocomplete } = useContext(AutocompleteContext)

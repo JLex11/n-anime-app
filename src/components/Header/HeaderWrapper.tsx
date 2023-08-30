@@ -13,7 +13,7 @@ interface Props {
   children: React.ReactNode
 }
 
-export const HeaderWrapper = ({ children }: Props) => {
+export function HeaderWrapper({ children }: Props) {
   const scrolled = useScrolled(10)
   const headerClass = clsx(styles.header, scrolled && styles.scrolled)
 

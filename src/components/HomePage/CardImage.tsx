@@ -17,7 +17,7 @@ interface Props {
 
 type HandleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => void
 
-export const CardImage = ({ src, fbSrc, alt, dimensions, loading, className: cssClass }: Props) => {
+export function CardImage({ src, fbSrc, alt, dimensions, loading, className: cssClass }: Props) {
   const { currentImage, onError } = useFallbackImage(
     [
       { link: src, ...dimensions },
