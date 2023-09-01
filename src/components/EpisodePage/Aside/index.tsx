@@ -1,9 +1,10 @@
 import { Episode } from '@/types'
-import styles from '../Episode.module.css'
 import { AsideHeader } from './AsideHeader'
 import { AsideList } from './AsideList'
+import { AsideWrapper } from './AsideWrapper'
 
 export interface AsideProps {
+  limit: string
   episodes: Episode[]
   animeId: string
   animeImage?: string | null
@@ -11,17 +12,18 @@ export interface AsideProps {
   currentEpisode: number
 }
 
-export function Aside({ episodes, animeId, animeImage, animeTitle, currentEpisode }: AsideProps) {
+export function Aside({ limit, episodes, animeId, animeImage, animeTitle, currentEpisode }: AsideProps) {
   return (
-    <aside className={styles.aside}>
+    <AsideWrapper>
       <AsideHeader animeImage={animeImage} animeTitle={animeTitle} />
       <AsideList
+        limit={limit}
         episodes={episodes}
         animeId={animeId}
         animeImage={animeImage}
         animeTitle={animeTitle}
         currentEpisode={currentEpisode}
       />
-    </aside>
+    </AsideWrapper>
   )
 }

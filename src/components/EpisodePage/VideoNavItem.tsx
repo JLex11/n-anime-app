@@ -1,32 +1,28 @@
 import { EpisodeVideo } from '@/types'
+import clsx from 'clsx'
 import AdsIcon from '../Icons/AdsIcon'
 import styles from './Episode.module.css'
 
 interface VideoNavItemProps {
   iframe: EpisodeVideo
   handleMouseEnter: (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => void
-  handleButtonClick: (e: React.MouseEvent<HTMLLIElement>) => void
+  changeIframe: (episodeVideo: EpisodeVideo) => void
   isActive: boolean
   activeIframeRef: React.MutableRefObject<HTMLLIElement | null>
 }
 
-export const VideoNavItem = ({
-  iframe,
-  handleMouseEnter,
-  handleButtonClick,
-  isActive,
-  activeIframeRef,
-}: VideoNavItemProps) => {
+export const VideoNavItem = ({ iframe, handleMouseEnter, changeIframe, isActive, activeIframeRef }: VideoNavItemProps) => {
+  const NavItemClass = clsx(styles.iframeOption, isActive && styles.iframeOptionActive)
+
   return (
     <li
-      className={styles.iframeOption}
+      className={NavItemClass}
       onMouseEnter={handleMouseEnter}
-      onClick={handleButtonClick}
+      onClick={() => changeIframe(iframe)}
       ref={isActive ? activeIframeRef : null}
-      id={iframe.server}
     >
       <button>{iframe.title}</button>
-      {iframe.ads > 0 && (
+      {Boolean(iframe.ads) && (
         <span className={styles.adIcon}>
           <AdsIcon width={18} />
         </span>

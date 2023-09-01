@@ -6,6 +6,7 @@ import styles from '../Episode.module.css'
 import { EpisodeImage } from '../EpisodeImage'
 
 interface AsideListItemProps {
+  link: string
   animeId: string
   episode: Episode
   currentEpisode: number
@@ -13,7 +14,7 @@ interface AsideListItemProps {
   animeTitle?: string
 }
 
-export function AsideListItem({ animeId, episode, currentEpisode, animeImage, animeTitle }: AsideListItemProps) {
+export function AsideListItem({ link, animeId, episode, currentEpisode, animeImage, animeTitle }: AsideListItemProps) {
   const isSeeing = currentEpisode == episode.episode
   const itemClass = clsx(styles.asideItem, isSeeing && styles.active)
   const episodeImage = {
@@ -24,7 +25,7 @@ export function AsideListItem({ animeId, episode, currentEpisode, animeImage, an
 
   return (
     <li>
-      <Link href={`/animes/${animeId}/${episode.episode}`} className={itemClass}>
+      <Link href={link} className={itemClass} scroll={false}>
         <span>{isSeeing ? <PlayIcon width={50} /> : episode.episode}</span>
         <EpisodeImage
           image={episodeImage}

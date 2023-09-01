@@ -3,11 +3,20 @@
 const IMAGE_DAYS_CACHE = 30
 
 const nextConfig = {
+  experimental: {
+    serverActions: true
+  },
   images: {
     minimumCacheTTL: IMAGE_DAYS_CACHE * 24 * 60 * 60,
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'anime-scrapper-alpha.vercel.app',
+        port: '',
+        pathname: '/api/image/**'
+      },
+      {
+        protocol: 'http',
         hostname: 'anime-scrapper-alpha.vercel.app',
         port: '',
         pathname: '/api/image/**'
