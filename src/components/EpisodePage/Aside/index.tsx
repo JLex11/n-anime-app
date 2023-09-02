@@ -1,24 +1,27 @@
-import { Episode } from '@/types'
+import { EpisodeList } from '@/components/EpisodeList'
+import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
 import { AsideHeader } from './AsideHeader'
-import { AsideList } from './AsideList'
 import { AsideWrapper } from './AsideWrapper'
 
 export interface AsideProps {
-  limit: string
-  episodes: Episode[]
+  searchParams: {
+    limit: string
+  }
   animeId: string
   animeImage?: string | null
   animeTitle?: string
   currentEpisode: number
 }
 
-export function Aside({ limit, episodes, animeId, animeImage, animeTitle, currentEpisode }: AsideProps) {
+export async function Aside({ searchParams, animeId, animeImage, animeTitle, currentEpisode }: AsideProps) {
+  const animeEpisodes = await getAnimeEpisodes(animeId, 0, Number(searchParams.limit) || 5)
+
   return (
     <AsideWrapper>
       <AsideHeader animeImage={animeImage} animeTitle={animeTitle} />
-      <AsideList
-        limit={limit}
-        episodes={episodes}
+      <EpisodeList
+        limit={searchParams.limit}
+        episodes={animeEpisodes}
         animeId={animeId}
         animeImage={animeImage}
         animeTitle={animeTitle}
