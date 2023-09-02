@@ -6,7 +6,6 @@ import { Episodes } from '@/components/AnimePage/Episodes'
 import { Genres } from '@/components/AnimePage/Genres'
 import { CarouselHero } from '@/components/Carousel'
 import { getAnime } from '@/services/getAnime'
-import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
 import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
 import { getLatestEpisodes } from '@/services/getLatestEpisodes'
 import { getRatingAnimes } from '@/services/getRatingAnimes'
@@ -17,12 +16,13 @@ interface Props {
   params: {
     animeId: string
   }
+  searchParams: {
+    limit: string
+  }
 }
 
-export default async function AnimePage({ params: { animeId } }: Props) {
+export default async function AnimePage({ params: { animeId }, searchParams: { limit } }: Props) {
   const anime = await getAnime(animeId)
-  const episodes = await getAnimeEpisodes(animeId)
-
   if (!anime) redirect('/404')
 
   return (
@@ -34,7 +34,7 @@ export default async function AnimePage({ params: { animeId } }: Props) {
           <AnimeHeader title={anime.title} otherTitles={anime.otherTitles} />
           <Description description={anime.description} />
           <Genres genres={anime.genres} />
-          <Episodes episodes={episodes} fallbackImg={anime.images?.coverImage} animeTitle={anime.title} />
+          <Episodes limit={limit} animeId={animeId} fallbackImg={anime.images?.coverImage} animeTitle={anime.title} />
         </section>
       </main>
     </>
