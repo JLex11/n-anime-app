@@ -76,17 +76,19 @@ export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: Autoc
       const limit = 10 + query.length * 2
       const animes = await getAnimesByQuery(encodeURIComponent(query), limit)
 
-      return animes.map(anime => ({
-        id: anime.animeId,
-        title: anime.title,
-        image: anime.images.coverImage || anime.images.carouselImages[0]?.link || '/lights-blur.webp',
-        link: `/animes/${anime.animeId}`,
-        description: anime.description ?? 'Descripcion no disponible',
-        type: anime.type ?? 'Anime',
-        rank: anime.rank ?? 0,
-        getItemRef,
-        childsCallback: () => getAnimeItemChilds(anime.animeId)
-      }))
+      return animes
+        .map(anime => ({
+          id: anime.animeId,
+          title: anime.title,
+          image: anime.images.coverImage || anime.images.carouselImages[0]?.link || '/lights-blur.webp',
+          link: `/animes/${anime.animeId}`,
+          description: anime.description ?? 'Descripcion no disponible',
+          type: anime.type ?? 'Anime',
+          rank: anime.rank ?? 0,
+          getItemRef,
+          childsCallback: () => getAnimeItemChilds(anime.animeId)
+        }))
+        .sort((a, b) => b.rank - a.rank)
     },
     [getItemRef]
   )
