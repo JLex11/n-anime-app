@@ -20,7 +20,7 @@ interface Props {
 export function VideoSectionWrapper({ iframesData, children }: Props) {
   const [currentIframeData, setCurrentIframeData] = useState(iframesData.SUB?.[0])
 
-  const { videoSectionRef } = useContext(EpisodePageContext)
+  const { handleVideoSectionRef } = useContext(EpisodePageContext)
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
   const handleIframeChange = (episodeVideo: EpisodeVideo) => {
@@ -28,7 +28,7 @@ export function VideoSectionWrapper({ iframesData, children }: Props) {
   }
 
   return (
-    <section className={styles.videoContainer} ref={videoSectionRef}>
+    <section className={styles.videoContainer} ref={handleVideoSectionRef}>
       {children}
       <VideoNav handleIframeChange={handleIframeChange} iframesData={iframesData} />
       {currentIframeData && <Iframe iframeRef={iframeRef} currentIframeData={currentIframeData} />}
