@@ -9,7 +9,6 @@
 }
 
 .breadcrumb {
-  justify-content: flex-start;
   width: 100%;
 }
 
@@ -54,6 +53,20 @@
   width: 100%;
   overflow-y: auto;
   height: 100%;
+  --aside-scrollbar-width: 0.3rem;
+}
+
+.asideList::-webkit-scrollbar {
+  width: var(--aside-scrollbar-width);
+}
+
+.asideList::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.asideList::-webkit-scrollbar-thumb {
+  background-color: #fdfdfd;
+  border-radius: 1rem;
 }
 
 .asideItem {
@@ -134,7 +147,7 @@
 }
 
 .languajeSelect {
-  padding: 0.4rem;
+  padding: 0.5rem;
   border: none;
   border-radius: 0.5rem;
   background-color: rgba(253, 254, 254, 0.2);
@@ -174,7 +187,7 @@
   inset-inline: 0;
   bottom: 0;
   margin: 0 auto;
-  background-color: #4582fb;
+  background-color: #ffffff;
   border-radius: 2px;
 }
 
