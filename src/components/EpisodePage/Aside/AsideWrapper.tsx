@@ -15,10 +15,10 @@ interface CSSProperties extends React.CSSProperties {
 
 export function AsideWrapper({ children }: Props) {
   const { videoSectionRef } = useContext(EpisodePageContext)
-  const { blockSize } = useResizeObserver(videoSectionRef?.current)
+  const { blockSize } = useResizeObserver(videoSectionRef)
 
   const asideStyles: CSSProperties = {
-    '--aside-height': `${blockSize || 250}px`
+    '--aside-height': `${blockSize}px`
   }
 
   return (
