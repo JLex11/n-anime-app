@@ -1,40 +1,29 @@
-import { Episode } from '@/types'
-import clsx from 'clsx'
-import Link from 'next/link'
-import { EpisodeImage } from '../EpisodePage/EpisodeImage'
+import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
+import { EpisodeList } from '../EpisodeList'
 import styles from './Anime.module.css'
 
 interface EpisodesProps {
-  episodes: Episode[]
+  limit: string | number
+  animeId: string
   animeTitle: string
   fallbackImg?: string | null
 }
 
-export function Episodes({ episodes, animeTitle, fallbackImg }: EpisodesProps) {
-  if (episodes.length === 0) return null
-
-  const episodesClass = clsx(styles.sectionGrid, styles.episodesList)
+export async function Episodes({ limit, animeId, animeTitle, fallbackImg }: EpisodesProps) {
+  const animeEpisodes = await getAnimeEpisodes(animeId, 0, Number(limit) || 5)
+  if (animeEpisodes.length === 0) return null
 
   return (
     <section className={styles.section}>
       <h2 className={styles.sectionTitle}>Episodios</h2>
-      <div className={episodesClass}>
-        {episodes.map(episode => (
-          <Link key={episode.episodeId} href={`/animes/${episode.animeId}/${episode.episode}`}>
-            <EpisodeImage
-              image={{
-                link: episode.image ?? fallbackImg ?? '/lights-blur.webp',
-                width: 150,
-                height: 100
-              }}
-              episode={episode.episode}
-              title={animeTitle}
-              className={styles.episodeImage}
-            />
-            <span className={styles.episodeNumber}>Episodio {episode.episode}</span>
-          </Link>
-        ))}
-      </div>
+      <EpisodeList
+        animeId={animeId}
+        animeTitle={animeTitle}
+        episodes={animeEpisodes}
+        limit={limit}
+        animeImage={fallbackImg}
+        linkPrefix={`${animeId}/`}
+      />
     </section>
   )
 }
