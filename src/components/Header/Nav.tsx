@@ -3,7 +3,7 @@ import styles from './Header.module.css'
 import { NavLink } from './NavLink'
 
 interface NavProps {
-  pages?: Page[]
+  pages: Page[]
 }
 
 export function Nav({ pages }: NavProps) {

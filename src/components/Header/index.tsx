@@ -13,19 +13,13 @@ interface Props {
   pages?: Page[]
 }
 
-export function Header ({ pages }: Props) {
+export function Header({ pages }: Props) {
   return (
     <HeaderWrapper>
       <div className={styles.headerContainer}>
         <div className={styles.headerSection}>
           <div className={styles.logo}>
-            <Image
-              src='/Nika_Logo.svg'
-              alt='logo: Nika dios del sol (one piece)'
-              width={40}
-              height={40}
-              priority={true}
-            />
+            <Image src='/Nika_Logo.svg' alt='logo: Nika dios del sol (one piece)' width={40} height={40} priority={true} />
           </div>
           {pages && <Nav pages={pages} />}
           <Tools />
