@@ -6,9 +6,9 @@
 }
 
 :root {
-  --max-width: min(100%, 1400px);
+  --max-width: min(100%, 1300px);
   --primary-color: rgb(19, 19, 25);
-  --carousel-height: 80vh;
+  --carousel-height: 70vh;
 }
 
 html,
