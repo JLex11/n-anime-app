@@ -14,7 +14,7 @@ interface Props {
   item: AutocompleteItem
 }
 
-export function ResultsItem({ item }: Props) {
+export function CollectionItem({ item }: Props) {
   const [childItems, setChildItems] = useState<AutocompleteItemChilds | null>(null)
   const [expanded, toggleExpanded] = useToggle(false)
   const { activeItemId, setActiveItemId, handleLaunchAutocomplete } = useContext(AutocompleteContext)
@@ -39,21 +39,13 @@ export function ResultsItem({ item }: Props) {
     if (item.childsCallback) item.childsCallback().then(setChildItems)
   }, [expanded, item])
 
-  const resultsItemClassName = clsx(styles.resultsItem, isActive && styles.isActive, expanded && styles.expanded)
+  const collectionItemClass = clsx(styles.collectionItem, isActive && styles.isActive, expanded && styles.expanded)
 
   return (
     <article onMouseMove={handleHover} ref={item.getItemRef(Number(item.__autocomplete_id))}>
-      <div className={resultsItemClassName}>
+      <div className={collectionItemClass}>
         <Link href={item.link} className={styles.itemContainer} onClick={() => handleLaunchAutocomplete(false)}>
-          <img
-            src={item.image}
-            alt={item.title}
-            width={50}
-            height={50}
-            className={styles.itemImage}
-            loading={'lazy'}
-            decoding='async'
-          />
+          <img src={item.image} alt={item.title} width={50} height={50} className={styles.itemImage} />
           <ItemInfo item={item} />
         </Link>
         {item.childsCallback && (
@@ -62,9 +54,7 @@ export function ResultsItem({ item }: Props) {
           </button>
         )}
       </div>
-      {expanded && childItems && (
-        <ItemChilds childItems={childItems} handleLaunchAutocomplete={handleLaunchAutocomplete} />
-      )}
+      {expanded && childItems && <ItemChilds childItems={childItems} handleLaunchAutocomplete={handleLaunchAutocomplete} />}
     </article>
   )
 }

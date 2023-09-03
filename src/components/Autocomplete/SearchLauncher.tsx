@@ -35,3 +35,21 @@ export function SearchLauncher({ className: cssClass, children }: Props) {
     </>
   )
 }
+
+
+/* const searchParams = useSearchParams()
+const router = useRouter()
+
+const handleToggleSearch = () => {
+  const searchParamsEntries = [...searchParams.entries()]
+  !searchParamsEntries.find(([key]) => key === AutocompleteVars.QUERY_NAME) && searchParamsEntries.push([AutocompleteVars.QUERY_NAME, ''])
+
+  router.push(`?${searchParamsEntries.map(([key, value]) => `${key}=${value}`).join('&')}`)
+}
+
+const handleCloseAutocomplete = () => {
+  const searchParamsEntries = [...searchParams.entries()]
+  const filteredSearchParams = searchParamsEntries.filter(([key]) => key !== AutocompleteVars.QUERY_NAME)
+
+  router.push(`?${filteredSearchParams.map(([key, value]) => `${key}=${value}`).join('&')}`)
+} */

@@ -1,4 +1,4 @@
-.autocompleteLayer {
+.autocompleteContainer {
   --form-top: 20vh;
   --form-pd: 0.4rem;
   --form-gap: 0.5rem;
@@ -22,14 +22,15 @@
   justify-content: center;
   align-items: center;
   width: min(100%, var(--form-max-width));
-  margin: var(--form-top) auto 0 auto;
+  margin: 0 auto;
+  transform: translate3d(0, var(--form-top), 0);
   padding: var(--form-pd);
   gap: var(--form-gap);
-  transition: margin 0.5s ease;
+  transition: transform 0.5s ease;
 }
 
 .form.isOpen {
-  --form-top: 7vh;
+  --form-top: 2vh;
 }
 
 .inputContainer {
@@ -55,17 +56,9 @@
 }
 
 @keyframes animateGradient {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .inputSearch {
@@ -100,40 +93,30 @@
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-.resultsPanel {
+.collectionsPanel {
   --pd: 0.5rem;
+  --panel-bg: rgba(59, 59, 59, 0.98);
   display: grid;
   width: 100%;
   height: fit-content;
   padding: var(--pd);
   border: 2px solid rgb(92 92 92);
   border-radius: 0.6rem;
-  background-color: rgba(59, 59, 59, 0.95);
+  background-color: var(--panel-bg);
   box-shadow: var(--input-shadow);
   animation: expandAnimation 0.5s;
-  backdrop-filter: blur(5px);
 }
 
 @keyframes expandAnimation {
-  from {
-    grid-template-rows: 0fr;
-  }
-
-  to {
-    grid-template-rows: 1fr;
-  }
+  from { grid-template-rows: 0fr; }
+  to { grid-template-rows: 1fr; }
 }
 
-.resultsContainer {
+.collectionsContainer {
   --scrollbar-width: 0.3rem;
   overflow-y: auto;
   width: 100%;
@@ -143,20 +126,20 @@
   );
 }
 
-.resultsContainer::-webkit-scrollbar {
+.collectionsContainer::-webkit-scrollbar {
   width: var(--scrollbar-width);
 }
 
-.resultsContainer::-webkit-scrollbar-track {
+.collectionsContainer::-webkit-scrollbar-track {
   background-color: transparent;
 }
 
-.resultsContainer::-webkit-scrollbar-thumb {
+.collectionsContainer::-webkit-scrollbar-thumb {
   background-color: #fdfdfd;
   border-radius: 1rem;
 }
 
-.resultsCollection {
+.collection {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -164,7 +147,7 @@
   gap: 0.3rem;
 }
 
-.resultsCollection:not(:last-child) {
+.collection:not(:last-child) {
   margin-bottom: 1rem;
   border-bottom: 1px solid gray;
 }
@@ -178,12 +161,15 @@
   gap: 0.5rem;
 }
 
-.resultsCollectionTitle {
+.collectionTitle {
   text-align: start;
   font-weight: 300;
+  position: sticky;
+  top: 0;
+  background-color: var(--panel-bg);
 }
 
-.resultsItem {
+.collectionItem {
   display: flex;
   align-items: center;
   padding: 0.5rem;
@@ -191,7 +177,7 @@
   gap: 0.5rem;
 }
 
-.resultsItem.isActive {
+.collectionItem.isActive {
   background-color: #1f1f1f;
 }
 
@@ -243,7 +229,7 @@
   border: none;
   background-color: transparent;
   color: white;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease-in-out;
   padding: 0.2rem;
   border-radius: 0.3rem;
 }
@@ -252,7 +238,7 @@
   background-color: rgba(255, 255, 255, 0.098);
 }
 
-.resultsItem.expanded .itemIcon {
+.collectionItem.expanded .itemIcon {
   transform: rotateX(180deg);
   background-color: rgba(255, 255, 255, 0.098);
 }

@@ -4,7 +4,7 @@ import { useId, useMemo } from 'react'
 import styles from './Autocomplete.module.css'
 import { CollectionsPanel } from './CollectionsPanel'
 import { AutocompleteContext } from './Contexts'
-import { AutocompleteInput } from './Input'
+import { Input } from './Input'
 
 interface Props {
   handleLaunchAutocomplete: React.Dispatch<React.SetStateAction<boolean>>
@@ -25,7 +25,7 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
     }
   }
 
-  const resultsPanelClassName = clsx(styles.resultsPanel, autocomplete.isOpen && styles.isOpen)
+  const resultsPanelClassName = clsx(styles.collectionsPanel, autocomplete.isOpen && styles.isOpen)
   const formClassName = clsx(styles.form, autocomplete.isOpen && styles.isOpen)
 
   const providerValue = useMemo(
@@ -39,9 +39,9 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
 
   return (
     <AutocompleteContext.Provider value={providerValue}>
-      <div className={styles.autocompleteLayer} id={autocompleteId} onClick={handleClick}>
+      <div className={styles.autocompleteContainer} id={autocompleteId} onClick={handleClick}>
         <form className={formClassName}>
-          <AutocompleteInput status={autocomplete.status} inputRef={inputRef} inputProps={inputProps} />
+          <Input status={autocomplete.status} inputRef={inputRef} inputProps={inputProps} />
           {autocomplete.isOpen && (
             <CollectionsPanel
               collections={autocomplete.collections}

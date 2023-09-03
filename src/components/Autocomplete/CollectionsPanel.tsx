@@ -1,7 +1,7 @@
 import { AutocompleteItem } from '@/hooks/useAutocomplete.types'
 import styles from './Autocomplete.module.css'
 import { Collection } from './Collection'
-import { CollectionsPanelFooter } from './CollectionsPanelFooter'
+import { PanelFooter } from './PanelFooter'
 
 interface Props {
   className: string
@@ -21,12 +21,12 @@ interface Props {
 export function CollectionsPanel({ className: cssClass, panelRef, panelProps, collections }: Props) {
   return (
     <div className={cssClass} ref={panelRef} {...(panelProps as any)}>
-      <div className={styles.resultsContainer}>
+      <div className={styles.collectionsContainer}>
         {collections.map(collection => (
           <Collection key={collection.source.sourceId} sourceId={collection.source.sourceId} items={collection.items} />
         ))}
       </div>
-      <CollectionsPanelFooter />
+      <PanelFooter />
     </div>
   )
 }
