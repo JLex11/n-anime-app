@@ -1,5 +1,5 @@
+import { EpisodeList } from '@/components/EpisodeList'
 import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
-import { EpisodeList } from '../EpisodeList'
 import styles from './Anime.module.css'
 
 interface EpisodesProps {

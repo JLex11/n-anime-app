@@ -1,5 +1,5 @@
+import { Badge } from '@/components/Common/Badge'
 import Link from 'next/link'
-import { Badge } from '../Common/Badge'
 import styles from './Anime.module.css'
 
 export function Genres({ genres }: { genres: string[] }) {
