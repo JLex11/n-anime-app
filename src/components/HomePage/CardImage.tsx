@@ -10,14 +10,12 @@ interface Props {
     width: number
     height: number
   }
-  loading?: 'lazy' | 'eager'
+  lazy?: boolean
   priority?: boolean
   className?: string
 }
 
-type HandleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => void
-
-export function CardImage({ src, fbSrc, alt, dimensions, loading, className: cssClass }: Props) {
+export function CardImage({ src, fbSrc, alt, dimensions, lazy, className: cssClass }: Props) {
   const { currentImage, onError } = useFallbackImage(
     [
       { link: src, ...dimensions },
@@ -32,7 +30,7 @@ export function CardImage({ src, fbSrc, alt, dimensions, loading, className: css
       alt={alt}
       width={currentImage.width}
       height={currentImage.height}
-      loading={loading ?? 'lazy'}
+      loading={lazy ? 'lazy' : undefined}
       className={cssClass}
       onError={onError}
       decoding='async'

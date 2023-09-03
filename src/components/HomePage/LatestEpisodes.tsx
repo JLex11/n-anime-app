@@ -5,13 +5,14 @@ import { HomeCardSkeleton } from './HomeCardSkeleton'
 export async function LatestEpisodes() {
   const latestEpisodes = await getLatestEpisodes()
 
-  const episodeData = latestEpisodes.map(episode => {
+  const episodeData = latestEpisodes.map((episode, i) => {
     return {
       key: episode.episodeId,
       image: {
         src: episode.image ?? '',
         width: 350,
-        height: 250
+        height: 250,
+        lazy: i < 4
       },
       title: episode.title,
       link: `/animes/${episode.animeId}/${episode.episode}`,

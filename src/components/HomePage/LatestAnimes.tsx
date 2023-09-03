@@ -16,12 +16,11 @@ export const LatestAnimes = async () => {
         src: imageSrc,
         fbSrc,
         width: 300,
-        height: 350
+        height: 350,
+        lazy: true
       },
       link: `/animes/${anime.animeId}`,
-      showOnHover: (
-        <CardDetails description={anime.description} status={anime.status} rank={anime.rank} genres={anime.genres} />
-      )
+      showOnHover: <CardDetails description={anime.description} status={anime.status} rank={anime.rank} genres={anime.genres} />
     }
   })
 
