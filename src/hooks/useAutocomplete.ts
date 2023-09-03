@@ -1,20 +1,18 @@
-import { APP_ROUTES } from '@/constants'
-import { getAnimesByQuery } from '@/services/getAnimeByQuery'
-import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
-import { debouncePromise } from '@/utils/debouncePromise'
+import { getAnimeItems, getRoutesItems } from '@/components/Autocomplete/AutocompleteSources'
+import { debounceCallback } from '@/utils/debounceCallback'
 import { AutocompleteState, OnActiveParams, createAutocomplete } from '@algolia/autocomplete-core'
 import { useRouter } from 'next/navigation'
 import { createRef, useCallback, useId, useMemo, useRef, useState } from 'react'
-import { AutocompleteItem, AutocompleteItemChilds, AutocompleteProps } from './useAutocomplete.types'
+import { AutocompleteItem, AutocompleteOutputItem, AutocompleteProps } from './useAutocomplete.types'
 
-const autocompleteInitialState: AutocompleteState<AutocompleteItem> = {
+const autocompleteInitialState: AutocompleteState<AutocompleteOutputItem> = {
   collections: [],
   isOpen: false,
   activeItemId: 0,
   completion: null,
   context: {},
   query: '',
-  status: 'idle',
+  status: 'idle'
 }
 
 export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: AutocompleteProps) {
@@ -32,71 +30,10 @@ export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: Autoc
     return itemRefs.current[index]
   }, [])
 
-  const getRoutesItems = useCallback(
-    async (query: string) => {
-      if (query.length < 1) return []
-
-      const regex = new RegExp(query, 'gi')
-      const filteredRoutes = APP_ROUTES.filter(route => route.name.match(regex))
-
-      return filteredRoutes.map(route => ({
-        id: route.link,
-        title: route.name,
-        image: '/app-window.svg',
-        link: route.link,
-        description: route.description,
-        getItemRef
-      }))
-    },
-    [getItemRef]
-  )
-
-  const getAnimeItemChilds = async (animeId: AutocompleteItem['id']): Promise<AutocompleteItemChilds> => {
-    const episodes = await getAnimeEpisodes(animeId, 0, 10)
-    const mappedEpisodes = episodes.map(episode => ({
-      id: episode.episodeId,
-      title: episode.episode,
-      image: {
-        src: episode.image,
-        alt: episode.title
-      },
-      link: `/animes/${episode.animeId}/${episode.episode}`
-    }))
-
-    return {
-      items: mappedEpisodes,
-      title: 'Episodios'
-    }
-  }
-
-  const getAnimeItems = useCallback(
-    async (query: string) => {
-      if (query.length < 2) return []
-
-      const limit = 10 + query.length * 2
-      const animes = await getAnimesByQuery(encodeURIComponent(query), limit)
-
-      return animes
-        .map(anime => ({
-          id: anime.animeId,
-          title: anime.title,
-          image: anime.images.coverImage || anime.images.carouselImages[0]?.link || '/lights-blur.webp',
-          link: `/animes/${anime.animeId}`,
-          description: anime.description ?? 'Descripcion no disponible',
-          type: anime.type ?? 'Anime',
-          rank: anime.rank ?? 0,
-          getItemRef,
-          childsCallback: () => getAnimeItemChilds(anime.animeId)
-        }))
-        .sort((a, b) => b.rank - a.rank)
-    },
-    [getItemRef]
-  )
-
-  const debouncedGetAnimeItems = debouncePromise<string[], AutocompleteItem[]>(getAnimeItems, 300)
+  const debouncedGetAnimeItems = debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 200)
 
   const handleActiveItem = useCallback(
-    ({ item, event, state }: OnActiveParams<AutocompleteItem>) => {
+    ({ item, event, state }: OnActiveParams<AutocompleteOutputItem>) => {
       router.prefetch(item.link)
       if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
         const itemId = Number(item.__autocomplete_id)
@@ -112,7 +49,7 @@ export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: Autoc
 
   const autoComplete = useMemo(
     () =>
-      createAutocomplete<AutocompleteItem>({
+      createAutocomplete<AutocompleteOutputItem>({
         autoFocus: true,
         id: `autocomplete-${autocompleteId}`,
         placeholder: placeholder ?? 'Que quieres encontrar?',
@@ -122,13 +59,16 @@ export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: Autoc
           {
             sourceId: 'Ir a',
             getItemUrl: ({ item }) => item.link,
-            getItems: () => getRoutesItems(query)
+            getItems: () => getRoutesItems(query).map(routeItem => ({ ...routeItem, getItemRef }))
           },
           {
             sourceId: 'Animes',
             onActive: handleActiveItem,
             getItemUrl: ({ item }) => item.link,
-            getItems: () => debouncedGetAnimeItems(query)
+            getItems: async () => {
+              const animeItems = await debouncedGetAnimeItems(query)
+              return animeItems.map(animeItem => ({ ...animeItem, getItemRef }))
+            }
           }
         ],
         navigator: {

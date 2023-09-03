@@ -25,11 +25,14 @@ export interface AutocompleteItem extends BaseItem {
   description: string
   type?: string
   rank?: number
-  getItemRef: (index: number) => RefObject<HTMLElement>
-  /* _autocomplete_item_id: AutocompleteItemId */
+  /* getItemRef: (index: number) => RefObject<HTMLElement> */
   childsCallback?: () => Promise<AutocompleteItemChilds>
 }
 
-export interface AutocompleteProps extends AutocompleteOptionsWithMetadata<AutocompleteItem> {
+export interface AutocompleteOutputItem extends AutocompleteItem {
+  getItemRef: (index: number) => RefObject<HTMLElement>
+}
+
+export interface AutocompleteProps extends AutocompleteOptionsWithMetadata<AutocompleteOutputItem> {
   handleLaunchAutocomplete: React.Dispatch<React.SetStateAction<boolean>>
 }
