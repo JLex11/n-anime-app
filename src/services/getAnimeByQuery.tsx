@@ -13,5 +13,5 @@ export const getAnimesByQuery = async (query: string, limit?: number) => {
       return []
     })
 
-  return animes.map(filterUnsupportDomains)
+  return Array.isArray(animes) ? animes.map(filterUnsupportDomains) : []
 }
