@@ -12,7 +12,7 @@ export function Iframe({ iframeRef, currentIframeData }: Props) {
       className={styles.iframe}
       src={currentIframeData?.code}
       title={currentIframeData?.title}
-      width={720}
+      width={576}
       allowFullScreen
       loading='eager'
       ref={iframeRef}
