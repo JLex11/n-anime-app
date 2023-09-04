@@ -1,4 +1,4 @@
-import { AutocompleteItem } from '@/hooks/useAutocomplete.types'
+import { AutocompleteOutputItem } from '@/hooks/useAutocomplete.types'
 import { toCap } from '@/utils/textConverts'
 import dynamic from 'next/dynamic'
 import styles from './Autocomplete.module.css'
@@ -6,7 +6,7 @@ import styles from './Autocomplete.module.css'
 const ResultsItem = dynamic(() => import('./CollectionItem').then(m => m.CollectionItem))
 
 interface Props {
-  items: AutocompleteItem[]
+  items: AutocompleteOutputItem[]
   sourceId: string
 }
 
