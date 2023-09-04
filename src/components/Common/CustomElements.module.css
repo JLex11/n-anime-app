@@ -38,7 +38,7 @@
 .shortcutLetters code {
   padding: 0.2rem 0.5rem;
   border-radius: 0.2rem 0.2rem 0.3rem 0.3rem;
-  font-weight: 500;
+  font-weight: 400;
   background-color: rgba(59, 59, 59, 0.5);
   box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3);
 }
