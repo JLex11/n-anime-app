@@ -1,4 +1,4 @@
-import { AutocompleteItem, AutocompleteItemChilds } from '@/hooks/useAutocomplete.types'
+import { AutocompleteItemChilds, AutocompleteOutputItem } from '@/hooks/useAutocomplete.types'
 import { useToggle } from '@/hooks/useToggle'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -11,7 +11,7 @@ import { ItemChilds } from './ItemChilds'
 import { ItemInfo } from './ItemInfo'
 
 interface Props {
-  item: AutocompleteItem
+  item: AutocompleteOutputItem
 }
 
 export function CollectionItem({ item }: Props) {
@@ -45,7 +45,7 @@ export function CollectionItem({ item }: Props) {
     <article onMouseMove={handleHover} ref={item.getItemRef(Number(item.__autocomplete_id))}>
       <div className={collectionItemClass}>
         <Link href={item.link} className={styles.itemContainer} onClick={() => handleLaunchAutocomplete(false)}>
-          <img src={item.image} alt={item.title} width={50} height={50} className={styles.itemImage} />
+          <img src={item.image} alt={item.title} width={50} height={50} className={styles.itemImage} decoding='async' />
           <ItemInfo item={item} />
         </Link>
         {item.childsCallback && (
