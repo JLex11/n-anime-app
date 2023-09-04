@@ -35,13 +35,14 @@ export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: Autoc
   const handleActiveItem = useCallback(
     ({ item, event, state }: OnActiveParams<AutocompleteOutputItem>) => {
       router.prefetch(item.link)
+
       if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
         const itemId = Number(item.__autocomplete_id)
         const totalItems = state.collections.reduce((acc, collection) => acc + collection.items.length, 0)
         const block = itemId < 4 || itemId > totalItems - 4 ? 'center' : 'nearest'
 
         const itemElement = itemRefs.current[itemId].current
-        itemElement?.scrollIntoView({ behavior: 'smooth', block: block })
+        itemElement?.scrollIntoView({ behavior: 'smooth', block })
       }
     },
     [router]
