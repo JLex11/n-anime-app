@@ -1,6 +1,5 @@
 import { getLatestAnimes } from '@/services/getLatestAnimes'
 import { HomeCard } from './HomeCard'
-import { CardDetails } from './LatestAnimesCardDetails'
 
 export const LatestAnimes = async () => {
   const latestAnimes = await getLatestAnimes()
@@ -19,15 +18,15 @@ export const LatestAnimes = async () => {
         height: 350,
         lazy: true
       },
-      link: `/animes/${anime.animeId}`,
-      showOnHover: <CardDetails description={anime.description} status={anime.status} rank={anime.rank} genres={anime.genres} />
+      link: `/animes/${anime.animeId}`
+      /* showOnHover: <CardDetails description={anime.description} status={anime.status} rank={anime.rank} genres={anime.genres} /> */
     }
   })
 
   return (
     <>
-      {animeData.map(({ key, title, link, image, showOnHover }) => (
-        <HomeCard key={key} image={image} title={title} link={link} showOnHover={showOnHover} />
+      {animeData.map(({ key, title, link, image /* , showOnHover */ }) => (
+        <HomeCard key={key} image={image} title={title} link={link} /* showOnHover={showOnHover} */ />
       ))}
     </>
   )

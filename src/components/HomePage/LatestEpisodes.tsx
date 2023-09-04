@@ -12,7 +12,7 @@ export async function LatestEpisodes() {
         src: episode.image ?? '',
         width: 350,
         height: 250,
-        lazy: i < 4
+        lazy: true
       },
       title: episode.title,
       link: `/animes/${episode.animeId}/${episode.episode}`,
