@@ -14,7 +14,7 @@ interface Props {
 }
 
 export function HeaderWrapper({ children }: Props) {
-  const scrolled = useScrolled(10)
+  const scrolled = useScrolled(5)
   const headerClass = clsx(styles.header, scrolled && styles.scrolled)
 
   return <header className={headerClass}>{children}</header>
