@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function Autocomplete({ handleLaunchAutocomplete }: Props) {
-  const { autocomplete, setActiveItemId, inputRef, panelRef, inputProps, panelProps } = useAutocomplete({
+  const { autocomplete, setActiveItemId, inputRef, panelRef, formProps, inputProps, panelProps } = useAutocomplete({
     handleLaunchAutocomplete,
     placeholder: 'Rey de los Piratas, Gabimaru el Hueco...'
   })
@@ -40,7 +40,7 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
   return (
     <AutocompleteContext.Provider value={providerValue}>
       <div className={styles.autocompleteContainer} id={autocompleteId} onClick={handleClick}>
-        <form className={formClassName}>
+        <form className={formClassName} {...formProps}>
           <Input status={autocomplete.status} inputRef={inputRef} inputProps={inputProps} />
           {autocomplete.isOpen && (
             <CollectionsPanel

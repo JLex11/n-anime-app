@@ -9,7 +9,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(1px);
   inset: 0;
 }
 
@@ -26,7 +26,7 @@
   transform: translate3d(0, var(--form-top), 0);
   padding: var(--form-pd);
   gap: var(--form-gap);
-  transition: transform 0.5s ease;
+  transition: transform 0.3s ease;
 }
 
 .form.isOpen {
@@ -99,7 +99,7 @@
 
 .collectionsPanel {
   --pd: 0.5rem;
-  --panel-bg: rgba(59, 59, 59, 0.98);
+  --panel-bg: rgba(59, 59, 59, 1);
   display: grid;
   width: 100%;
   height: fit-content;
@@ -159,14 +159,14 @@
   width: 100%;
   padding: 0.5rem;
   gap: 0.5rem;
+  position: sticky;
+  top: 0;
+  background-color: var(--panel-bg);
 }
 
 .collectionTitle {
   text-align: start;
   font-weight: 300;
-  position: sticky;
-  top: 0;
-  background-color: var(--panel-bg);
 }
 
 .collectionItem {
@@ -175,6 +175,7 @@
   padding: 0.5rem;
   border-radius: 0.4rem;
   gap: 0.5rem;
+  transition: background-color .2s;
 }
 
 .collectionItem.isActive {
@@ -290,8 +291,8 @@
   gap: 0.3rem;
 }
 
-.childItemTitle {
-}
+/* .childItemTitle {
+} */
 
 .footer {
   display: flex;

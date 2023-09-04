@@ -30,7 +30,7 @@ export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: Autoc
     return itemRefs.current[index]
   }, [])
 
-  const debouncedGetAnimeItems = debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 200)
+  const debouncedGetAnimeItems = debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 100)
 
   const handleActiveItem = useCallback(
     ({ item, event, state }: OnActiveParams<AutocompleteOutputItem>) => {
@@ -83,6 +83,14 @@ export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: Autoc
     [placeholder, autocompleteId, router, handleLaunchAutocomplete, handleActiveItem, getRoutesItems]
   )
 
+  const autocompleteFormProps = autoComplete.getFormProps({ inputElement: inputRef.current })
+
+  const formProps = {
+    action: autocompleteFormProps.action,
+    noValidate: autocompleteFormProps.noValidate,
+    onSubmit: (event: React.FormEvent<HTMLFormElement>) => autocompleteFormProps.onSubmit(event as unknown as Event),
+    onReset: (event: React.FormEvent<HTMLFormElement>) => autocompleteFormProps.onReset(event as unknown as Event)
+  }
   const inputProps = autoComplete.getInputProps({ inputElement: inputRef.current })
   const panelProps = autoComplete.getPanelProps({ ref: panelRef.current })
 
@@ -91,6 +99,7 @@ export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: Autoc
     setActiveItemId: autoComplete.setActiveItemId,
     inputRef,
     panelRef,
+    formProps,
     inputProps,
     panelProps
   }

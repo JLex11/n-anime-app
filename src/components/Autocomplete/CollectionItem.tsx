@@ -30,22 +30,27 @@ export function CollectionItem({ item }: Props) {
 
   useEffect(() => {
     if (!isActive) return
-    const timeoutId = setTimeout(() => router.prefetch(item.link), 200)
+    const timeoutId = setTimeout(() => router.prefetch(item.link), 100)
     return () => clearInterval(timeoutId)
   }, [isActive, item, router])
 
   useEffect(() => {
     if (!expanded || childItems) return
     if (item.childsCallback) item.childsCallback().then(setChildItems)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [expanded, item])
 
   const collectionItemClass = clsx(styles.collectionItem, isActive && styles.isActive, expanded && styles.expanded)
 
   return (
-    <article onMouseMove={handleHover} ref={item.getItemRef(Number(item.__autocomplete_id))}>
+    <article onMouseMove={handleHover} ref={item.getItemRef(Number(item.__autocomplete_id))} title={item.description}>
       <div className={collectionItemClass}>
         <Link href={item.link} className={styles.itemContainer} onClick={() => handleLaunchAutocomplete(false)}>
-          <img src={item.image} alt={item.title} width={50} height={50} className={styles.itemImage} decoding='async' />
+          {typeof item.image === 'string' ? (
+            <img src={item.image} alt={item.title} width={40} height={40} className={styles.itemImage} decoding='async' />
+          ) : (
+            item.image
+          )}
           <ItemInfo item={item} />
         </Link>
         {item.childsCallback && (

@@ -20,12 +20,11 @@ export type AutocompleteItemId = `autocompleteItem-${string | number}`
 export interface AutocompleteItem extends BaseItem {
   id: string
   title: string
-  image: string
+  image: string | React.ReactNode
   link: string
   description: string
   type?: string
   rank?: number
-  /* getItemRef: (index: number) => RefObject<HTMLElement> */
   childsCallback?: () => Promise<AutocompleteItemChilds>
 }
 

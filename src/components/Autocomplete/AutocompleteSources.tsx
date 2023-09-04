@@ -2,6 +2,7 @@ import { APP_ROUTES } from '@/constants'
 import { AutocompleteItem, AutocompleteItemChilds } from '@/hooks/useAutocomplete.types'
 import { getAnimesByQuery } from '@/services/getAnimeByQuery'
 import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
+import AppWindow from '../Icons/AppWindow'
 
 export const getRoutesItems = (query: string) => {
   if (query.length < 1) return []
@@ -12,7 +13,7 @@ export const getRoutesItems = (query: string) => {
   return filteredRoutes.map(route => ({
     id: route.link,
     title: route.name,
-    image: '/app-window.svg',
+    image: <AppWindow width={50} />,
     link: route.link,
     description: route.description
   }))
