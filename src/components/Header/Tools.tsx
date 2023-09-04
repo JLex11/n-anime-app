@@ -8,7 +8,7 @@ export const Tools = () => {
   return (
     <div className={styles.tools}>
       <SearchLauncher className={styles.searchButton}>
-        Buscar
+        <span>Buscar</span>
         <ShortcutLetter letters={autoCompleteHotKeys.LAUNCH} />
       </SearchLauncher>
       <UserIcon />
