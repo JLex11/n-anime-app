@@ -92,16 +92,16 @@
 }
 
 .searchButton {
-  --borderWidth: 0.07rem;
-  --input-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  --borderWidth: 0.1rem;
+  --input-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.7);
   display: flex;
   position: relative;
   align-items: center;
-  padding: 0.4rem;
+  padding: 0.5rem;
   border: none;
   border-radius: calc(6 * var(--borderWidth));
   color: white;
-  background-color: rgba(59, 59, 59, 0.85);
+  background-color: rgba(59, 59, 59, 0.80);
   transition: .3s ease-in-out;
   gap: 2.5rem;
 }
@@ -122,7 +122,6 @@
   background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
   background-size: 300% 300%;
   box-shadow: var(--input-shadow);
-  /* animation: animateGradient 5s ease alternate infinite; */
 }
 
 .searchButton:hover:after {
@@ -130,15 +129,9 @@
 }
 
 @keyframes animateGradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .hoverIndicator {
