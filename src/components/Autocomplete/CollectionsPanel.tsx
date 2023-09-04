@@ -1,4 +1,4 @@
-import { AutocompleteItem } from '@/hooks/useAutocomplete.types'
+import { AutocompleteOutputItem } from '@/hooks/useAutocomplete.types'
 import styles from './Autocomplete.module.css'
 import { Collection } from './Collection'
 import { PanelFooter } from './PanelFooter'
@@ -11,7 +11,7 @@ interface Props {
     onMouseLeave(): void
   }
   collections: {
-    items: AutocompleteItem[]
+    items: AutocompleteOutputItem[]
     source: {
       sourceId: string
     }
