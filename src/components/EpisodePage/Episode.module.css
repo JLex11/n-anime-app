@@ -182,13 +182,12 @@
 .iframeOption.iframeOptionActive::after {
   content: "";
   width: 80%;
-  height: 3px;
+  height: 1px;
   position: absolute;
   inset-inline: 0;
   bottom: 0;
   margin: 0 auto;
   background-color: #ffffff;
-  border-radius: 2px;
 }
 
 .iframeOption button {
