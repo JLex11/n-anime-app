@@ -1,8 +1,6 @@
-'use client'
-
-import { useFallbackImage } from '@/hooks/useFallbackImage'
-import { placeholderImgs } from '@/utils/placeHolderImgs'
+import { CarouselImage } from '@/types'
 import Image from 'next/image'
+import sharp from 'sharp'
 import styles from './Carousel.module.css'
 
 interface PictureImage {
@@ -18,22 +16,34 @@ interface Props {
   lazy: boolean
 }
 
-export function Picture({ title, images, lazy }: Props) {
-  const { currentImage: carouselImage, onError } = useFallbackImage(images, { width: 1080, height: 650 })
+async function getValidImage(images: CarouselImage[]): Promise<CarouselImage | null> {
+  for await (const image of images) {
+    try {
+      const imgBuffer = await fetch(image.link).then(response => response.arrayBuffer())
+      await sharp(imgBuffer).metadata()
+      return image
+    } catch (error) {}
+  }
+
+  return null
+}
+
+export async function Picture({ title, images, lazy }: Props) {
+  const filteredImages = images.filter((image): image is CarouselImage => Boolean(image.link))
+  const carouselImage = await getValidImage(filteredImages)
 
   return (
     <picture className={styles.carouselPicture}>
       <Image
-        src={carouselImage.link}
+        src={carouselImage ? carouselImage.link : '/lights-blur.webp'}
         alt={title}
-        width={/* carouselImage.width ||  */ 1080}
-        height={/* carouselImage.height ||  */ 650}
-        style={{ backgroundPosition: carouselImage.position }}
+        width={864}
+        height={520}
+        style={{ backgroundPosition: carouselImage ? carouselImage.position : 'center' }}
         loading={lazy ? 'lazy' : 'eager'}
         priority={!lazy}
-        onError={onError}
-        blurDataURL={placeholderImgs[0]}
         placeholder='blur'
+        blurDataURL='/lights-blur.webp'
       />
     </picture>
   )
