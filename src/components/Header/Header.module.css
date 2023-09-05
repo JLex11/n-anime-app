@@ -93,13 +93,14 @@
 
 .searchButton {
   --borderWidth: 0.1rem;
+  --border-radius-multiplier: 5;
   --input-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.7);
   display: flex;
   position: relative;
   align-items: center;
   padding: 0.5rem;
   border: none;
-  border-radius: calc(6 * var(--borderWidth));
+  border-radius: calc(var(--border-radius-multiplier) * var(--borderWidth));
   color: white;
   background-color: rgba(59, 59, 59, 0.80);
   transition: .3s ease-in-out;
@@ -117,7 +118,7 @@
   left: calc(-1 * var(--borderWidth));
   width: calc(100% + var(--borderWidth) * 2);
   height: calc(100% + var(--borderWidth) * 2);
-  border-radius: calc(7 * var(--borderWidth));
+  border-radius: calc((var(--border-radius-multiplier) + 1) * var(--borderWidth));
   content: '';
   background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
   background-size: 300% 300%;
