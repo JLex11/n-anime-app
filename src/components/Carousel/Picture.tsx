@@ -1,4 +1,6 @@
 import { CarouselImage } from '@/types'
+import { userIsMobile } from '@/utils/isMobile'
+import { headers } from 'next/headers'
 import Image from 'next/image'
 import sharp from 'sharp'
 import styles from './Carousel.module.css'
@@ -29,16 +31,21 @@ async function getValidImage(images: CarouselImage[]): Promise<CarouselImage | n
 }
 
 export async function Picture({ title, images, lazy }: Props) {
+  const isMobile = userIsMobile(headers())
+
   const filteredImages = images.filter((image): image is CarouselImage => Boolean(image.link))
   const carouselImage = await getValidImage(filteredImages)
+
+  const imageWidth = isMobile ? 648 : 1080
+  const imageHeight = imageWidth / 2
 
   return (
     <picture className={styles.carouselPicture}>
       <Image
         src={carouselImage ? carouselImage.link : '/lights-blur.webp'}
         alt={title}
-        width={864}
-        height={520}
+        width={imageWidth}
+        height={imageHeight}
         style={{ backgroundPosition: carouselImage ? carouselImage.position : 'center' }}
         loading={lazy ? 'lazy' : 'eager'}
         priority={!lazy}
