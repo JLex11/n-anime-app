@@ -5,10 +5,8 @@ import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
 import AppWindow from '../Icons/AppWindow'
 
 export const getRoutesItems = (query: string) => {
-  if (query.length < 1) return []
-
   const regex = new RegExp(query, 'gi')
-  const filteredRoutes = APP_ROUTES.filter(route => route.name.match(regex))
+  const filteredRoutes = APP_ROUTES.filter(route => regex.test(route.name + route.description))
 
   return filteredRoutes.map(route => ({
     id: route.link,
@@ -38,7 +36,7 @@ const getAnimeItemChilds = async (animeId: AutocompleteItem['id']): Promise<Auto
 }
 
 export const getAnimeItems = async (query: string) => {
-  if (query.length < 2) return []
+  if (query.length < 1) return []
 
   const limit = 10 + query.length * 2
   const animes = await getAnimesByQuery(encodeURIComponent(query), limit)
