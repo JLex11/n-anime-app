@@ -9,7 +9,7 @@ import { getRatingAnimes } from '@/services/getRatingAnimes'
 import { Suspense } from 'react'
 
 export default async function HomePage() {
-  const ratingAnimes = await getRatingAnimes(5)
+  const ratingAnimes = await getRatingAnimes(8)
 
   return (
     <>
@@ -18,13 +18,13 @@ export default async function HomePage() {
         <HomeAside />
         <div className={styles.content}>
           <CardsSection title='Últimos episodios' icon={<LatestIcon />} gridWidth={230} gridHeight={190}>
-            <Suspense fallback={<CardsSkeleton countCards={5} hasPill={true} />}>
+            <Suspense fallback={<CardsSkeleton countCards={3} hasPill={true} />}>
               <LatestEpisodes />
             </Suspense>
           </CardsSection>
 
           <CardsSection title='Últimos animes' icon={<LatestIcon />}>
-            <Suspense fallback={<CardsSkeleton countCards={5} />}>
+            <Suspense fallback={<CardsSkeleton countCards={3} />}>
               <LatestAnimes />
             </Suspense>
           </CardsSection>
