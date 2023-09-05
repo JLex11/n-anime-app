@@ -121,7 +121,7 @@
   overflow-y: auto;
   width: 100%;
   max-height: calc(
-    100vh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 - var(--pd) * 2 -
+    100dvh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 - var(--pd) * 2 -
       var(--footer-height)
   );
 }
