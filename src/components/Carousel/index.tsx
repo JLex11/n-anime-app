@@ -8,7 +8,7 @@ interface Props {
   timeBetweenSlides?: number
 }
 
-export function CarouselHero({ animes, showInfo, timeBetweenSlides = 10000 }: Props) {
+export function Carousel({ animes, showInfo, timeBetweenSlides = 15000 }: Props) {
   return (
     <CarouselWrapper animes={animes} timeBetweenSlides={timeBetweenSlides}>
       {animes.map((anime, i) => (
