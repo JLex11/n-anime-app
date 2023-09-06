@@ -4,11 +4,12 @@ import { AnimeHeader } from '@/components/AnimePage/AnimeHeader'
 import { Description } from '@/components/AnimePage/Description'
 import { Episodes } from '@/components/AnimePage/Episodes'
 import { Genres } from '@/components/AnimePage/Genres'
-import { CarouselHero } from '@/components/Carousel'
+import { Carousel } from '@/components/Carousel'
 import { getAnime } from '@/services/getAnime'
 import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
 import { getLatestEpisodes } from '@/services/getLatestEpisodes'
 import { getRatingAnimes } from '@/services/getRatingAnimes'
+import { Anime } from '@/types'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
@@ -27,7 +28,7 @@ export default async function AnimePage({ params: { animeId }, searchParams: { l
 
   return (
     <>
-      <CarouselHero animes={[anime]} />
+      <Carousel animes={[anime]} />
       <main className={styles.main}>
         <AnimeAside image={anime.images?.coverImage ?? ''} status={anime.status} title={anime.title} />
         <section className={styles.content}>
@@ -53,14 +54,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description: anime.description,
-    keywords,
+    keywords
   }
 }
 
-export async function generateStaticParams() {
-  const animes = await getRatingAnimes(20)
-  const animesFromEpisodes = await getLatestEpisodes()
-  const animesFromBroadcast = await getBroadcastAnimes()
-
-  return [...animes, ...animesFromEpisodes, ...animesFromBroadcast].map(anime => ({ animeId: anime.animeId }))
+export async function generateStaticParams(): Promise<{ animeId: string }[]> {
+  const animesPromises = [getRatingAnimes(25), getLatestEpisodes(), getBroadcastAnimes()]
+  const animesIdSettled = await Promise.allSettled(
+    animesPromises.map(animePromise => animePromise.then(anime => anime.map(({ animeId }) => animeId)))
+  )
+  const filteredAnimesId = animesIdSettled.filter(
+    (animesId): animesId is PromiseFulfilledResult<Anime['animeId'][]> => animesId.status === 'fulfilled'
+  )
+  const mappedAnimesId = filteredAnimesId.flatMap(filteredAnimesId => filteredAnimesId.value.map(animeId => ({ animeId })))
+  return mappedAnimesId
 }
