@@ -124,6 +124,7 @@
     100dvh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 - var(--pd) * 2 -
       var(--footer-height)
   );
+  overscroll-behavior: contain;
 }
 
 .collectionsContainer::-webkit-scrollbar {
