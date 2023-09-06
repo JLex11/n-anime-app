@@ -18,17 +18,6 @@ interface Props {
   }
 }
 
-export async function generateMetadata({ params: { animeId, episode } }: Props) {
-  return {
-    title: `Episodio ${episode} de ${animeId.replace(/\-/g, ' ')}`
-  }
-}
-
-export async function generateStaticParams() {
-  const latestEpisodes = await getLatestEpisodes()
-  return latestEpisodes.map(episode => ({ animeId: episode.animeId, episode: episode.episode.toString() }))
-}
-
 export default async function EpisodePage({ params: { animeId, episode }, searchParams }: Props) {
   const episodeSources = await getEpisodeSources(`${animeId}-${episode}`)
   const animeInfo = await getAnime(animeId)
@@ -58,4 +47,15 @@ export default async function EpisodePage({ params: { animeId, episode }, search
       </section>
     </EpisodePageContextProvider>
   )
+}
+
+export async function generateMetadata({ params: { animeId, episode } }: Props) {
+  return {
+    title: `Episodio ${episode} de ${animeId.replace(/\-/g, ' ')}`
+  }
+}
+
+export async function generateStaticParams() {
+  const latestEpisodes = await getLatestEpisodes()
+  return latestEpisodes.map(episode => ({ animeId: episode.animeId, episode: episode.episode.toString() }))
 }
