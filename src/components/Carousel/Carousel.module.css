@@ -77,12 +77,13 @@
 
 .infoTitle {
   display: -webkit-box;
-  overflow: hidden;
-  color: #fff;
-  font-weight: 700;
-  font-size: clamp(1.8rem, 3vw, 4rem);
   max-width: 900px;
+  font-size: 3rem;
+  font-weight: 700;
   text-overflow: ellipsis;
+  text-wrap: balance;
+  color: #fff;
+  overflow: hidden;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
@@ -96,12 +97,12 @@
 
 .carouselActions {
   display: flex;
-  z-index: 2;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
   justify-content: flex-end;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 2;
   width: min(100%, var(--max-width));
   margin: 100px auto;
   padding-inline: 2rem;
