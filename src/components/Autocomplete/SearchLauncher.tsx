@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 
-const Autocomplete = dynamic(() => import('.').then(mod => mod.Autocomplete))
+const Autocomplete = dynamic(() => import('./Autocomplete').then(mod => mod.Autocomplete))
 
 interface Props {
   className?: string
