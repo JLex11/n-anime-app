@@ -1,16 +1,13 @@
 import { APIRoutes } from '@/enums'
 import { Anime } from '@/types'
 import { hoursToSeconds } from '@/utils/convertTime'
+import { fetchData } from './fetchData'
 
 export const getBroadcastAnimes = async (limit?: number) => {
-  const broadcastAnimes: Anime[] = await fetch(`${APIRoutes.BroadcastAnimes}?limit=${limit}`, {
-    next: { revalidate: hoursToSeconds(12) },
-  })
-    .then(response => response.json())
-    .catch(err => {
-      console.log(err)
-      return []
-    })
+  const fetchConfig = {
+    next: { revalidate: hoursToSeconds(12) }
+  }
 
+  const broadcastAnimes: Anime[] = await fetchData(`${APIRoutes.BroadcastAnimes}?limit=${limit}`, fetchConfig)
   return broadcastAnimes
 }

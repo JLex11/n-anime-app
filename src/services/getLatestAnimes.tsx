@@ -2,16 +2,13 @@ import { APIRoutes } from '@/enums'
 import { Anime } from '@/types'
 import { hoursToSeconds } from '@/utils/convertTime'
 import { filterUnsupportDomains } from '../utils/filterUnsupportDomains'
+import { fetchData } from './fetchData'
 
 export const getLatestAnimes = async (limit = 10): Promise<Anime[]> => {
-  const animes: Anime[] = await fetch(`${APIRoutes.LatestAnimes}?limit=${limit}`, {
-    next: { revalidate: hoursToSeconds(6) },
-  })
-    .then(response => response.json())
-    .catch(err => {
-      console.log(err)
-      return []
-    })
+  const fetchConfig = {
+    next: { revalidate: hoursToSeconds(6) }
+  }
 
+  const animes: Anime[] = await fetchData(`${APIRoutes.LatestAnimes}?limit=${limit}`)
   return animes.map(filterUnsupportDomains)
 }
