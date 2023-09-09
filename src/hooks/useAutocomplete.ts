@@ -15,7 +15,7 @@ const autocompleteInitialState: AutocompleteState<AutocompleteOutputItem> = {
   status: 'idle'
 }
 
-export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: AutocompleteProps) {
+export function useAutocomplete({ handleLaunchAutocomplete }: AutocompleteProps) {
   const [autocompleteState, setAutocompleteState] = useState(autocompleteInitialState)
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -30,7 +30,7 @@ export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: Autoc
     return itemRefs.current[index]
   }, [])
 
-  const debouncedGetAnimeItems = debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 100)
+  const debouncedGetAnimeItems = debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 200)
 
   const handleActiveItem = useCallback(
     ({ item, event, state }: OnActiveParams<AutocompleteOutputItem>) => {
@@ -53,7 +53,7 @@ export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: Autoc
       createAutocomplete<AutocompleteOutputItem>({
         autoFocus: true,
         id: `autocomplete-${autocompleteId}`,
-        placeholder: placeholder ?? 'Que quieres encontrar?',
+        placeholder: 'Rey de los Piratas, Gabimaru el Hueco...',
         onStateChange: ({ state }) => setAutocompleteState(state),
         defaultActiveItemId: 0,
         getSources: ({ query }) => [
@@ -80,7 +80,7 @@ export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: Autoc
         }
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [placeholder, autocompleteId, router, handleLaunchAutocomplete, handleActiveItem, getRoutesItems]
+    [autocompleteId, router, handleLaunchAutocomplete, handleActiveItem, getRoutesItems]
   )
 
   const autocompleteFormProps = autoComplete.getFormProps({ inputElement: inputRef.current })
@@ -97,10 +97,14 @@ export function useAutocomplete({ placeholder, handleLaunchAutocomplete }: Autoc
   return {
     autocomplete: autocompleteState,
     setActiveItemId: autoComplete.setActiveItemId,
-    inputRef,
-    panelRef,
-    formProps,
-    inputProps,
-    panelProps
+    elementsRef: {
+      inputRef,
+      panelRef
+    },
+    elementsProps: {
+      formProps,
+      inputProps,
+      panelProps
+    }
   }
 }
