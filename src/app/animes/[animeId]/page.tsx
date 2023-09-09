@@ -1,9 +1,5 @@
 import styles from '@/components/AnimePage/Anime.module.css'
 import { AnimeAside } from '@/components/AnimePage/AnimeAside'
-import { AnimeHeader } from '@/components/AnimePage/AnimeHeader'
-import { Description } from '@/components/AnimePage/Description'
-import { Episodes } from '@/components/AnimePage/Episodes'
-import { Genres } from '@/components/AnimePage/Genres'
 import { Carousel } from '@/components/Carousel'
 import { getAnime } from '@/services/getAnime'
 import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
@@ -12,6 +8,7 @@ import { getRatingAnimes } from '@/services/getRatingAnimes'
 import { Anime } from '@/types'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
+import { AnimePageContent } from '../../../components/AnimePage/AnimePageContent'
 
 interface Props {
   params: {
@@ -31,12 +28,7 @@ export default async function AnimePage({ params: { animeId }, searchParams: { l
       <Carousel animes={[anime]} />
       <main className={styles.main}>
         <AnimeAside image={anime.images?.coverImage ?? ''} status={anime.status} title={anime.title} />
-        <section className={styles.content}>
-          <AnimeHeader title={anime.title} otherTitles={anime.otherTitles} />
-          <Description description={anime.description} />
-          <Genres genres={anime.genres} />
-          <Episodes limit={limit} animeId={animeId} fallbackImg={anime.images?.coverImage} animeTitle={anime.title} />
-        </section>
+        <AnimePageContent anime={anime} limit={limit} />
       </main>
     </>
   )

@@ -1,27 +1,28 @@
-import { API_BASE_URL } from './constants'
+import { FL0_API_BASE_URL, VERCEL_API_BASE_URL } from './constants'
 
 export enum ResponseType {
   JSON = 'json',
   TEXT = 'text',
-  BUFFER = 'buffer',
+  BUFFER = 'buffer'
 }
 
 export enum animeStatus {
   BROADCAST = '1',
   FINALIZED = '2',
-  SOON = '3',
+  SOON = '3'
 }
 
 export enum APIRoutes {
-  baseUrl = API_BASE_URL,
-  LatestEpisodes = `${API_BASE_URL}/episodes/latest`,
-  VideoStreaming = `${API_BASE_URL}/episodes/sources`,
-  LatestAnimes = `${API_BASE_URL}/animes/latest`,
-  BroadcastAnimes = `${API_BASE_URL}/animes/broadcast`,
-  RatingAnimes = `${API_BASE_URL}/animes/latest/rating`,
-  InfoAnime = `${API_BASE_URL}/animes`,
-  AnimeEpisodes = `${API_BASE_URL}/animes/:animeId/episodes`,
-  SearchAnimes = `${API_BASE_URL}/animes/search`,
+  vercelBaseUrl = VERCEL_API_BASE_URL,
+  fl0BaseUrl = FL0_API_BASE_URL,
+  LatestEpisodes = `/episodes/latest`,
+  VideoStreaming = `/episodes/sources`,
+  LatestAnimes = `/animes/latest`,
+  BroadcastAnimes = `/animes/broadcast`,
+  RatingAnimes = `/animes/latest/rating`,
+  InfoAnime = `/animes`,
+  AnimeEpisodes = `/animes/:animeId/episodes`,
+  SearchAnimes = `/animes/search`
 }
 
 export enum autoCompleteHotKeys {
@@ -32,5 +33,5 @@ export enum autoCompleteHotKeys {
   ARROW_UP = 'arrowup',
   CTRL_SPACE = 'ctrl+space',
   OUT = 'escape',
-  LAUNCH = '/',
+  LAUNCH = '/'
 }
