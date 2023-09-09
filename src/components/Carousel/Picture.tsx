@@ -18,11 +18,21 @@ interface Props {
   lazy: boolean
 }
 
+const validImageCacheDays = 30
+
+//tmp cache, after apply this logic in api
+const cacheValidImages: string[] = []
+
 async function getValidImage(images: CarouselImage[]): Promise<CarouselImage | null> {
   for await (const image of images) {
+    if (cacheValidImages.some(cacheImage => cacheImage === image.link)) return image
+
     try {
-      const imgBuffer = await fetch(image.link).then(response => response.arrayBuffer())
+      const imgBuffer = await fetch(image.link, {
+        next: { revalidate: validImageCacheDays * 24 * 60 * 60 }
+      }).then(response => response.arrayBuffer())
       await sharp(imgBuffer).metadata()
+      cacheValidImages.push(image.link)
       return image
     } catch (error) {}
   }
