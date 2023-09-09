@@ -1,6 +1,7 @@
 'use client'
 
 import { useFallbackImage } from '@/hooks/useFallbackImage'
+import Image from 'next/image'
 
 interface Props {
   src: string
@@ -25,7 +26,7 @@ export function CardImage({ src, fbSrc, alt, dimensions, lazy, className: cssCla
   )
 
   return (
-    <img
+    <Image
       src={currentImage.link}
       alt={alt}
       width={currentImage.width}
