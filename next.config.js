@@ -17,6 +17,18 @@ const nextConfig = {
         hostname: 'anime-scrapper-alpha.vercel.app',
         port: '',
         pathname: '/api/image/**'
+      },
+      {
+        protocol: 'http',
+        hostname: 'anime-scrapper-2rl4-dev.fl0.io',
+        port: '',
+        pathname: '/api/image/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'anime-scrapper-2rl4-dev.fl0.io',
+        port: '',
+        pathname: '/api/image/**'
       }
     ]
   }
