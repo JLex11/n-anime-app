@@ -161,8 +161,17 @@
   background-color: #fff;
 }
 
-/* @media (width <= 48rem) {
-  .navigateButton {
-    transform: translatey(-6.15rem);
+@media (width <= 48rem) {
+  .navigateButtons {
+    bottom: -40px;
   }
-} */
+
+  .containerButtons {
+    justify-content: center;
+  }
+
+  .navigateButton {
+    transform: translateY(0);
+    --size: 0.9rem;
+  }
+}
