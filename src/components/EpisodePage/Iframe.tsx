@@ -2,12 +2,10 @@ import { EpisodeVideo } from '@/types'
 import styles from './Episode.module.css'
 
 interface Props {
-  /* iframeRef: React.RefObject<HTMLIFrameElement>
-  currentIframeData: EpisodeVideo */
   IframeData: EpisodeVideo
 }
 
-export function Iframe({ IframeData /* iframeRef, currentIframeData */ }: Props) {
+export function Iframe({ IframeData }: Props) {
   return (
     <iframe
       className={styles.iframe}
@@ -16,7 +14,6 @@ export function Iframe({ IframeData /* iframeRef, currentIframeData */ }: Props)
       width={576}
       allowFullScreen
       loading='eager'
-      /* ref={iframeRef} */
       name='episode-iframe-video'
     />
   )
