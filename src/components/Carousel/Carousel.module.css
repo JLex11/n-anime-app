@@ -157,11 +157,11 @@
 
 .navigateButton.active {
   padding: var(--size) calc(var(--size) * 2);
-  border-radius: 10px;
+  border-radius: 1rem;
   background-color: #fff;
 }
 
-@media (width <= 48rem) {
+@media (width <= 56rem) {
   .navigateButtons {
     bottom: -40px;
   }
