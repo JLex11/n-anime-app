@@ -19,7 +19,7 @@ export function Header({ pages }: Props) {
       <div className={styles.headerContainer}>
         <div className={styles.headerSection}>
           <div className={styles.logo}>
-            <Image src='/Nika_Logo.svg' alt='logo: Nika dios del sol (one piece)' width={40} height={40} priority={true} />
+            <Image src='/Nika_Logo.svg' alt='logo: Nika dios del sol (one piece)' width={40} height={40} priority={true} loading='eager' />
           </div>
           {pages && <Nav pages={pages} />}
           <Tools />
