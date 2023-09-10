@@ -41,6 +41,12 @@ main {
   padding: 2rem;
 }
 
+@media (width <= 56rem) {
+  main {
+    padding: 1rem;
+  }
+}
+
 .page-loader {
   display: grid;
   width: 100%;
