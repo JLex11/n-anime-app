@@ -26,14 +26,17 @@ export interface EpisodeVideo {
 }
 
 export interface VideoList {
-  SUB?: EpisodeVideo[]
+  SUB: EpisodeVideo[]
   DUB?: EpisodeVideo[]
+  LAT?: EpisodeVideo[]
 }
 
 export interface EpisodeSources {
   episode: string
   videos: VideoList
 }
+
+export type VideoLangs = keyof VideoList
 
 export type CarouselImage = {
   link: string
