@@ -235,7 +235,7 @@
   box-shadow: 0 0 5rem rgba(0, 0, 0, 0.9);
 }
 
-@media (width <= 68rem) {
+@media (width <= 56rem) {
   .mainContent {
     flex-direction: column;
     row-gap: 2rem;
