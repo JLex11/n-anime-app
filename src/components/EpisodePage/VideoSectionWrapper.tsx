@@ -1,37 +1,40 @@
 'use client'
 
 import { EpisodePageContext } from '@/app/animes/[animeId]/[episode]/PageContext'
-import { EpisodeVideo } from '@/types'
-import { useContext, useRef, useState } from 'react'
+import { VideoLangs, VideoList } from '@/types'
+import { toCap } from '@/utils/textConverts'
+import { useContext, useState } from 'react'
 import styles from './Episode.module.css'
-import { Iframe } from './Iframe'
 import { VideoNav } from './VideoNav'
 
-export type IframeData = {
-  SUB?: EpisodeVideo[]
-  DUB?: EpisodeVideo[]
-}
-
 interface Props {
-  iframesData: IframeData
+  iframesData: VideoList
+  title?: string
   children: React.ReactNode
 }
 
-export function VideoSectionWrapper({ iframesData, children }: Props) {
-  const [currentIframeData, setCurrentIframeData] = useState(iframesData.SUB?.[0])
-
+export function VideoSectionWrapper({ iframesData, title, children }: Props) {
+  const [currentIframeLang, setCurrentIframeLang] = useState<VideoLangs>('SUB')
   const { handleVideoSectionRef } = useContext(EpisodePageContext)
-  const iframeRef = useRef<HTMLIFrameElement>(null)
 
-  const handleIframeChange = (episodeVideo: EpisodeVideo) => {
-    setCurrentIframeData(episodeVideo)
-  }
+  const iframeLangs = Object.keys(iframesData) as VideoLangs[]
 
   return (
     <section className={styles.videoContainer} ref={handleVideoSectionRef}>
+      <header className={styles.videoHeader}>
+        <h1 className={styles.videoTitle}>{title}</h1>
+        {iframeLangs.length > 1 && (
+          <select name='languaje' className={styles.languajeSelect} onChange={e => setCurrentIframeLang(e.target.value as VideoLangs)}>
+            {iframeLangs.map(lang => (
+              <option value={lang} key={lang}>
+                {toCap(lang)}
+              </option>
+            ))}
+          </select>
+        )}
+      </header>
+      {<VideoNav currentIframesData={iframesData[currentIframeLang] || []} />}
       {children}
-      <VideoNav handleIframeChange={handleIframeChange} iframesData={iframesData} />
-      {currentIframeData && <Iframe iframeRef={iframeRef} currentIframeData={currentIframeData} />}
     </section>
   )
 }
