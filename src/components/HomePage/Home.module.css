@@ -3,7 +3,6 @@
   grid-template-columns: 1fr 300px;
   min-height: calc(100vh - 4rem - 100px);
   margin: 2rem auto;
-  padding: 2rem;
   gap: 3rem;
 }
 
@@ -61,7 +60,7 @@
   transition: all 0.2s ease-in-out;
 }
 
-@media (max-width: 60rem) {
+@media (max-width: 56rem) {
   .main {
     grid-template-columns: 1fr;
   }
