@@ -1,5 +1,5 @@
 import { CardsSection } from '@/components/CardsSection'
-import { CarouselHero } from '@/components/Carousel/CarouselHero'
+import { CarouselHero, CarouselLoader } from '@/components/Carousel/CarouselHero'
 import styles from '@/components/HomePage/Home.module.css'
 import { HomeAside } from '@/components/HomePage/HomeAside'
 import { LatestAnimes } from '@/components/HomePage/LatestAnimes'
@@ -11,7 +11,7 @@ import { Suspense } from 'react'
 export default async function HomePage() {
   return (
     <>
-      <Suspense fallback={<div style={{ height: 'var(--carousel-height)', display: 'grid', placeItems: 'center' }}>Loading Hero...</div>}>
+      <Suspense fallback={<CarouselLoader />}>
         <CarouselHero animesPromise={() => getRatingAnimes(5)} />
       </Suspense>
       <main className={styles.main}>
