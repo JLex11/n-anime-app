@@ -46,7 +46,7 @@ export async function Picture({ title, images, lazy }: Props) {
   const filteredImages = images.filter((image): image is CarouselImage => Boolean(image.link))
   const carouselImage = await getValidImage(filteredImages)
 
-  const imageWidth = isMobile ? 648 : 1080
+  const imageWidth = isMobile ? 453 : 1920
   const imageHeight = imageWidth / 2
 
   return (
