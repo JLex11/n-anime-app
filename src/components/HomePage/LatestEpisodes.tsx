@@ -5,7 +5,7 @@ import { HomeCardSkeleton } from './HomeCardSkeleton'
 export async function LatestEpisodes() {
   const latestEpisodes = await getLatestEpisodes()
 
-  const episodeData = latestEpisodes.map((episode, i) => {
+  const episodeData = latestEpisodes.map(episode => {
     return {
       key: episode.episodeId,
       image: {
