@@ -2,7 +2,6 @@ import { EpisodeVideo } from '@/types'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import styles from './Episode.module.css'
 import { VideoNavItem } from './VideoNavItem'
-import { IframeData } from './VideoSection'
 
 interface CSSProperties extends React.CSSProperties {
   '--indicator-left'?: `${number}px`
@@ -17,11 +16,11 @@ interface handleActiveProps {
 }
 
 interface VideoNavProps {
-  iframesData: IframeData
-  handleIframeChange: (episodeVideo: EpisodeVideo) => void
+  currentIframesData: EpisodeVideo[]
 }
 
-export function VideoNav({ iframesData, handleIframeChange }: VideoNavProps) {
+export function VideoNav({ currentIframesData }: VideoNavProps) {
+  const [activeIframeOption, setActiveIframeOption] = useState<EpisodeVideo['server'] | undefined>(currentIframesData?.[0].server)
   const [indicatorProps, setIndicatorProps] = useState<CSSProperties>({
     '--indicator-left': '0px',
     '--indicator-width': '0px',
@@ -66,16 +65,16 @@ export function VideoNav({ iframesData, handleIframeChange }: VideoNavProps) {
 
   return (
     <nav className={styles.iframeNav} style={indicatorProps}>
-      {iframesData.SUB && (
+      {currentIframesData && (
         <ul className={styles.iframeNavOptions} onMouseLeave={handleMouseLeave}>
-          {iframesData.SUB.map((iframe, i) => (
+          {currentIframesData!.map(iframe => (
             <VideoNavItem
               key={iframe.code}
               iframe={iframe}
               handleMouseEnter={handleMouseEnter}
-              changeIframe={handleIframeChange}
-              isActive={i === 0}
-              activeIframeRef={activeIframeRef}
+              changeIframe={() => setActiveIframeOption(iframe.server)}
+              isActive={iframe.server === activeIframeOption}
+              activeIframeRef={iframe.server === activeIframeOption ? activeIframeRef : null}
             />
           ))}
         </ul>
