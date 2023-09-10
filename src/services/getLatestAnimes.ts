@@ -9,6 +9,6 @@ export const getLatestAnimes = async (limit = 10): Promise<Anime[]> => {
     next: { revalidate: hoursToSeconds(6) }
   }
 
-  const animes: Anime[] = await fetchData(`${APIRoutes.LatestAnimes}?limit=${limit}`)
+  const animes: Anime[] = await fetchData(`${APIRoutes.LatestAnimes}?limit=${limit}`, fetchConfig)
   return animes.map(filterUnsupportDomains)
 }

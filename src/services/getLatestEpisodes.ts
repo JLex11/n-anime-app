@@ -5,7 +5,7 @@ import { fetchData } from './fetchData'
 
 export const getLatestEpisodes = async () => {
   const fetchConfig = {
-    next: { revalidate: minToSeconds(10) }
+    next: { revalidate: minToSeconds(5) }
   }
 
   const episodes: Episode[] = await fetchData(APIRoutes.LatestEpisodes, fetchConfig)
