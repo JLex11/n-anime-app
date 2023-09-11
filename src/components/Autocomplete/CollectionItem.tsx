@@ -47,7 +47,7 @@ export function CollectionItem({ item }: Props) {
       <div className={collectionItemClass}>
         <Link href={item.link} className={styles.itemContainer} onClick={() => handleLaunchAutocomplete(false)}>
           {typeof item.image === 'string' ? (
-            <img src={item.image} alt={item.title} width={40} height={40} className={styles.itemImage} decoding='async' />
+            <img src={item.image} alt={item.title} width={40} height={50} className={styles.itemImage} decoding='async' loading='lazy' />
           ) : (
             item.image
           )}
