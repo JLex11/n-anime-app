@@ -1,6 +1,7 @@
 import { BreadCrumb } from '@/components/Common/BreadCrumb'
 import styles from '@/components/EpisodePage/Episode.module.css'
 import { getAnime } from '@/services/getAnime'
+import { normalizeAnimeId } from '@/utils/normalizeAnimeId'
 import { toCap } from '@/utils/textConverts'
 import Image from 'next/image'
 
@@ -20,7 +21,7 @@ export default async function EpisodeLayout({ children, params }: Props) {
 
   const crumbs = [
     { name: 'Inicio', path: '/' },
-    { name: toCap(animeInfo?.title ?? animeId.replaceAll('-', ' ')), path: `/animes/${animeId}` },
+    { name: toCap(animeInfo?.title ?? normalizeAnimeId(animeId)), path: `/animes/${animeId}` },
     { name: `Episodio ${episode}` }
   ]
 
@@ -33,7 +34,7 @@ export default async function EpisodeLayout({ children, params }: Props) {
       {bgImage && (
         <Image
           src={bgImage}
-          alt={animeInfo?.title ?? animeId.replaceAll('-', ' ')}
+          alt={animeInfo?.title ?? normalizeAnimeId(animeId)}
           width={500}
           height={600}
           decoding='async'

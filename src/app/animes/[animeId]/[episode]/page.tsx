@@ -4,6 +4,7 @@ import { VideoSection } from '@/components/EpisodePage/VideoSection'
 import { getAnime } from '@/services/getAnime'
 import { getEpisodeSources } from '@/services/getEpisodeSources'
 import { getLatestEpisodes } from '@/services/getLatestEpisodes'
+import { normalizeAnimeId } from '@/utils/normalizeAnimeId'
 import { toCap } from '@/utils/textConverts'
 import clsx from 'clsx'
 import { EpisodePageContextProvider } from './PageContext'
@@ -31,7 +32,7 @@ export default async function EpisodePage({ params: { animeId, episode }, search
         {episodeWasFound ? (
           <VideoSection
             iframesData={episodeSources!.videos}
-            title={toCap(`episodio ${episode} de ${animeInfo?.title ?? animeId.replaceAll('-', ' ')}`)}
+            title={toCap(`episodio ${episode} de ${animeInfo?.title ?? normalizeAnimeId(animeId)}`)}
           />
         ) : (
           <h2>Episodio no encontrado.</h2>
@@ -40,7 +41,7 @@ export default async function EpisodePage({ params: { animeId, episode }, search
         <Aside
           searchParams={searchParams}
           animeId={animeId}
-          animeTitle={animeInfo?.title ?? animeId.replaceAll('-', ' ')}
+          animeTitle={animeInfo?.title ?? normalizeAnimeId(animeId)}
           animeImage={animeInfo?.images?.coverImage}
           currentEpisode={Number(episode)}
         />
