@@ -172,6 +172,6 @@
 
   .navigateButton {
     transform: translateY(0);
-    --size: 0.9rem;
+    --size: 0.7rem;
   }
 }
