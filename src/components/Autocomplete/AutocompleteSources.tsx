@@ -23,7 +23,7 @@ const getAnimeItemChilds = async (animeId: AutocompleteItem['id']): Promise<Auto
     id: episode.episodeId,
     title: episode.episode,
     image: {
-      src: episode.image,
+      src: episode.image || '/lights-blur.webp',
       alt: episode.title
     },
     link: `/animes/${episode.animeId}/${episode.episode}`
