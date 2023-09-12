@@ -1,5 +1,4 @@
 import { Header } from '@/components/Header/Header'
-import { APP_ROUTES } from '@/constants'
 import { Inter } from 'next/font/google'
 import '../globals.css'
 
@@ -28,7 +27,7 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang='es'>
       <body className={interFont.className}>
-        <Header pages={APP_ROUTES} />
+        <Header />
         {children}
       </body>
     </html>
