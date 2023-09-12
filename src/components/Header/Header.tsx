@@ -1,3 +1,4 @@
+import { APP_ROUTES } from '@/constants'
 import Image from 'next/image'
 import styles from './Header.module.css'
 import { HeaderWrapper } from './HeaderWrapper'
@@ -13,7 +14,7 @@ interface Props {
   pages?: Page[]
 }
 
-export function Header({ pages }: Props) {
+export function Header({ pages = APP_ROUTES }: Props) {
   return (
     <HeaderWrapper>
       <div className={styles.headerContainer}>
