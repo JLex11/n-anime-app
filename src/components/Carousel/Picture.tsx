@@ -59,8 +59,8 @@ export async function Picture({ title, images, lazy }: Props) {
         style={{ backgroundPosition: carouselImage ? carouselImage.position : 'center' }}
         loading={lazy ? 'lazy' : 'eager'}
         priority={!lazy}
-        placeholder='blur'
-        blurDataURL='/lights-blur.webp'
+        /* placeholder='blur'
+        blurDataURL='/lights-blur.webp' */
       />
     </picture>
   )
