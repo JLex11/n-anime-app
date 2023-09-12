@@ -60,9 +60,16 @@
   transition: all 0.2s ease-in-out;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
 @media (max-width: 56rem) {
   .main {
     grid-template-columns: 1fr;
+    margin-block-start: 4rem;
   }
 
   .aside {
@@ -73,10 +80,4 @@
     flex-direction: row;
     overflow-x: auto;
   }
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
 }

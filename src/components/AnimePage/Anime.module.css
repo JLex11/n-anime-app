@@ -61,6 +61,7 @@
   align-items: flex-start;
   animation: fadeIn 0.3s ease-in-out;
   gap: 20px;
+  width: 100%;
 }
 
 @keyframes fadeIn {
@@ -129,5 +130,14 @@
   .content {
     margin-top: unset;
     align-items: center;
+  }
+
+  .header {
+    width: 100%;
+    align-items: center;
+  }
+
+  .headerTitle {
+    text-align: center;
   }
 }
