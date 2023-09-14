@@ -11,8 +11,8 @@ interface Props {
   children: React.ReactNode
 }
 
-export function CarouselWrapper({ animes, children, timeBetweenSlides = 10000 }: Props) {
-  const { currentSlideId, setCurrentSlide, scrollerRef } = useCarousel({
+export function CarouselWrapper({ animes, children, timeBetweenSlides = 5000 }: Props) {
+  const { currentSlideId, setCurrentSlide, scrollerRef, sliding, setSliding } = useCarousel({
     itemIds: animes.map(({ animeId }) => animeId),
     timeBetweenSlides
   })
@@ -24,15 +24,14 @@ export function CarouselWrapper({ animes, children, timeBetweenSlides = 10000 }:
 
   return (
     <section className={styles.carousel}>
+      <button onClick={() => setSliding(!sliding)} className={styles.slidingButton}>
+        {sliding ? 'Pausar' : 'Reproducir'}
+      </button>
       <ul className={styles.scroller} ref={scrollerRef}>
         {children}
       </ul>
       {animes.length > 1 && (
-        <CarouselNavigation
-          buttonsData={buttonsData}
-          currentSlideId={currentSlideId}
-          setCurrentSlide={setCurrentSlide}
-        />
+        <CarouselNavigation buttonsData={buttonsData} currentSlideId={currentSlideId} setCurrentSlide={setCurrentSlide} />
       )}
     </section>
   )

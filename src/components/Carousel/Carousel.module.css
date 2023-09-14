@@ -17,6 +17,13 @@
   background: linear-gradient(to bottom, transparent, var(--primary-color));
 }
 
+.slidingButton {
+  position: absolute;
+  right: 1rem;
+  top: 5rem;
+  z-index: 3;
+}
+
 .scroller {
   display: flex;
   width: 100%;
