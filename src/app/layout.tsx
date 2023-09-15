@@ -1,5 +1,7 @@
 import { Header } from '@/components/Header/Header'
+import clsx from 'clsx'
 import { Inter } from 'next/font/google'
+import LocalFont from 'next/font/local'
 import '../globals.css'
 
 export const metadata = {
@@ -19,6 +21,12 @@ const interFont = Inter({
   adjustFontFallback: true
 })
 
+const animeAceBBFont = LocalFont({
+  src: 'fonts/Anime Ace BB/animeace2_reg.woff2',
+  variable: '--anime-ace-bb-font',
+  preload: true
+})
+
 interface Props {
   children: React.ReactNode
 }
@@ -26,7 +34,7 @@ interface Props {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang='es'>
-      <body className={interFont.className}>
+      <body className={clsx(interFont.className, animeAceBBFont.variable)}>
         <Header />
         {children}
       </body>
