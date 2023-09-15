@@ -1,5 +1,5 @@
 import { Episode } from '@/types'
-import Link from 'next/link'
+import { ButtonMore } from './ButtonMore'
 import styles from './EpisodeList.module.css'
 import { ListItem } from './ListItem'
 
@@ -33,11 +33,14 @@ export function EpisodeList({ limit, episodes, currentEpisode, animeImage, anime
         />
       ))}
       {!firstEpisodeInList && (
-        <li>
-          <Link href={`?limit=${episodes.length + 5}`} className={styles.listItem} scroll={false}>
-            Cargar mas
-          </Link>
-        </li>
+        <>
+          {/* <li>
+            <Link href={`?limit=${episodes.length + 5}`} className={styles.listItem} scroll={false}>
+              Cargar mas
+            </Link>
+          </li> */}
+          <ButtonMore limit={episodes.length + 5} />
+        </>
       )}
     </ul>
   )

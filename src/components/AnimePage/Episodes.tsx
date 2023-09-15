@@ -1,4 +1,4 @@
-import { EpisodeList } from '@/components/EpisodeList'
+import { EpisodeList } from '@/components/EpisodeList/EpisodeList'
 import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
 import styles from './Anime.module.css'
 
