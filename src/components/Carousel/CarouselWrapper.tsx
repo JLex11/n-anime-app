@@ -24,9 +24,9 @@ export function CarouselWrapper({ animes, children, timeBetweenSlides = 5000 }: 
 
   return (
     <section className={styles.carousel}>
-      <button onClick={() => setSliding(!sliding)} className={styles.slidingButton}>
+      {/* <button onClick={() => setSliding(!sliding)} className={styles.slidingButton}>
         {sliding ? 'Pausar' : 'Reproducir'}
-      </button>
+      </button> */}
       <ul className={styles.scroller} ref={scrollerRef}>
         {children}
       </ul>
