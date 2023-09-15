@@ -1,7 +1,6 @@
 import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
 import Image from 'next/image'
 import Link from 'next/link'
-import LinkIcon from '../Icons/LinkIcon'
 import styles from './Home.module.css'
 
 export const AsideList = async () => {
@@ -23,12 +22,8 @@ export const AsideList = async () => {
                 <h3>{anime.title}</h3>
                 <span>{'⭐'.repeat(Number(anime.rank))}</span>
               </div>
-              <span>
-                <LinkIcon />
-              </span>
             </Link>
           </li>
-          {i !== broadcastAnimes.length - 1 && <hr />}
         </>
       ))}
     </ul>
