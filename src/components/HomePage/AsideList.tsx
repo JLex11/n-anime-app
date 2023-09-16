@@ -17,6 +17,8 @@ export const AsideList = async () => {
                 alt={`cover image of the anime ${anime.title}`}
                 width={40}
                 height={40}
+                loading='lazy'
+                decoding='async'
               />
               <div className={styles.asideListItemContent}>
                 <h3>{anime.title}</h3>
