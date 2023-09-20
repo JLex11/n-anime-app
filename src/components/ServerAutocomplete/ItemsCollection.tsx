@@ -13,7 +13,7 @@ export const ItemsCollection = ({ title, items }: Props) => (
       <h3 className={styles.collectionTitle}>{title}</h3>
       <span className={styles.itemsCount}>{items.length} encontrados</span>
     </header>
-    <ul /* className={styles.collectionList} */>
+    <ul>
       {items.map(item => (
         <AutocompleteItem key={item.id} item={item} />
       ))}

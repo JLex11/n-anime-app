@@ -168,12 +168,6 @@
   font-weight: 300;
 }
 
-/* .collectionList {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-} */
-
 .item {
   display: flex;
   align-items: center;

@@ -4,25 +4,23 @@ import Link from 'next/link'
 import styles from './Home.module.css'
 
 export const AsideList = async () => {
-  const broadcastAnimes = await getBroadcastAnimes(15)
+  const broadcastAnimes = await getBroadcastAnimes(20)
 
   return (
     <ul className={styles.asideList}>
-      {broadcastAnimes.map((anime, i) => (
+      {broadcastAnimes.map(({ animeId, images, title, rank }) => (
         <>
-          <li key={anime.animeId}>
-            <Link href={`/animes/${anime.animeId}`} className={styles.asideListItem}>
+          <li key={animeId}>
+            <Link href={`/animes/${animeId}`} className={styles.asideListItem}>
               <Image
-                src={anime.images.coverImage || '/lights-blur.webp'}
-                alt={`cover image of the anime ${anime.title}`}
+                src={images.coverImage || '/lights-blur.webp'}
+                alt={`cover image of the anime ${title}`}
                 width={40}
                 height={40}
-                /* loading='lazy'
-                decoding='async' */
               />
               <div className={styles.asideListItemContent}>
-                <h3>{anime.title}</h3>
-                <span>{'⭐'.repeat(Number(anime.rank))}</span>
+                <h3>{title}</h3>
+                <span>{'⭐'.repeat(Number(rank))}</span>
               </div>
             </Link>
           </li>

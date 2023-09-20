@@ -20,7 +20,7 @@ interface VideoNavProps {
 }
 
 export function VideoNav({ currentIframesData }: VideoNavProps) {
-  const [activeIframeOption, setActiveIframeOption] = useState<EpisodeVideo['server'] | undefined>(currentIframesData?.[0].server)
+  const [activeIframeOption, setActiveIframeOption] = useState<EpisodeVideo['server'] | undefined>(currentIframesData?.[0]?.server)
   const [indicatorProps, setIndicatorProps] = useState<CSSProperties>({
     '--indicator-left': '0px',
     '--indicator-width': '0px',

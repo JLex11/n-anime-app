@@ -24,7 +24,7 @@ export function EpisodeList({ limit, episodes, currentEpisode, animeImage, anime
     <ul className={styles.episodeList}>
       {episodes.map(episode => (
         <ListItem
-          key={episode.episode}
+          key={episode.episodeId}
           link={createItemLink(episode)}
           episode={episode}
           isSeeing={currentEpisode == episode.episode}
@@ -32,16 +32,7 @@ export function EpisodeList({ limit, episodes, currentEpisode, animeImage, anime
           animeTitle={animeTitle}
         />
       ))}
-      {!firstEpisodeInList && (
-        <>
-          {/* <li>
-            <Link href={`?limit=${episodes.length + 5}`} className={styles.listItem} scroll={false}>
-              Cargar mas
-            </Link>
-          </li> */}
-          <ButtonMore limit={episodes.length + 5} />
-        </>
-      )}
+      {!firstEpisodeInList && <ButtonMore limit={episodes.length + 5} />}
     </ul>
   )
 }

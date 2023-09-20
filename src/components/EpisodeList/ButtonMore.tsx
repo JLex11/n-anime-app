@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useTransition } from 'react'
 import LoadingIcon from '../Icons/LoadingIcon'
 import styles from './EpisodeList.module.css'
@@ -10,11 +10,16 @@ export const ButtonMore = ({ limit }: { limit: number }) => {
   const [isPending, startTransition] = useTransition()
   const buttonRef = useRef<HTMLButtonElement>(null)
   const router = useRouter()
+  const searchParams = useSearchParams()
+
+  useEffect(() => router.prefetch(`?limit=${limit}`), [limit, router])
 
   useEffect(() => {
     const { current: button } = buttonRef
-    return () => button?.scrollIntoView({ behavior: 'smooth' })
-  }, [isPending])
+    return () => {
+      if (isPending) button?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [isPending, searchParams])
 
   const handleClick = () => {
     startTransition(() => {

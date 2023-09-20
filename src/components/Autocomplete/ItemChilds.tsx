@@ -9,21 +9,20 @@ interface Props {
 }
 
 export function ItemChilds({ childItems, handleLaunchAutocomplete }: Props) {
+  const { title, items } = childItems
+
+  const handleClick = () => handleLaunchAutocomplete(false)
+
   return (
     <div className={styles.childsItemsContainer}>
-      <h5 className={styles.childsItemsTitle}>{childItems.title}</h5>
-      {childItems.items.length > 0 && (
+      <h5 className={styles.childsItemsTitle}>{title}</h5>
+      {items.length > 0 && (
         <ul className={styles.childsItems}>
-          {childItems.items.map(childItem => (
-            <li key={childItem.link} className={styles.childItem}>
-              <Link
-                href={childItem.link}
-                className={styles.childItemLink}
-                onClick={() => handleLaunchAutocomplete(false)}
-              >
-                {/* <img {...childItem.image} width={30} height={25} /> */}
+          {items.map(({ link, title }) => (
+            <li key={link} className={styles.childItem}>
+              <Link href={link} className={styles.childItemLink} onClick={handleClick}>
                 <PictureIcon width={30} height={25} />
-                <span className={styles.childItemTitle}>{childItem.title}</span>
+                <span className={styles.childItemTitle}>{title}</span>
               </Link>
             </li>
           ))}
