@@ -17,7 +17,7 @@ export const ButtonMore = ({ limit }: { limit: number }) => {
   useEffect(() => {
     const { current: button } = buttonRef
     return () => {
-      if (isPending) button?.scrollIntoView({ behavior: 'smooth' })
+      if (searchParams.has('limit') || isPending) button?.scrollIntoView({ behavior: 'smooth' })
     }
   }, [isPending, searchParams])
 
