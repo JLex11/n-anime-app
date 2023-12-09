@@ -12,7 +12,6 @@
   flex-direction: column;
   overflow: hidden;
   gap: 1.8rem;
-  order: 1;
 }
 
 .asideInner {

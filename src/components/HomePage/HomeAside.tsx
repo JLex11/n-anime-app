@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import BroadcastIcon from '../Icons/BroadcastIcon'
 import { AsideList } from './AsideList'
 import styles from './Home.module.css'
@@ -10,9 +9,7 @@ export const HomeAside = () => {
         <BroadcastIcon /> En emisión
       </h2>
       <div className={styles.asideInner}>
-        <Suspense fallback={<span>Loading...</span>}>
-          <AsideList />
-        </Suspense>
+        <AsideList />
       </div>
     </aside>
   )
