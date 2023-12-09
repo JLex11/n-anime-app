@@ -15,7 +15,6 @@ export default async function HomePage() {
         <CarouselHero animesPromise={() => getRatingAnimes(5)} />
       </Suspense>
       <main className={styles.main}>
-        <HomeAside />
         <div className={styles.content}>
           <CardsSection title='Últimos episodios' icon={<LatestIcon />} gridWidth={230} gridHeight={190}>
             <Suspense fallback={<CardsSkeleton countCards={3} hasPill={true} />}>
@@ -29,6 +28,9 @@ export default async function HomePage() {
             </Suspense>
           </CardsSection>
         </div>
+        <Suspense fallback={<span>Loading...</span>}>
+          <HomeAside />
+        </Suspense>
       </main>
     </>
   )
