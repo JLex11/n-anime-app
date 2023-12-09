@@ -9,6 +9,12 @@ export const getAnimesByQuery = async (query: string, limit?: number) => {
     next: { revalidate: hoursToSeconds(1) }
   }
 
-  const animes: Anime[] = await fetchData(`${APIRoutes.SearchAnimes}/${query}?limit=${limit}`, fetchConfig)
+  const animes: Anime[] = await fetchData(
+    `${APIRoutes.SearchAnimes}/${query}?limit=${limit}`,
+    fetchConfig
+  ).catch(e => {
+    console.error(e)
+    return []
+  })
   return Array.isArray(animes) ? animes.map(filterUnsupportDomains) : []
 }
