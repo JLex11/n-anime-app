@@ -10,9 +10,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@algolia/autocomplete-core": "1.11.0",
+    "@algolia/autocomplete-core": "1.12.2",
     "clsx": "2.0.0",
-    "next": "13.5.1",
+    "next": "14.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hotkeys-hook": "4.4.1",
@@ -22,8 +22,8 @@
     "@types/node": "20.5.7",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.7",
-    "eslint": "8.48.0",
-    "eslint-config-next": "13.4.19",
+    "eslint": "8.55.0",
+    "eslint-config-next": "14.0.4",
     "typescript": "5.2.0-beta"
   }
 }
