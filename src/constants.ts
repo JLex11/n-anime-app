@@ -8,8 +8,8 @@ export const imageDomains = [
     hostname: 'anime-scrapper-alpha.vercel.app',
     port: '',
     pathname: '/api/image/**'
-  },
-  {
+  }
+  /* {
     protocol: 'https',
     hostname: 'anime-scrapper-2rl4-dev.fl0.io',
     port: '',
@@ -20,7 +20,7 @@ export const imageDomains = [
     hostname: 'anime-scrapper-2rl4-dev.fl0.io',
     port: '',
     pathname: '/api/image/**'
-  }
+  } */
 ]
 
 export const APP_ROUTES = [
