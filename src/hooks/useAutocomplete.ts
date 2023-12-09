@@ -30,7 +30,7 @@ export function useAutocomplete({ handleLaunchAutocomplete }: AutocompleteProps)
     return itemRefs.current[index]
   }, [])
 
-  const debouncedGetAnimeItems = debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 200)
+  const debouncedGetAnimeItems = debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 300)
 
   const handleActiveItem = useCallback(
     ({ item, event, state }: OnActiveParams<AutocompleteOutputItem>) => {
