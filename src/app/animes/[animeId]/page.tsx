@@ -1,17 +1,15 @@
 import styles from '@/components/AnimePage/Anime.module.css'
 import { AnimeAside } from '@/components/AnimePage/AnimeAside'
-import { AnimeHeader } from '@/components/AnimePage/AnimeHeader'
-import { Description } from '@/components/AnimePage/Description'
-import { Episodes } from '@/components/AnimePage/Episodes'
-import { Genres } from '@/components/AnimePage/Genres'
-import { Carousel } from '@/components/Carousel'
+import { AnimeCarousel } from "@/components/AnimePage/AnimeCarousel"
+import { AnimeContent } from "@/components/AnimePage/AnimeContent"
+import { CarouselLoader } from "@/components/Carousel/CarouselHero"
 import { getAnime } from '@/services/getAnime'
 import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
 import { getLatestEpisodes } from '@/services/getLatestEpisodes'
 import { getRatingAnimes } from '@/services/getRatingAnimes'
 import { Anime } from '@/types'
 import { Metadata } from 'next'
-import { redirect } from 'next/navigation'
+import { Suspense } from "react"
 
 interface Props {
   params: {
@@ -22,24 +20,23 @@ interface Props {
   }
 }
 
-export default async function AnimePage({ params: { animeId }, searchParams: { limit } }: Props) {
-  const anime = await getAnime(animeId)
-  if (!anime) redirect('/404')
-
-  return (
-    <>
-      <Carousel animes={[anime]} />
-      <main className={styles.main}>
-        <AnimeAside image={anime.images?.coverImage ?? ''} status={anime.status} title={anime.title} />
-        <section className={styles.content}>
-          <AnimeHeader title={anime.title} otherTitles={anime.otherTitles} />
-          <Description description={anime.description} />
-          <Genres genres={anime.genres} />
-          <Episodes limit={limit} animeId={anime.animeId} fallbackImg={anime.images?.coverImage} animeTitle={anime.title} />
-        </section>
-      </main>
-    </>
-  )
+export default async function AnimePage({
+	params: { animeId },
+	searchParams: { limit },
+}: Props) {
+	return (
+		<>
+			<Suspense fallback={<CarouselLoader />}>
+				<AnimeCarousel animeId={animeId} />
+			</Suspense>
+			<main className={styles.main}>
+				<Suspense fallback={<span>Loading...</span>}>
+					<AnimeAside animeId={animeId} />
+					<AnimeContent animeId={animeId} limit={limit} />
+				</Suspense>
+			</main>
+		</>
+	)
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
