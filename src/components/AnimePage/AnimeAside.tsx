@@ -1,3 +1,4 @@
+import { getAnime } from '@/services/getAnime'
 import { placeholderImgs } from '@/utils/placeHolderImgs'
 import Image from 'next/image'
 import styles from './Anime.module.css'
@@ -8,15 +9,18 @@ interface Props {
   title: string
 }
 
-export function AnimeAside({ image, status, title }: Props) {
+export async function AnimeAside({ animeId }: { animeId: string}) {
+  const anime = await getAnime(animeId)
+  if (!anime) return null
+
   const aspectRatio = 9 / 12
-  const placeholderImg = placeholderImgs.at(0)
+  const placeholderImg = placeholderImgs[0]
 
   return (
     <section className={styles.aside}>
       <Image
-        src={image}
-        alt={title}
+        src={anime.images?.coverImage ?? ''}
+        alt={anime.title}
         width={300}
         height={300 / aspectRatio}
         className={styles.asideImg}
@@ -25,9 +29,9 @@ export function AnimeAside({ image, status, title }: Props) {
         blurDataURL={placeholderImg}
         placeholder='blur'
       />
-      {status && (
+      {anime.status && (
         <div className={styles.status}>
-          <span className={styles.statusValue}>{status}</span>
+          <span className={styles.statusValue}>{anime.status}</span>
         </div>
       )}
     </section>

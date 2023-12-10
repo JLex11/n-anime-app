@@ -8,14 +8,16 @@ export type IframeData = {
 }
 
 interface Props {
-  iframesData: IframeData
-  title?: string
+	iframesData?: IframeData
+	title?: string
 }
 
 export function VideoSection({ iframesData, title }: Props) {
-  return (
-    <VideoSectionWrapper iframesData={iframesData} title={title}>
-      <Iframe IframeData={iframesData['SUB']?.[0]} />
-    </VideoSectionWrapper>
-  )
+  if (!iframesData) return null
+
+		return (
+			<VideoSectionWrapper iframesData={iframesData} title={title}>
+				<Iframe IframeData={iframesData.SUB?.[0]} />
+			</VideoSectionWrapper>
+		)
 }
