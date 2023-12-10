@@ -20,34 +20,43 @@ interface Props {
 }
 
 export default async function EpisodePage({ params: { animeId, episode }, searchParams }: Props) {
-  const episodeSources = await getEpisodeSources(`${animeId}-${episode}`)
-  const animeInfo = await getAnime(animeId)
+	const [episodeSources, animeInfo] = await Promise.all([
+		getEpisodeSources(`${animeId}-${episode}`),
+		getAnime(animeId),
+	])
 
-  const episodeWasFound = Boolean(episodeSources?.videos.SUB)
-  const mainContentClass = clsx(styles.mainContent, !episodeWasFound && styles.episodeNotFound)
+	const episodeWasFound = Boolean(episodeSources?.videos.SUB)
+	const mainContentClass = clsx(
+		styles.mainContent,
+		!episodeWasFound && styles.episodeNotFound,
+	)
 
-  return (
-    <EpisodePageContextProvider>
-      <section className={mainContentClass}>
-        {episodeWasFound ? (
-          <VideoSection
-            iframesData={episodeSources!.videos}
-            title={toCap(`episodio ${episode} de ${animeInfo?.title ?? normalizeAnimeId(animeId)}`)}
-          />
-        ) : (
-          <h2>Episodio no encontrado.</h2>
-        )}
-        {!episodeWasFound && <hr />}
-        <Aside
-          searchParams={searchParams}
-          animeId={animeId}
-          animeTitle={animeInfo?.title ?? normalizeAnimeId(animeId)}
-          animeImage={animeInfo?.images?.coverImage}
-          currentEpisode={Number(episode)}
-        />
-      </section>
-    </EpisodePageContextProvider>
-  )
+	return (
+		<EpisodePageContextProvider>
+			<section className={mainContentClass}>
+				{episodeWasFound ? (
+					<VideoSection
+						iframesData={episodeSources?.videos}
+						title={toCap(
+							`episodio ${episode} de ${
+								animeInfo?.title ?? normalizeAnimeId(animeId)
+							}`,
+						)}
+					/>
+				) : (
+					<h2>Episodio no encontrado.</h2>
+				)}
+				{!episodeWasFound && <hr />}
+				<Aside
+					searchParams={searchParams}
+					animeId={animeId}
+					animeTitle={animeInfo?.title ?? normalizeAnimeId(animeId)}
+					animeImage={animeInfo?.images?.coverImage}
+					currentEpisode={Number(episode)}
+				/>
+			</section>
+		</EpisodePageContextProvider>
+	)
 }
 
 export async function generateMetadata({ params: { animeId, episode } }: Props) {
