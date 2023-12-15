@@ -9,11 +9,19 @@
 			"recommended": true
 		}
 	},
+	"formatter": {
+		"formatWithErrors": true,
+		"lineWidth": 120,
+		"indentWidth": 2
+	},
 	"javascript": {
 		"formatter": {
 			"enabled": true,
 			"semicolons": "asNeeded",
-			"arrowParentheses": "asNeeded"
+			"arrowParentheses": "asNeeded",
+			"trailingComma": "none",
+			"bracketSpacing": true,
+			"quoteStyle": "single"
 		}
 	}
 }
