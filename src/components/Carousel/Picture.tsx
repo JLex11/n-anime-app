@@ -1,38 +1,37 @@
-import { CarouselImage } from '@/types'
+'use client'
+
+import { useFallbackImage } from '@/hooks/useFallbackImage'
 import Image from 'next/image'
 import styles from './Carousel.module.css'
 
 interface PictureImage {
-  link?: string | null
-  width?: number
-  height?: number
-  position?: string
+	link?: string | null
+	width?: number
+	height?: number
+	position?: string
 }
 
 interface Props {
-  title: string
-  images: PictureImage[]
-  lazy: boolean
+	title: string
+	images: PictureImage[]
+	lazy: boolean
 }
 
 export async function Picture({ title, images, lazy }: Props) {
-  const filteredImages = images.filter((image): image is CarouselImage => Boolean(image.link))
-  const carouselImage = filteredImages[0]
+	const { currentImage: carouselImage, onError } = useFallbackImage(images, { width: 1920, height: 960 })
 
-  const imageWidth = 1920
-  const imageHeight = imageWidth / 2
-
-  return (
-    <picture className={styles.carouselPicture}>
-      <Image
-        src={carouselImage ? carouselImage.link : '/lights-blur.webp'}
-        alt={title}
-        width={imageWidth}
-        height={imageHeight}
-        style={{ backgroundPosition: carouselImage ? carouselImage.position : 'center' }}
-        loading={lazy ? 'lazy' : 'eager'}
-        priority={!lazy}
-      />
-    </picture>
-  )
+	return (
+		<picture className={styles.carouselPicture}>
+			<Image
+				src={carouselImage.link || '/lights-blur.webp'}
+				alt={title}
+				width={carouselImage.width}
+				height={carouselImage.height}
+				style={{ backgroundPosition: carouselImage.position || 'center' }}
+				loading={lazy ? 'lazy' : 'eager'}
+				priority={!lazy}
+				onError={onError}
+			/>
+		</picture>
+	)
 }
