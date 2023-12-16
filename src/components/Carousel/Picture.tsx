@@ -23,7 +23,7 @@ export async function Picture({ title, images, lazy }: Props) {
 	return (
 		<picture className={styles.carouselPicture}>
 			<Image
-				src={carouselImage.link || '/lights-blur.webp'}
+				src={carouselImage.link}
 				alt={title}
 				width={carouselImage.width}
 				height={carouselImage.height}
