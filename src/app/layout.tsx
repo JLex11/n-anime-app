@@ -2,9 +2,7 @@ import { Header } from '@/components/Header/Header'
 import clsx from 'clsx'
 import { Inter } from 'next/font/google'
 import LocalFont from 'next/font/local'
-import { headers } from 'next/headers'
 import '../globals.css'
-import { RootContextProvider } from './PageContext'
 
 export const metadata = {
   title: 'One Anime',
@@ -37,10 +35,10 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang='es'>
       <body className={clsx(interFont.className, animeAceBBFont.variable)}>
-        <RootContextProvider value={{ headers: headers() }}>
+        {/* <RootContextProvider value={{ headers: headers() }}> */}
           <Header />
           {children}
-        </RootContextProvider>
+        {/* </RootContextProvider> */}
       </body>
     </html>
   )
