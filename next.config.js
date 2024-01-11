@@ -46,9 +46,9 @@ const images = {
 
 const nextConfig = {
 	images,
-	experimental: {
+	/* experimental: {
 		ppr: true,
-	},
+	}, */
 }
 
 module.exports = nextConfig
