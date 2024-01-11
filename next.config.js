@@ -29,6 +29,18 @@ const images = {
 			port: "",
 			pathname: "/api/image/**",
 		},
+		{
+			protocol: 'https',
+			hostname: 'anime-scrapper-3c3n.onrender.com',
+			port: '',
+			pathname: '/api/image/**'
+		},
+		{
+			protocol: 'http',
+			hostname: 'anime-scrapper-3c3n.onrender.com',
+			port: '',
+			pathname: '/api/image/**'
+		},
 	],
 }
 

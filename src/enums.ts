@@ -1,4 +1,4 @@
-import { FL0_API_BASE_URL, VERCEL_API_BASE_URL } from './constants'
+import { FL0_API_BASE_URL, RENDER_API_BASE_URL, VERCEL_API_BASE_URL } from './constants'
 
 export enum ResponseType {
   JSON = 'json',
@@ -15,6 +15,7 @@ export enum animeStatus {
 export enum APIRoutes {
   vercelBaseUrl = VERCEL_API_BASE_URL,
   fl0BaseUrl = FL0_API_BASE_URL,
+  renderBaseUrl = RENDER_API_BASE_URL,
   LatestEpisodes = `/episodes/latest`,
   VideoStreaming = `/episodes/sources`,
   LatestAnimes = `/animes/latest`,
