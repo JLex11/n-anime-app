@@ -45,7 +45,7 @@ export const getAnimeItems = async (query: string) => {
     .map(anime => ({
       id: anime.animeId,
       title: anime.title,
-      image: anime.images.coverImage || anime.images.carouselImages[0]?.link || '/lights-blur.webp',
+      image: anime.images?.coverImage || anime.images.carouselImages[0]?.link || '/lights-blur.webp',
       link: `/animes/${anime.animeId}`,
       description: anime.description ?? 'Descripcion no disponible',
       type: anime.type ?? 'Anime',

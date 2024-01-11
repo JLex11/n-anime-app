@@ -13,7 +13,7 @@ export const AsideList = async () => {
           <li key={animeId}>
             <Link href={`/animes/${animeId}`} className={styles.asideListItem}>
               <Image
-                src={images.coverImage || '/lights-blur.webp'}
+                src={images?.coverImage || '/lights-blur.webp'}
                 alt={`cover image of the anime ${title}`}
                 width={40}
                 height={40}

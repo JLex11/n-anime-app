@@ -10,8 +10,8 @@ interface Props {
 }
 
 export function Item({ anime, showInfo, index }: Props) {
-  const pictureImages = anime.images?.carouselImages.filter(carouselImage => carouselImage.link)
-  const fbImage = { link: anime.images.coverImage }
+  const pictureImages = anime.images?.carouselImages.filter(carouselImage => carouselImage.link) ?? []
+  const fbImage = { link: anime.images?.coverImage }
 
   return (
     <li id={anime.animeId} className={styles.carouselItem}>

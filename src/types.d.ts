@@ -47,12 +47,12 @@ export type CarouselImage = {
 }
 
 type AnimeImages = {
-  coverImage: string | null
+  coverImage?: string | null
   carouselImages: CarouselImage[]
 }
 
 export interface Anime {
-  images: AnimeImages
+  images?: AnimeImages | null
   title: string
   type: string | null
   rank: number | null

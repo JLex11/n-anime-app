@@ -44,7 +44,7 @@ export default function SearchPage({ searchParams }: Props) {
               title: item.title,
               description: item.description,
               link: `/animes/${item.animeId}`,
-              image: item.images.coverImage || '/lights-blur.webp',
+              image: item.images?.coverImage || '/lights-blur.webp',
               type: item.type
             }
           }) ?? []
