@@ -1,5 +1,7 @@
 .card {
   position: relative;
+  border-radius: 15px;
+    overflow: hidden;
 }
 
 .showOnHoverContainer {
