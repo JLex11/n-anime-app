@@ -7,5 +7,10 @@ interface NextFetchInit extends RequestInit {
 const responseJson = (response: Response) => response.json()
 
 export const fetchData = async (apiPath: string, fetchConfig: NextFetchInit = {}) => {
-  return fetch(`${APIRoutes.vercelBaseUrl}${apiPath}`, { ...fetchConfig }).then(responseJson)
+  return fetch(`${APIRoutes.vercelBaseUrl}${apiPath}`, { ...fetchConfig })
+    .then(responseJson)
+    .catch(() => {
+      console.error(`Error fetching ${apiPath}`)
+      return []
+    })
 }
