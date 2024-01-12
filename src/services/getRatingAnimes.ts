@@ -7,7 +7,7 @@ import { fetchData } from './fetchData'
 
 export const getRatingAnimes = async (limit = 10): Promise<Anime[]> => {
   const fetchConfig = {
-    next: { revalidate: daysToSeconds(6) }
+    next: { revalidate: daysToSeconds(2) }
   }
 
   const animes: Anime[] = await fetchData(`${APIRoutes.RatingAnimes}?limit=${limit}`, fetchConfig)
