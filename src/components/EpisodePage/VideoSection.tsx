@@ -3,8 +3,8 @@ import { Iframe } from './Iframe'
 import { VideoSectionWrapper } from './VideoSectionWrapper'
 
 export type IframeData = {
-  SUB: EpisodeVideo[]
-  DUB?: EpisodeVideo[]
+	SUB: EpisodeVideo[]
+	DUB?: EpisodeVideo[]
 }
 
 interface Props {
@@ -13,11 +13,11 @@ interface Props {
 }
 
 export function VideoSection({ iframesData, title }: Props) {
-  if (!iframesData) return null
+	if (!iframesData) return null
 
-		return (
-			<VideoSectionWrapper iframesData={iframesData} title={title}>
-				<Iframe IframeData={iframesData.SUB?.[0]} />
-			</VideoSectionWrapper>
-		)
+	return (
+		<VideoSectionWrapper iframesData={iframesData} title={title}>
+			<Iframe IframeData={iframesData.SUB?.[0]} />
+		</VideoSectionWrapper>
+	)
 }
