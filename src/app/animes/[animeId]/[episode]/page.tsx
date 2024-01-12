@@ -7,16 +7,12 @@ import { getLatestEpisodes } from '@/services/getLatestEpisodes'
 import { normalizeAnimeId } from '@/utils/normalizeAnimeId'
 import { toCap } from '@/utils/textConverts'
 import clsx from 'clsx'
+import Image from 'next/image'
 import { EpisodePageContextProvider } from './PageContext'
 
 interface Props {
-  params: {
-    animeId: string
-    episode: string
-  }
-  searchParams: {
-    limit: string
-  }
+	params: { animeId: string; episode: string }
+	searchParams: { limit: string }
 }
 
 export default async function EpisodePage({ params: { animeId, episode }, searchParams }: Props) {
@@ -24,6 +20,8 @@ export default async function EpisodePage({ params: { animeId, episode }, search
 		getEpisodeSources(`${animeId}-${episode}`),
 		getAnime(animeId),
 	])
+
+	const bgImage = animeInfo?.images?.carouselImages[0]?.link ?? animeInfo?.images?.coverImage
 
 	const episodeWasFound = Boolean(episodeSources?.videos.SUB)
 	const mainContentClass = clsx(
@@ -37,11 +35,7 @@ export default async function EpisodePage({ params: { animeId, episode }, search
 				{episodeWasFound ? (
 					<VideoSection
 						iframesData={episodeSources?.videos}
-						title={toCap(
-							`episodio ${episode} de ${
-								animeInfo?.title ?? normalizeAnimeId(animeId)
-							}`,
-						)}
+						title={toCap(`episodio ${episode} de ${animeInfo?.title ?? normalizeAnimeId(animeId)}`)}
 					/>
 				) : (
 					<h2>Episodio no encontrado.</h2>
@@ -55,6 +49,16 @@ export default async function EpisodePage({ params: { animeId, episode }, search
 					currentEpisode={Number(episode)}
 				/>
 			</section>
+			{bgImage && (
+				<Image
+					src={bgImage}
+					alt={/* animeInfo?.title ??  */ normalizeAnimeId(animeId)}
+					width={500}
+					height={600}
+					decoding="async"
+					className={styles.bgImage}
+				/>
+			)}
 		</EpisodePageContextProvider>
 	)
 }
