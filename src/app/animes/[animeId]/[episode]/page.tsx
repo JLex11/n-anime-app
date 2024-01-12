@@ -1,4 +1,5 @@
 import { Aside } from '@/components/EpisodePage/Aside'
+import { BackgroundImage } from '@/components/EpisodePage/BackgroundImage'
 import styles from '@/components/EpisodePage/Episode.module.css'
 import { VideoSection } from '@/components/EpisodePage/VideoSection'
 import { getAnime } from '@/services/getAnime'
@@ -7,7 +8,6 @@ import { getLatestEpisodes } from '@/services/getLatestEpisodes'
 import { normalizeAnimeId } from '@/utils/normalizeAnimeId'
 import { toCap } from '@/utils/textConverts'
 import clsx from 'clsx'
-import Image from 'next/image'
 import { EpisodePageContextProvider } from './PageContext'
 
 interface Props {
@@ -49,16 +49,7 @@ export default async function EpisodePage({ params: { animeId, episode }, search
 					currentEpisode={Number(episode)}
 				/>
 			</section>
-			{bgImage && (
-				<Image
-					src={bgImage}
-					alt={/* animeInfo?.title ??  */ normalizeAnimeId(animeId)}
-					width={500}
-					height={600}
-					decoding="async"
-					className={styles.bgImage}
-				/>
-			)}
+			<BackgroundImage animeInfo={animeInfo} />
 		</EpisodePageContextProvider>
 	)
 }
