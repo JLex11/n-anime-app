@@ -27,7 +27,7 @@ export function EpisodeList({ limit, episodes, currentEpisode, animeImage, anime
           key={episode.episodeId}
           link={createItemLink(episode)}
           episode={episode}
-          isSeeing={currentEpisode == episode.episode}
+          isSeeing={Number(currentEpisode) === Number(episode.episode)}
           animeImage={animeImage}
           animeTitle={animeTitle}
         />
