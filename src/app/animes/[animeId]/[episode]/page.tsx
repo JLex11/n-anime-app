@@ -21,8 +21,6 @@ export default async function EpisodePage({ params: { animeId, episode }, search
 		getAnime(animeId),
 	])
 
-	const bgImage = animeInfo?.images?.carouselImages[0]?.link ?? animeInfo?.images?.coverImage
-
 	const episodeWasFound = Boolean(episodeSources?.videos.SUB)
 	const mainContentClass = clsx(
 		styles.mainContent,
