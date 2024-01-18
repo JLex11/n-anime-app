@@ -1,6 +1,5 @@
 import { getAnime } from '@/services/getAnime'
 import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
-import { getLatestEpisodes } from '@/services/getLatestEpisodes'
 import { getRatingAnimes } from '@/services/getRatingAnimes'
 import { Anime } from '@/types'
 import { Metadata } from 'next'
@@ -30,7 +29,7 @@ export async function generateMetadataFromAnimeId(animeId: PageProps['params']['
 }
 
 export async function generatePageStaticParams(): Promise<{ animeId: string }[]> {
-  const animesPromises = [getRatingAnimes(25), getLatestEpisodes(), getBroadcastAnimes()]
+  const animesPromises = [getRatingAnimes(25), getBroadcastAnimes()]
   const animesIdSettled = await Promise.allSettled(
     animesPromises.map(animePromise => animePromise.then(anime => anime.map(({ animeId }) => animeId)))
   )

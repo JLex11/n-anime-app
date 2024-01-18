@@ -1,7 +1,7 @@
+import { BackgroundBlurredImage } from '@/components/BackgroundBlurredImage'
 import { Aside } from '@/components/EpisodePage/Aside'
-import { BackgroundImage } from '@/components/EpisodePage/BackgroundImage'
 import styles from '@/components/EpisodePage/Episode.module.css'
-import { VideoSection } from '@/components/EpisodePage/VideoSection'
+import { VideoSection } from '@/components/VideoSection'
 import { getAnime } from '@/services/getAnime'
 import { getEpisodeSources } from '@/services/getEpisodeSources'
 import { getLatestEpisodes } from '@/services/getLatestEpisodes'
@@ -47,7 +47,10 @@ export default async function EpisodePage({ params: { animeId, episode }, search
 					currentEpisode={Number(episode)}
 				/>
 			</section>
-			<BackgroundImage animeInfo={animeInfo} />
+			<BackgroundBlurredImage
+				src={animeInfo?.images?.carouselImages[0]?.link || animeInfo?.images?.coverImage || '/lights-blur.webp'}
+				alt={normalizeAnimeId(animeId)}
+			/>
 		</EpisodePageContextProvider>
 	)
 }
