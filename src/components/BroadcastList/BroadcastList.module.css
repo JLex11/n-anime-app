@@ -1,0 +1,58 @@
+.broadcastList {
+  --scrollbar-width: 0.3rem;
+  --scrollbar-height: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  white-space: nowrap;
+  overflow-x: hidden;
+  gap: 1.5rem;
+}
+
+.broadcastList::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-height);
+}
+
+.broadcastList::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.broadcastList::-webkit-scrollbar-thumb {
+  background-color: #fdfdfd;
+  border-radius: 1rem;
+}
+
+.broadcastListItem {
+  display: grid;
+  grid-template-columns: 1fr 8fr;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.broadcastListItem img {
+  border-radius: 0.3rem;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.broadcastListItemContent {
+  width: 100%;
+  font-size: 10pt;
+  overflow: hidden;
+}
+
+.broadcastListItemContent h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.broadcastListItem:hover h3 {
+  text-decoration: underline;
+}
