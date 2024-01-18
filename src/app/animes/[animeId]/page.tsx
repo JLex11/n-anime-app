@@ -2,7 +2,6 @@ import styles from '@/components/AnimePage/Anime.module.css'
 import { AnimeAside } from '@/components/AnimePage/AnimeAside'
 import { AnimeCarousel } from "@/components/AnimePage/AnimeCarousel"
 import { AnimeContent } from "@/components/AnimePage/AnimeContent"
-import { CarouselLoader } from "@/components/Carousel/CarouselHero"
 import { Metadata } from 'next'
 import { Suspense } from "react"
 import { PageProps, generateMetadataFromAnimeId, generatePageStaticParams } from './pageMisc'
@@ -13,9 +12,7 @@ export default async function AnimePage({
 }: PageProps) {
 	return (
 		<>
-			<Suspense fallback={<CarouselLoader />}>
-				<AnimeCarousel animeId={animeId} />
-			</Suspense>
+			<AnimeCarousel animeId={animeId} />
 			<main className={styles.main}>
 				<Suspense fallback={<span>Loading...</span>}>
 					<AnimeAside animeId={animeId} />
