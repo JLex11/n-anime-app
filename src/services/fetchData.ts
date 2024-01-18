@@ -7,16 +7,10 @@ interface NextFetchInit extends RequestInit {
 const responseJson = (response: Response) => response.json()
 
 export const fetchData = async (apiPath: string, fetchConfig: NextFetchInit = {}) => {
-  const controller = new AbortController()
+	const promiseArray = [
+		fetch(`${APIRoutes.renderBaseUrl}${apiPath}`, { ...fetchConfig }),
+		fetch(`${APIRoutes.vercelBaseUrl}${apiPath}`, { ...fetchConfig })
+	]
 
-  const promiseArray = [
-    fetch(`${APIRoutes.renderBaseUrl}${apiPath}`, { ...fetchConfig, signal: controller.signal }),
-    fetch(`${APIRoutes.vercelBaseUrl}${apiPath}`, { ...fetchConfig, signal: controller.signal })
-  ]
-
-  const response = await Promise.race(promiseArray)
-    .then(responseJson, (error) => console.error(error))
-    .finally(() => controller.abort())
-
-  return response
+	return Promise.any(promiseArray).then(responseJson).catch(console.error)
 }
