@@ -1,7 +1,7 @@
 .main {
   display: grid;
-  grid-template-columns: 1fr 300px;
-  min-height: calc(100vh - 4rem - 100px);
+  grid-template-columns: 1fr 350px;
+    /* min-height: calc(100vh - 4rem - 100px); */
   margin: 2rem auto;
   gap: 3rem;
 }
@@ -11,7 +11,8 @@
   width: 100%;
   flex-direction: column;
   overflow: hidden;
-  gap: 1.8rem;
+  gap: 1.5rem;
+    height: fit-content;
 }
 
 .asideTitle {
