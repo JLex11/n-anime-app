@@ -3,12 +3,6 @@ import { placeholderImgs } from '@/utils/placeHolderImgs'
 import Image from 'next/image'
 import styles from './Anime.module.css'
 
-interface Props {
-  image: string
-  status: string | undefined
-  title: string
-}
-
 export async function AnimeAside({ animeId }: { animeId: string}) {
   const anime = await getAnime(animeId)
   if (!anime) return null
