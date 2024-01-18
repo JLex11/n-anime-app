@@ -9,7 +9,7 @@ export const BroadcastList = async () => {
   return (
     <ul className={styles.broadcastList}>
       {broadcastAnimes.map(({ animeId, images, title, rank }) => (
-        <li key={animeId}>
+        <li key={animeId} className={styles.broadcastListItemParent}>
           <Link href={`/animes/${animeId}`} className={styles.broadcastListItem}>
             <Image
               src={images?.coverImage || '/lights-blur.webp'}
