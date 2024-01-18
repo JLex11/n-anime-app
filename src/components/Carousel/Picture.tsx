@@ -31,6 +31,8 @@ export async function Picture({ title, images, lazy }: Props) {
 				loading={lazy ? 'lazy' : 'eager'}
 				priority={!lazy}
 				onError={onError}
+				placeholder='blur'
+				blurDataURL='/lights-blur.webp'
 			/>
 		</picture>
 	)
