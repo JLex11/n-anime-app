@@ -28,7 +28,7 @@ export function SearchLauncher({ className: cssClass, children }: Props) {
 
   return (
     <>
-      <button onClick={() => setAutocompleteLaunched(true)} className={cssClass}>
+      <button onClick={() => setAutocompleteLaunched(true)} className={cssClass} type='button' >
         {children}
       </button>
       {autocompleteLaunched && <Autocomplete handleLaunchAutocomplete={setAutocompleteLaunched} />}
