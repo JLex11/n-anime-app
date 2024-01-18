@@ -1,7 +1,5 @@
 .card {
-  position: relative;
-  border-radius: 15px;
-    overflow: hidden;
+  padding: 0.5rem;
 }
 
 .showOnHoverContainer {
@@ -41,6 +39,7 @@
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   transition: box-shadow 0.3s ease, scale 0.3s ease;
+  position: relative;
 }
 
 .content {

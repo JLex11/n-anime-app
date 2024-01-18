@@ -3,17 +3,20 @@
   grid-template-columns: 1fr;
   flex-wrap: wrap;
   width: 100%;
-  gap: 1.8rem;
+  height: fit-content;
+    gap: 1.5rem;
 }
 
-.latestSection.hasAside {
+/* .latestSection.hasAside {
   grid-template-columns: 3fr 1fr;
 }
+
+*/
 
 .content {
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
+  gap: 1.5rem;
   height: fit-content;
 }
 
@@ -23,6 +26,7 @@
   align-items: center;
   width: 100%;
   gap: 1rem;
+  padding-inline: 0.5rem;
 }
 
 .title {
