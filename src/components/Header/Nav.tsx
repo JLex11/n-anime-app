@@ -1,4 +1,4 @@
-import { Page } from './Header'
+import { Page } from '.'
 import styles from './Header.module.css'
 import { NavLink } from './NavLink'
 
