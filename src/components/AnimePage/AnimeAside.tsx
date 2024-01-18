@@ -1,26 +1,22 @@
-import { getAnime } from '@/services/getAnime'
-import { placeholderImgs } from '@/utils/placeHolderImgs'
+import { Anime } from '@/types'
 import Image from 'next/image'
 import styles from './Anime.module.css'
 
-export async function AnimeAside({ animeId }: { animeId: string}) {
-  const anime = await getAnime(animeId)
-  if (!anime) return null
+const PORTRAIT_ASPECT_RATIO = 9 / 12
 
-  const aspectRatio = 9 / 12
-  const placeholderImg = placeholderImgs[0]
+export async function AnimeAside({ anime }: { anime: Anime }) {
 
   return (
-    <section className={styles.aside}>
+    <aside className={styles.aside}>
       <Image
         src={anime.images?.coverImage ?? ''}
         alt={anime.title}
         width={300}
-        height={300 / aspectRatio}
+        height={300 / PORTRAIT_ASPECT_RATIO}
         className={styles.asideImg}
         priority
         loading='eager'
-        blurDataURL={placeholderImg}
+        blurDataURL='/lights-blur.webp'
         placeholder='blur'
       />
       {anime.status && (
@@ -28,6 +24,6 @@ export async function AnimeAside({ animeId }: { animeId: string}) {
           <span className={styles.statusValue}>{anime.status}</span>
         </div>
       )}
-    </section>
+    </aside>
   )
 }
