@@ -15,8 +15,8 @@ interface CSSProperties extends React.CSSProperties {
 
 export function GridContainer({ children, width, height, gap }: Props) {
   const gridStyles: CSSProperties = {
-    '--grid-width': `${width || 270}px`,
-    '--grid-height': `${height || 450}px`,
+    '--grid-width': `${width || 200}px`,
+    '--grid-height': `${height || 360}px`,
     '--grid-gap': gap || '2rem'
   }
 
