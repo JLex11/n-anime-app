@@ -14,74 +14,17 @@
   gap: 1.8rem;
 }
 
+.asideTitle {
+  padding-inline: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .asideInner {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-
-.asideList {
-  --scrollbar-width: 0.3rem;
-  --scrollbar-height: 0.3rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  white-space: nowrap;
-  overflow-x: hidden;
-  gap: 0.5rem;
-  padding: 0.3rem;
-  border-radius: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.26);
-}
-
-.asideList::-webkit-scrollbar {
-  width: var(--scrollbar-width);
-  height: var(--scrollbar-height);
-}
-
-.asideList::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-.asideList::-webkit-scrollbar-thumb {
-  background-color: #fdfdfd;
-  border-radius: 1rem;
-}
-
-.asideListItem {
-  display: grid;
-  grid-template-columns: 1fr 8fr;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 0.4rem;
-  cursor: pointer;
-  width: 100%;
-  transition: background-color .3s;
-}
-
-.asideListItem:hover {
-  background-color: rgba(51, 51, 51, 0.79);
-}
-
-.asideListItem img {
-  border-radius: 0.3rem;
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-}
-
-.asideListItemContent {
-  width: 100%;
-  font-size: 10pt;
-  overflow: hidden;
-}
-
-.asideListItemContent h3 {
-overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
 }
 
 .content {

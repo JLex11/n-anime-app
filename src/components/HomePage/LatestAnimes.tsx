@@ -1,5 +1,5 @@
 import { getLatestAnimes } from '@/services/getLatestAnimes'
-import { HomeCard } from './HomeCard'
+import { Card } from '../Card'
 
 export const LatestAnimes = async () => {
   const latestAnimes = await getLatestAnimes()
@@ -26,7 +26,7 @@ export const LatestAnimes = async () => {
   return (
     <>
       {animeData.map(({ key, title, link, image /* , showOnHover */ }) => (
-        <HomeCard key={key} image={image} title={title} link={link} /* showOnHover={showOnHover} */ />
+        <Card key={key} image={image} title={title} link={link} /* showOnHover={showOnHover} */ />
       ))}
     </>
   )

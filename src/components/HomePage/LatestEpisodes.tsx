@@ -1,6 +1,6 @@
 import { getLatestEpisodes } from '@/services/getLatestEpisodes'
-import { HomeCard } from './HomeCard'
-import { HomeCardSkeleton } from './HomeCardSkeleton'
+import { Card } from '../Card'
+import { CardSkeleton } from '../Card/CardSkeleton'
 
 export async function LatestEpisodes() {
   const latestEpisodes = await getLatestEpisodes()
@@ -21,10 +21,10 @@ export async function LatestEpisodes() {
   })
 
   return episodeData.map(({ key, title, link, pill, image }) => (
-    <HomeCard key={key} image={image} title={title} link={link} pill={pill} />
+    <Card key={key} image={image} title={title} link={link} pill={pill} />
   ))
 }
 
 export function CardsSkeleton({ countCards, hasPill }: { countCards: number; hasPill?: boolean }) {
-  return new Array(countCards).fill(0).map((_, i) => <HomeCardSkeleton key={i} hasPill={hasPill} />)
+  return new Array(countCards).fill(0).map((_, i) => <CardSkeleton key={i} hasPill={hasPill} />)
 }
