@@ -31,7 +31,7 @@ export const ButtonMore = ({ limit }: { limit: number }) => {
 
   return (
     <li>
-      <button className={buttonClass} onClick={handleClick} ref={buttonRef}>
+      <button className={buttonClass} onClick={handleClick} ref={buttonRef} type='button'>
         {isPending ? (
           <div className='page-loader'>
             <LoadingIcon />
