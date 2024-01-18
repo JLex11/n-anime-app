@@ -85,8 +85,8 @@
 .infoTitle {
   display: -webkit-box;
   max-width: min(100%, 800px);
-  font-size: 3rem;
-  font-weight: 700;
+  font-size: 2.7rem;
+    font-weight: 600;
   text-overflow: ellipsis;
   text-wrap: balance;
   color: #fff;
@@ -94,7 +94,7 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   font-family: var(--anime-ace-bb-font);
-  text-shadow: 0 0 10px black;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.315);
 }
 
 .info ul {
