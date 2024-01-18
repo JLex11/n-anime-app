@@ -1,17 +1,23 @@
-import { CardsSection } from '@/components/CardsSection'
-import { LatestAnimes } from '@/components/HomePage/LatestAnimes'
+import { AnimeList } from '@/components/AnimePage/AnimeList'
+import { SearchInput } from '@/components/AnimePage/SearchInput'
 import { CardsSkeleton } from '@/components/HomePage/LatestEpisodes'
+import { getAnimesByQuery } from '@/services/getAnimeByQuery'
+import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
 import { Suspense } from 'react'
 
-export default function AnimesPage() {
+export default function AnimesPage({ searchParams }: { searchParams: { query: string } }) {
+  const { query = '' } = searchParams
+
   return (
-    <main>
+    <main style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <h1>Animes Page</h1>
-      <CardsSection gridWidth={180} gridHeight={270}>
-        <Suspense fallback={<CardsSkeleton countCards={10} />}>
-          <LatestAnimes />
-        </Suspense>
-      </CardsSection>
+      <header>
+        <div>Filters section</div>
+        <SearchInput query={query} />
+      </header>
+      <Suspense key={query} fallback={<CardsSkeleton countCards={20} />}>
+        <AnimeList animesSource={query.length > 0 ? getAnimesByQuery(query) : getBroadcastAnimes()} />
+      </Suspense>
     </main>
   )
 }
