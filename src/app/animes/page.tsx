@@ -1,4 +1,4 @@
-import { AnimeList } from '@/components/AnimePage/AnimeList'
+import { AnimeList } from '@/components/AnimeList'
 import { SearchInput } from '@/components/AnimePage/SearchInput'
 import { CardsSkeleton } from '@/components/HomePage/LatestEpisodes'
 import { getAnimesByQuery } from '@/services/getAnimeByQuery'
