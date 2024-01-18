@@ -17,7 +17,9 @@ export function Input({ status, inputRef, inputProps }: InputProps) {
       <input className={styles.inputSearch} ref={inputRef} {...inputProps} />
       <div className={styles.containerInputIcons}>
         {status === 'loading' && <LoadingIcon className={loadingIconClass} />}
-        {status !== 'loading' && <ShortcutLetter letters='esc' className={styles.inputIcon} />}
+        {status !== 'loading' && (
+          <ShortcutLetter letters='esc' className={styles.inputIcon} />
+        )}
       </div>
     </div>
   )

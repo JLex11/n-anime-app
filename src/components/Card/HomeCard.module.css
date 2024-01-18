@@ -38,7 +38,9 @@
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  transition: box-shadow 0.3s ease, scale 0.3s ease;
+  transition:
+    box-shadow 0.3s ease,
+    scale 0.3s ease;
   position: relative;
 }
 
@@ -55,7 +57,11 @@
   padding: 10px;
   color: white;
   white-space: nowrap;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.441) 20%, rgba(0, 0, 0, 0) 30%);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.441) 20%,
+    rgba(0, 0, 0, 0) 30%
+  );
   gap: 5px;
 }
 
@@ -91,7 +97,12 @@
 .cardSkeleton .title {
   width: 85%;
   height: 1.3rem;
-  background: linear-gradient(to right bottom, rgb(148, 148, 148), rgb(194, 194, 194), rgb(148, 148, 148));
+  background: linear-gradient(
+    to right bottom,
+    rgb(148, 148, 148),
+    rgb(194, 194, 194),
+    rgb(148, 148, 148)
+  );
   border-radius: 1rem;
 }
 

@@ -12,12 +12,26 @@ interface VideoNavItemProps {
   activeIframeRef: React.MutableRefObject<HTMLLIElement | null> | null
 }
 
-export const VideoNavItem = ({ iframe, handleMouseEnter, changeIframe, isActive, activeIframeRef }: VideoNavItemProps) => {
-  const NavItemClass = clsx(styles.iframeOption, isActive && styles.iframeOptionActive)
+export const VideoNavItem = ({
+  iframe,
+  handleMouseEnter,
+  changeIframe,
+  isActive,
+  activeIframeRef
+}: VideoNavItemProps) => {
+  const NavItemClass = clsx(
+    styles.iframeOption,
+    isActive && styles.iframeOptionActive
+  )
 
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-    <li className={NavItemClass} onMouseEnter={handleMouseEnter} onClick={changeIframe} ref={activeIframeRef}>
+    <li
+      className={NavItemClass}
+      onMouseEnter={handleMouseEnter}
+      onClick={changeIframe}
+      ref={activeIframeRef}
+    >
       <Link href={iframe.code} target='episode-iframe-video'>
         <span>{iframe.title}</span>
       </Link>

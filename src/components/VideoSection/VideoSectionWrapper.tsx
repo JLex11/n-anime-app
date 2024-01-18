@@ -24,7 +24,11 @@ export function VideoSectionWrapper({ iframesData, title, children }: Props) {
       <header className={styles.videoHeader}>
         <h1 className={styles.videoTitle}>{title}</h1>
         {iframeLangs.length > 1 && (
-          <select name='languaje' className={styles.languajeSelect} onChange={e => setCurrentIframeLang(e.target.value as VideoLangs)}>
+          <select
+            name='languaje'
+            className={styles.languajeSelect}
+            onChange={e => setCurrentIframeLang(e.target.value as VideoLangs)}
+          >
             {iframeLangs.map(lang => (
               <option value={lang} key={lang}>
                 {toCap(lang)}

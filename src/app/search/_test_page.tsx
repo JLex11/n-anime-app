@@ -1,7 +1,10 @@
 import AppWindow from '@/components/Icons/AppWindow'
 import styles from '@/components/SearchPage/SearchPage.module.css'
 import { ServerAutocomplete } from '@/components/ServerAutocomplete'
-import { AutocompleteVars, CollectionHandle } from '@/components/ServerAutocomplete/autocompleteTypes'
+import {
+  AutocompleteVars,
+  CollectionHandle
+} from '@/components/ServerAutocomplete/autocompleteTypes'
 import { APP_ROUTES } from '@/constants'
 import { getAnimesByQuery } from '@/services/getAnimeByQuery'
 
@@ -20,7 +23,9 @@ export default function SearchPage({ searchParams }: Props) {
       id: 'routes',
       getItemsCallback: query => {
         const regex = new RegExp(query, 'gi')
-        const matchedRoutes = APP_ROUTES.filter(route => route.name.match(regex))
+        const matchedRoutes = APP_ROUTES.filter(route =>
+          route.name.match(regex)
+        )
 
         return matchedRoutes.map(route => ({
           id: route.link,
@@ -57,7 +62,10 @@ export default function SearchPage({ searchParams }: Props) {
   return (
     <main className={styles.main}>
       <h1>Search Page</h1>
-      <ServerAutocomplete query={autocomplete_query} getItemsHandlers={getItemsHandlers} />
+      <ServerAutocomplete
+        query={autocomplete_query}
+        getItemsHandlers={getItemsHandlers}
+      />
     </main>
   )
 }

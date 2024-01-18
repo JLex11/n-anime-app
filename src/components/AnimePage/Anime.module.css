@@ -53,7 +53,11 @@
   padding: 5px;
   border-radius: 7px;
   text-align: center;
-  background: linear-gradient(to right bottom, rgba(21, 73, 177, 0.71), rgba(8, 42, 109, 0.716));
+  background: linear-gradient(
+    to right bottom,
+    rgba(21, 73, 177, 0.71),
+    rgba(8, 42, 109, 0.716)
+  );
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.453);
 }
 
@@ -123,7 +127,6 @@
   border-radius: 1rem;
 }
 
-
 @media (width <=56rem) {
   .main {
     flex-direction: column;
@@ -163,7 +166,17 @@
   height: calc(100% + var(--borderWidth) * 2);
   border-radius: calc(4 * var(--borderWidth));
   content: '';
-  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  background: linear-gradient(
+    60deg,
+    #f79533,
+    #f37055,
+    #ef4e7b,
+    #a166ab,
+    #5073b8,
+    #1098ad,
+    #07b39b,
+    #6fba82
+  );
   background-size: 300% 300%;
   box-shadow: var(--input-shadow);
   animation: animateGradient 5s ease alternate infinite;

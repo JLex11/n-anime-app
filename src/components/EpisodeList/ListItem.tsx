@@ -12,7 +12,13 @@ interface AsideListItemProps {
   animeTitle?: string
 }
 
-export function ListItem({ link, episode, isSeeing, animeImage, animeTitle }: AsideListItemProps) {
+export function ListItem({
+  link,
+  episode,
+  isSeeing,
+  animeImage,
+  animeTitle
+}: AsideListItemProps) {
   const itemClass = clsx(styles.listItem, isSeeing && styles.active)
 
   return (

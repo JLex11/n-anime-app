@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
 
 export const useResizeObserver = (target?: Element | null) => {
-  const [elementSizes, setElementSizes] = useState<ResizeObserverSize>({ inlineSize: 0, blockSize: 0 })
+  const [elementSizes, setElementSizes] = useState<ResizeObserverSize>({
+    inlineSize: 0,
+    blockSize: 0
+  })
 
   useEffect(() => {
     if (!target) return

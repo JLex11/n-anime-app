@@ -7,7 +7,13 @@ import { Description } from './DescriptionSection'
 import { Episodes } from './EpisodesSection'
 import { Genres } from './GenresSection'
 
-export async function AnimeMain({ animeId, limit }: { animeId: string, limit: string }) {
+export async function AnimeMain({
+  animeId,
+  limit
+}: {
+  animeId: string
+  limit: string
+}) {
   const anime = await getAnime(animeId)
   if (!anime) return null
 

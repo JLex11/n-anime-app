@@ -17,7 +17,8 @@ export const ButtonMore = ({ limit }: { limit: number }) => {
   useEffect(() => {
     const { current: button } = buttonRef
     return () => {
-      if (searchParams.has('limit') || isPending) button?.scrollIntoView({ behavior: 'smooth' })
+      if (searchParams.has('limit') || isPending)
+        button?.scrollIntoView({ behavior: 'smooth' })
     }
   }, [isPending, searchParams])
 
@@ -27,11 +28,20 @@ export const ButtonMore = ({ limit }: { limit: number }) => {
     })
   }
 
-  const buttonClass = clsx(styles.listItem, styles.buttonMore, isPending && styles.loadingMore)
+  const buttonClass = clsx(
+    styles.listItem,
+    styles.buttonMore,
+    isPending && styles.loadingMore
+  )
 
   return (
     <li>
-      <button className={buttonClass} onClick={handleClick} ref={buttonRef} type='button'>
+      <button
+        className={buttonClass}
+        onClick={handleClick}
+        ref={buttonRef}
+        type='button'
+      >
         {isPending ? (
           <div className='page-loader'>
             <LoadingIcon />

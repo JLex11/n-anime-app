@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react'
 export const useResize = (ref: React.RefObject<HTMLElement>) => {
   const [size, setSize] = useState({
     width: 0,
-    height: 0,
+    height: 0
   })
 
   useEffect(() => {
     if (ref.current) {
       setSize({
         width: ref.current.offsetWidth,
-        height: ref.current.offsetHeight,
+        height: ref.current.offsetHeight
       })
     }
   }, [ref])
@@ -20,7 +20,7 @@ export const useResize = (ref: React.RefObject<HTMLElement>) => {
       if (ref.current) {
         setSize({
           width: ref.current.offsetWidth,
-          height: ref.current.offsetHeight,
+          height: ref.current.offsetHeight
         })
       }
     }

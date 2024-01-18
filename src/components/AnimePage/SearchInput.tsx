@@ -18,7 +18,9 @@ export function SearchInput({ query }: InputProps) {
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams)
-    searchQuery.length > 0 ? params.set('query', searchQuery) : params.delete('query')
+    searchQuery.length > 0
+      ? params.set('query', searchQuery)
+      : params.delete('query')
     router.replace(`?${params.toString()}`)
   }, [searchQuery, router, searchParams])
 
@@ -27,11 +29,19 @@ export function SearchInput({ query }: InputProps) {
     setQueryValue(target.value)
   }
 
-  const inputContainerClass = clsx(styles.inputContainer, query.length > 0 && styles.active)
+  const inputContainerClass = clsx(
+    styles.inputContainer,
+    query.length > 0 && styles.active
+  )
 
   return (
     <div className={inputContainerClass}>
-      <input className={styles.inputSearch} type="search" defaultValue={query} onChange={handleChange} />
+      <input
+        className={styles.inputSearch}
+        type='search'
+        defaultValue={query}
+        onChange={handleChange}
+      />
       <div className={styles.containerInputIcons}>
         {/* {status === 'loading' && <LoadingIcon className={loadingIconClass} />} */}
       </div>

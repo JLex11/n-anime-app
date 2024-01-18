@@ -11,6 +11,12 @@ const defaultValue: RootContextValue = {}
 
 export const RootContext = createContext(defaultValue)
 
-export function RootContextProvider({ children, value }: { children: React.ReactNode; value: RootContextValue }) {
+export function RootContextProvider({
+  children,
+  value
+}: {
+  children: React.ReactNode
+  value: RootContextValue
+}) {
   return <RootContext.Provider value={value}>{children}</RootContext.Provider>
 }

@@ -9,7 +9,7 @@ interface AutocompleteContextType {
 const defaultAutoCompleteContext: AutocompleteContextType = {
   activeItemId: 0,
   setActiveItemId: () => {},
-  handleLaunchAutocomplete: () => {},
+  handleLaunchAutocomplete: () => {}
 }
 
 export const AutocompleteContext = createContext(defaultAutoCompleteContext)

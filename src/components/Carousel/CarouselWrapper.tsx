@@ -11,11 +11,16 @@ interface Props {
   children: React.ReactNode
 }
 
-export function CarouselWrapper({ animes, children, timeBetweenSlides = 5000 }: Props) {
-  const { currentSlideId, setCurrentSlide, scrollerRef, sliding, setSliding } = useCarousel({
-    itemIds: animes.map(({ animeId }) => animeId),
-    timeBetweenSlides
-  })
+export function CarouselWrapper({
+  animes,
+  children,
+  timeBetweenSlides = 5000
+}: Props) {
+  const { currentSlideId, setCurrentSlide, scrollerRef, sliding, setSliding } =
+    useCarousel({
+      itemIds: animes.map(({ animeId }) => animeId),
+      timeBetweenSlides
+    })
 
   const buttonsData = animes.map(({ title, animeId }) => ({
     title,
@@ -31,7 +36,11 @@ export function CarouselWrapper({ animes, children, timeBetweenSlides = 5000 }: 
         {children}
       </ul>
       {animes.length > 1 && (
-        <CarouselNavigation buttonsData={buttonsData} currentSlideId={currentSlideId} setCurrentSlide={setCurrentSlide} />
+        <CarouselNavigation
+          buttonsData={buttonsData}
+          currentSlideId={currentSlideId}
+          setCurrentSlide={setCurrentSlide}
+        />
       )}
     </section>
   )

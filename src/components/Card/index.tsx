@@ -39,7 +39,9 @@ export function Card({ title, link, image, pill, showOnHover }: CardProps) {
           <h3 className={styles.title}>{title}</h3>
         </div>
       </Link>
-      {showOnHover && <div className={styles.showOnHoverContainer}>{showOnHover}</div>}
+      {showOnHover && (
+        <div className={styles.showOnHoverContainer}>{showOnHover}</div>
+      )}
     </article>
   )
 }

@@ -13,8 +13,18 @@ export interface AsideProps {
   currentEpisode: number
 }
 
-export async function Aside({ searchParams, animeId, animeImage, animeTitle, currentEpisode }: AsideProps) {
-  const animeEpisodes = await getAnimeEpisodes(animeId, 0, Number(searchParams.limit) || 5)
+export async function Aside({
+  searchParams,
+  animeId,
+  animeImage,
+  animeTitle,
+  currentEpisode
+}: AsideProps) {
+  const animeEpisodes = await getAnimeEpisodes(
+    animeId,
+    0,
+    Number(searchParams.limit) || 5
+  )
 
   return (
     <AsideWrapper>

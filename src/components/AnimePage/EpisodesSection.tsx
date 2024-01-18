@@ -9,7 +9,12 @@ interface EpisodesProps {
   fallbackImg?: string | null
 }
 
-export async function Episodes({ limit, animeId, animeTitle, fallbackImg }: EpisodesProps) {
+export async function Episodes({
+  limit,
+  animeId,
+  animeTitle,
+  fallbackImg
+}: EpisodesProps) {
   const animeEpisodes = await getAnimeEpisodes(animeId, 0, Number(limit) || 5)
   if (animeEpisodes.length === 0) return null
 

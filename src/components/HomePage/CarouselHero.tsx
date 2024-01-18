@@ -13,7 +13,13 @@ export async function CarouselHero({ animesPromise }: Props) {
 
 export const CarouselLoader = () => {
   return (
-    <div style={{ height: 'var(--carousel-height)', display: 'grid', placeItems: 'center' }}>
+    <div
+      style={{
+        height: 'var(--carousel-height)',
+        display: 'grid',
+        placeItems: 'center'
+      }}
+    >
       <div className='page-loader'>
         <LoadingIcon />
       </div>

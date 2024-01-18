@@ -8,6 +8,9 @@ export const getEpisodeSources = async (episodeId: string) => {
     next: { revalidate: hoursToSeconds(3) }
   }
 
-  const episodeSources: EpisodeSources | null = await fetchData(`${APIRoutes.VideoStreaming}/${episodeId}`, fetchConfig)
+  const episodeSources: EpisodeSources | null = await fetchData(
+    `${APIRoutes.VideoStreaming}/${episodeId}`,
+    fetchConfig
+  )
   return episodeSources
 }

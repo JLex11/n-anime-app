@@ -10,7 +10,7 @@ export const useVisibilityChange = () => {
     }
 
     document.addEventListener('visibilitychange', handleVisibilityChange, {
-      passive: true,
+      passive: true
     })
 
     return () => {

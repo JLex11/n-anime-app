@@ -7,12 +7,15 @@
     "tscheck": "tsc --noEmit",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format:fix": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {
     "@algolia/autocomplete-core": "1.12.2",
     "clsx": "2.0.0",
+    "eslint-config-prettier": "^9.1.0",
     "next": "14.0.5-canary.5",
+    "prettier": "^3.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hotkeys-hook": "4.4.1",

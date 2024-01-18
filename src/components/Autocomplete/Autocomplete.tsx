@@ -11,7 +11,8 @@ interface Props {
 }
 
 export function Autocomplete({ handleLaunchAutocomplete }: Props) {
-  const { autocomplete, setActiveItemId, elementsRef, elementsProps } = useAutocomplete({ handleLaunchAutocomplete })
+  const { autocomplete, setActiveItemId, elementsRef, elementsProps } =
+    useAutocomplete({ handleLaunchAutocomplete })
   const autocompleteId = useId()
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -21,7 +22,10 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
     }
   }
 
-  const resultsPanelClassName = clsx(styles.collectionsPanel, autocomplete.isOpen && styles.isOpen)
+  const resultsPanelClassName = clsx(
+    styles.collectionsPanel,
+    autocomplete.isOpen && styles.isOpen
+  )
   const formClassName = clsx(styles.form, autocomplete.isOpen && styles.isOpen)
 
   const providerValue = useMemo(
@@ -35,9 +39,17 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
 
   return (
     <AutocompleteContext.Provider value={providerValue}>
-      <div className={styles.autocompleteContainer} id={autocompleteId} onClick={handleClick}>
+      <div
+        className={styles.autocompleteContainer}
+        id={autocompleteId}
+        onClick={handleClick}
+      >
         <form className={formClassName} {...elementsProps.formProps}>
-          <Input status={autocomplete.status} inputRef={elementsRef.inputRef} inputProps={elementsProps.inputProps} />
+          <Input
+            status={autocomplete.status}
+            inputRef={elementsRef.inputRef}
+            inputProps={elementsProps.inputProps}
+          />
           {autocomplete.isOpen && (
             <CollectionsPanel
               collections={autocomplete.collections}

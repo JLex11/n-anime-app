@@ -6,8 +6,8 @@ import { fetchData } from './fetchData'
 
 export const getAnimesByQuery = async (query: string, limit?: number) => {
   const fetchConfig = {
-			next: { revalidate: minToSeconds(30) }
-		}
+    next: { revalidate: minToSeconds(30) }
+  }
 
   const animes: Anime[] = await fetchData(
     `${APIRoutes.SearchAnimes}/${query}?limit=${limit}`,

@@ -52,7 +52,7 @@
 }
 
 .iframeOption.iframeOptionActive::after {
-  content: "";
+  content: '';
   width: 80%;
   height: 1px;
   position: absolute;

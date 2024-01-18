@@ -5,7 +5,6 @@ import styles from './Anime.module.css'
 const PORTRAIT_ASPECT_RATIO = 9 / 12
 
 export async function AnimeAside({ anime }: { anime: Anime }) {
-
   return (
     <aside className={styles.aside}>
       <Image

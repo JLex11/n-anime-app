@@ -86,7 +86,7 @@
   display: -webkit-box;
   max-width: min(100%, 800px);
   font-size: 2.7rem;
-    font-weight: 600;
+  font-weight: 600;
   text-overflow: ellipsis;
   text-wrap: balance;
   color: #fff;
@@ -152,11 +152,15 @@
   border-radius: 50%;
   background-color: #095cc2d2;
   transform: translateY(-2.6rem);
-  transition: background-color 0.2s, padding 0.3s, border-radius 0.3s;
+  transition:
+    background-color 0.2s,
+    padding 0.3s,
+    border-radius 0.3s;
   --size: 0.6rem;
 }
 
-.navigateButton:focus, .navigateButton:focus-visible {
+.navigateButton:focus,
+.navigateButton:focus-visible {
   outline: none;
 }
 

@@ -7,7 +7,11 @@ interface Props {
   children?: React.ReactNode
 }
 
-export function ShortcutLetter({ letters, className: externalClass, children }: Props) {
+export function ShortcutLetter({
+  letters,
+  className: externalClass,
+  children
+}: Props) {
   const lettersArray = Array.isArray(letters) ? letters : letters.split(' ')
 
   const shortcutContainerClass = clsx(styles.shortcutLetters, externalClass)

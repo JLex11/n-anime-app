@@ -49,16 +49,32 @@
   height: calc(100% + var(--borderWidth) * 2);
   border-radius: calc(4 * var(--borderWidth));
   content: '';
-  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  background: linear-gradient(
+    60deg,
+    #f79533,
+    #f37055,
+    #ef4e7b,
+    #a166ab,
+    #5073b8,
+    #1098ad,
+    #07b39b,
+    #6fba82
+  );
   background-size: 300% 300%;
   box-shadow: var(--input-shadow);
   animation: animateGradient 5s ease alternate infinite;
 }
 
 @keyframes animateGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .inputSearch {
@@ -93,8 +109,12 @@
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .collectionsPanel {
@@ -112,8 +132,12 @@
 }
 
 @keyframes expandAnimation {
-  from { grid-template-rows: 0fr; }
-  to { grid-template-rows: 1fr; }
+  from {
+    grid-template-rows: 0fr;
+  }
+  to {
+    grid-template-rows: 1fr;
+  }
 }
 
 .collectionsContainer {
@@ -121,8 +145,8 @@
   overflow-y: auto;
   width: 100%;
   max-height: calc(
-    100dvh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 - var(--pd) * 2 -
-      var(--footer-height)
+    100dvh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 -
+      var(--form-gap) * 2 - var(--pd) * 2 - var(--footer-height)
   );
   overscroll-behavior: contain;
 }
@@ -176,7 +200,7 @@
   padding: 0.5rem;
   border-radius: 0.4rem;
   gap: 0.5rem;
-  transition: background-color .2s;
+  transition: background-color 0.2s;
 }
 
 .collectionItem.isActive {

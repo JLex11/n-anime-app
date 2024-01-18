@@ -5,7 +5,12 @@ interface Props {
   className?: string
 }
 
-export default function AppWindow({ width = 24, height, strokeWidth = 1, className: cssClass }: Props) {
+export default function AppWindow({
+  width = 24,
+  height,
+  strokeWidth = 1,
+  className: cssClass
+}: Props) {
   return (
     <svg
       className={cssClass}

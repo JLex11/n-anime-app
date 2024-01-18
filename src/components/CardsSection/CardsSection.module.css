@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   width: 100%;
   height: fit-content;
-    gap: 1.5rem;
+  gap: 1.5rem;
 }
 
 /* .latestSection.hasAside {

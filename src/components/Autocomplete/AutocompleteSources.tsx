@@ -1,12 +1,17 @@
 import { APP_ROUTES } from '@/constants'
-import { AutocompleteItem, AutocompleteItemChilds } from '@/hooks/useAutocomplete.types'
+import {
+  AutocompleteItem,
+  AutocompleteItemChilds
+} from '@/hooks/useAutocomplete.types'
 import { getAnimesByQuery } from '@/services/getAnimeByQuery'
 import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
 import AppWindow from '../Icons/AppWindow'
 
 export const getRoutesItems = (query: string) => {
   const regex = new RegExp(query, 'gi')
-  const filteredRoutes = APP_ROUTES.filter(route => regex.test(route.name + route.description))
+  const filteredRoutes = APP_ROUTES.filter(route =>
+    regex.test(route.name + route.description)
+  )
 
   return filteredRoutes.map(route => ({
     id: route.link,
@@ -17,7 +22,9 @@ export const getRoutesItems = (query: string) => {
   }))
 }
 
-const getAnimeItemChilds = async (animeId: AutocompleteItem['id']): Promise<AutocompleteItemChilds> => {
+const getAnimeItemChilds = async (
+  animeId: AutocompleteItem['id']
+): Promise<AutocompleteItemChilds> => {
   const episodes = await getAnimeEpisodes(animeId, 0, 10)
   const mappedEpisodes = episodes.map(episode => ({
     id: episode.episodeId,
@@ -45,7 +52,10 @@ export const getAnimeItems = async (query: string) => {
     .map(anime => ({
       id: anime.animeId,
       title: anime.title,
-      image: anime.images?.coverImage || anime.images.carouselImages[0]?.link || '/lights-blur.webp',
+      image:
+        anime.images?.coverImage ||
+        anime.images.carouselImages[0]?.link ||
+        '/lights-blur.webp',
       link: `/animes/${anime.animeId}`,
       description: anime.description ?? 'Descripcion no disponible',
       type: anime.type ?? 'Anime',

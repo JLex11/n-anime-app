@@ -49,16 +49,32 @@
   height: calc(100% + var(--borderWidth) * 2);
   border-radius: calc(4 * var(--borderWidth));
   content: '';
-  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  background: linear-gradient(
+    60deg,
+    #f79533,
+    #f37055,
+    #ef4e7b,
+    #a166ab,
+    #5073b8,
+    #1098ad,
+    #07b39b,
+    #6fba82
+  );
   background-size: 300% 300%;
   box-shadow: var(--input-shadow);
   animation: animateGradient 5s ease alternate infinite;
 }
 
 @keyframes animateGradient {
-  0% { background-position: 0% 50%;}
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .inputSearch {
@@ -119,10 +135,10 @@
   overflow-y: auto;
   width: 100%;
   max-height: calc(
-    100vh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 - var(--pd) * 2 -
-      var(--footer-height)
+    100vh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 -
+      var(--form-gap) * 2 - var(--pd) * 2 - var(--footer-height)
   );
-  transition: max-height .3s;
+  transition: max-height 0.3s;
 }
 
 .collectionsContainer::-webkit-scrollbar {

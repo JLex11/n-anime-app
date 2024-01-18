@@ -5,7 +5,10 @@ export const LatestAnimes = async () => {
   const latestAnimes = await getLatestAnimes()
 
   const animeData = latestAnimes.map(anime => {
-    const imageSrc = anime.images?.coverImage ?? anime.images?.carouselImages?.at(-1)?.link ?? ''
+    const imageSrc =
+      anime.images?.coverImage ??
+      anime.images?.carouselImages?.at(-1)?.link ??
+      ''
     const fbSrc = anime.images?.carouselImages?.at(-2)?.link ?? ''
 
     return {
@@ -26,7 +29,12 @@ export const LatestAnimes = async () => {
   return (
     <>
       {animeData.map(({ key, title, link, image /* , showOnHover */ }) => (
-        <Card key={key} image={image} title={title} link={link} /* showOnHover={showOnHover} */ />
+        <Card
+          key={key}
+          image={image}
+          title={title}
+          link={link} /* showOnHover={showOnHover} */
+        />
       ))}
     </>
   )

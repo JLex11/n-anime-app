@@ -3,12 +3,17 @@ import { Card } from '../Card'
 import { CardsSection } from '../CardsSection'
 import { AnimeListWrapper } from './AnimeListWrapper'
 
-export const AnimeList = async ({ animesSource }: { animesSource: Anime[] | Promise<Anime[]> }) => {
-  const animes = await animesSource ?? []
+export const AnimeList = async ({
+  animesSource
+}: {
+  animesSource: Anime[] | Promise<Anime[]>
+}) => {
+  const animes = (await animesSource) ?? []
 
   const animesData = animes.map(anime => {
     const imageSrc = anime.images?.coverImage
-    const fbSrc = anime.images?.carouselImages?.at(-1)?.link ?? '/lights-blur.webp'
+    const fbSrc =
+      anime.images?.carouselImages?.at(-1)?.link ?? '/lights-blur.webp'
 
     return {
       key: anime.animeId,
@@ -29,7 +34,12 @@ export const AnimeList = async ({ animesSource }: { animesSource: Anime[] | Prom
     <AnimeListWrapper>
       <CardsSection gridWidth={180} gridHeight={270}>
         {animesData.map(({ key, title, link, image /* , showOnHover */ }) => (
-          <Card key={key} image={image} title={title} link={link} /* showOnHover={showOnHover} */ />
+          <Card
+            key={key}
+            image={image}
+            title={title}
+            link={link} /* showOnHover={showOnHover} */
+          />
         ))}
       </CardsSection>
     </AnimeListWrapper>

@@ -18,12 +18,21 @@ interface Props {
   }[]
 }
 
-export function CollectionsPanel({ className: cssClass, panelRef, panelProps, collections }: Props) {
+export function CollectionsPanel({
+  className: cssClass,
+  panelRef,
+  panelProps,
+  collections
+}: Props) {
   return (
     <div className={cssClass} ref={panelRef} {...(panelProps as any)}>
       <div className={styles.collectionsContainer}>
         {collections.map(collection => (
-          <Collection key={collection.source.sourceId} sourceId={collection.source.sourceId} items={collection.items} />
+          <Collection
+            key={collection.source.sourceId}
+            sourceId={collection.source.sourceId}
+            items={collection.items}
+          />
         ))}
       </div>
       <PanelFooter />

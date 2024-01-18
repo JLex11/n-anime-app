@@ -16,7 +16,14 @@ interface Props {
   className?: string
 }
 
-export function CardImage({ src, fbSrc, alt, dimensions, lazy, className: cssClass }: Props) {
+export function CardImage({
+  src,
+  fbSrc,
+  alt,
+  dimensions,
+  lazy,
+  className: cssClass
+}: Props) {
   const { currentImage, onError } = useFallbackImage(
     [
       { link: src, ...dimensions },

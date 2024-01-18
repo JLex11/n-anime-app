@@ -6,9 +6,12 @@ import { fetchData } from './fetchData'
 
 export const getAnime = async (animeId: string): Promise<Anime | null> => {
   const fetchConfig = {
-			next: { revalidate: hoursToSeconds(12) }
-		}
+    next: { revalidate: hoursToSeconds(12) }
+  }
 
-  const anime = await fetchData(`${APIRoutes.InfoAnime}/${animeId}`, fetchConfig)
+  const anime = await fetchData(
+    `${APIRoutes.InfoAnime}/${animeId}`,
+    fetchConfig
+  )
   return anime && filterUnsupportDomains(anime)
 }

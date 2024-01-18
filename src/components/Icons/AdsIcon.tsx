@@ -5,7 +5,12 @@ interface Props {
   className?: string
 }
 
-export default function AdsIcon({ width = 24, height, strokeWidth = 1.5, className: cssClass }: Props) {
+export default function AdsIcon({
+  width = 24,
+  height,
+  strokeWidth = 1.5,
+  className: cssClass
+}: Props) {
   return (
     <svg
       className={cssClass}

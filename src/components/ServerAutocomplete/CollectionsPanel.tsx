@@ -20,7 +20,11 @@ export async function CollectionsPanel({ query, collectionHandlers }: Props) {
     <div className={panelClass}>
       <div className={styles.collectionsContainer}>
         {collections.map((collection, i) => (
-          <ItemsCollection key={collection.id} title={collection.title} items={collection.items} />
+          <ItemsCollection
+            key={collection.id}
+            title={collection.title}
+            items={collection.items}
+          />
         ))}
       </div>
       <PanelFooter />
@@ -28,7 +32,10 @@ export async function CollectionsPanel({ query, collectionHandlers }: Props) {
   )
 }
 
-async function resolveItemsHandlers(query: string, itemsHandlers: CollectionHandle[]) {
+async function resolveItemsHandlers(
+  query: string,
+  itemsHandlers: CollectionHandle[]
+) {
   return Promise.allSettled(
     itemsHandlers.map(async ({ title, id, getItemsCallback }) => {
       const items = await getItemsCallback(query)
@@ -37,9 +44,14 @@ async function resolveItemsHandlers(query: string, itemsHandlers: CollectionHand
   )
 }
 
-function filterResolvedItemsHandlers(resolvedPromises: PromiseSettledResult<Collection>[]) {
+function filterResolvedItemsHandlers(
+  resolvedPromises: PromiseSettledResult<Collection>[]
+) {
   return resolvedPromises
-    .filter((rPromise): rPromise is PromiseFulfilledResult<Collection> => rPromise.status === 'fulfilled')
+    .filter(
+      (rPromise): rPromise is PromiseFulfilledResult<Collection> =>
+        rPromise.status === 'fulfilled'
+    )
     .map(({ value }) => value)
     .filter(({ items }) => items.length > 0)
 }
