@@ -26,7 +26,7 @@ export default async function HomePage() {
             </Suspense>
           </CardsSection>
         </div>
-        <Suspense fallback={<span>Loading...</span>}>
+        <Suspense /* fallback={<span>Loading...</span>} */>
           <HomeAside />
         </Suspense>
       </main>
