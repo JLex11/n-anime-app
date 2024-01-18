@@ -1,4 +1,4 @@
-import { Header } from '@/components/Header/Header'
+import { Header } from '@/components/Header'
 import clsx from 'clsx'
 import { Inter } from 'next/font/google'
 import LocalFont from 'next/font/local'
