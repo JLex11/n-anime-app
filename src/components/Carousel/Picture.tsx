@@ -17,7 +17,7 @@ interface Props {
 	lazy: boolean
 }
 
-export async function Picture({ title, images, lazy }: Props) {
+export function Picture({ title, images, lazy }: Props) {
 	const { currentImage: carouselImage, onError } = useFallbackImage(images, { width: 1920, height: 960 })
 
 	return (

@@ -9,6 +9,8 @@ interface Props {
 }
 
 export function Carousel({ animes, showInfo, timeBetweenSlides }: Props) {
+  if (!animes) return null
+
   return (
     <CarouselWrapper animes={animes} timeBetweenSlides={timeBetweenSlides}>
       {animes.map((anime, i) => (
