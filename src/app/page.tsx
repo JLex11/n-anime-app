@@ -13,19 +13,19 @@ export default async function HomePage() {
     <>
       <CarouselHero animesPromise={getRatingAnimes(5)} />
       <main className={styles.main}>
-        <div className={styles.content}>
-          <CardsSection title='Últimos episodios' icon={<LatestIcon />} gridWidth={230} gridHeight={190}>
-            <Suspense fallback={<CardsSkeleton countCards={3} hasPill={true} />}>
-              <LatestEpisodes />
-            </Suspense>
-          </CardsSection>
 
-          <CardsSection title='Últimos animes' icon={<LatestIcon />}>
-            <Suspense fallback={<CardsSkeleton countCards={3} />}>
-              <LatestAnimes />
-            </Suspense>
-          </CardsSection>
-        </div>
+        <CardsSection title='Últimos episodios' icon={<LatestIcon />} gridWidth={230} gridHeight={190} gridGap='1.5rem' >
+          <Suspense fallback={<CardsSkeleton countCards={3} hasPill={true} />}>
+            <LatestEpisodes />
+          </Suspense>
+        </CardsSection>
+
+        <CardsSection title='Últimos animes' icon={<LatestIcon />} gridGap='1.5rem' style={{ order: 1, gridColumn: '1 / span 2' }} >
+          <Suspense fallback={<CardsSkeleton countCards={3} />}>
+            <LatestAnimes />
+          </Suspense>
+        </CardsSection>
+
         <Suspense /* fallback={<span>Loading...</span>} */>
           <HomeAside />
         </Suspense>
