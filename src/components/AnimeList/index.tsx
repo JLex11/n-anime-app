@@ -3,14 +3,18 @@ import { Card } from '../Card'
 import { CardsSection } from '../CardsSection'
 import { AnimeListWrapper } from './AnimeListWrapper'
 
-export const AnimeList = async ({
-  animesSource
-}: {
+const DEFAULT_IMAGE = '/lights-blur.webp'
+const GRID_WIDTH = '180px'
+const GRID_HEIGHT = '270px'
+
+interface Props {
   animesSource: Anime[] | Promise<Anime[]>
-}) => {
+}
+
+export const AnimeList = async ({ animesSource }: Props) => {
   const animes = (await animesSource) ?? []
 
-  const animesData = animes.map(anime => {
+  const mapAnimes = (anime: Anime) => {
     const imageSrc = anime.images?.coverImage
     const fbSrc =
       anime.images?.carouselImages?.at(-1)?.link ?? '/lights-blur.webp'
@@ -28,11 +32,13 @@ export const AnimeList = async ({
       link: `/animes/${anime.animeId}`
       /* showOnHover: <CardDetails description={anime.description} status={anime.status} rank={anime.rank} genres={anime.genres} /> */
     }
-  })
+  }
+
+  const animesData = animes.map(mapAnimes)
 
   return (
     <AnimeListWrapper>
-      <CardsSection gridWidth={180} gridHeight={270}>
+      <CardsSection gridProps={{ width: GRID_WIDTH, height: GRID_HEIGHT }}>
         {animesData.map(({ key, title, link, image /* , showOnHover */ }) => (
           <Card
             key={key}
