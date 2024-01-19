@@ -5,27 +5,21 @@ import { CardsSectionHeader } from './CardsSectionHeader'
 interface Props {
   title?: string
   icon?: React.ReactNode
-  gridWidth?: number
-  gridHeight?: number
-  gridGap?: string
+  gridProps?: {
+    width?: string
+    height?: string
+    gap?: string
+  }
   style?: React.CSSProperties
   children: React.ReactNode
 }
 
-export function CardsSection({
-  title,
-  icon,
-  gridWidth,
-  gridHeight,
-  gridGap,
-  style,
-  children
-}: Props) {
+export function CardsSection({ title, icon, gridProps, style, children }: Props) {
   return (
     <section className={styles.latestSection} style={style}>
       <div className={styles.content}>
         {!!title && <CardsSectionHeader title={title} icon={icon} />}
-        <GridContainer width={gridWidth} height={gridHeight} gap={gridGap}>
+        <GridContainer {...gridProps}>
           {children}
         </GridContainer>
       </div>
