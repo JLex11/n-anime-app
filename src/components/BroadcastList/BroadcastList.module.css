@@ -59,24 +59,12 @@
   opacity: 0.7;
 }
 
-.broadcastListItemParent:has(+ .broadcastListItemParent:hover)
-  .broadcastListItem {
-  transform: rotateX(2deg) scaleX(0.98);
+.broadcastListItemParent:has(+ .broadcastListItemParent:hover) .broadcastListItem {
+  transform: rotateX(3deg) scaleX(0.97);
 }
 
 .broadcastListItemParent:hover + .broadcastListItemParent .broadcastListItem {
-  transform: rotateX(-2deg) scaleX(0.98);
-}
-
-.broadcastListItemParent:has(+ .broadcastListItemParent:hover)
-  .broadcastListItem::after {
-  transform: rotateX(2deg) scaleX(0.98);
-}
-
-.broadcastListItemParent:hover
-  + .broadcastListItemParent
-  .broadcastListItem::after {
-  transform: rotateX(-2deg) scaleX(0.98);
+  transform: rotateX(-3deg) scaleX(0.97);
 }
 
 .broadcastListItemParent:has(+ .broadcastListItemParent:hover)
