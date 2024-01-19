@@ -5,11 +5,9 @@ import { getAnimesByQuery } from '@/services/getAnimeByQuery'
 import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
 import { Suspense } from 'react'
 
-export default function AnimesPage({
-  searchParams
-}: {
-  searchParams: { query: string }
-}) {
+interface Props { searchParams: { query: string } }
+
+export default function AnimesPage({ searchParams }: Props) {
   const { query = '' } = searchParams
 
   return (
@@ -21,9 +19,7 @@ export default function AnimesPage({
       </header>
       <Suspense key={query} fallback={<CardsSkeleton countCards={20} />}>
         <AnimeList
-          animesSource={
-            query.length > 0 ? getAnimesByQuery(query) : getBroadcastAnimes()
-          }
+          animesSource={query.length > 0 ? getAnimesByQuery(query) : getBroadcastAnimes()}
         />
       </Suspense>
     </main>
