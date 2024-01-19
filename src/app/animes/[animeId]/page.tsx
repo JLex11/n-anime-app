@@ -19,6 +19,5 @@ export default async function AnimePage({ params, searchParams }: PageProps) {
   )
 }
 
-export const generateMetadata = ({ params }: PageProps): Promise<Metadata> =>
-  generateMetadataFromAnimeId(params.animeId)
+export const generateMetadata = ({ params }: PageProps): Promise<Metadata> => generateMetadataFromAnimeId(params.animeId)
 export const generateStaticParams = generatePageStaticParams
