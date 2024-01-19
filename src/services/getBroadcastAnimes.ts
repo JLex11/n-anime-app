@@ -1,6 +1,8 @@
 import { APIRoutes } from '@/enums'
 import { Anime } from '@/types'
 import { hoursToSeconds } from '@/utils/convertTime'
+import { filterUnsupportDomains } from '@/utils/filterUnsupportDomains'
+import { addAnimeToIndex } from './animesState'
 import { fetchData } from './fetchData'
 
 export const getBroadcastAnimes = async (limit?: number) => {
@@ -12,5 +14,6 @@ export const getBroadcastAnimes = async (limit?: number) => {
     `${APIRoutes.BroadcastAnimes}?limit=${limit}`,
     fetchConfig
   )
-  return broadcastAnimes
+
+  return broadcastAnimes.map(anime => addAnimeToIndex(filterUnsupportDomains(anime)))
 }

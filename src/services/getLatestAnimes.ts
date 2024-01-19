@@ -2,6 +2,7 @@ import { APIRoutes } from '@/enums'
 import { Anime } from '@/types'
 import { hoursToSeconds } from '@/utils/convertTime'
 import { filterUnsupportDomains } from '../utils/filterUnsupportDomains'
+import { addAnimeToIndex } from './animesState'
 import { fetchData } from './fetchData'
 
 export const getLatestAnimes = async (limit = 10): Promise<Anime[]> => {
@@ -13,5 +14,5 @@ export const getLatestAnimes = async (limit = 10): Promise<Anime[]> => {
     `${APIRoutes.LatestAnimes}?limit=${limit}`,
     fetchConfig
   )
-  return animes.map(filterUnsupportDomains)
+  return animes.map(anime => addAnimeToIndex(filterUnsupportDomains(anime)))
 }

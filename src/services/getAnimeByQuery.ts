@@ -2,6 +2,7 @@ import { APIRoutes } from '@/enums'
 import { Anime } from '@/types'
 import { minToSeconds } from '@/utils/convertTime'
 import { filterUnsupportDomains } from '@/utils/filterUnsupportDomains'
+import { addAnimeToIndex } from './animesState'
 import { fetchData } from './fetchData'
 
 export const getAnimesByQuery = async (query: string, limit?: number) => {
@@ -17,5 +18,5 @@ export const getAnimesByQuery = async (query: string, limit?: number) => {
     return []
   })
 
-  return Array.isArray(animes) ? animes.map(filterUnsupportDomains) : []
+  return animes.map(anime => addAnimeToIndex(filterUnsupportDomains(anime)))
 }
