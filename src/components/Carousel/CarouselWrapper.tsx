@@ -14,9 +14,14 @@ interface Props {
 export function CarouselWrapper({ animes, children }: Props) {
   const { currentSlideId, setCurrentSlide, scrollerRef } = useCarousel({ itemIds: animes.map(({ animeId }) => animeId) })
 
-  const buttonsData = animes.map(({ title, animeId }) => ({
+  const buttonsData = animes.map(({ title, animeId, images }) => ({
     title,
-    animeId
+    animeId,
+    images: [
+      images?.coverImage,
+      ...images?.carouselImages.map(({ link }) => link) ?? [],
+      '/lights-blur.webp'
+    ]
   }))
 
   return (
