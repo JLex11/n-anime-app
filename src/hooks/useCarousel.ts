@@ -5,22 +5,24 @@ interface Props {
 }
 
 export function useCarousel({ itemIds }: Props) {
-  const [currentItem, setCurrentItem] = useState(() => {
-    const storageSlideId = sessionStorage.getItem('currentSlideId')
-    return {
-      value: itemIds.indexOf(storageSlideId || itemIds[0]),
-      dispatchSource: 'init' as 'init' | 'user' | 'auto'
-    }
+  const [currentItem, setCurrentItem] = useState({
+    value: 0,
+    dispatchSource: 'init' as 'init' | 'user' | 'auto'
   })
 
   const scrollerRef = useRef<HTMLUListElement>(null)
 
-  const setCurrentSlide = (itemId: string) => {
-    if (!scrollerRef.current) return
+  useEffect(() => {
+    const currentSlideId = sessionStorage.getItem('currentSlideId')
+    const currentSlideIndex = currentSlideId
+      ? itemIds.indexOf(currentSlideId)
+      : null
 
-    setCurrentItem({ value: itemIds.indexOf(itemId), dispatchSource: 'user' })
-    sessionStorage.setItem('currentSlideId', itemId)
-  }
+    if (currentSlideIndex) {
+      setCurrentItem({ value: currentSlideIndex, dispatchSource: 'init' })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (!scrollerRef.current) return
@@ -35,6 +37,13 @@ export function useCarousel({ itemIds }: Props) {
       behavior: currentItem.dispatchSource === 'user' ? 'smooth' : 'auto'
     })
   }, [currentItem])
+
+  const setCurrentSlide = (itemId: string) => {
+    if (!scrollerRef.current) return
+
+    setCurrentItem({ value: itemIds.indexOf(itemId), dispatchSource: 'user' })
+    sessionStorage.setItem('currentSlideId', itemId)
+  }
 
   return {
     currentSlideId: itemIds[currentItem.value],
