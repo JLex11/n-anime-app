@@ -2,8 +2,8 @@ import styles from './GridContainer.module.css'
 
 interface Props {
   children: React.ReactNode
-  width?: number
-  height?: number
+  width?: string
+  height?: string
   gap?: string
 }
 
@@ -15,8 +15,8 @@ interface CSSProperties extends React.CSSProperties {
 
 export function GridContainer({ children, width, height, gap }: Props) {
   const gridStyles: CSSProperties = {
-    '--grid-width': `${width || 200}px`,
-    '--grid-height': `${height || 360}px`,
+    '--grid-width': width || '200px',
+    '--grid-height': height || '360px',
     '--grid-gap': gap || '2rem'
   }
 
