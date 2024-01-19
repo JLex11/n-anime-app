@@ -54,7 +54,7 @@ export const getAnimeItems = async (query: string) => {
       title: anime.title,
       image:
         anime.images?.coverImage ||
-        anime.images.carouselImages[0]?.link ||
+        anime.images?.carouselImages[0]?.link ||
         '/lights-blur.webp',
       link: `/animes/${anime.animeId}`,
       description: anime.description ?? 'Descripcion no disponible',
