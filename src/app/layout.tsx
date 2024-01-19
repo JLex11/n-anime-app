@@ -35,10 +35,8 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang='es'>
       <body className={clsx(interFont.className, animeAceBBFont.variable)}>
-        {/* <RootContextProvider value={{ headers: headers() }}> */}
         <Header />
         {children}
-        {/* </RootContextProvider> */}
       </body>
     </html>
   )
