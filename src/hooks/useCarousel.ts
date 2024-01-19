@@ -4,16 +4,23 @@ interface Props {
   itemIds: string[]
 }
 
+interface CurrentItem {
+  value: number
+  dispatchSource: 'init' | 'user' | 'auto'
+}
+
+const SESSION_STORAGE_KEY = 'currentSlideId'
+
 export function useCarousel({ itemIds }: Props) {
-  const [currentItem, setCurrentItem] = useState({
+  const [currentItem, setCurrentItem] = useState<CurrentItem>({
     value: 0,
-    dispatchSource: 'init' as 'init' | 'user' | 'auto'
+    dispatchSource: 'init'
   })
 
   const scrollerRef = useRef<HTMLUListElement>(null)
 
   useEffect(() => {
-    const currentSlideId = sessionStorage.getItem('currentSlideId')
+    const currentSlideId = sessionStorage.getItem(SESSION_STORAGE_KEY)
     const currentSlideIndex = currentSlideId
       ? itemIds.indexOf(currentSlideId)
       : null
@@ -42,7 +49,7 @@ export function useCarousel({ itemIds }: Props) {
     if (!scrollerRef.current) return
 
     setCurrentItem({ value: itemIds.indexOf(itemId), dispatchSource: 'user' })
-    sessionStorage.setItem('currentSlideId', itemId)
+    sessionStorage.setItem(SESSION_STORAGE_KEY, itemId)
   }
 
   return {
