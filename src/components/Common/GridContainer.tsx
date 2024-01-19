@@ -17,7 +17,7 @@ export function GridContainer({ children, width, height, gap }: Props) {
   const gridStyles: CSSProperties = {
     '--grid-width': width || '200px',
     '--grid-height': height || '360px',
-    '--grid-gap': gap || '2rem'
+    '--grid-gap': gap || '1rem'
   }
 
   return (
