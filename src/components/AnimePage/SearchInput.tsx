@@ -42,9 +42,6 @@ export function SearchInput({ query }: InputProps) {
         defaultValue={query}
         onChange={handleChange}
       />
-      <div className={styles.containerInputIcons}>
-        {/* {status === 'loading' && <LoadingIcon className={loadingIconClass} />} */}
-      </div>
     </div>
   )
 }
