@@ -12,6 +12,10 @@ import { getRatingAnimes } from '@/services/getRatingAnimes'
 import { Suspense } from 'react'
 
 export default async function HomePage() {
+  const CARDS_WIDTH = '230px'
+  const CARDS_HEIGHT = '190px'
+  const CARDS_GAP = '1rem'
+
   return (
     <>
       <CarouselHero animesPromise={getRatingAnimes(5)} />
@@ -19,9 +23,7 @@ export default async function HomePage() {
         <CardsSection
           title='Últimos episodios'
           icon={<LatestIcon />}
-          gridWidth={230}
-          gridHeight={190}
-          gridGap='1.5rem'
+          gridProps={{ width: CARDS_WIDTH, height: CARDS_HEIGHT, gap: CARDS_GAP }}
         >
           <Suspense fallback={<CardsSkeleton countCards={3} hasPill={true} />}>
             <LatestEpisodes />
@@ -31,7 +33,7 @@ export default async function HomePage() {
         <CardsSection
           title='Últimos animes'
           icon={<LatestIcon />}
-          gridGap='1.5rem'
+          gridProps={{ gap: CARDS_GAP }}
           style={{ order: 1, gridColumn: '1 / span 2' }}
         >
           <Suspense fallback={<CardsSkeleton countCards={3} />}>
@@ -39,7 +41,7 @@ export default async function HomePage() {
           </Suspense>
         </CardsSection>
 
-        <Suspense /* fallback={<span>Loading...</span>} */>
+        <Suspense>
           <HomeAside />
         </Suspense>
       </main>
