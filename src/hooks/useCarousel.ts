@@ -1,83 +1,44 @@
-import { viewHeight } from '@/utils/calculateClientViewport'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { useSessionStorage } from './useSessionStorage'
-import { useVisibilityChange } from './useVisibilityChange'
+import { useEffect, useRef, useState } from 'react'
 
 interface Props {
   itemIds: string[]
   timeBetweenSlides: number
 }
 
-type HandleCurrentSlideProps = {
-  itemId: string
-  smooth?: boolean
-}
-
-export function useCarousel({ itemIds, timeBetweenSlides }: Props) {
-  const [currentItemIndex, setCurrentItemIndex] = useState(0)
-  const [sliding, setSliding] = useSessionStorage<boolean>(
-    'carousel_sliding',
-    itemIds.length > 1
-  )
-  const pageIsVisible = useVisibilityChange()
+export function useCarousel({ itemIds }: Props) {
+  const [currentItem, setCurrentItem] = useState(() => {
+    const storageSlideId = sessionStorage.getItem('currentSlideId')
+    return {
+      value: itemIds.indexOf(storageSlideId || itemIds[0]),
+      dispatchSource: 'init' as 'init' | 'user' | 'auto'
+    }
+  })
 
   const scrollerRef = useRef<HTMLUListElement>(null)
 
-  const handleCurrentSlide = useCallback(
-    ({ itemId, smooth = true }: HandleCurrentSlideProps) => {
-      if (!scrollerRef.current || !pageIsVisible) return
+  const setCurrentSlide = (itemId: string) => {
+    if (!scrollerRef.current) return
 
-      const scrollerRefItems = [
-        ...scrollerRef.current.childNodes
-      ] as HTMLElement[]
-
-      const element = scrollerRefItems.find(({ id }) => id === itemId)
-      scrollerRef.current.scrollTo({
-        left: element?.offsetLeft,
-        behavior: smooth ? 'smooth' : 'auto'
-      })
-
-      setCurrentItemIndex(itemIds.indexOf(itemId))
-      sessionStorage.setItem('currentSlideId', itemId)
-    },
-    [itemIds, pageIsVisible]
-  )
-
-  const setCurrentSlide = (itemId: string) => handleCurrentSlide({ itemId })
-
-  useEffect(
-    () => {
-      const storageSlideId = sessionStorage.getItem('currentSlideId')
-      if (!sliding || !storageSlideId) return
-      handleCurrentSlide({ itemId: storageSlideId, smooth: false })
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  )
+    setCurrentItem({ value: itemIds.indexOf(itemId), dispatchSource: 'user' })
+    sessionStorage.setItem('currentSlideId', itemId)
+  }
 
   useEffect(() => {
-    if (itemIds.length <= 1 || window.scrollY > viewHeight(20) || !sliding)
-      return
+    if (!scrollerRef.current) return
 
-    const interval = setInterval(() => {
-      handleCurrentSlide({
-        itemId: itemIds[(currentItemIndex + 1) % itemIds.length]
-      })
-    }, timeBetweenSlides)
+    const scrollerRefItems = [
+      ...scrollerRef.current.childNodes
+    ] as HTMLElement[]
 
-    return () => clearInterval(interval)
-  }, [
-    itemIds,
-    timeBetweenSlides,
-    currentItemIndex,
-    handleCurrentSlide,
-    sliding
-  ])
+    const element = scrollerRefItems[currentItem.value]
+    scrollerRef.current.scrollTo({
+      left: element?.offsetLeft,
+      behavior: currentItem.dispatchSource === 'user' ? 'smooth' : 'auto'
+    })
+  }, [currentItem])
 
   return {
-    currentSlideId: itemIds[currentItemIndex],
-    sliding,
-    setSliding,
+    currentSlideId: itemIds[currentItem.value],
     scrollerRef,
     setCurrentSlide
   }
