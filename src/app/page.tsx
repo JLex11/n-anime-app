@@ -14,7 +14,6 @@ import { Suspense } from 'react'
 export default async function HomePage() {
   const CARDS_WIDTH = '230px'
   const CARDS_HEIGHT = '190px'
-  const CARDS_GAP = '1rem'
 
   return (
     <>
@@ -23,7 +22,7 @@ export default async function HomePage() {
         <CardsSection
           title='Últimos episodios'
           icon={<LatestIcon />}
-          gridProps={{ width: CARDS_WIDTH, height: CARDS_HEIGHT, gap: CARDS_GAP }}
+          gridProps={{ width: CARDS_WIDTH, height: CARDS_HEIGHT }}
         >
           <Suspense fallback={<CardsSkeleton countCards={3} hasPill={true} />}>
             <LatestEpisodes />
@@ -33,7 +32,6 @@ export default async function HomePage() {
         <CardsSection
           title='Últimos animes'
           icon={<LatestIcon />}
-          gridProps={{ gap: CARDS_GAP }}
           style={{ order: 1, gridColumn: '1 / span 2' }}
         >
           <Suspense fallback={<CardsSkeleton countCards={3} />}>
