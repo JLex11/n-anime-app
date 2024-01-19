@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 
 interface Props {
   itemIds: string[]
-  timeBetweenSlides: number
 }
 
 export function useCarousel({ itemIds }: Props) {
