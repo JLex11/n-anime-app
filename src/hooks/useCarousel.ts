@@ -44,7 +44,7 @@ export function useCarousel({ itemIds }: Props) {
     scrollerRefItems.forEach(element => element.removeAttribute('active'))
 
     const element = scrollerRefItems[currentItem.value]
-    element.setAttribute('active', 'true')
+    element?.setAttribute('active', 'true')
 
     scrollerRef.current.scrollTo({
       left: element?.offsetLeft,
