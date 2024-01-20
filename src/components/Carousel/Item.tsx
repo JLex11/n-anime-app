@@ -16,7 +16,7 @@ export function Item({ anime, showInfo, index }: Props) {
   const fbImage = { link: anime.images?.coverImage }
 
   return (
-    <li id={anime.animeId} className={styles.carouselItem}>
+    <li id={anime.animeId} className={styles.carouselItem} {...{ active: false }}>
       <Picture
         title={anime.title}
         images={[...pictureImages, fbImage]}
