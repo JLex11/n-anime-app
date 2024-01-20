@@ -67,11 +67,8 @@
   transform: rotateX(-3deg) scaleX(0.97);
 }
 
-.broadcastListItemParent:has(+ .broadcastListItemParent:hover)
-  .broadcastListItem::after,
-.broadcastListItemParent:hover
-  + .broadcastListItemParent
-  .broadcastListItem::after {
+.broadcastListItemParent:has(+ .broadcastListItemParent:hover) .broadcastListItem::after,
+.broadcastListItemParent:hover + .broadcastListItemParent .broadcastListItem::after {
   opacity: 0.13;
 }
 
@@ -97,4 +94,19 @@
 
 .broadcastListItem:hover h3 {
   text-decoration: underline;
+}
+
+@media (width <=56rem) {
+  .broadcastList {
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .broadcastListItemParent {
+    min-width: 10rem;
+    margin-bottom: 0.5rem;
+  }
 }

@@ -89,7 +89,7 @@
   justify-content: flex-end;
   align-items: flex-start;
   width: var(--max-width);
-  padding: 0 30px;
+  padding: 0 var(--global-padding);
   gap: 1.5rem;
 }
 
@@ -115,6 +115,7 @@
   min-height: 20px;
   gap: 0.8rem;
   row-gap: 1.2rem;
+  width: 50%;
 }
 
 .navigateButtons {
@@ -133,7 +134,7 @@
   justify-content: flex-end;
   align-items: flex-end;
   width: var(--max-width);
-  padding: 0 30px;
+  padding: 0 var(--global-padding);
   gap: 0.5rem;
 }
 
@@ -142,8 +143,8 @@
   border-radius: 0.5rem;
   background-color: lightgray;
   transform: translateY(-2.2rem);
-  width: 2.7rem;
-  height: 3.3rem;
+  width: 3.3rem;
+  height: 3.9rem;
   display: flex;
   overflow: hidden;
   transform-origin: top;
@@ -172,6 +173,10 @@
 }
 
 @media (width <=56rem) {
+  .info ul {
+    width: 100%;
+  }
+
   .info .content {
     margin-bottom: 5rem;
   }
@@ -182,8 +187,8 @@
 
   .navigateButton {
     transform: translateY(0);
-    transform-origin: bottom;
-    width: 3rem;
-    height: 3.9rem;
+    transform-origin: center;
+    width: 3.6rem;
+    height: 4.5rem;
   }
 }

@@ -5,13 +5,9 @@
   width: 100%;
   height: fit-content;
   gap: 1.5rem;
+  grid-column: var(--section-grid-column);
+  order: var(--section-grid-order);
 }
-
-/* .latestSection.hasAside {
-  grid-template-columns: 3fr 1fr;
-}
-
-*/
 
 .content {
   display: flex;
@@ -34,4 +30,11 @@
   align-items: center;
   font-size: 1.5rem;
   gap: 0.5rem;
+}
+
+@media (width <=56rem) {
+  .latestSection {
+    grid-column: auto;
+    order: 1;
+  }
 }

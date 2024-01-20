@@ -9,6 +9,7 @@
   --max-width: min(100%, 1300px);
   --primary-color: rgb(19, 19, 25);
   --carousel-height: 70vh;
+  --global-padding: 2rem;
 }
 
 html,
@@ -45,12 +46,12 @@ li {
 main {
   width: min(100%, var(--max-width));
   margin: 5rem auto;
-  padding: 2rem;
+  padding: var(--global-padding);
 }
 
-@media (width <= 56rem) {
-  main {
-    padding: 1rem;
+@media (width <=56rem) {
+  :root {
+    --global-padding: 0.5rem;
   }
 }
 
@@ -71,6 +72,7 @@ main {
   from {
     transform: scale(1);
   }
+
   to {
     transform: scale(1.1);
   }
@@ -84,6 +86,7 @@ main {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

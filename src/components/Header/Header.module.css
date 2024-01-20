@@ -22,7 +22,7 @@
   justify-content: space-between;
   align-items: center;
   width: var(--max-width);
-  padding: 2rem 2rem 0.5rem 2rem;
+  padding: 2rem var(--global-padding) 0.5rem var(--global-padding);
   transition: padding 0.2s ease-in-out;
   gap: 30px;
   margin-inline: auto;
@@ -89,7 +89,7 @@
 .tools {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 1rem;
 }
 
 .searchButton {
@@ -163,4 +163,12 @@
   background-color: var(--primary-color);
   transition: 0.3s 0.1s ease-in-out;
   z-index: -1;
+}
+
+@media (width <=56rem) {
+  .headerSection,
+  .pages,
+  .tools {
+    gap: 0.5rem;
+  }
 }

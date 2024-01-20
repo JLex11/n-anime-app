@@ -9,6 +9,7 @@ interface Props {
     width?: string
     height?: string
     gap?: string
+    column?: string
   }
   style?: React.CSSProperties
   children: React.ReactNode
