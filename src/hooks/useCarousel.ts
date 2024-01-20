@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 
 interface Props {
   itemIds: string[]
@@ -25,9 +26,11 @@ export function useCarousel({ itemIds }: Props) {
       ? itemIds.indexOf(currentSlideId)
       : null
 
-    if (currentSlideIndex) {
+    if (!currentSlideIndex) return
+
+    flushSync(() =>
       setCurrentItem({ value: currentSlideIndex, dispatchSource: 'init' })
-    }
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
