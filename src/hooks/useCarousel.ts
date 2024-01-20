@@ -38,7 +38,11 @@ export function useCarousel({ itemIds }: Props) {
       ...scrollerRef.current.childNodes
     ] as HTMLElement[]
 
+    scrollerRefItems.forEach(element => element.removeAttribute('active'))
+
     const element = scrollerRefItems[currentItem.value]
+    element.setAttribute('active', 'true')
+
     scrollerRef.current.scrollTo({
       left: element?.offsetLeft,
       behavior: currentItem.dispatchSource === 'user' ? 'smooth' : 'auto'
