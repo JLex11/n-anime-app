@@ -11,21 +11,15 @@ interface Props {
 }
 
 export function Autocomplete({ handleLaunchAutocomplete }: Props) {
-  const { autocomplete, setActiveItemId, elementsRef, elementsProps } =
-    useAutocomplete({ handleLaunchAutocomplete })
+  const { autocomplete, setActiveItemId, elementsRef, elementsProps } = useAutocomplete({ handleLaunchAutocomplete })
   const autocompleteId = useId()
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement
-    if (target.id === autocompleteId) {
-      handleLaunchAutocomplete(false)
-    }
+    if (target.id === autocompleteId) handleLaunchAutocomplete(false)
   }
 
-  const resultsPanelClassName = clsx(
-    styles.collectionsPanel,
-    autocomplete.isOpen && styles.isOpen
-  )
+  const resultsPanelClassName = clsx(styles.collectionsPanel, autocomplete.isOpen && styles.isOpen)
   const formClassName = clsx(styles.form, autocomplete.isOpen && styles.isOpen)
 
   const providerValue = useMemo(
@@ -34,7 +28,8 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
       setActiveItemId,
       handleLaunchAutocomplete
     }),
-    [autocomplete.activeItemId, setActiveItemId, handleLaunchAutocomplete]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [autocomplete.activeItemId]
   )
 
   return (

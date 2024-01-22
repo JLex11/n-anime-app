@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 const Autocomplete = dynamic(() =>
-  import('./Autocomplete').then(mod => mod.Autocomplete)
+  import('.').then(mod => mod.Autocomplete)
 )
 
 interface Props {
@@ -17,8 +17,7 @@ interface Props {
 export function SearchLauncher({ className: cssClass, children }: Props) {
   const [autocompleteLaunched, setAutocompleteLaunched] = useState(false)
 
-  const handleToggleSearch = () =>
-    setAutocompleteLaunched(!autocompleteLaunched)
+  const handleToggleSearch = () => setAutocompleteLaunched(!autocompleteLaunched)
   const handleCloseAutocomplete = () => setAutocompleteLaunched(false)
 
   const hotkeysOptions = {

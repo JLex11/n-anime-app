@@ -7,19 +7,23 @@ import { getAnimesByQuery } from '@/services/getAnimeByQuery'
 import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
 import AppWindow from '../Icons/AppWindow'
 
+const mapRouteItem = (route: typeof APP_ROUTES[number]) => ({
+  id: route.link,
+  title: route.name,
+  image: <AppWindow width={50} />,
+  link: route.link,
+  description: route.description
+})
+
 export const getRoutesItems = (query: string) => {
+  if (query.length < 1) return APP_ROUTES.map(mapRouteItem)
+
   const regex = new RegExp(query, 'gi')
   const filteredRoutes = APP_ROUTES.filter(route =>
-    regex.test(route.name + route.description)
+    regex.test(route.name) || regex.test(route.description)
   )
 
-  return filteredRoutes.map(route => ({
-    id: route.link,
-    title: route.name,
-    image: <AppWindow width={50} />,
-    link: route.link,
-    description: route.description
-  }))
+  return filteredRoutes.map(mapRouteItem)
 }
 
 const getAnimeItemChilds = async (
