@@ -1,4 +1,4 @@
-import { EpisodeList } from '@/components/EpisodeList/EpisodeList'
+import { EpisodeList, EpisodeListSkeleton } from '@/components/EpisodeList/EpisodeList'
 import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
 import styles from './Anime.module.css'
 
@@ -24,6 +24,15 @@ export async function Episodes({ limit, animeId, animeTitle, fallbackImg }: Epis
         animeImage={fallbackImg}
         linkPrefix={`${animeId}/`}
       />
+    </section>
+  )
+}
+
+export function EpisodesSkeleton() {
+  return (
+    <section className={styles.section}>
+      <h2 className={styles.sectionTitle}>Episodios</h2>
+      <EpisodeListSkeleton />
     </section>
   )
 }
