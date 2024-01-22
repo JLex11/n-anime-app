@@ -14,9 +14,7 @@ export default async function AnimePage({ params, searchParams }: PageProps) {
 
   return (
     <>
-      <Suspense>
-        <AnimeCarousel animeId={animeId} />
-      </Suspense>
+      <AnimeCarousel animeId={animeId} />
       <Suspense>
         <AnimeMain animeId={animeId} limit={limit} />
       </Suspense>
