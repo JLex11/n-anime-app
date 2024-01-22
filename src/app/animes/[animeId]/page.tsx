@@ -1,6 +1,7 @@
 import { AnimeCarousel } from '@/components/AnimePage/AnimeCarousel'
 import { AnimeMain } from '@/components/AnimePage/AnimeMain'
 import { Metadata } from 'next'
+import { Suspense } from 'react'
 import {
   PageProps,
   generateMetadataFromAnimeId,
@@ -13,8 +14,12 @@ export default async function AnimePage({ params, searchParams }: PageProps) {
 
   return (
     <>
-      <AnimeCarousel animeId={animeId} />
-      <AnimeMain animeId={animeId} limit={limit} />
+      <Suspense>
+        <AnimeCarousel animeId={animeId} />
+      </Suspense>
+      <Suspense>
+        <AnimeMain animeId={animeId} limit={limit} />
+      </Suspense>
     </>
   )
 }
