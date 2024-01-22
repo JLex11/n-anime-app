@@ -71,7 +71,6 @@ export function useAutocomplete({
     [router]
   )
 
-  // biome-ignore lint: only works if not using the all dependencies
   const autoComplete = useMemo(
     () =>
       createAutocomplete<AutocompleteOutputItem>({
@@ -107,14 +106,8 @@ export function useAutocomplete({
           }
         }
       }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [
-      autocompleteId,
-      router,
-      handleLaunchAutocomplete,
-      handleActiveItem,
-      getRoutesItems
-    ]
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only on mount
+    [autocompleteId, router]
   )
 
   const autocompleteFormProps = autoComplete.getFormProps({
