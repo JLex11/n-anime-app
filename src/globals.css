@@ -19,6 +19,7 @@ body {
   color: white;
   font-weight: 350;
   background-color: var(--primary-color);
+  font-family: var(--montserrat-font);
 }
 
 code {

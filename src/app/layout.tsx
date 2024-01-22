@@ -1,6 +1,6 @@
 import { Header } from '@/components/Header'
 import clsx from 'clsx'
-import { Inter } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import LocalFont from 'next/font/local'
 import '../globals.css'
 
@@ -14,9 +14,9 @@ export const metadata = {
   }
 }
 
-const interFont = Inter({
+const montserratFont = Montserrat({
   subsets: ['latin'],
-  variable: '--inter-font',
+  variable: '--montserrat-font',
   preload: true,
   adjustFontFallback: true
 })
@@ -34,7 +34,7 @@ interface Props {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang='es'>
-      <body className={clsx(interFont.className, animeAceBBFont.variable)}>
+      <body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
         <Header />
         {children}
       </body>
