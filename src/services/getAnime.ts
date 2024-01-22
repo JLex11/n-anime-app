@@ -13,16 +13,18 @@ export const getAnime = async (animeId: string): Promise<Anime | undefined> => {
   const animePromise = fetchData(
     `${APIRoutes.InfoAnime}/${animeId}`,
     fetchConfig
-  ).then(anime => {
-    if (!anime) return
-    return addAnimeToIndex(filterUnsupportDomains(anime))
-  }).catch(() => {
-    console.error(`Failed to fetch anime ${animeId}`)
-    return undefined
-  })
+  )
+    .then(anime => {
+      if (!anime) return
+      return addAnimeToIndex(filterUnsupportDomains(anime))
+    })
+    .catch(() => {
+      console.error(`Failed to fetch anime ${animeId}`)
+      return undefined
+    })
 
   const indexedAnime = getIndexedAnime(animeId)
   if (indexedAnime) return indexedAnime
-  
+
   return animePromise
 }
