@@ -8,7 +8,7 @@ import LatestIcon from '@/components/Icons/LatestIcon'
 import { getRatingAnimes } from '@/services/getRatingAnimes'
 import { Suspense } from 'react'
 
-interface CSSProperties extends React.CSSProperties {
+interface CSSProps extends React.CSSProperties {
   '--section-grid-order'?: string | number
   '--section-grid-column'?: string | number
 }
@@ -37,7 +37,7 @@ export default async function HomePage() {
           style={{
             '--section-grid-order': 1,
             '--section-grid-column': '1 / span 2'
-          } as CSSProperties}
+          } as CSSProps}
         >
           <Suspense fallback={<CardsSkeleton countCards={3} />}>
             <LatestAnimes />
