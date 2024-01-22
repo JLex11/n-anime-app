@@ -74,8 +74,8 @@
   opacity: 0;
   transform: translateX(5rem);
   transition:
-    opacity 0.3s 0.25s cubic-bezier(1, 0.01, 0.63, 0.99),
-    transform 0.5s 0.25s ease-in-out;
+    opacity 0.3s 0.2s cubic-bezier(1, 0.01, 0.63, 0.99),
+    transform 0.35s 0.2s ease-in-out;
 }
 
 .carouselItem[active] .info {
