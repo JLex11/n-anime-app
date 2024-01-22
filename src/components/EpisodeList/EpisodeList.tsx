@@ -13,14 +13,7 @@ interface Props {
   linkPrefix?: string
 }
 
-export function EpisodeList({
-  limit,
-  episodes,
-  currentEpisode,
-  animeImage,
-  animeTitle,
-  linkPrefix
-}: Props) {
+export function EpisodeList({ limit, episodes, currentEpisode, animeImage, animeTitle, linkPrefix }: Props) {
   const createItemLink = (episode: Episode) =>
     `${linkPrefix || ''}${episode.episode}${limit ? `?limit=${limit}` : ''}`
   const firstEpisodeInList = episodes.some(({ episode }) => episode === 1)
@@ -38,6 +31,18 @@ export function EpisodeList({
         />
       ))}
       {!firstEpisodeInList && <ButtonMore limit={episodes.length + 5} />}
+    </ul>
+  )
+}
+
+export function EpisodeListSkeleton() {
+  return (
+    <ul className={styles.episodeList}>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <li key={index}>
+          <span className={styles.listItem} />
+        </li>
+      ))}
     </ul>
   )
 }

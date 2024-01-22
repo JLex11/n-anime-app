@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { VideoNavItem } from './VideoNavItem'
 import styles from './VideoSection.module.css'
 
-interface CSSProperties extends React.CSSProperties {
+interface CSSProps extends React.CSSProperties {
   '--indicator-left'?: `${number}px`
   '--indicator-width'?: `${number}px`
   '--indicator-height'?: `${number}px`
@@ -23,7 +23,7 @@ export function VideoNav({ currentIframesData }: VideoNavProps) {
   const [activeIframeOption, setActiveIframeOption] = useState<
     EpisodeVideo['server'] | undefined
   >(currentIframesData?.[0]?.server)
-  const [indicatorProps, setIndicatorProps] = useState<CSSProperties>({
+  const [indicatorProps, setIndicatorProps] = useState<CSSProps>({
     '--indicator-left': '0px',
     '--indicator-width': '0px',
     '--indicator-height': '0px'

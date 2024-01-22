@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import styles from './Pill.module.css'
 
-interface CSSProperties extends React.CSSProperties {
+interface CSSProps extends React.CSSProperties {
   '--pill-color'?: string
   '--pill-bg'?: string
 }
@@ -22,7 +22,7 @@ export function Pill({
   bgColor = dfGradient,
   className
 }: PillProps) {
-  const pillStyles: CSSProperties = {
+  const pillStyles: CSSProps = {
     '--pill-color': color,
     '--pill-bg': bgColor
   }

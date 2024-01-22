@@ -9,7 +9,7 @@ export interface Props {
   children: React.ReactNode
 }
 
-interface CSSProperties extends React.CSSProperties {
+interface CSSProps extends React.CSSProperties {
   '--aside-height': string
 }
 
@@ -17,7 +17,7 @@ export function AsideWrapper({ children }: Props) {
   const { videoSectionRef } = useContext(EpisodePageContext)
   const { blockSize } = useResizeObserver(videoSectionRef)
 
-  const asideStyles: CSSProperties = {
+  const asideStyles: CSSProps = {
     '--aside-height': `${blockSize}px`
   }
 

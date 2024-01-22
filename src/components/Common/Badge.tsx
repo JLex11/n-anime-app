@@ -1,6 +1,6 @@
 import styles from './CustomElements.module.css'
 
-interface CSSProperties extends React.CSSProperties {
+interface CSSProps extends React.CSSProperties {
   '--padding'?: string
   '--bd-radius'?: string
   '--bg-color'?: string
@@ -14,7 +14,7 @@ interface BadgeProps {
 }
 
 export function Badge({ children, padding, radius, background }: BadgeProps) {
-  const cssStyles: CSSProperties = {
+  const cssStyles: CSSProps = {
     '--padding': padding || '0.3rem 0.6rem',
     '--bd-radius': radius || '0.6rem',
     '--bg-color': background || '#ffffff38'

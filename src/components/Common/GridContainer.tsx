@@ -8,7 +8,7 @@ interface Props {
   column?: string
 }
 
-interface CSSProperties extends React.CSSProperties {
+interface CSSProps extends React.CSSProperties {
   '--grid-width'?: string
   '--grid-height'?: string
   '--grid-gap'?: string
@@ -16,7 +16,7 @@ interface CSSProperties extends React.CSSProperties {
 }
 
 export function GridContainer({ children, width, height, gap, column }: Props) {
-  const gridStyles: CSSProperties = {
+  const gridStyles: CSSProps = {
     '--grid-width': width || '200px',
     '--grid-height': height || '360px',
     '--grid-gap': gap || '1rem',
