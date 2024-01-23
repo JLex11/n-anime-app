@@ -14,7 +14,7 @@ interface PictureImage {
 interface Props {
   title: string
   images: PictureImage[]
-  lazy: boolean
+  lazy?: boolean
 }
 
 export function Picture({ title, images, lazy }: Props) {
