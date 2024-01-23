@@ -26,8 +26,10 @@ export function NavigationButton({ title, animeId, images, onClick, className }:
       <Image
         src={currentImage.link}
         alt={title}
-        width={120}
-        height={145}
+        width={72}
+        height={88}
+        loading='eager'
+        quality={30}
         onError={onError}
       />
     </button>
