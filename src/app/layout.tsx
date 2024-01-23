@@ -34,10 +34,12 @@ interface Props {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang='es'>
+      {/* <LayoutContextWrapper> */}
       <body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
         <Header />
         {children}
       </body>
+      {/* </LayoutContextWrapper> */}
     </html>
   )
 }

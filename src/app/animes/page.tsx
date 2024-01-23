@@ -5,7 +5,17 @@ import { getAnimesByQuery } from '@/services/getAnimeByQuery'
 import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
 import { Suspense } from 'react'
 
-interface Props { searchParams: { query: string } }
+interface Props {
+  searchParams: {
+    order: string
+    query: string
+    rank: string
+    sortBy: string
+    genres: string[]
+    status: string[]
+    type: string[]
+  }
+}
 
 export default function AnimesPage({ searchParams }: Props) {
   const { query = '' } = searchParams
