@@ -2,7 +2,9 @@ import { Header } from '@/components/Header'
 import clsx from 'clsx'
 import { Montserrat } from 'next/font/google'
 import LocalFont from 'next/font/local'
+import { headers } from 'next/headers'
 import '../globals.css'
+import { LayoutContextWrapper } from './LayoutContext'
 
 export const metadata = {
   title: 'One Anime',
@@ -32,14 +34,16 @@ interface Props {
 }
 
 export default function RootLayout({ children }: Props) {
+  const headerList = headers().entries()
+
   return (
     <html lang='es'>
-      {/* <LayoutContextWrapper> */}
-      <body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
-        <Header />
-        {children}
-      </body>
-      {/* </LayoutContextWrapper> */}
+      <LayoutContextWrapper headers={headerList}>
+        <body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
+          <Header />
+          {children}
+        </body>
+      </LayoutContextWrapper>
     </html>
   )
 }

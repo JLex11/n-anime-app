@@ -12,7 +12,7 @@ interface Props {
 export function NavigationButton({ title, animeId, images, onClick, className }: Props) {
   const { currentImage, onError } = useFallbackImage(
     images.map(link => ({ link })),
-    { width: 50, height: 65 }
+    { width: 72, height: 88 }
   )
 
   return (

@@ -19,7 +19,6 @@ export function CarouselWrapper({ animes, children }: Props) {
     animeId,
     images: [
       images?.coverImage,
-      ...images?.carouselImages.map(({ link }) => link) ?? [],
       '/lights-blur.webp'
     ]
   }))

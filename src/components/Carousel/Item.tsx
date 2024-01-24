@@ -1,7 +1,7 @@
 import { Anime } from '@/types'
 import styles from './Carousel.module.css'
 import { ItemInfo } from './ItemInfo'
-import { Picture } from './Picture'
+import Picture from './Picture'
 
 interface Props {
   anime: Anime
@@ -20,9 +20,9 @@ export function Item({ anime, showInfo, index }: Props) {
       <Picture
         title={anime.title}
         images={[...pictureImages, fbImage]}
-        defaultSize={{ width: 1248, height: 624 }}
+        defaultSize={{ width: 998, height: 499 }}
         preferDefaultSize
-        /* smallSize={70} */
+        smallSize={60}
         lazy={index > 0}
       />
       {showInfo && (
