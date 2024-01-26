@@ -5,7 +5,7 @@ import { useFallbackImage } from '@/hooks/useFallbackImage'
 import { Range } from '@/types'
 import { userIsMobile } from '@/utils/isMobile'
 import Image from 'next/image'
-import { useContext } from 'react'
+import { useContext, useMemo } from 'react'
 import styles from './Carousel.module.css'
 
 interface PictureImage {
@@ -34,12 +34,16 @@ export default function Picture({ title, images, defaultSize, preferDefaultSize,
   const definedWidth = preferDefaultSize ? defaultSize.width : carouselImage.width
   const definedHeight = preferDefaultSize ? defaultSize.height : carouselImage.height
 
-  const smallSizeWidth = typeof smallSize === 'number' ? definedWidth * (smallSize / 100) : smallSize.width
-  const smallSizeHeight = typeof smallSize === 'number' ? definedHeight * (smallSize / 100) : smallSize.height
+  const { imageWidth, imageHeight, imageQuality } = useMemo(() => {
+    const smallSizeWidth = typeof smallSize === 'number' ? definedWidth * (smallSize / 100) : smallSize.width
+    const smallSizeHeight = typeof smallSize === 'number' ? definedHeight * (smallSize / 100) : smallSize.height
 
-  const imageWidth = isMobile ? smallSizeWidth : definedWidth
-  const imageHeight = isMobile ? smallSizeHeight : definedHeight
-  const imageQuality = typeof smallSize === 'number' ? 100 : smallSize.quality || 100
+    return {
+      imageWidth: isMobile ? smallSizeWidth : definedWidth,
+      imageHeight: isMobile ? smallSizeHeight : definedHeight,
+      imageQuality: typeof smallSize === 'number' ? 100 : smallSize.quality || 100,
+    }
+  }, [isMobile, smallSize, definedWidth, definedHeight])
 
   return (
     <picture className={styles.carouselPicture}>
