@@ -15,6 +15,9 @@ export const getRatingAnimes = async (limit = 10): Promise<Anime[]> => {
     `${APIRoutes.RatingAnimes}?limit=${limit}`,
     fetchConfig
   )
-  
-  return animes.sort(sortByRank).map(anime => addAnimeToIndex(filterUnsupportDomains(anime)))
+
+  return animes
+    .sort(sortByRank)
+    .map(anime => addAnimeToIndex(filterUnsupportDomains(anime)))
+    .filter(anime => anime.title)
 }
