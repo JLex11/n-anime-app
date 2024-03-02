@@ -19,10 +19,8 @@ export function CardsSection({ title, icon, gridProps, style, children }: Props)
   return (
     <section className={styles.latestSection} style={style}>
       <div className={styles.content}>
-        {!!title && <CardsSectionHeader title={title} icon={icon} />}
-        <GridContainer {...gridProps}>
-          {children}
-        </GridContainer>
+        {title && <CardsSectionHeader title={title} icon={icon} />}
+        <GridContainer {...gridProps}>{children}</GridContainer>
       </div>
     </section>
   )
