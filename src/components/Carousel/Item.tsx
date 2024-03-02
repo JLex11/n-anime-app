@@ -11,8 +11,7 @@ interface Props {
 
 export function Item({ anime, showInfo, index }: Props) {
   const pictureImages =
-    anime.images?.carouselImages.filter(carouselImage => carouselImage.link) ??
-    []
+    anime.images?.carouselImages.filter(carouselImage => carouselImage.link) ?? []
   const fbImage = { link: anime.images?.coverImage }
 
   return (
@@ -23,14 +22,10 @@ export function Item({ anime, showInfo, index }: Props) {
         defaultSize={{ width: 998, height: 499 }}
         preferDefaultSize
         smallSize={60}
-        lazy={index > 0}
+        priority={index === 0}
       />
       {showInfo && (
-        <ItemInfo
-          animeId={anime.animeId}
-          title={anime.title ?? ''}
-          genres={anime.genres}
-        />
+        <ItemInfo animeId={anime.animeId} title={anime.title ?? ''} genres={anime.genres} />
       )}
     </li>
   )
