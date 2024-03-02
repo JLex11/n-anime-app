@@ -22,11 +22,20 @@ interface Props {
   images: PictureImage[]
   defaultSize: { width: number; height: number }
   preferDefaultSize?: boolean
-  smallSize?: { width: number; height: number, quality?: number } | SmallSizePercent
-  lazy?: boolean
+  smallSize?: { width: number; height: number; quality?: number } | SmallSizePercent
+  loading?: 'lazy' | 'eager'
+  priority?: boolean
 }
 
-export default function Picture({ title, images, defaultSize, preferDefaultSize, smallSize = 80, lazy }: Props) {
+export default function Picture({
+  title,
+  images,
+  defaultSize,
+  preferDefaultSize,
+  smallSize = 80,
+  loading,
+  priority
+}: Props) {
   const { currentImage: carouselImage, onError } = useFallbackImage(images, defaultSize)
   const headers = useContext(RootContext).headers
   const isMobile = headers && userIsMobile(headers)
@@ -35,13 +44,15 @@ export default function Picture({ title, images, defaultSize, preferDefaultSize,
   const definedHeight = preferDefaultSize ? defaultSize.height : carouselImage.height
 
   const { imageWidth, imageHeight, imageQuality } = useMemo(() => {
-    const smallSizeWidth = typeof smallSize === 'number' ? definedWidth * (smallSize / 100) : smallSize.width
-    const smallSizeHeight = typeof smallSize === 'number' ? definedHeight * (smallSize / 100) : smallSize.height
+    const smallSizeWidth =
+      typeof smallSize === 'number' ? definedWidth * (smallSize / 100) : smallSize.width
+    const smallSizeHeight =
+      typeof smallSize === 'number' ? definedHeight * (smallSize / 100) : smallSize.height
 
     return {
       imageWidth: isMobile ? smallSizeWidth : definedWidth,
       imageHeight: isMobile ? smallSizeHeight : definedHeight,
-      imageQuality: typeof smallSize === 'number' ? 100 : smallSize.quality || 100,
+      imageQuality: typeof smallSize === 'number' ? 100 : smallSize.quality || 100
     }
   }, [isMobile, smallSize, definedWidth, definedHeight])
 
@@ -53,8 +64,8 @@ export default function Picture({ title, images, defaultSize, preferDefaultSize,
         width={imageWidth}
         height={imageHeight}
         style={{ backgroundPosition: carouselImage.position || 'center' }}
-        loading={lazy ? 'lazy' : 'eager'}
-        priority={!lazy}
+        loading={loading}
+        priority={priority}
         quality={imageQuality}
         onError={onError}
       />
