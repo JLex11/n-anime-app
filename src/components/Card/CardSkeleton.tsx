@@ -1,12 +1,8 @@
 import clsx from 'clsx'
 import { Pill } from '../Pill'
-import styles from './HomeCard.module.css'
+import styles from './Card.module.css'
 
-interface CardProps {
-  hasPill?: boolean
-}
-
-export function CardSkeleton({ hasPill = false }: CardProps) {
+export function CardSkeleton({ hasPill = false }) {
   return (
     <article className={clsx(styles.cardSkeleton, styles.card)}>
       <div className={styles.card_anchor}>

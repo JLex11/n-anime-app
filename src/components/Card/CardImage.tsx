@@ -2,38 +2,29 @@
 
 import { useFallbackImage } from '@/hooks/useFallbackImage'
 import Image from 'next/image'
-
-interface Props {
-  src: string | null | undefined
-  fbSrc?: string
-  alt: string
-  dimensions: {
-    width: number
-    height: number
-  }
-  lazy?: boolean
-  priority?: boolean
-  className?: string
-}
+import { CardImageProps } from './types'
 
 export function CardImage({
   src,
   fbSrc,
   alt,
-  dimensions,
+  size,
   lazy,
-  className: cssClass
-}: Props) {
+  className: cssClass,
+  useNext
+}: CardImageProps) {
   const { currentImage, onError } = useFallbackImage(
     [
-      { link: src, ...dimensions },
-      { link: fbSrc, ...dimensions }
+      { link: src, ...size },
+      { link: fbSrc, ...size }
     ],
     { width: 300, height: 350 }
   )
 
+  const ImageComponent = useNext ? Image : 'img'
+
   return (
-    <Image
+    <ImageComponent
       src={currentImage.link}
       alt={alt}
       width={currentImage.width}
