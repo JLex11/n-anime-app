@@ -34,10 +34,13 @@ export default async function HomePage() {
         <CardsSection
           title='Últimos animes'
           icon={<LatestIcon />}
-          style={{
-            '--section-grid-order': 1,
-            '--section-grid-column': '1 / span 2'
-          } as CSSProps}
+          style={
+            {
+              '--section-grid-order': 1,
+              '--section-grid-column': '1 / span 2'
+            } as CSSProps
+          }
+          gridProps={{ width: '14rem', height: '26rem', gap: '1.5rem' }}
         >
           <Suspense fallback={<CardsSkeleton countCards={3} />}>
             <LatestAnimes />
