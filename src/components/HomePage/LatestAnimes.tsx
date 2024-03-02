@@ -9,7 +9,7 @@ export const LatestAnimes = async () => {
     const fbSrc = anime.images?.carouselImages?.at(-2)?.link ?? ''
 
     return {
-      key: anime.animeId,
+      animeId: anime.animeId,
       title: anime.title,
       image: {
         src: imageSrc,
@@ -25,5 +25,5 @@ export const LatestAnimes = async () => {
     }
   })
 
-  return animesData.map(animeData => <AnimeCard {...animeData} />)
+  return animesData.map(animeData => <AnimeCard key={animeData.animeId} {...animeData} />)
 }
