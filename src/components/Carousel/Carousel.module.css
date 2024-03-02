@@ -95,7 +95,7 @@
 
 .infoTitle {
   display: -webkit-box;
-  max-width: min(100%, 800px);
+  max-width: min(100%, 700px);
   font-size: 2.7rem;
   font-weight: 600;
   text-overflow: ellipsis;
