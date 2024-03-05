@@ -16,7 +16,7 @@ export const AnimeList = async ({ animesSource }: Props) => {
 
   const mapAnimes = (anime: Anime) => {
     const imageSrc = anime.images?.coverImage
-    const fbSrc = anime.images?.carouselImages?.at(-1)?.link ?? '/lights-blur.webp'
+    const fbSrc = anime.images?.carouselImages?.at(-1)?.link ?? DEFAULT_IMAGE
 
     return {
       key: anime.animeId,
@@ -25,11 +25,9 @@ export const AnimeList = async ({ animesSource }: Props) => {
         src: imageSrc,
         fbSrc,
         width: 300,
-        height: 350,
-        lazy: false
+        height: 350
       },
       link: `/animes/${anime.animeId}`
-      /* showOnHover: <CardDetails description={anime.description} status={anime.status} rank={anime.rank} genres={anime.genres} /> */
     }
   }
 
@@ -38,8 +36,8 @@ export const AnimeList = async ({ animesSource }: Props) => {
   return (
     <AnimeListWrapper>
       <CardsSection gridProps={{ width: GRID_WIDTH, height: GRID_HEIGHT }}>
-        {animesData.map(({ key, title, link, image /* , showOnHover */ }) => (
-          <Card key={key} image={image} title={title} link={link} /* showOnHover={showOnHover} */ />
+        {animesData.map(({ key, title, link, image }) => (
+          <Card key={key} image={image} title={title} link={link} />
         ))}
       </CardsSection>
     </AnimeListWrapper>
