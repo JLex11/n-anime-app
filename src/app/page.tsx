@@ -8,11 +8,6 @@ import LatestIcon from '@/components/Icons/LatestIcon'
 import { getRatingAnimes } from '@/services/getRatingAnimes'
 import { Suspense } from 'react'
 
-interface CSSProps extends React.CSSProperties {
-  '--section-grid-order'?: string | number
-  '--section-grid-column'?: string | number
-}
-
 export default async function HomePage() {
   const CARDS_WIDTH = '230px'
   const CARDS_HEIGHT = '190px'
