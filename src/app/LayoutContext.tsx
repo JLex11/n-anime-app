@@ -6,8 +6,7 @@ interface RootContextValue {
   headers?: IterableIterator<[string, string]>
 }
 
-const defaultValue: RootContextValue = {
-}
+const defaultValue: RootContextValue = {}
 
 export const RootContext = createContext(defaultValue)
 
@@ -17,6 +16,5 @@ interface LayoutContextWrapperProps {
 }
 
 export function LayoutContextWrapper({ children, headers }: LayoutContextWrapperProps) {
-
   return <RootContext.Provider value={{ headers }}>{children}</RootContext.Provider>
 }

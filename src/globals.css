@@ -1,7 +1,7 @@
 * {
   box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
   /* outline: 1px solid red; */
 }
 
@@ -14,11 +14,11 @@
 
 html,
 body {
+  background-color: var(--primary-color);
   max-width: 100vw;
   overflow: hidden auto;
   color: white;
   font-weight: 350;
-  background-color: var(--primary-color);
   font-family: var(--montserrat-font);
 }
 
@@ -45,9 +45,9 @@ li {
 }
 
 main {
-  width: min(100%, var(--max-width));
   margin: 5rem auto;
   padding: var(--global-padding);
+  width: min(100%, var(--max-width));
 }
 
 @media (width <=56rem) {
@@ -58,9 +58,9 @@ main {
 
 .page-loader {
   display: grid;
+  place-items: center;
   width: 100%;
   height: 100%;
-  place-items: center;
 }
 
 .page-loader img {

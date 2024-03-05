@@ -6,7 +6,7 @@ interface Props {
   items: {
     name: string
     url?: string
-  }[],
+  }[]
   width?: string
   columnGap?: string
   rowGap?: string
@@ -29,9 +29,7 @@ export function BadgeList({ items, width, columnGap, rowGap }: Props) {
     <ul className={styles.badgeList} style={cssProps}>
       {items.map(item => (
         <li key={item.name}>
-          <Badge>
-            {item.url ? <Link href={item.url}>{item.name}</Link> : item.name}
-          </Badge>
+          <Badge>{item.url ? <Link href={item.url}>{item.name}</Link> : item.name}</Badge>
         </li>
       ))}
     </ul>

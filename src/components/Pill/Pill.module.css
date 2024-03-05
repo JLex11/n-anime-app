@@ -1,8 +1,8 @@
 .pill {
-  padding: 2px 7px;
   border-radius: 10px;
+  background: var(--pill-bg);
+  padding: 2px 7px;
   color: var(--pill-color);
   font-weight: 600;
   font-size: 10pt;
-  background: var(--pill-bg);
 }

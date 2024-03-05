@@ -1,7 +1,4 @@
-import {
-  AutocompleteItemChilds,
-  AutocompleteOutputItem
-} from '@/hooks/useAutocomplete.types'
+import { AutocompleteItemChilds, AutocompleteOutputItem } from '@/hooks/useAutocomplete.types'
 import { useToggle } from '@/hooks/useToggle'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -18,9 +15,7 @@ interface Props {
 }
 
 export function CollectionItem({ item }: Props) {
-  const [childItems, setChildItems] = useState<AutocompleteItemChilds | null>(
-    null
-  )
+  const [childItems, setChildItems] = useState<AutocompleteItemChilds | null>(null)
   const [expanded, toggleExpanded] = useToggle(false)
   const { activeItemId, setActiveItemId, handleLaunchAutocomplete } =
     useContext(AutocompleteContext)
@@ -83,20 +78,13 @@ export function CollectionItem({ item }: Props) {
           <ItemInfo item={item} />
         </Link>
         {item.childsCallback && (
-          <button
-            className={styles.itemIcon}
-            type='button'
-            onClick={toggleExpanded}
-          >
+          <button className={styles.itemIcon} type='button' onClick={toggleExpanded}>
             <FoldIcon />
           </button>
         )}
       </div>
       {expanded && childItems && (
-        <ItemChilds
-          childItems={childItems}
-          handleLaunchAutocomplete={handleLaunchAutocomplete}
-        />
+        <ItemChilds childItems={childItems} handleLaunchAutocomplete={handleLaunchAutocomplete} />
       )}
     </article>
   )

@@ -26,9 +26,7 @@ export function AutocompleteItem({ item }: Props) {
         <div className={styles.itemInfo}>
           <div className={styles.itemContent}>
             <h4 className={styles.itemTitle}>{item.title}</h4>
-            <p className={styles.itemDescription}>
-              {item.description.slice(0, 100)}
-            </p>
+            <p className={styles.itemDescription}>{item.description.slice(0, 100)}</p>
           </div>
         </div>
         <span className={styles.itemType}>{item.type}</span>

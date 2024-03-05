@@ -1,13 +1,6 @@
-import {
-  getAnimeItems,
-  getRoutesItems
-} from '@/components/Autocomplete/AutocompleteSources'
+import { getAnimeItems, getRoutesItems } from '@/components/Autocomplete/AutocompleteSources'
 import { debounceCallback } from '@/utils/debounceCallback'
-import {
-  AutocompleteState,
-  OnActiveParams,
-  createAutocomplete
-} from '@algolia/autocomplete-core'
+import { AutocompleteState, OnActiveParams, createAutocomplete } from '@algolia/autocomplete-core'
 import { useRouter } from 'next/navigation'
 import { createRef, useCallback, useId, useMemo, useRef, useState } from 'react'
 import {
@@ -26,12 +19,8 @@ const autocompleteInitialState: AutocompleteState<AutocompleteOutputItem> = {
   status: 'idle'
 }
 
-export function useAutocomplete({
-  handleLaunchAutocomplete
-}: AutocompleteProps) {
-  const [autocompleteState, setAutocompleteState] = useState(
-    autocompleteInitialState
-  )
+export function useAutocomplete({ handleLaunchAutocomplete }: AutocompleteProps) {
+  const [autocompleteState, setAutocompleteState] = useState(autocompleteInitialState)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
@@ -41,15 +30,11 @@ export function useAutocomplete({
   const autocompleteId = useId()
 
   const getItemRef = useCallback((index: number) => {
-    if (!itemRefs.current[index])
-      itemRefs.current[index] = createRef<HTMLElement>()
+    if (!itemRefs.current[index]) itemRefs.current[index] = createRef<HTMLElement>()
     return itemRefs.current[index]
   }, [])
 
-  const debouncedGetAnimeItems = debounceCallback<string[], AutocompleteItem[]>(
-    getAnimeItems,
-    300
-  )
+  const debouncedGetAnimeItems = debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 300)
 
   const handleActiveItem = useCallback(
     ({ item, event, state }: OnActiveParams<AutocompleteOutputItem>) => {
@@ -61,8 +46,7 @@ export function useAutocomplete({
           (acc, collection) => acc + collection.items.length,
           0
         )
-        const block =
-          itemId < 4 || itemId > totalItems - 4 ? 'center' : 'nearest'
+        const block = itemId < 4 || itemId > totalItems - 4 ? 'center' : 'nearest'
 
         const itemElement = itemRefs.current[itemId].current
         itemElement?.scrollIntoView({ behavior: 'smooth', block })

@@ -19,10 +19,7 @@ export const VideoNavItem = ({
   isActive,
   activeIframeRef
 }: VideoNavItemProps) => {
-  const NavItemClass = clsx(
-    styles.iframeOption,
-    isActive && styles.iframeOptionActive
-  )
+  const NavItemClass = clsx(styles.iframeOption, isActive && styles.iframeOptionActive)
 
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>

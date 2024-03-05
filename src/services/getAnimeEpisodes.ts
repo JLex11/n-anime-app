@@ -3,11 +3,7 @@ import { Episode } from '@/types'
 import { minToSeconds } from '@/utils/convertTime'
 import { fetchData } from './fetchData'
 
-export const getAnimeEpisodes = async (
-  animeId: string,
-  offset?: number,
-  limit?: number
-) => {
+export const getAnimeEpisodes = async (animeId: string, offset?: number, limit?: number) => {
   const fetchConfig = {
     next: { revalidate: minToSeconds(30) }
   }

@@ -10,7 +10,9 @@ export interface PageProps {
   searchParams: { limit: string }
 }
 
-export async function generateMetadataFromAnimeId(animeId: PageProps['params']['animeId']): Promise<Metadata> {
+export async function generateMetadataFromAnimeId(
+  animeId: PageProps['params']['animeId']
+): Promise<Metadata> {
   const anime = await getAnime(animeId)
   if (!anime) return {}
 
@@ -38,6 +40,6 @@ export async function generatePageStaticParams(): Promise<{ animeId: string }[]>
   const mappedAnimesId = filteredAnimesId.flatMap(filteredAnimesId =>
     filteredAnimesId.value.map(animeId => ({ animeId }))
   )
-  
+
   return mappedAnimesId
 }

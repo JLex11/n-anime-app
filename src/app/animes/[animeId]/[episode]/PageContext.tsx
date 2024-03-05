@@ -14,11 +14,7 @@ const defaultValue: DefaultValue = {
 
 export const EpisodePageContext = createContext(defaultValue)
 
-export function EpisodePageContextProvider({
-  children
-}: {
-  children: React.ReactNode
-}) {
+export function EpisodePageContextProvider({ children }: { children: React.ReactNode }) {
   const [videoSectionRef, setNode] = useState<HTMLElement | null>(null)
 
   const handleVideoSectionRef = useCallback((node: HTMLElement | null) => {
@@ -26,9 +22,7 @@ export function EpisodePageContextProvider({
   }, [])
 
   return (
-    <EpisodePageContext.Provider
-      value={{ videoSectionRef, handleVideoSectionRef }}
-    >
+    <EpisodePageContext.Provider value={{ videoSectionRef, handleVideoSectionRef }}>
       {children}
     </EpisodePageContext.Provider>
   )

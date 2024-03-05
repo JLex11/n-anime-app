@@ -26,10 +26,7 @@ export function AutocompleteInput({ query }: InputProps) {
     setQueryValue(target.value)
   }
 
-  const inputContainerClass = clsx(
-    styles.inputContainer,
-    query.length > 0 && styles.active
-  )
+  const inputContainerClass = clsx(styles.inputContainer, query.length > 0 && styles.active)
 
   return (
     <div className={inputContainerClass}>

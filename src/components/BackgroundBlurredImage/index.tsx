@@ -1,13 +1,7 @@
 import Image from 'next/image'
 import styles from './BackgroundBlurredImage.module.css'
 
-export function BackgroundBlurredImage({
-  src,
-  alt
-}: {
-  src: string
-  alt: string
-}) {
+export function BackgroundBlurredImage({ src, alt }: { src: string; alt: string }) {
   return (
     <Image
       src={src}

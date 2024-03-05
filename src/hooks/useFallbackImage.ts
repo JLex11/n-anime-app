@@ -14,10 +14,7 @@ type DefaultDimensions = {
   height: number
 }
 
-export const useFallbackImage = (
-  images: Image[],
-  defaultDimensions: DefaultDimensions
-) => {
+export const useFallbackImage = (images: Image[], defaultDimensions: DefaultDimensions) => {
   const [errorCount, setErrorCount] = useState(0)
   const filteredImages = useMemo(
     () => images.filter((image): image is ValidImage => Boolean(image.link)),
@@ -38,14 +35,9 @@ export const useFallbackImage = (
 
     return {
       link: filteredImages[errorCount % filteredImages.length].link,
-      width:
-        filteredImages[errorCount % filteredImages.length].width ||
-        defaultDimensions.width,
-      height:
-        filteredImages[errorCount % filteredImages.length].height ||
-        defaultDimensions.height,
-      position:
-        filteredImages[errorCount % filteredImages.length].position ?? 'center'
+      width: filteredImages[errorCount % filteredImages.length].width || defaultDimensions.width,
+      height: filteredImages[errorCount % filteredImages.length].height || defaultDimensions.height,
+      position: filteredImages[errorCount % filteredImages.length].position ?? 'center'
     }
   }
 

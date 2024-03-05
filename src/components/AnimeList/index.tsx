@@ -16,8 +16,7 @@ export const AnimeList = async ({ animesSource }: Props) => {
 
   const mapAnimes = (anime: Anime) => {
     const imageSrc = anime.images?.coverImage
-    const fbSrc =
-      anime.images?.carouselImages?.at(-1)?.link ?? '/lights-blur.webp'
+    const fbSrc = anime.images?.carouselImages?.at(-1)?.link ?? '/lights-blur.webp'
 
     return {
       key: anime.animeId,
@@ -40,12 +39,7 @@ export const AnimeList = async ({ animesSource }: Props) => {
     <AnimeListWrapper>
       <CardsSection gridProps={{ width: GRID_WIDTH, height: GRID_HEIGHT }}>
         {animesData.map(({ key, title, link, image /* , showOnHover */ }) => (
-          <Card
-            key={key}
-            image={image}
-            title={title}
-            link={link} /* showOnHover={showOnHover} */
-          />
+          <Card key={key} image={image} title={title} link={link} /* showOnHover={showOnHover} */ />
         ))}
       </CardsSection>
     </AnimeListWrapper>

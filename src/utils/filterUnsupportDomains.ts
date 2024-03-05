@@ -7,9 +7,7 @@ const domainsRegexp = new RegExp(domains.join('|'), 'i')
 const isValidDomain = (url?: string | null) => domainsRegexp.test(url ?? '')
 
 const replaceInvalidImagePath = (url: string) =>
-  url && !url.includes('/api/image/')
-    ? url.replace('/api/', '/api/image/')
-    : url
+  url && !url.includes('/api/image/') ? url.replace('/api/', '/api/image/') : url
 
 export const filterUnsupportDomains = (anime: Anime) => {
   const { images } = anime
@@ -19,9 +17,7 @@ export const filterUnsupportDomains = (anime: Anime) => {
   return {
     ...anime,
     images: {
-      coverImage: isValidDomain(coverImage)
-        ? replaceInvalidImagePath(coverImage)
-        : '',
+      coverImage: isValidDomain(coverImage) ? replaceInvalidImagePath(coverImage) : '',
       carouselImages: carouselImages
         .filter(img => isValidDomain(img.link))
         .map(img => {

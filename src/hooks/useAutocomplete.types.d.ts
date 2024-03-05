@@ -1,7 +1,4 @@
-import {
-  AutocompleteOptionsWithMetadata,
-  BaseItem
-} from '@algolia/autocomplete-core'
+import { AutocompleteOptionsWithMetadata, BaseItem } from '@algolia/autocomplete-core'
 
 export interface AutocompleteItemChild {
   id: string
@@ -35,7 +32,6 @@ export interface AutocompleteOutputItem extends AutocompleteItem {
   getItemRef: (index: number) => RefObject<HTMLElement>
 }
 
-export interface AutocompleteProps
-  extends AutocompleteOptionsWithMetadata<AutocompleteOutputItem> {
+export interface AutocompleteProps extends AutocompleteOptionsWithMetadata<AutocompleteOutputItem> {
   handleLaunchAutocomplete: React.Dispatch<React.SetStateAction<boolean>>
 }

@@ -5,12 +5,7 @@ interface Props {
   className?: string
 }
 
-export function FoldIcon({
-  width = 24,
-  height,
-  strokeWidth = 1.5,
-  className: cssClass
-}: Props) {
+export function FoldIcon({ width = 24, height, strokeWidth = 1.5, className: cssClass }: Props) {
   return (
     <svg
       className={cssClass}

@@ -1,6 +1,5 @@
 export const VERCEL_API_BASE_URL = 'https://anime-scrapper-alpha.vercel.app/api'
-export const RENDER_API_BASE_URL =
-  'https://anime-scrapper-3c3n.onrender.com/api'
+export const RENDER_API_BASE_URL = 'https://anime-scrapper-3c3n.onrender.com/api'
 export const FL0_API_BASE_URL = 'https://anime-scrapper-2rl4-dev.fl0.io/api'
 //export const API_BASE_URL = 'http://localhost:3002/api'
 

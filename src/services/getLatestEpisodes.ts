@@ -8,9 +8,6 @@ export const getLatestEpisodes = async () => {
     next: { revalidate: minToSeconds(5) }
   }
 
-  const episodes: Episode[] = await fetchData(
-    APIRoutes.LatestEpisodes,
-    fetchConfig
-  )
+  const episodes: Episode[] = await fetchData(APIRoutes.LatestEpisodes, fetchConfig)
   return episodes
 }

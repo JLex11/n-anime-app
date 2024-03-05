@@ -20,9 +20,9 @@ interface VideoNavProps {
 }
 
 export function VideoNav({ currentIframesData }: VideoNavProps) {
-  const [activeIframeOption, setActiveIframeOption] = useState<
-    EpisodeVideo['server'] | undefined
-  >(currentIframesData?.[0]?.server)
+  const [activeIframeOption, setActiveIframeOption] = useState<EpisodeVideo['server'] | undefined>(
+    currentIframesData?.[0]?.server
+  )
   const [indicatorProps, setIndicatorProps] = useState<CSSProps>({
     '--indicator-left': '0px',
     '--indicator-width': '0px',
@@ -31,16 +31,13 @@ export function VideoNav({ currentIframesData }: VideoNavProps) {
 
   const activeIframeRef = useRef<HTMLLIElement | null>(null)
 
-  const handleActiveIframe = useCallback(
-    ({ left, width, height }: handleActiveProps) => {
-      setIndicatorProps({
-        '--indicator-left': `${left}px`,
-        '--indicator-width': `${width}px`,
-        '--indicator-height': `${height}px`
-      })
-    },
-    []
-  )
+  const handleActiveIframe = useCallback(({ left, width, height }: handleActiveProps) => {
+    setIndicatorProps({
+      '--indicator-left': `${left}px`,
+      '--indicator-width': `${width}px`,
+      '--indicator-height': `${height}px`
+    })
+  }, [])
 
   const setActiveDimensions = useCallback(
     (e: HTMLLIElement) => {
@@ -82,9 +79,7 @@ export function VideoNav({ currentIframesData }: VideoNavProps) {
               handleMouseEnter={handleMouseEnter}
               changeIframe={() => setActiveIframeOption(iframe.server)}
               isActive={iframe.server === activeIframeOption}
-              activeIframeRef={
-                iframe.server === activeIframeOption ? activeIframeRef : null
-              }
+              activeIframeRef={iframe.server === activeIframeOption ? activeIframeRef : null}
             />
           ))}
         </ul>

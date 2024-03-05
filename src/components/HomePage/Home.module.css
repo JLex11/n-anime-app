@@ -1,24 +1,24 @@
 .main {
   display: grid;
   grid-template-columns: 1fr 350px;
-  margin: 2rem auto;
   gap: 3rem;
+  margin: 2rem auto;
 }
 
 .aside {
   display: flex;
-  width: 100%;
   flex-direction: column;
-  overflow: hidden;
   gap: 1.5rem;
+  width: 100%;
   height: fit-content;
+  overflow: hidden;
 }
 
 .asideTitle {
-  padding-inline: 0.5rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  padding-inline: 0.5rem;
 }
 
 .asideInner {

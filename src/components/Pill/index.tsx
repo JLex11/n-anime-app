@@ -16,12 +16,7 @@ export interface PillProps {
 const dfGradient = 'linear-gradient(175deg, #ffb800, #c38c00)'
 const dfColor = '#fff'
 
-export function Pill({
-  label,
-  color = dfColor,
-  bgColor = dfGradient,
-  className
-}: PillProps) {
+export function Pill({ label, color = dfColor, bgColor = dfGradient, className }: PillProps) {
   const pillStyles: CSSProps = {
     '--pill-color': color,
     '--pill-bg': bgColor

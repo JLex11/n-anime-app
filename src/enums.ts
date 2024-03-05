@@ -1,8 +1,4 @@
-import {
-  FL0_API_BASE_URL,
-  RENDER_API_BASE_URL,
-  VERCEL_API_BASE_URL
-} from './constants'
+import { FL0_API_BASE_URL, RENDER_API_BASE_URL, VERCEL_API_BASE_URL } from './constants'
 
 export enum ResponseType {
   JSON = 'json',

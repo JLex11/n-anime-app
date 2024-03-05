@@ -20,11 +20,7 @@ export function ItemChilds({ childItems, handleLaunchAutocomplete }: Props) {
         <ul className={styles.childsItems}>
           {items.map(({ link, title }) => (
             <li key={link} className={styles.childItem}>
-              <Link
-                href={link}
-                className={styles.childItemLink}
-                onClick={handleClick}
-              >
+              <Link href={link} className={styles.childItemLink} onClick={handleClick}>
                 <PictureIcon width={30} height={25} />
                 <span className={styles.childItemTitle}>{title}</span>
               </Link>

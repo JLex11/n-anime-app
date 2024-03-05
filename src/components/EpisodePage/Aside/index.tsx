@@ -20,11 +20,7 @@ export async function Aside({
   animeTitle,
   currentEpisode
 }: AsideProps) {
-  const animeEpisodes = await getAnimeEpisodes(
-    animeId,
-    0,
-    Number(searchParams.limit) || 5
-  )
+  const animeEpisodes = await getAnimeEpisodes(animeId, 0, Number(searchParams.limit) || 5)
 
   return (
     <AsideWrapper>

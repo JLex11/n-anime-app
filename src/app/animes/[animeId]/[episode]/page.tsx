@@ -15,20 +15,14 @@ interface Props {
   searchParams: { limit: string }
 }
 
-export default async function EpisodePage({
-  params: { animeId, episode },
-  searchParams
-}: Props) {
+export default async function EpisodePage({ params: { animeId, episode }, searchParams }: Props) {
   const [episodeSources, animeInfo] = await Promise.all([
     getEpisodeSources(`${animeId}-${episode}`),
     getAnime(animeId)
   ])
 
   const episodeWasFound = Boolean(episodeSources?.videos.SUB)
-  const mainContentClass = clsx(
-    styles.mainContent,
-    !episodeWasFound && styles.episodeNotFound
-  )
+  const mainContentClass = clsx(styles.mainContent, !episodeWasFound && styles.episodeNotFound)
 
   return (
     <EpisodePageContextProvider>
@@ -36,9 +30,7 @@ export default async function EpisodePage({
         {episodeWasFound ? (
           <VideoSection
             iframesData={episodeSources?.videos}
-            title={toCap(
-              `episodio ${episode} de ${animeInfo?.title ?? normalizeAnimeId(animeId)}`
-            )}
+            title={toCap(`episodio ${episode} de ${animeInfo?.title ?? normalizeAnimeId(animeId)}`)}
           />
         ) : (
           <h2>Episodio no encontrado.</h2>
@@ -64,9 +56,7 @@ export default async function EpisodePage({
   )
 }
 
-export async function generateMetadata({
-  params: { animeId, episode }
-}: Props) {
+export async function generateMetadata({ params: { animeId, episode } }: Props) {
   return {
     title: `Episodio ${episode} de ${animeId.replace(/\-/g, ' ')}`
   }

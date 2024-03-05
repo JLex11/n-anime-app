@@ -20,11 +20,11 @@ export function GridContainer({ children, width, height, gap, column }: Props) {
     '--grid-width': width || '200px',
     '--grid-height': height || '360px',
     '--grid-gap': gap || '1rem',
-    '--grid-column': column || 'auto',
+    '--grid-column': column || 'auto'
   }
 
   return (
-    <div className={styles.gridContainer} style={gridStyles} >
+    <div className={styles.gridContainer} style={gridStyles}>
       {children}
     </div>
   )

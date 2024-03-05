@@ -1,36 +1,36 @@
 .carousel {
   display: flex;
   position: relative;
+  margin: 0 auto;
   width: 100%;
   height: var(--carousel-height);
-  margin: 0 auto;
 }
 
 .carousel::before {
-  z-index: 1;
   position: absolute;
   bottom: 0;
   left: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom, transparent, var(--primary-color));
   width: 100%;
   height: 70%;
   content: '';
-  background: linear-gradient(to bottom, transparent, var(--primary-color));
 }
 
 .slidingButton {
   position: absolute;
-  right: 1rem;
   top: 5rem;
+  right: 1rem;
   z-index: 3;
 }
 
 .scroller {
   display: flex;
+  will-change: scroll-position;
   width: 100%;
   height: 100%;
   overflow: hidden;
   scroll-snap-type: x mandatory;
-  will-change: scroll-position;
 }
 
 .scroller::-webkit-scrollbar {
@@ -47,9 +47,9 @@
 
 .carouselPicture {
   z-index: 0;
+  margin: 0 auto;
   width: 100%;
   height: 100%;
-  margin: 0 auto;
   overflow: hidden;
 }
 
@@ -62,25 +62,25 @@
 
 .info {
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
   position: absolute;
-  left: 0;
   right: 0;
   bottom: 10px;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
+  left: 0;
+  justify-content: center;
+  align-items: flex-end;
   transform: translateX(5rem);
+  opacity: 0;
+  z-index: 2;
   transition:
     opacity 0.3s 0.2s cubic-bezier(1, 0.01, 0.63, 0.99),
     transform 0.35s 0.2s ease-in-out;
+  width: 100%;
+  height: 100%;
 }
 
 .carouselItem[active] .info {
-  opacity: 1;
   transform: translateX(0);
+  opacity: 1;
 }
 
 .info .content {
@@ -88,20 +88,20 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  width: var(--max-width);
-  padding: 0 var(--global-padding);
   gap: 1.5rem;
+  padding: 0 var(--global-padding);
+  width: var(--max-width);
 }
 
 .infoTitle {
   display: -webkit-box;
   max-width: min(100%, 700px);
-  font-size: 2.7rem;
   font-weight: 600;
+  font-size: 2.7rem;
   text-overflow: ellipsis;
   text-wrap: balance;
-  color: #fff;
   overflow: hidden;
+  color: #fff;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   font-family: var(--anime-ace-bb-font);
@@ -110,12 +110,12 @@
 
 .navigateButtons {
   display: flex;
-  z-index: 2;
   position: absolute;
   right: 0;
   bottom: -30px;
   justify-content: center;
   align-items: center;
+  z-index: 2;
   width: 100%;
 }
 
@@ -123,23 +123,25 @@
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  width: var(--max-width);
-  padding: 0 var(--global-padding);
   gap: 0.5rem;
+  padding: 0 var(--global-padding);
+  width: var(--max-width);
 }
 
 .navigateButton {
+  display: flex;
+  transform: translateY(-2.2rem);
+  transform-origin: top;
+  transition:
+    scale 0.2s ease-in-out,
+    margin-inline 0.3s ease-in-out;
+  will-change: auto;
   border: none;
   border-radius: 0.5rem;
   background-color: lightgray;
-  transform: translateY(-2.2rem);
   width: 3.3rem;
   height: 3.9rem;
-  display: flex;
   overflow: hidden;
-  transform-origin: top;
-  will-change: auto;
-  transition: scale 0.2s ease-in-out, margin-inline 0.3s ease-in-out;
 }
 
 .navigateButton:focus,
@@ -152,8 +154,8 @@
 }
 
 .navigateButton.active {
-  margin-inline: 0.5rem;
   scale: 1.4;
+  margin-inline: 0.5rem;
 }
 
 .navigateButton img {

@@ -12,8 +12,7 @@ interface Props {
 }
 
 export function BreadCrumb({ crumbs }: Props) {
-  const createItemClass = (path?: string) =>
-    clsx(styles.breadcrumbItem, !path && styles.notHover)
+  const createItemClass = (path?: string) => clsx(styles.breadcrumbItem, !path && styles.notHover)
 
   return (
     <ul className={styles.breadcrumbList}>
@@ -22,9 +21,7 @@ export function BreadCrumb({ crumbs }: Props) {
           <li key={path + name} className={createItemClass(path)}>
             {path ? <Link href={path}>{name}</Link> : <span>{name}</span>}
           </li>
-          {index < crumbs.length - 1 && (
-            <span className={styles.breadcrumbSeparator}>/</span>
-          )}
+          {index < crumbs.length - 1 && <span className={styles.breadcrumbSeparator}>/</span>}
         </>
       ))}
     </ul>

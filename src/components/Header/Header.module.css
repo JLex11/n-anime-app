@@ -1,16 +1,16 @@
 .header {
-  z-index: 99;
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
-  width: 100%;
-  margin: 0 auto;
-  color: white;
-  text-align: center;
-  background: linear-gradient(to bottom, var(--primary-color) -15%, transparent);
+  z-index: 99;
   backdrop-filter: blur(0px);
   transition: backdrop-filter 0.2s ease-in-out;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, var(--primary-color) -15%, transparent);
+  width: 100%;
+  color: white;
+  text-align: center;
 }
 
 .header.scrolled {
@@ -21,11 +21,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: var(--max-width);
-  padding: 2rem var(--global-padding) 0.5rem var(--global-padding);
-  transition: padding 0.2s ease-in-out;
   gap: 30px;
+  transition: padding 0.2s ease-in-out;
   margin-inline: auto;
+  padding: 2rem var(--global-padding) 0.5rem var(--global-padding);
+  width: var(--max-width);
 }
 
 .header.scrolled .headerContainer {
@@ -35,8 +35,8 @@
 .headerSection {
   display: flex;
   align-items: center;
-  width: 100%;
   gap: 1rem;
+  width: 100%;
 }
 
 .logo {
@@ -70,10 +70,10 @@
   --page-item-bg-color: var(--primary-color);
   --page-item-text-color: white;
   position: relative;
-  padding: 0.3rem 0.7rem;
-  font-weight: 400;
   transition: font-weight 0.2s ease-in-out;
   border-radius: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  font-weight: 400;
 }
 
 .pageItem:is(:hover, .active) {
@@ -99,13 +99,13 @@
   display: flex;
   position: relative;
   align-items: center;
-  padding: 0.40rem 0.5rem;
+  gap: 2rem;
+  transition: 0.3s ease-in-out;
   border: none;
   border-radius: calc(var(--border-radius-multiplier) * var(--borderWidth));
-  color: white;
   background-color: rgba(59, 59, 59, 0.8);
-  transition: 0.3s ease-in-out;
-  gap: 2rem;
+  padding: 0.4rem 0.5rem;
+  color: white;
 }
 
 .searchButton:hover {
@@ -113,25 +113,27 @@
 }
 
 .searchButton:after {
-  z-index: -1;
   position: absolute;
   top: calc(-1 * var(--borderWidth));
   left: calc(-1 * var(--borderWidth));
+  z-index: -1;
+  box-shadow: var(--input-shadow);
+  border-radius: calc((var(--border-radius-multiplier) + 1) * var(--borderWidth));
+  background: linear-gradient(
+    60deg,
+    #f79533,
+    #f37055,
+    #ef4e7b,
+    #a166ab,
+    #5073b8,
+    #1098ad,
+    #07b39b,
+    #6fba82
+  );
+  background-size: 300% 300%;
   width: calc(100% + var(--borderWidth) * 2);
   height: calc(100% + var(--borderWidth) * 2);
-  border-radius: calc((var(--border-radius-multiplier) + 1) * var(--borderWidth));
   content: '';
-  background: linear-gradient(60deg,
-      #f79533,
-      #f37055,
-      #ef4e7b,
-      #a166ab,
-      #5073b8,
-      #1098ad,
-      #07b39b,
-      #6fba82);
-  background-size: 300% 300%;
-  box-shadow: var(--input-shadow);
 }
 
 .searchButton:hover:after {
@@ -156,13 +158,13 @@
   position: absolute;
   top: var(--indicator-top);
   left: var(--indicator-left);
-  width: var(--indicator-width);
-  height: var(--indicator-height);
-  padding: 0.3rem 0.7rem;
+  z-index: -1;
+  transition: 0.3s 0.1s ease-in-out;
   border-radius: 0.5rem;
   background-color: var(--primary-color);
-  transition: 0.3s 0.1s ease-in-out;
-  z-index: -1;
+  padding: 0.3rem 0.7rem;
+  width: var(--indicator-width);
+  height: var(--indicator-height);
 }
 
 @media (width <=56rem) {

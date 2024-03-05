@@ -22,24 +22,18 @@ export function useCarousel({ itemIds }: Props) {
 
   useEffect(() => {
     const currentSlideId = sessionStorage.getItem(SESSION_STORAGE_KEY)
-    const currentSlideIndex = currentSlideId
-      ? itemIds.indexOf(currentSlideId)
-      : null
+    const currentSlideIndex = currentSlideId ? itemIds.indexOf(currentSlideId) : null
 
     if (!currentSlideIndex) return
 
-    flushSync(() =>
-      setCurrentItem({ value: currentSlideIndex, dispatchSource: 'init' })
-    )
+    flushSync(() => setCurrentItem({ value: currentSlideIndex, dispatchSource: 'init' }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     if (!scrollerRef.current) return
 
-    const scrollerRefItems = [
-      ...scrollerRef.current.childNodes
-    ] as HTMLElement[]
+    const scrollerRefItems = [...scrollerRef.current.childNodes] as HTMLElement[]
 
     scrollerRefItems.forEach(element => element.removeAttribute('active'))
 

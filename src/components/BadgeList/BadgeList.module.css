@@ -1,8 +1,8 @@
 .badgeList {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
   column-gap: var(--badge-column-gap);
   row-gap: var(--badge-row-gap);
+  flex-wrap: wrap;
+  align-items: center;
   width: var(--badge-width);
 }

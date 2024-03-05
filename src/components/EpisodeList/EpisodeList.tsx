@@ -13,7 +13,14 @@ interface Props {
   linkPrefix?: string
 }
 
-export function EpisodeList({ limit, episodes, currentEpisode, animeImage, animeTitle, linkPrefix }: Props) {
+export function EpisodeList({
+  limit,
+  episodes,
+  currentEpisode,
+  animeImage,
+  animeTitle,
+  linkPrefix
+}: Props) {
   const createItemLink = (episode: Episode) =>
     `${linkPrefix || ''}${episode.episode}${limit ? `?limit=${limit}` : ''}`
   const firstEpisodeInList = episodes.some(({ episode }) => episode === 1)

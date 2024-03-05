@@ -1,19 +1,19 @@
 .videoContainer {
   display: flex;
+  flex: 5;
   flex-direction: column;
   align-items: stretch;
-  width: 100%;
   gap: 1rem;
-  flex: 5;
+  width: 100%;
   height: fit-content;
 }
 
 .videoHeader {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: 100%;
+  align-items: center;
   gap: 1rem;
+  width: 100%;
 }
 
 .videoHeader h1 {
@@ -21,90 +21,90 @@
 }
 
 .languajeSelect {
-  padding: 0.5rem;
+  box-shadow: 0 0 5rem rgba(0, 0, 0, 0.9);
   border: none;
   border-radius: 0.5rem;
   background-color: rgba(253, 254, 254, 0.2);
+  padding: 0.5rem;
   color: white;
-  box-shadow: 0 0 5rem rgba(0, 0, 0, 0.9);
 }
 
 .iframeNav {
-  width: 100%;
   position: relative;
+  width: 100%;
 }
 
 .iframeNavOptions {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
   overflow-x: auto;
 }
 
 .iframeOption {
-  width: 100%;
-  height: 100%;
-  min-width: 5rem;
   position: relative;
   z-index: 1;
+  width: 100%;
+  min-width: 5rem;
+  height: 100%;
 }
 
 .iframeOption.iframeOptionActive::after {
-  content: '';
-  width: 80%;
-  height: 1px;
   position: absolute;
   inset-inline: 0;
   bottom: 0;
   margin: 0 auto;
   background-color: #ffffff;
+  width: 80%;
+  height: 1px;
+  content: '';
 }
 
 .iframeOption a {
-  width: 100%;
-  height: 100%;
   display: flex;
   padding: 0.4rem 0.5rem;
+  width: 100%;
+  height: 100%;
 }
 
 .iframeOption a span {
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  align-items: center;
   border: none;
   background-color: transparent;
-  text-align: center;
+  width: 100%;
+  height: 100%;
   color: white;
+  text-align: center;
 }
 
 .adIcon {
-  color: orange;
   position: absolute;
   top: 0.2rem;
   right: 0.5rem;
+  color: orange;
 }
 
 .hoverIndicator {
   position: absolute;
-  inset: 0;
-  margin: auto 0;
   z-index: 0;
+  margin: auto 0;
+  inset: 0;
   left: var(--indicator-left);
-  width: var(--indicator-width);
-  height: var(--indicator-height);
+  transition: left 0.2s ease;
   border-radius: 0.5rem;
   background-color: rgba(253, 254, 254, 0.126);
-  transition: left 0.2s ease;
+  width: var(--indicator-width);
+  height: var(--indicator-height);
 }
 
 .iframe {
-  width: 100%;
-  border-radius: 0.5rem;
   opacity: 1;
-  aspect-ratio: 16/9;
   box-shadow: 0 0 5rem rgba(0, 0, 0, 0.9);
+  border-radius: 0.5rem;
+  aspect-ratio: 16/9;
+  width: 100%;
 }

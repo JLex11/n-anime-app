@@ -1,11 +1,11 @@
 .main {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
   position: relative;
-  z-index: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   gap: 1rem;
+  z-index: 1;
 }
 
 .breadcrumb {
@@ -39,9 +39,9 @@
 }
 
 .asideHeader img {
+  border-radius: 0.5rem;
   width: 2rem;
   height: 2rem;
-  border-radius: 0.5rem;
   object-fit: cover;
 }
 
@@ -50,8 +50,8 @@
   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   gap: 0.5rem;
   width: 100%;
-  overflow-y: auto;
   height: 100%;
+  overflow-y: auto;
   --aside-scrollbar-width: 0.3rem;
 }
 
@@ -64,33 +64,31 @@
 }
 
 .asideList::-webkit-scrollbar-thumb {
-  background-color: #fdfdfd;
   border-radius: 1rem;
+  background-color: #fdfdfd;
 }
 
 .asideItem {
   display: grid;
-  place-items: center;
   position: relative;
-  width: calc(100% - var(--borderWidth) * 2);
-  height: 7rem;
+  place-items: center;
   border: var(--borderWidth) solid transparent;
   border-radius: calc(6 * var(--borderWidth));
   background: #ffffff33;
+  width: calc(100% - var(--borderWidth) * 2);
+  height: 7rem;
   --borderWidth: 0.2rem;
+  align-content: center;
   justify-content: center;
   align-items: center;
-  align-content: center;
 }
 
 .asideItem.active::after {
-  content: '';
   position: absolute;
-  left: calc(-1 * var(--borderWidth));
   top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
   z-index: -1;
-  width: calc(100% + var(--borderWidth) * 2);
-  height: calc(100% + var(--borderWidth) * 2);
+  box-shadow: var(--input-shadow);
   border-radius: calc(6 * var(--borderWidth));
   background-size: 300% 300%;
   background: linear-gradient(
@@ -104,27 +102,29 @@
     #07b39b,
     #6fba82
   );
-  box-shadow: var(--input-shadow);
+  width: calc(100% + var(--borderWidth) * 2);
+  height: calc(100% + var(--borderWidth) * 2);
+  content: '';
 }
 
 .asideItem span {
+  z-index: 1;
   font-size: 30pt;
   text-align: center;
-  z-index: 1;
 }
 
 .asideItem .episodeImage {
-  border-radius: calc(5 * var(--borderWidth));
-  object-fit: cover;
   position: absolute;
+  filter: brightness(0.7);
+  border-radius: calc(5 * var(--borderWidth));
   width: 100%;
   height: 100%;
-  filter: brightness(0.7);
+  object-fit: cover;
 }
 
 @media (width <= 56rem) {
   .mainContent {
-    flex-direction: column;
     row-gap: 2rem;
+    flex-direction: column;
   }
 }
