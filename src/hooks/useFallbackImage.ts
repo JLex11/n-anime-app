@@ -16,10 +16,7 @@ type DefaultDimensions = {
 
 export const useFallbackImage = (images: Image[], defaultDimensions: DefaultDimensions) => {
   const [errorCount, setErrorCount] = useState(0)
-  const filteredImages = useMemo(
-    () => images.filter((image): image is ValidImage => Boolean(image.link)),
-    [images]
-  )
+  const filteredImages = useMemo(() => images.filter((image): image is ValidImage => Boolean(image.link)), [images])
 
   const handleImageError = () => setErrorCount(prevCount => prevCount + 1)
 
