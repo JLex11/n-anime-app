@@ -5,14 +5,14 @@ import { CardSkeleton } from '../Card/CardSkeleton'
 export async function LatestEpisodes() {
   const latestEpisodes = await getLatestEpisodes()
 
-  const episodeData = latestEpisodes.map(episode => {
+  const episodeData = latestEpisodes.map((episode, index) => {
     return {
       key: episode.episodeId,
       image: {
         src: episode.image ?? '',
         width: 350,
         height: 250,
-        loading: 'lazy' as const
+        loading: index < 3 ? ('eager' as const) : ('lazy' as const)
       },
       title: episode.title,
       link: `/animes/${episode.animeId}/${episode.episode}`,
