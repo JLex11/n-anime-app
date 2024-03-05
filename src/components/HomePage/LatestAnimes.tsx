@@ -16,7 +16,7 @@ export const LatestAnimes = async () => {
         fbSrc,
         width: 300,
         height: 350,
-        lazy: true
+        loading: 'lazy' as const
       },
       link: `/animes/${anime.animeId}`,
       labels: [anime.status, anime.type || 'anime'],
