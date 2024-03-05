@@ -27,7 +27,6 @@ export function useCarousel({ itemIds }: Props) {
     if (!currentSlideIndex) return
 
     flushSync(() => setCurrentItem({ value: currentSlideIndex, dispatchSource: 'init' }))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
