@@ -1,11 +1,7 @@
 'use client'
 
-import { RootContext } from '@/app/LayoutContext'
 import { useFallbackImage } from '@/hooks/useFallbackImage'
-import { Range } from '@/types'
-import { userIsMobile } from '@/utils/isMobile'
 import Image from 'next/image'
-import { useContext, useMemo } from 'react'
 import styles from './Carousel.module.css'
 
 interface PictureImage {
@@ -15,58 +11,28 @@ interface PictureImage {
   position?: string
 }
 
-type SmallSizePercent = Range<0, 100>
-
-interface Props {
-  title: string
+interface Props extends Omit<React.ComponentProps<typeof Image>, 'src' | 'width' | 'height'> {
   images: PictureImage[]
   defaultSize: { width: number; height: number }
   preferDefaultSize?: boolean
-  smallSize?: { width: number; height: number; quality?: number } | SmallSizePercent
   loading?: 'lazy' | 'eager'
   priority?: boolean
 }
 
-export default function Picture({
-  title,
-  images,
-  defaultSize,
-  preferDefaultSize,
-  smallSize = 80,
-  loading,
-  priority
-}: Props) {
+export default function Picture({ images, defaultSize, preferDefaultSize, ...imageProps }: Props) {
   const { currentImage: carouselImage, onError } = useFallbackImage(images, defaultSize)
-  const headers = useContext(RootContext).headers
-  const isMobile = headers && userIsMobile(headers)
 
-  const definedWidth = preferDefaultSize ? defaultSize.width : carouselImage.width
-  const definedHeight = preferDefaultSize ? defaultSize.height : carouselImage.height
-
-  const { imageWidth, imageHeight, imageQuality } = useMemo(() => {
-    const smallSizeWidth =
-      typeof smallSize === 'number' ? definedWidth * (smallSize / 100) : smallSize.width
-    const smallSizeHeight =
-      typeof smallSize === 'number' ? definedHeight * (smallSize / 100) : smallSize.height
-
-    return {
-      imageWidth: isMobile ? smallSizeWidth : definedWidth,
-      imageHeight: isMobile ? smallSizeHeight : definedHeight,
-      imageQuality: typeof smallSize === 'number' ? 100 : smallSize.quality || 100
-    }
-  }, [isMobile, smallSize, definedWidth, definedHeight])
+  const imageWidth = preferDefaultSize ? defaultSize.width : carouselImage.width
+  const imageHeight = preferDefaultSize ? defaultSize.height : carouselImage.height
 
   return (
     <picture className={styles.carouselPicture}>
       <Image
+        {...imageProps}
         src={carouselImage.link}
-        alt={title}
         width={imageWidth}
         height={imageHeight}
         style={{ backgroundPosition: carouselImage.position || 'center' }}
-        loading={loading}
-        priority={priority}
-        quality={imageQuality}
         onError={onError}
       />
     </picture>
