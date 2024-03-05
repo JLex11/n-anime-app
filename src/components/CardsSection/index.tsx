@@ -11,13 +11,19 @@ interface Props {
     gap?: string
     column?: string
   }
-  style?: React.CSSProperties
+  order?: number
+  column?: string
   children: React.ReactNode
 }
 
-export function CardsSection({ title, icon, gridProps, style, children }: Props) {
+export function CardsSection({ title, icon, gridProps, order, column, children }: Props) {
+  const cssVariables = {
+    '--section-grid-order': order,
+    '--section-grid-column': column
+  } as React.CSSProperties
+
   return (
-    <section className={styles.latestSection} style={style}>
+    <section className={styles.latestSection} style={cssVariables}>
       <div className={styles.content}>
         {title && <CardsSectionHeader title={title} icon={icon} />}
         <GridContainer {...gridProps}>{children}</GridContainer>
