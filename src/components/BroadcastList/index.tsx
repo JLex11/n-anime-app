@@ -16,6 +16,7 @@ export const BroadcastList = async () => {
               alt={`cover image of the anime ${title}`}
               width={40}
               height={40}
+              decoding='async'
             />
             <div className={styles.broadcastListItemContent}>
               <h3>{title}</h3>
