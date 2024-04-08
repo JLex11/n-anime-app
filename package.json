@@ -3,33 +3,34 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "tscheck": "tsc --noEmit",
-    "build": "next build",
+    "build": "next build && next-export-optimize-images",
     "start": "next start",
     "lint": "next lint",
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "preview": "next build && next start"
   },
   "dependencies": {
-    "@algolia/autocomplete-core": "1.15.0",
+    "@algolia/autocomplete-core": "1.17.0",
     "clsx": "2.1.0",
-    "next": "14.1.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-hotkeys-hook": "5.0.0-0",
+    "next": "^14.2.0-canary.62",
+    "next-export-optimize-images": "^3.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hotkeys-hook": "4.5.0",
     "sharp": "^0.33.1"
   },
   "devDependencies": {
     "@locator/babel-jsx": "^0.4.3",
-    "@types/node": "20.5.7",
-    "@types/react": "18.2.14",
-    "@types/react-dom": "18.2.7",
-    "eslint": "8.56.0",
-    "eslint-config-next": "14.1.1",
+    "@types/node": "20.12.2",
+    "@types/react": "18.2.73",
+    "@types/react-dom": "18.2.23",
+    "eslint": "8.57.0",
+    "eslint-config-next": "^14.1.4",
     "eslint-config-prettier": "^9.1.0",
     "prettier": "^3.2.5",
-    "prettier-plugin-css-order": "^2.0.1",
-    "typescript": "5.4.0-beta"
+    "prettier-plugin-css-order": "^2.1.2",
+    "typescript": "5.4.3"
   }
 }
