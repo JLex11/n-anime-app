@@ -1,6 +1,6 @@
 import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
+import { Link } from 'next-view-transitions'
 import Image from 'next/image'
-import Link from 'next/link'
 import styles from './BroadcastList.module.css'
 
 export const BroadcastList = async () => {

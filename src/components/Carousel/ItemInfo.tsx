@@ -1,4 +1,5 @@
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
+import { CSSProperties } from 'react'
 import { BadgeList } from '../BadgeList'
 import styles from './Carousel.module.css'
 
@@ -19,7 +20,16 @@ export function ItemInfo({ animeId, title, genres }: Props) {
     <div className={styles.info}>
       <div className={styles.content}>
         <Link href={`/animes/${animeId}`}>
-          <h1 className={styles.infoTitle}>{title}</h1>
+          <h1
+            className={styles.infoTitle}
+            style={
+              {
+                'view-transition-name': `anime-title-${animeId}`
+              } as CSSProperties
+            }
+          >
+            {title}
+          </h1>
         </Link>
         <BadgeList items={mappedGenres} width='50%' />
       </div>

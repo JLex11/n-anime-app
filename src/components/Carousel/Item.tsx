@@ -1,4 +1,5 @@
 import { Anime } from '@/types'
+import { CSSProperties } from 'react'
 import styles from './Carousel.module.css'
 import { ItemInfo } from './ItemInfo'
 import Picture from './Picture'
@@ -23,6 +24,11 @@ export function Item({ anime, showInfo, index }: Props) {
         priority={index === 0}
         quality={60}
         decoding={index === 0 ? 'async' : 'sync'}
+        style={
+          {
+            'view-transition-name': `carousel-picture-${anime.animeId}`
+          } as CSSProperties
+        }
       />
       {showInfo && <ItemInfo animeId={anime.animeId} title={anime.title ?? ''} genres={anime.genres} />}
     </li>

@@ -1,9 +1,10 @@
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
+import { CSSProperties } from 'react'
 import { CardImage } from '../Card/CardImage'
 import styles from './AnimeCard.module.css'
 import { CardProps } from './types'
 
-export function AnimeCard({ title, link, image, labels, rank, description }: CardProps) {
+export function AnimeCard({ title, link, image, labels, rank, description, animeId }: CardProps) {
   const mappedImage = {
     ...image,
     size: {
@@ -16,7 +17,17 @@ export function AnimeCard({ title, link, image, labels, rank, description }: Car
   return (
     <article className={styles.card}>
       <Link href={link} className={styles.card_container}>
-        <CardImage {...mappedImage} className={styles.card_img} decoding='async' loading='lazy' />
+        <CardImage
+          {...mappedImage}
+          className={styles.card_img}
+          decoding='async'
+          loading='lazy'
+          style={
+            {
+              'view-transition-name': `anime-image-${animeId}`
+            } as CSSProperties
+          }
+        />
         <div className={styles.content}>
           <h3 className={styles.title}>{title}</h3>
           <div className={styles.footer}>

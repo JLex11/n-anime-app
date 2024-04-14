@@ -1,5 +1,6 @@
 import { Anime } from '@/types'
 import Image from 'next/image'
+import { CSSProperties } from 'react'
 import styles from './Anime.module.css'
 
 const PORTRAIT_ASPECT_RATIO = 9 / 12
@@ -17,6 +18,11 @@ export async function AnimeAside({ anime }: { anime: Anime }) {
         loading='eager'
         blurDataURL='/lights-blur.webp'
         placeholder='blur'
+        style={
+          {
+            'view-transition-name': `anime-image-${anime.animeId}`
+          } as CSSProperties
+        }
       />
       {anime.status && (
         <div className={styles.status}>

@@ -20,7 +20,7 @@ export async function AnimeMain({ animeId, limit }: Props) {
     <main className={styles.main}>
       <AnimeAside anime={anime} />
       <section className={styles.content}>
-        <AnimeHeader title={anime.title} otherTitles={anime.otherTitles} />
+        <AnimeHeader animeId={anime.animeId} title={anime.title} otherTitles={anime.otherTitles} />
         <Description description={anime.description} />
         <Genres genres={anime.genres} />
         <Suspense fallback={<EpisodesSkeleton />}>
