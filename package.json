@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbo",
     "tscheck": "tsc --noEmit",
-    "build": "next build && next-export-optimize-images",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "format:fix": "prettier --write --ignore-path .gitignore .",
