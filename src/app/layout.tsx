@@ -2,7 +2,6 @@ import { Header } from '@/components/Header'
 import clsx from 'clsx'
 import { Montserrat } from 'next/font/google'
 import LocalFont from 'next/font/local'
-import { headers } from 'next/headers'
 import '../globals.css'
 
 export const metadata = {
@@ -33,8 +32,6 @@ interface Props {
 }
 
 export default function RootLayout({ children }: Props) {
-  const headerList = headers().entries()
-
   return (
     <html lang='es'>
       <body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
