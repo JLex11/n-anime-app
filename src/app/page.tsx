@@ -5,6 +5,7 @@ import { HomeAside } from '@/components/HomePage/HomeAside'
 import { LatestAnimes } from '@/components/HomePage/LatestAnimes'
 import { CardsSkeleton, LatestEpisodes } from '@/components/HomePage/LatestEpisodes'
 import LatestIcon from '@/components/Icons/LatestIcon'
+import { getLatestAnimes } from '@/services/getLatestAnimes'
 import { getRatingAnimes } from '@/services/getRatingAnimes'
 import { Suspense } from 'react'
 
@@ -14,7 +15,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <CarouselHero animesPromise={getRatingAnimes(5)} />
+      <CarouselHero animesPromise={getRatingAnimes(5) || getLatestAnimes(5)} />
       <main className={styles.main}>
         <CardsSection
           title='Últimos episodios'
