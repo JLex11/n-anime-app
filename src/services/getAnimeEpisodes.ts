@@ -8,9 +8,9 @@ export const getAnimeEpisodes = async (animeId: string, offset?: number, limit?:
     next: { revalidate: minToSeconds(30) }
   }
 
-  const animeEpisodes: Episode[] = await fetchData(
+  const animeEpisodes = await fetchData<Episode[]>(
     `${APIRoutes.AnimeEpisodes.replace(':animeId', animeId)}?offset=${offset}&limit=${limit}`,
     fetchConfig
   )
-  return animeEpisodes
+  return animeEpisodes || []
 }

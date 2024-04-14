@@ -10,7 +10,7 @@ export const getAnime = async (animeId: string): Promise<Anime | undefined> => {
     next: { revalidate: hoursToSeconds(12) }
   }
 
-  const animePromise = fetchData(`${APIRoutes.InfoAnime}/${animeId}`, fetchConfig)
+  const animePromise = fetchData<Anime>(`${APIRoutes.InfoAnime}/${animeId}`, fetchConfig)
     .then(anime => {
       if (!anime) return
       return addAnimeToIndex(filterUnsupportDomains(anime))

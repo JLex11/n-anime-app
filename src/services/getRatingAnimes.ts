@@ -11,7 +11,9 @@ export const getRatingAnimes = async (limit = 10): Promise<Anime[]> => {
     next: { revalidate: daysToSeconds(1) }
   }
 
-  const animes: Anime[] = await fetchData(`${APIRoutes.RatingAnimes}?limit=${limit}`, fetchConfig)
+  const animes = await fetchData<Anime[]>(`${APIRoutes.RatingAnimes}?limit=${limit}`, fetchConfig)
+
+  if (!animes) return []
 
   return animes
     .sort(sortByRank)

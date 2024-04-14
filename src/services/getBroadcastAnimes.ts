@@ -10,10 +10,7 @@ export const getBroadcastAnimes = async (limit?: number) => {
     next: { revalidate: hoursToSeconds(6) }
   }
 
-  const broadcastAnimes: Anime[] = await fetchData(
-    `${APIRoutes.BroadcastAnimes}?limit=${limit}`,
-    fetchConfig
-  )
+  const broadcastAnimes = await fetchData<Anime[]>(`${APIRoutes.BroadcastAnimes}?limit=${limit}`, fetchConfig)
 
-  return broadcastAnimes.map(anime => addAnimeToIndex(filterUnsupportDomains(anime)))
+  return broadcastAnimes?.map(anime => addAnimeToIndex(filterUnsupportDomains(anime))) || []
 }

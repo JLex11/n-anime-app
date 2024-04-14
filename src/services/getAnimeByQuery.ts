@@ -10,13 +10,7 @@ export const getAnimesByQuery = async (query: string, limit?: number) => {
     next: { revalidate: minToSeconds(30) }
   }
 
-  const animes: Anime[] = await fetchData(
-    `${APIRoutes.SearchAnimes}/${query}?limit=${limit}`,
-    fetchConfig
-  ).catch(e => {
-    console.error(e)
-    return []
-  })
+  const animes = await fetchData<Anime[]>(`${APIRoutes.SearchAnimes}/${query}?limit=${limit}`, fetchConfig)
 
-  return animes.map(anime => addAnimeToIndex(filterUnsupportDomains(anime)))
+  return animes?.map(anime => addAnimeToIndex(filterUnsupportDomains(anime))) || []
 }
