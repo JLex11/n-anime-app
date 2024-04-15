@@ -11,13 +11,15 @@ interface BadgeProps {
   padding?: string
   radius?: string
   background?: string
+  customStyle?: React.CSSProperties
 }
 
-export function Badge({ children, padding, radius, background }: BadgeProps) {
+export function Badge({ children, padding, radius, background, customStyle = {} }: BadgeProps) {
   const cssStyles: CSSProps = {
     '--padding': padding || '0.3rem 0.6rem',
     '--bd-radius': radius || '0.6rem',
-    '--bg-color': background || '#ffffff38'
+    '--bg-color': background || '#ffffff38',
+    ...customStyle
   }
 
   return (
