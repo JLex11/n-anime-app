@@ -1,4 +1,3 @@
-import { CSSProperties } from 'react'
 import { BadgeList } from '../BadgeList'
 import styles from './Anime.module.css'
 
@@ -13,11 +12,9 @@ export function AnimeHeader({ animeId, title, otherTitles }: Props) {
     <header className={styles.header}>
       <h1
         className={styles.headerTitle}
-        style={
-          {
-            'view-transition-name': `anime-title-${animeId}`
-          } as CSSProperties
-        }
+        style={{
+          viewTransitionName: `anime-title-${animeId}`
+        }}
       >
         {title}
       </h1>

@@ -1,5 +1,4 @@
 import { Link } from 'next-view-transitions'
-import { CSSProperties } from 'react'
 import { BadgeList } from '../BadgeList'
 import styles from './Carousel.module.css'
 
@@ -22,11 +21,9 @@ export function ItemInfo({ animeId, title, genres }: Props) {
         <Link href={`/animes/${animeId}`}>
           <h1
             className={styles.infoTitle}
-            style={
-              {
-                'view-transition-name': `anime-title-${animeId}`
-              } as CSSProperties
-            }
+            style={{
+              viewTransitionName: `anime-title-${animeId}`
+            }}
           >
             {title}
           </h1>

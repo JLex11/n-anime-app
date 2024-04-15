@@ -1,6 +1,5 @@
 import { useFallbackImage } from '@/hooks/useFallbackImage'
 import Image from 'next/image'
-import { CSSProperties } from 'react'
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title: string
@@ -34,11 +33,9 @@ export function NavigationButton({ title, animeId, images, onClick, ...buttonPro
         priority
         quality={15}
         onError={onError}
-        style={
-          {
-            'view-transition-name': `anime-image-${animeId}`
-          } as CSSProperties
-        }
+        style={{
+          viewTransitionName: `anime-image-${animeId}`
+        }}
       />
     </button>
   )
