@@ -18,7 +18,18 @@ export function AnimeHeader({ animeId, title, otherTitles }: Props) {
       >
         {title}
       </h1>
-      <BadgeList items={otherTitles.map(title => ({ name: title }))} />
+      <BadgeList
+        items={otherTitles.map(title => ({ name: title }))}
+        width='100%'
+        badgetStyles={{
+          fontSize: '11pt',
+          maxWidth: 'min(700px, 100%)',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          display: 'block'
+        }}
+      />
     </header>
   )
 }
