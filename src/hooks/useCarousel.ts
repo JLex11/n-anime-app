@@ -1,5 +1,5 @@
+import { viewHeight } from '@/utils/calculateClientViewport'
 import { useEffect, useRef, useState } from 'react'
-import { flushSync } from 'react-dom'
 
 interface Props {
   itemIds: string[]
@@ -25,24 +25,24 @@ export function useCarousel({ itemIds }: Props) {
     const currentSlideIndex = currentSlideId ? itemIds.indexOf(currentSlideId) : null
 
     if (!currentSlideIndex) return
-
-    flushSync(() => setCurrentItem({ value: currentSlideIndex, dispatchSource: 'init' }))
+    setCurrentItem({ value: currentSlideIndex, dispatchSource: 'init' })
   }, [])
 
   useEffect(() => {
     if (!scrollerRef.current) return
 
     const scrollerRefItems = [...scrollerRef.current.childNodes] as HTMLElement[]
-
     scrollerRefItems.forEach(element => element.removeAttribute('active'))
 
     const element = scrollerRefItems[currentItem.value]
     element?.setAttribute('active', 'true')
 
-    scrollerRef.current.scrollTo({
-      left: element?.offsetLeft,
-      behavior: currentItem.dispatchSource === 'user' ? 'smooth' : 'auto'
-    })
+    if (window.scrollY < viewHeight(80)) {
+      scrollerRef.current.scrollTo({
+        left: element?.offsetLeft,
+        behavior: currentItem.dispatchSource === 'user' ? 'smooth' : 'auto'
+      })
+    }
   }, [currentItem])
 
   const setCurrentSlide = (itemId: string) => {
