@@ -14,5 +14,5 @@ export interface CardProps {
   labels?: string[]
   rank?: number | null
   description?: string
-  animeId?: string
+  animeId: string
 }
