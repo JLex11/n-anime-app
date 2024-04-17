@@ -30,22 +30,10 @@ export function AutocompleteInput({ query }: InputProps) {
 
   return (
     <div className={inputContainerClass}>
-      {/* biome-ignore lint/a11y/noAutofocus: <explanation> */}
-      <input
-        className={styles.inputSearch}
-        type='search'
-        defaultValue={query}
-        onChange={handleChange}
-        autoFocus
-      />
+      <input className={styles.inputSearch} type='search' defaultValue={query} onChange={handleChange} autoFocus />
       <div className={styles.containerInputIcons}>
         {/* {status === 'loading' && <LoadingIcon className={loadingIconClass} />} */}
-        {
-          /* status !== 'loading' &&  */ <ShortcutLetter
-            letters='esc'
-            className={styles.inputIcon}
-          />
-        }
+        {/* status !== 'loading' &&  */ <ShortcutLetter letters='esc' className={styles.inputIcon} />}
       </div>
     </div>
   )

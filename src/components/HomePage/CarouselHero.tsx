@@ -4,10 +4,11 @@ import LoadingIcon from '../Icons/LoadingIcon'
 
 interface Props {
   animesPromise: Promise<Anime[]>
+  fallbackPromise?: Promise<Anime[]>
 }
 
-export async function CarouselHero({ animesPromise }: Props) {
-  const carouselAnimes = await animesPromise
+export async function CarouselHero({ animesPromise, fallbackPromise }: Props) {
+  const carouselAnimes = (await animesPromise) || (await fallbackPromise)
   return <Carousel animes={carouselAnimes} showInfo />
 }
 

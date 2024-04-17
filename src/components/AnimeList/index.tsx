@@ -20,6 +20,7 @@ export const AnimeList = async ({ animesSource }: Props) => {
 
     return {
       key: anime.animeId,
+      animeId: anime.animeId,
       title: anime.title,
       image: {
         src: imageSrc,
@@ -36,8 +37,8 @@ export const AnimeList = async ({ animesSource }: Props) => {
   return (
     <AnimeListWrapper>
       <CardsSection gridProps={{ width: GRID_WIDTH, height: GRID_HEIGHT }}>
-        {animesData.map(({ key, title, link, image }) => (
-          <Card key={key} image={image} title={title} link={link} />
+        {animesData.map(({ key, title, link, image, animeId }) => (
+          <Card key={key} image={image} title={title} link={link} animeId={animeId} />
         ))}
       </CardsSection>
     </AnimeListWrapper>

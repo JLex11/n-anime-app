@@ -14,4 +14,5 @@ export interface CardProps {
   image: Omit<ImageProps, 'alt'>
   pill?: PillProps
   showOnHover?: React.ReactNode
+  animeId?: string
 }

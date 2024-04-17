@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 import { usePathname } from 'next/navigation'
 import { Page } from '.'
 import styles from './Header.module.css'
