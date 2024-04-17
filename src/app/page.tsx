@@ -15,7 +15,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <CarouselHero animesPromise={getRatingAnimes(5) || getLatestAnimes(5)} />
+      <CarouselHero animesPromise={getRatingAnimes(5)} fallbackPromise={getLatestAnimes(5)} />
       <main className={styles.main}>
         <CardsSection
           title='Últimos episodios'
