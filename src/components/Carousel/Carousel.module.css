@@ -131,7 +131,7 @@
   will-change: auto;
   border: none;
   border-radius: 0.5rem;
-  background-color: lightgray;
+  background-color: transparent;
   width: 3.3rem;
   height: 3.9rem;
   overflow: hidden;
@@ -155,6 +155,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 0.5rem;
 }
 
 @media (width <=56rem) {
