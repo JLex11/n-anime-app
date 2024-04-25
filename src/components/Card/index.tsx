@@ -17,7 +17,9 @@ export function Card({ title, link, image, pill, showOnHover, animeId }: CardPro
         />
         <div className={styles.content}>
           {pill?.label && <Pill label={pill.label} className={styles.pill} />}
-          <h3 className={styles.title}>{title}</h3>
+          <h3 className={styles.title} style={animeId ? { viewTransitionName: `anime-title-${animeId}` } : {}}>
+            {title}
+          </h3>
         </div>
       </Link>
       {showOnHover && <div className={styles.showOnHoverContainer}>{showOnHover}</div>}
