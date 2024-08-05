@@ -3,22 +3,22 @@
 import clsx from 'clsx'
 import { Link } from 'next-view-transitions'
 import { usePathname } from 'next/navigation'
-import { Page } from '.'
 import styles from './Header.module.css'
+import type { Page } from './types'
 
 interface NavLinkProps {
-  page: Page
+	page: Page
 }
 
 export function NavLink({ page }: NavLinkProps) {
-  const pathname = usePathname()
+	const pathname = usePathname()
 
-  const activePage = page.link === pathname
-  const linkClass = clsx(styles.pageItem, activePage && styles.active)
+	const activePage = page.link === pathname
+	const linkClass = clsx(styles.pageItem, activePage && styles.active)
 
-  return (
-    <Link href={page.link} className={linkClass}>
-      {page.name}
-    </Link>
-  )
+	return (
+		<Link href={page.link} className={linkClass}>
+			{page.name}
+		</Link>
+	)
 }

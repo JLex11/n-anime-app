@@ -11,5 +11,6 @@
     "**/.vscode": true,
     "**/logs": true,
     "**/node_modules": false
-  }
+  },
+  "editor.defaultFormatter": "biomejs.biome"
 }

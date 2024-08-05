@@ -8,30 +8,24 @@ import { Episodes, EpisodesSkeleton } from './EpisodesSection'
 import { Genres } from './GenresSection'
 
 interface Props {
-  animeId: string
-  limit: string
+	animeId: string
 }
 
-export async function AnimeMain({ animeId, limit }: Props) {
-  const anime = await getAnime(animeId)
-  if (!anime) return null
+export async function AnimeMain({ animeId }: Props) {
+	const anime = await getAnime(animeId)
+	if (!anime) return null
 
-  return (
-    <main className={styles.main}>
-      <AnimeAside anime={anime} />
-      <section className={styles.content}>
-        <AnimeHeader animeId={anime.animeId} title={anime.title} otherTitles={anime.otherTitles} />
-        <Description description={anime.description} />
-        <Genres genres={anime.genres} />
-        <Suspense fallback={<EpisodesSkeleton />}>
-          <Episodes
-            limit={limit}
-            animeId={anime.animeId}
-            fallbackImg={anime.images?.coverImage}
-            animeTitle={anime.title}
-          />
-        </Suspense>
-      </section>
-    </main>
-  )
+	return (
+		<main className={styles.main}>
+			<AnimeAside anime={anime} />
+			<section className={styles.content}>
+				<AnimeHeader animeId={anime.animeId} title={anime.title} otherTitles={anime.otherTitles} />
+				<Description description={anime.description} />
+				<Genres genres={anime.genres} />
+				<Suspense fallback={<EpisodesSkeleton />}>
+					<Episodes animeId={anime.animeId} fallbackImg={anime.images?.coverImage} animeTitle={anime.title} />
+				</Suspense>
+			</section>
+		</main>
+	)
 }
