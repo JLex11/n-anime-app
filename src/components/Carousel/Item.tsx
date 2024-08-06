@@ -18,10 +18,10 @@ export function Item({ anime, showInfo, index }: Props) {
 			<Picture
 				alt={anime.title}
 				images={[...pictureImages, fbImage]}
-				defaultSize={{ width: 1080, height: 540 }}
+				defaultSize={{ width: 1240, height: 620 }}
 				preferDefaultSize
 				priority={index === 0}
-				quality={60}
+				quality={90}
 				decoding='async'
 				style={{
 					viewTransitionName: `carousel-picture-${anime.animeId}`,
