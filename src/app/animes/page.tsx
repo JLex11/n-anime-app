@@ -6,32 +6,30 @@ import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
 import { Suspense } from 'react'
 
 interface Props {
-  searchParams: {
-    order: string
-    query: string
-    rank: string
-    sortBy: string
-    genres: string[]
-    status: string[]
-    type: string[]
-  }
+	searchParams: {
+		order: string
+		query: string
+		rank: string
+		sortBy: string
+		genres: string[]
+		status: string[]
+		type: string[]
+	}
 }
 
 export default function AnimesPage({ searchParams }: Props) {
-  const { query = '' } = searchParams
+	const { query = '' } = searchParams
 
-  return (
-    <main style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <h1>Animes Page</h1>
-      <header>
-        <div>Filters section</div>
-        <SearchInput query={query} />
-      </header>
-      <Suspense key={query} fallback={<CardsSkeleton countCards={20} />}>
-        <AnimeList
-          animesSource={query.length > 0 ? getAnimesByQuery(query) : getBroadcastAnimes()}
-        />
-      </Suspense>
-    </main>
-  )
+	return (
+		<main style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+			<h1>Animes Page</h1>
+			<header>
+				<div> </div>
+				<SearchInput query={query} />
+			</header>
+			<Suspense key={query} fallback={<CardsSkeleton countCards={20} />}>
+				<AnimeList animesSource={query.length > 0 ? getAnimesByQuery(query) : getBroadcastAnimes()} />
+			</Suspense>
+		</main>
+	)
 }
