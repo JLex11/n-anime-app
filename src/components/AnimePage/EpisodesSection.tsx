@@ -22,27 +22,20 @@ export function Episodes({ animeId, animeTitle, fallbackImg }: EpisodesProps) {
 		getAnimeEpisodes(animeId, 0, limit).then(setEpisodes)
 	}, [animeId, limit])
 
-	if (episodes.length === 0) return null
-
 	return (
 		<section className={styles.section}>
 			<h2 className={styles.sectionTitle}>Episodios</h2>
-			<EpisodeList
-				animeId={animeId}
-				animeTitle={animeTitle}
-				episodes={episodes}
-				limit={limit}
-				animeImage={fallbackImg}
-			/>
-		</section>
-	)
-}
-
-export function EpisodesSkeleton() {
-	return (
-		<section className={styles.section}>
-			<h2 className={styles.sectionTitle}>Episodios</h2>
-			<EpisodeListSkeleton />
+			{episodes.length > 0 ? (
+				<EpisodeList
+					animeId={animeId}
+					animeTitle={animeTitle}
+					episodes={episodes}
+					limit={limit}
+					animeImage={fallbackImg}
+				/>
+			) : (
+				<EpisodeListSkeleton />
+			)}
 		</section>
 	)
 }

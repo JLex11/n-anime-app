@@ -4,7 +4,7 @@ import styles from './Anime.module.css'
 import { AnimeAside } from './AnimeAside'
 import { AnimeHeader } from './AnimeHeader'
 import { Description } from './DescriptionSection'
-import { Episodes, EpisodesSkeleton } from './EpisodesSection'
+import { Episodes } from './EpisodesSection'
 import { Genres } from './GenresSection'
 
 interface Props {
@@ -22,7 +22,7 @@ export async function AnimeMain({ animeId }: Props) {
 				<AnimeHeader animeId={anime.animeId} title={anime.title} otherTitles={anime.otherTitles} />
 				<Description description={anime.description} />
 				<Genres genres={anime.genres} />
-				<Suspense fallback={<EpisodesSkeleton />}>
+				<Suspense>
 					<Episodes animeId={anime.animeId} fallbackImg={anime.images?.coverImage} animeTitle={anime.title} />
 				</Suspense>
 			</section>
