@@ -1,4 +1,4 @@
-import { Episode } from '@/types'
+import type { Episode } from '@/types'
 import { ButtonMore } from './ButtonMore'
 import styles from './EpisodeList.module.css'
 import { ListItem } from './ListItem'
