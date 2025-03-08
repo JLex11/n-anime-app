@@ -46,6 +46,9 @@ const images = {
 
 const nextConfig = {
 	images,
+	experimental: {
+		viewTransition: true,
+	},
 }
 
 module.exports = nextConfig
