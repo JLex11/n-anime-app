@@ -6,13 +6,13 @@ import type { AutocompleteVars, CollectionHandle } from '@/components/ServerAuto
 import { APP_ROUTES } from '@/constants'
 
 interface Props {
-	searchParams: {
+	searchParams: Promise<{
 		[AutocompleteVars.QUERY_NAME]: string
-	}
+	}>
 }
 
-export default function SearchPage({ searchParams }: Props) {
-	const { autocomplete_query } = searchParams
+export default async function SearchPage({ searchParams }: Props) {
+	const { autocomplete_query } = await searchParams
 
 	const getItemsHandlers: CollectionHandle[] = [
 		{

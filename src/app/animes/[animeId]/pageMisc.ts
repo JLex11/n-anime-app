@@ -6,10 +6,10 @@ import { normalizeAnimeId } from '@/utils/normalizeAnimeId'
 import type { Metadata } from 'next'
 
 export interface PageProps {
-	params: { animeId: string }
+	params: Promise<{ animeId: string }>
 }
 
-export async function generateMetadataFromAnimeId(animeId: PageProps['params']['animeId']): Promise<Metadata> {
+export async function generateMetadataFromAnimeId(animeId: string): Promise<Metadata> {
 	const anime = await getAnime(animeId)
 	if (!anime) return {}
 

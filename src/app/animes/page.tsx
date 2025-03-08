@@ -6,7 +6,7 @@ import { CardsSkeleton } from '@/components/HomePage/LatestEpisodes'
 import { Suspense } from 'react'
 
 interface Props {
-	searchParams: {
+	searchParams: Promise<{
 		order: string
 		query: string
 		rank: string
@@ -14,11 +14,11 @@ interface Props {
 		genres: string[]
 		status: string[]
 		type: string[]
-	}
+	}>
 }
 
-export default function AnimesPage({ searchParams }: Props) {
-	const { query = '' } = searchParams
+export default async function AnimesPage({ searchParams }: Props) {
+	const { query = '' } = await searchParams
 
 	return (
 		<main style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>

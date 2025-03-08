@@ -5,10 +5,10 @@ import { toCap } from '@/utils/textConverts'
 
 interface Props {
 	children: React.ReactNode
-	params: {
+	params: Promise<{
 		animeId: string
 		episode: string
-	}
+	}>
 }
 
 export default async function EpisodeLayout({ children, params }: Props) {

@@ -11,8 +11,8 @@ import clsx from 'clsx'
 import { EpisodePageContextProvider } from './PageContext'
 
 interface Props {
-	params: { animeId: string; episode: string }
-	searchParams: { limit: string }
+	params: Promise<{ animeId: string; episode: string }>
+	searchParams: Promise<{ limit: string }>
 }
 
 export default async function EpisodePage({ params, searchParams }: Props) {
