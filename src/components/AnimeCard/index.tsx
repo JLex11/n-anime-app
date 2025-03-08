@@ -1,4 +1,5 @@
 import { Link } from 'next-view-transitions'
+import { Fragment, unstable_ViewTransition as ViewTransition } from 'react'
 import { CardImage } from '../Card/CardImage'
 import styles from './AnimeCard.module.css'
 import type { CardProps } from './types'
@@ -16,25 +17,25 @@ export function AnimeCard({ title, link, image, labels, rank, description, anime
 	return (
 		<article className={styles.card}>
 			<Link href={link} className={styles.card_container}>
-				<CardImage
-					{...mappedImage}
-					className={styles.card_img}
-					decoding='async'
-					loading='lazy'
-					style={{
-						viewTransitionName: `anime-image-${animeId}`,
-					}}
-				/>
+				<ViewTransition name={`anime-image-${animeId}`}>
+					<CardImage
+						{...mappedImage}
+						className={styles.card_img}
+						decoding='async'
+						loading='lazy'
+						/* style={{
+							viewTransitionName: `anime-image-${animeId}`,
+						}} */
+					/>
+				</ViewTransition>
 				<div className={styles.content}>
 					<h3 className={styles.title}>{title}</h3>
 					<div className={styles.footer}>
 						{labels?.map((label, index) => (
-							<>
-								<span key={label} className={styles.label}>
-									{label}
-								</span>
+							<Fragment key={label}>
+								<span className={styles.label}>{label}</span>
 								{labels.length - 1 !== index && <span className={styles.separator}>•</span>}
-							</>
+							</Fragment>
 						))}
 					</div>
 				</div>

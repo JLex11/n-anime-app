@@ -1,4 +1,5 @@
 import { Link } from 'next-view-transitions'
+import { unstable_ViewTransition as ViewTransition } from 'react'
 import { Pill } from '../Pill'
 import styles from './Card.module.css'
 import { CardImage } from './CardImage'
@@ -8,13 +9,15 @@ export function Card({ title, link, prefetch, image, pill, showOnHover, animeId 
 	return (
 		<article className={styles.card}>
 			<Link href={link} className={styles.card_anchor} prefetch={prefetch}>
-				<CardImage
-					{...image}
-					alt={title}
-					className={styles.card_img}
-					decoding='async'
-					style={animeId ? { viewTransitionName: `anime-image-${animeId}` } : {}}
-				/>
+				<ViewTransition name={animeId ? `anime-image-${animeId}` : undefined}>
+					<CardImage
+						{...image}
+						alt={title}
+						className={styles.card_img}
+						decoding='async'
+						/* style={animeId ? { viewTransitionName: `anime-image-${animeId}` } : {}} */
+					/>
+				</ViewTransition>
 				<div className={styles.content}>
 					{pill?.label && <Pill label={pill.label} className={styles.pill} />}
 					<h3 className={styles.title} style={animeId ? { viewTransitionName: `anime-title-${animeId}` } : {}}>

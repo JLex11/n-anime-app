@@ -1,4 +1,5 @@
 import type { Anime } from '@/types'
+import { unstable_ViewTransition as ViewTransition } from 'react'
 import styles from './Carousel.module.css'
 import { ItemInfo } from './ItemInfo'
 import Picture from './Picture'
@@ -15,18 +16,20 @@ export function Item({ anime, showInfo, index }: Props) {
 
 	return (
 		<li id={anime.animeId} className={styles.carouselItem} {...{ active: 'false' }}>
-			<Picture
-				alt={anime.title}
-				images={[...pictureImages, fbImage]}
-				defaultSize={{ width: 1240, height: 620 }}
-				preferDefaultSize
-				priority={index === 0}
-				quality={90}
-				decoding='async'
-				style={{
+			<ViewTransition name={`carousel-picture-${anime.animeId}`}>
+				<Picture
+					alt={anime.title}
+					images={[...pictureImages, fbImage]}
+					defaultSize={{ width: 1240, height: 620 }}
+					preferDefaultSize
+					priority={index === 0}
+					quality={90}
+					decoding='async'
+					/* style={{
 					viewTransitionName: `carousel-picture-${anime.animeId}`,
-				}}
-			/>
+				}} */
+				/>
+			</ViewTransition>
 			{showInfo && <ItemInfo animeId={anime.animeId} title={anime.title ?? ''} genres={anime.genres} />}
 		</li>
 	)

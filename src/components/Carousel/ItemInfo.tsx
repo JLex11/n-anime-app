@@ -1,4 +1,5 @@
 import { Link } from 'next-view-transitions'
+import { unstable_ViewTransition as ViewTransition } from 'react'
 import { BadgeList } from '../BadgeList'
 import styles from './Carousel.module.css'
 
@@ -19,14 +20,16 @@ export function ItemInfo({ animeId, title, genres }: Props) {
 		<div className={styles.info}>
 			<div className={styles.content}>
 				<Link href={`/animes/${animeId}`} prefetch={true}>
-					<h1
-						className={styles.infoTitle}
-						style={{
+					<ViewTransition name={`anime-title-${animeId}`}>
+						<h1
+							className={styles.infoTitle}
+							/* style={{
 							viewTransitionName: `anime-title-${animeId}`,
-						}}
-					>
-						{title}
-					</h1>
+						}} */
+						>
+							{title}
+						</h1>
+					</ViewTransition>
 				</Link>
 				<BadgeList items={mappedGenres} width='50%' />
 			</div>
