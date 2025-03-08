@@ -4,7 +4,7 @@ interface NextFetchInit extends RequestInit {
 	next?: Record<string, unknown>
 }
 
-export const fetchData = async <T extends any>(
+export const fetchData = async <T>(
 	apiPath: string,
 	fetchConfig: NextFetchInit = {}
 ): Promise<T | undefined> => {
