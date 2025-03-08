@@ -1,6 +1,7 @@
 import { Header } from '@/components/Header'
 import clsx from 'clsx'
-import { ViewTransitions } from 'next-view-transitions'
+/* import { ViewTransitions } from 'next-view-transitions' */
+import { unstable_ViewTransition as ViewTransition } from 'react'
 import { Montserrat } from 'next/font/google'
 import LocalFont from 'next/font/local'
 import '../globals.css'
@@ -34,13 +35,13 @@ interface Props {
 
 export default function RootLayout({ children }: Props) {
 	return (
-		<ViewTransitions>
+		<ViewTransition>
 			<html lang='es'>
 				<body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
 					<Header />
 					{children}
 				</body>
 			</html>
-		</ViewTransitions>
+		</ViewTransition>
 	)
 }
