@@ -1,4 +1,4 @@
-import { getLatestEpisodes } from '@/services/getLatestEpisodes'
+import { getLatestEpisodes } from '@/api/getLatestEpisodes'
 import { Card } from '../Card'
 import { CardSkeleton } from '../Card/CardSkeleton'
 

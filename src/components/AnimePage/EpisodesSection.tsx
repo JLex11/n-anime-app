@@ -1,7 +1,7 @@
 'use client'
 
+import { getAnimeEpisodes } from '@/api/getAnimeEpisodes'
 import { EpisodeList, EpisodeListSkeleton } from '@/components/EpisodeList/EpisodeList'
-import { getAnimeEpisodes } from '@/services/getAnimeEpisodes'
 import type { Episode } from '@/types'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'

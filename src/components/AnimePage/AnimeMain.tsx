@@ -1,4 +1,4 @@
-import { getAnime } from '@/services/getAnime'
+import { getAnime } from '@/api/getAnime'
 import { Suspense } from 'react'
 import styles from './Anime.module.css'
 import { AnimeAside } from './AnimeAside'

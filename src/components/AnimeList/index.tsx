@@ -1,4 +1,4 @@
-import { Anime } from '@/types'
+import type { Anime } from '@/types'
 import { Card } from '../Card'
 import { CardsSection } from '../CardsSection'
 import { AnimeListWrapper } from './AnimeListWrapper'

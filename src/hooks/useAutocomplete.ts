@@ -1,6 +1,6 @@
 import { getAnimeItems, getRoutesItems } from '@/components/Autocomplete/AutocompleteSources'
 import { debounceCallback } from '@/utils/debounceCallback'
-import { createAutocomplete, type AutocompleteState, type OnActiveParams } from '@algolia/autocomplete-core'
+import { type AutocompleteState, type OnActiveParams, createAutocomplete } from '@algolia/autocomplete-core'
 import { useRouter } from 'next/navigation'
 import { createRef, useCallback, useId, useMemo, useRef, useState } from 'react'
 import type { AutocompleteItem, AutocompleteOutputItem, AutocompleteProps } from './useAutocomplete.types'
@@ -20,7 +20,7 @@ export function useAutocomplete({ handleLaunchAutocomplete }: AutocompleteProps)
 
 	const inputRef = useRef<HTMLInputElement>(null)
 	const panelRef = useRef<HTMLDivElement>(null)
-	const itemRefs = useRef<React.RefObject<HTMLElement>[]>([])
+	const itemRefs = useRef<React.RefObject<HTMLElement | null>[]>([])
 
 	const router = useRouter()
 	const autocompleteId = useId()
