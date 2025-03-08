@@ -47,17 +47,15 @@
   animation: animateGradient 5s ease alternate infinite;
   box-shadow: var(--input-shadow);
   border-radius: calc(4 * var(--borderWidth));
-  background: linear-gradient(
-    60deg,
-    #f79533,
-    #f37055,
-    #ef4e7b,
-    #a166ab,
-    #5073b8,
-    #1098ad,
-    #07b39b,
-    #6fba82
-  );
+  background: linear-gradient(60deg,
+      #f79533,
+      #f37055,
+      #ef4e7b,
+      #a166ab,
+      #5073b8,
+      #1098ad,
+      #07b39b,
+      #6fba82);
   background-size: 300% 300%;
   width: calc(100% + var(--borderWidth) * 2);
   height: calc(100% + var(--borderWidth) * 2);
@@ -146,10 +144,7 @@
 .collectionsContainer {
   --scrollbar-width: 0.3rem;
   width: 100%;
-  max-height: calc(
-    100svh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 -
-      var(--pd) * 2 - var(--footer-height)
-  );
+  max-height: calc(100svh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 - var(--pd) * 2 - var(--footer-height));
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -237,7 +232,7 @@
   overflow: hidden;
 }
 
-.itemContent > * {
+.itemContent>* {
   width: 100%;
   overflow: hidden;
   text-align: start;

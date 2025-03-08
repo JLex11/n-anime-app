@@ -1,5 +1,5 @@
 import { imageDomains } from '@/constants'
-import { Anime } from '@/types'
+import type { Anime } from '@/types'
 
 const domains = imageDomains.map(({ hostname }) => hostname)
 const domainsRegexp = new RegExp(domains.join('|'), 'i')

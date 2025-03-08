@@ -1,5 +1,6 @@
 .card {
   padding: 0.5rem;
+  content-visibility: auto;
 }
 
 .showOnHoverContainer {
@@ -93,12 +94,10 @@
 
 .cardSkeleton .title {
   border-radius: 1rem;
-  background: linear-gradient(
-    to right bottom,
-    rgb(148, 148, 148),
-    rgb(194, 194, 194),
-    rgb(148, 148, 148)
-  );
+  background: linear-gradient(to right bottom,
+      rgb(148, 148, 148),
+      rgb(194, 194, 194),
+      rgb(148, 148, 148));
   width: 85%;
   height: 1.3rem;
 }

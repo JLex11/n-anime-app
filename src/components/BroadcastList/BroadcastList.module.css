@@ -40,6 +40,7 @@
   border-radius: 0.4rem;
   padding: 0.5rem;
   width: 100%;
+  content-visibility: auto;
 }
 
 .broadcastListItem::after {
@@ -63,12 +64,12 @@
   transform: rotateX(3deg) scaleX(0.97);
 }
 
-.broadcastListItemParent:hover + .broadcastListItemParent .broadcastListItem {
+.broadcastListItemParent:hover+.broadcastListItemParent .broadcastListItem {
   transform: rotateX(-3deg) scaleX(0.97);
 }
 
 .broadcastListItemParent:has(+ .broadcastListItemParent:hover) .broadcastListItem::after,
-.broadcastListItemParent:hover + .broadcastListItemParent .broadcastListItem::after {
+.broadcastListItemParent:hover+.broadcastListItemParent .broadcastListItem::after {
   opacity: 0.13;
 }
 
