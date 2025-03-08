@@ -1,3 +1,5 @@
+import { getLatestAnimes } from '@/api/getLatestAnimes'
+import { getRatingAnimes } from '@/api/getRatingAnimes'
 import { CardsSection } from '@/components/CardsSection'
 import { CarouselHero } from '@/components/HomePage/CarouselHero'
 import styles from '@/components/HomePage/Home.module.css'
@@ -5,8 +7,6 @@ import { HomeAside } from '@/components/HomePage/HomeAside'
 import { LatestAnimes } from '@/components/HomePage/LatestAnimes'
 import { CardsSkeleton, LatestEpisodes } from '@/components/HomePage/LatestEpisodes'
 import LatestIcon from '@/components/Icons/LatestIcon'
-import { getLatestAnimes } from '@/services/getLatestAnimes'
-import { getRatingAnimes } from '@/services/getRatingAnimes'
 import { Suspense } from 'react'
 
 export default async function HomePage() {

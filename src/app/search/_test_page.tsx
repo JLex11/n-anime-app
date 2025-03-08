@@ -1,9 +1,9 @@
+import { getAnimesByQuery } from '@/api/getAnimeByQuery'
 import AppWindow from '@/components/Icons/AppWindow'
 import styles from '@/components/SearchPage/SearchPage.module.css'
 import { ServerAutocomplete } from '@/components/ServerAutocomplete'
 import type { AutocompleteVars, CollectionHandle } from '@/components/ServerAutocomplete/autocompleteTypes'
 import { APP_ROUTES } from '@/constants'
-import { getAnimesByQuery } from '@/services/getAnimeByQuery'
 
 interface Props {
 	searchParams: {

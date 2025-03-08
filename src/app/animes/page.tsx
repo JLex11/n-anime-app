@@ -1,8 +1,8 @@
+import { getAnimesByQuery } from '@/api/getAnimeByQuery'
+import { getBroadcastAnimes } from '@/api/getBroadcastAnimes'
 import { AnimeList } from '@/components/AnimeList'
 import { SearchInput } from '@/components/AnimePage/SearchInput'
 import { CardsSkeleton } from '@/components/HomePage/LatestEpisodes'
-import { getAnimesByQuery } from '@/services/getAnimeByQuery'
-import { getBroadcastAnimes } from '@/services/getBroadcastAnimes'
 import { Suspense } from 'react'
 
 interface Props {

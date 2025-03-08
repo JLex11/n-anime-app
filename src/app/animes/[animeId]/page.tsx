@@ -1,10 +1,10 @@
 import { AnimeCarousel } from '@/components/AnimePage/AnimeCarousel'
 import { AnimeMain } from '@/components/AnimePage/AnimeMain'
 import type { Metadata } from 'next'
-import { generateMetadataFromAnimeId, generatePageStaticParams, type PageProps } from './pageMisc'
+import { type PageProps, generateMetadataFromAnimeId, generatePageStaticParams } from './pageMisc'
 
 export default async function AnimePage({ params }: PageProps) {
-	const { animeId } = params
+	const { animeId } = await params
 
 	return (
 		<>
@@ -14,6 +14,8 @@ export default async function AnimePage({ params }: PageProps) {
 	)
 }
 
-export const generateMetadata = ({ params }: PageProps): Promise<Metadata> =>
-	generateMetadataFromAnimeId(params.animeId)
+export const generateMetadata = async ({ params }: PageProps): Promise<Metadata> => {
+	const { animeId } = await params
+	return generateMetadataFromAnimeId(animeId)
+}
 export const generateStaticParams = generatePageStaticParams
