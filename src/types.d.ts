@@ -2,6 +2,14 @@ declare global {
   interface Array<T> {
     toSorted(fn?: (a: T, b: T) => number): T[]
   }
+  interface Document {
+    prerendering: boolean
+  }
+  interface Window {
+    speculation: {
+      prerender: (options: { urls: string[] }) => Promise<void>
+    }
+  }
 }
 
 export interface Episode {
