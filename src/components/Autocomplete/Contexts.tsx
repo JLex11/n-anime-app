@@ -1,15 +1,16 @@
+import type { AutocompleteOutputItem } from '@/hooks/useAutocomplete.types'
 import { createContext } from 'react'
 
 interface AutocompleteContextType {
-  activeItemId: number
-  setActiveItemId: (id: number) => void
-  handleLaunchAutocomplete: React.Dispatch<React.SetStateAction<boolean>>
+	activeItemId: number
+	setActiveItemId: (id: number) => void
+	handleLaunchAutocomplete: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const defaultAutoCompleteContext: AutocompleteContextType = {
-  activeItemId: 0,
-  setActiveItemId: () => {},
-  handleLaunchAutocomplete: () => {}
+	activeItemId: 0,
+	setActiveItemId: () => {},
+	handleLaunchAutocomplete: () => {},
 }
 
 export const AutocompleteContext = createContext(defaultAutoCompleteContext)
