@@ -25,7 +25,7 @@ export function Header({ pages = APP_ROUTES }: Props) {
 							loading='eager'
 						/>
 					</div>
-					{pages && <Nav pages={pages} />}
+					<Nav pages={pages} />
 					<Tools />
 				</div>
 			</div>
