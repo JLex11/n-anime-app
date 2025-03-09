@@ -1,7 +1,7 @@
 import { getAnimesByQuery } from '@/api/getAnimeByQuery'
 import { getAnimeEpisodes } from '@/api/getAnimeEpisodes'
 import { APP_ROUTES } from '@/constants'
-import { AutocompleteItem, AutocompleteItemChilds } from '@/hooks/useAutocomplete.types'
+import type { AutocompleteItem, AutocompleteItemChilds } from '@/hooks/useAutocomplete.types'
 import AppWindow from '../Icons/AppWindow'
 
 const mapRouteItem = (route: (typeof APP_ROUTES)[number]) => ({
