@@ -23,11 +23,8 @@ export function Item({ anime, showInfo, index }: Props) {
 					defaultSize={{ width: 1240, height: 620 }}
 					preferDefaultSize
 					priority={index === 0}
-					quality={90}
+					quality={80}
 					decoding='async'
-					/* style={{
-					viewTransitionName: `carousel-picture-${anime.animeId}`,
-				}} */
 				/>
 			</ViewTransition>
 			{showInfo && <ItemInfo animeId={anime.animeId} title={anime.title ?? ''} genres={anime.genres} />}
