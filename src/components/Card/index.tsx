@@ -10,13 +10,7 @@ export function Card({ title, link, prefetch, image, pill, showOnHover, animeId 
 		<article className={styles.card}>
 			<Link href={link} className={styles.card_anchor} prefetch={prefetch}>
 				<ViewTransition name={animeId ? `anime-image-${animeId}` : undefined}>
-					<CardImage
-						{...image}
-						alt={title}
-						className={styles.card_img}
-						decoding='async'
-						/* style={animeId ? { viewTransitionName: `anime-image-${animeId}` } : {}} */
-					/>
+					<CardImage {...image} alt={title} className={styles.card_img} decoding='async' />
 				</ViewTransition>
 				<div className={styles.content}>
 					{pill?.label && <Pill label={pill.label} className={styles.pill} />}
