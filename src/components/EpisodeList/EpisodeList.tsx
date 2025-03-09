@@ -10,11 +10,10 @@ interface Props {
 	animeImage?: string | null
 	animeTitle?: string
 	currentEpisode?: number
-	linkPrefix?: string
 }
 
-export function EpisodeList({ limit, episodes, currentEpisode, animeImage, animeTitle, linkPrefix }: Props) {
-	const createItemLink = (episode: Episode) => `${linkPrefix || ''}${episode.episode}${limit ? `?limit=${limit}` : ''}`
+export function EpisodeList({ limit, episodes, currentEpisode, animeImage, animeTitle, animeId }: Props) {
+	const createItemLink = (episode: Episode) => `${animeId}/${episode.episode}${limit ? `?limit=${limit}` : ''}`
 	const firstEpisodeInList = episodes.some(({ episode }) => episode === 1)
 
 	return (
