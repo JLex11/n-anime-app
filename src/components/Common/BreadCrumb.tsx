@@ -19,7 +19,15 @@ export function BreadCrumb({ crumbs }: Props) {
 		<ul className={styles.breadcrumbList}>
 			{crumbs.map(({ name, path }, index) => (
 				<Fragment key={path + name}>
-					<li className={createItemClass(path)}>{path ? <Link href={path}>{name}</Link> : <span>{name}</span>}</li>
+					<li className={createItemClass(path)}>
+						{path ? (
+							<Link href={path} className='prerender'>
+								{name}
+							</Link>
+						) : (
+							<span>{name}</span>
+						)}
+					</li>
 					{index < crumbs.length - 1 && <span className={styles.breadcrumbSeparator}>/</span>}
 				</Fragment>
 			))}
