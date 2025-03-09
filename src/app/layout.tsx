@@ -1,10 +1,10 @@
 import { Header } from '@/components/Header'
 import clsx from 'clsx'
-/* import { ViewTransitions } from 'next-view-transitions' */
 import { unstable_ViewTransition as ViewTransition } from 'react'
 import { Montserrat } from 'next/font/google'
 import LocalFont from 'next/font/local'
 import '../globals.css'
+import Script from 'next/script'
 
 export const metadata = {
 	title: 'One Anime',
@@ -33,10 +33,24 @@ interface Props {
 	children: React.ReactNode
 }
 
+const speculationRulesConfig = {
+	prerender: [
+		{ source: 'list', urls: ['/', '/animes'] },
+		{ where: { selector_matches: 'a.prerender' }, eagerness: 'eager' },
+		{ where: { selector_matches: 'a.prerender-hover' }, eagerness: 'moderate' },
+	],
+	prefetch: [{ where: { selector_matches: 'a.prefetch' } }],
+}
+
+const speculationRulesJSON = JSON.stringify(speculationRulesConfig)
+
 export default function RootLayout({ children }: Props) {
 	return (
 		<ViewTransition>
 			<html lang='es'>
+				<Script type='speculationrules' id='speculation-rules-script'>
+					{speculationRulesJSON}
+				</Script>
 				<body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
 					<Header />
 					{children}
