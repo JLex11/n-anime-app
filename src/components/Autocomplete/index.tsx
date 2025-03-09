@@ -42,7 +42,7 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
 					<Input
 						status={autocomplete.status}
 						inputRef={elementsRef.inputRef as React.RefObject<HTMLInputElement>}
-						inputProps={elementsProps.inputProps}
+						inputProps={elementsProps.inputProps as unknown as React.InputHTMLAttributes<HTMLInputElement>}
 					/>
 					{autocomplete.isOpen && (
 						<CollectionsPanel
