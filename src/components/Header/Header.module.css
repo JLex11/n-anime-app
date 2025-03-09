@@ -11,6 +11,11 @@
   width: 100%;
   color: white;
   text-align: center;
+  view-transition-name: root_header;
+}
+
+.header::view-transition-new(root_header) {
+  background: linear-gradient(to bottom, var(--primary-color) -15%, transparent);
 }
 
 .header.scrolled {
@@ -134,17 +139,15 @@
   z-index: -1;
   box-shadow: var(--input-shadow);
   border-radius: calc((var(--border-radius-multiplier) + 1) * var(--borderWidth));
-  background: linear-gradient(
-    60deg,
-    #f79533,
-    #f37055,
-    #ef4e7b,
-    #a166ab,
-    #5073b8,
-    #1098ad,
-    #07b39b,
-    #6fba82
-  );
+  background: linear-gradient(60deg,
+      #f79533,
+      #f37055,
+      #ef4e7b,
+      #a166ab,
+      #5073b8,
+      #1098ad,
+      #07b39b,
+      #6fba82);
   background-size: 300% 300%;
   width: calc(100% + var(--borderWidth) * 2);
   height: calc(100% + var(--borderWidth) * 2);
@@ -183,6 +186,7 @@
 }
 
 @media (width <=56rem) {
+
   .headerSection,
   .pages,
   .tools {
