@@ -1,16 +1,18 @@
 {
-  "extends": ["next/core-web-vitals", "next", "prettier"],
-  "rules": {
-    "semi": ["error", "never"],
-    "object-curly-spacing": ["error", "always"],
-    "@next/next/no-img-element": "off"
-  },
-  "ignorePatterns": [
-    "node_modules/",
-    "**/node_modules/",
-    "/**/node_modules/*",
-    "out/",
-    "dist/",
-    "build/"
-  ]
+	"extends": ["next/core-web-vitals", "next", "prettier"],
+	"rules": {
+		"semi": ["error", "never"],
+		"object-curly-spacing": ["error", "always"],
+		"@next/next/no-img-element": "off",
+		"react-hooks/exhaustive-deps": "warn",
+		"jsx-a11y/alt-text": "off"
+	},
+	"ignorePatterns": [
+		"node_modules/",
+		"**/node_modules/",
+		"/**/node_modules/*",
+		"out/",
+		"dist/",
+		"build/"
+	]
 }

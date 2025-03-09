@@ -8,7 +8,7 @@ import type { CardProps } from './types'
 export function Card({ title, link, prefetch, image, pill, showOnHover, animeId }: CardProps) {
 	return (
 		<article className={styles.card}>
-			<Link href={link} className={styles.card_anchor} prefetch={prefetch}>
+			<Link href={link} className={`${styles.card_anchor} prefetch`} prefetch={prefetch}>
 				<ViewTransition name={animeId ? `anime-image-${animeId}` : undefined}>
 					<CardImage {...image} alt={title} className={styles.card_img} decoding='async' />
 				</ViewTransition>
