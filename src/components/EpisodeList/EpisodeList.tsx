@@ -6,14 +6,14 @@ import { ListItem } from './ListItem'
 interface Props {
 	limit: string | number
 	episodes: Episode[]
-	animeId: string
 	animeImage?: string | null
 	animeTitle?: string
 	currentEpisode?: number
+	pathname?: string
 }
 
-export function EpisodeList({ limit, episodes, currentEpisode, animeImage, animeTitle, animeId }: Props) {
-	const createItemLink = (episode: Episode) => `${animeId}/${episode.episode}${limit ? `?limit=${limit}` : ''}`
+export function EpisodeList({ limit, episodes, currentEpisode, animeImage, animeTitle, pathname = '' }: Props) {
+	const createItemLink = (episode: Episode) => `${pathname}${episode.episode}${limit ? `?limit=${limit}` : ''}`
 	const firstEpisodeInList = episodes.some(({ episode }) => episode === 1)
 
 	return (

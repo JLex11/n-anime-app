@@ -27,7 +27,7 @@ export function Episodes({ animeId, animeTitle, fallbackImg }: EpisodesProps) {
 			<h2 className={styles.sectionTitle}>Episodios</h2>
 			{episodes.length > 0 ? (
 				<EpisodeList
-					animeId={animeId}
+					pathname={`${animeId}/`}
 					animeTitle={animeTitle}
 					episodes={episodes}
 					limit={limit}

@@ -23,7 +23,6 @@ export async function Aside({ searchParams, animeId, animeImage, animeTitle, cur
 			<EpisodeList
 				limit={limit}
 				episodes={animeEpisodes}
-				animeId={animeId}
 				animeImage={animeImage}
 				animeTitle={animeTitle}
 				currentEpisode={currentEpisode}
