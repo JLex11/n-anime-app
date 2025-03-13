@@ -1,38 +1,82 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# N-Anime-App ✨
 
-## Getting Started
+¡Bienvenido a N-Anime-App! Una plataforma moderna y amigable para explorar y descubrir tus animes favoritos. 🚀
 
-First, run the development server:
+## Características Principales 🌟
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+*   **Exploración Intuitiva:** Navega fácilmente a través de una extensa colección de animes. 📚
+*   **Búsqueda Inteligente:** Encuentra rápidamente animes específicos con nuestra función de búsqueda avanzada. 🔍
+*   **Detalles Completos:** Accede a información detallada de cada anime, incluyendo sinopsis, episodios, valoraciones y más. ℹ️
+*   **Actualizaciones al Día:** Mantente siempre informado sobre los últimos lanzamientos y novedades del mundo del anime. 📅
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tecnologías Clave 🛠️
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+*   **[Next.js](https://nextjs.org/)**: El framework de React para construir aplicaciones web de alto rendimiento con renderizado del lado del servidor y generación estática. 💻
+*   **TypeScript**: Un superconjunto de JavaScript que añade tipado estático para un código más robusto y mantenible. 🔒
+*   **[next/font](https://nextjs.org/docs/basic-features/font-optimization)**: Optimización automática y carga eficiente de fuentes de Google. 🎨
+*   **Bun**: Un entorno de ejecución de JavaScript rápido y un gestor de paquetes. 📦
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Empezando 🏁
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Sigue estos sencillos pasos para poner en marcha el proyecto en tu entorno local:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1.  **Clona el repositorio:**
 
-## Learn More
+    ```bash
+    git clone https://github.com/JLex11/n-anime-app
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2.  **Navega al directorio del proyecto:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    cd n-anime-app
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3.  **Instala las dependencias con Bun:**
 
-## Deploy on Vercel
+    ```bash
+    bun install
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    *Asegúrate de tener Bun instalado en tu sistema.*
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+4.  **Inicia el servidor de desarrollo:**
+
+    ```bash
+    bun run dev
+    ```
+
+5.  **¡Abre tu navegador!**
+
+    Visita [http://localhost:3000](http://localhost:3000) para disfrutar de N-Anime-App. 🎉
+
+## Estructura del Proyecto 📂
+
+*(Aquí puedes añadir una descripción de la estructura de carpetas y archivos más importantes de tu proyecto)*
+
+## Despliegue 🚀
+
+### Vercel
+
+La forma más sencilla de desplegar tu aplicación Next.js es utilizando la [plataforma Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme), creada por los mismos desarrolladores de Next.js.
+
+1.  **Importa tu proyecto Git a Vercel.**
+2.  **¡Despliega!** Vercel detectará automáticamente que se trata de un proyecto Next.js y se encargará del resto.
+
+### Otras Plataformas
+
+También puedes desplegar tu aplicación Next.js en otras plataformas como Netlify, AWS, o en un servidor personalizado. Consulta la [documentación de despliegue de Next.js](https://nextjs.org/docs/deployment) para más detalles.
+
+## Contribuciones 🤝
+
+¡Nos encantaría recibir tus contribuciones a N-Anime-App! Si quieres colaborar, sigue estos pasos:
+
+1.  Haz un fork del repositorio.
+2.  Crea una nueva rama para tu funcionalidad o corrección de errores.
+3.  Realiza tus cambios y commitea con mensajes descriptivos.
+4.  Sube tus cambios a tu fork.
+5.  Envía un Pull Request.
+
+## Licencia 📜
+
+[MIT](LICENSE) (Reemplaza con la licencia real si es diferente)
