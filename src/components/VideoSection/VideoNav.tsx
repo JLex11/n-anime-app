@@ -1,5 +1,5 @@
 import type { EpisodeVideo } from '@/types'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { VideoNavItem } from './VideoNavItem'
 import styles from './VideoSection.module.css'
 
@@ -23,11 +23,7 @@ export function VideoNav({ currentIframesData }: VideoNavProps) {
 	const [activeIframeOption, setActiveIframeOption] = useState<EpisodeVideo['server'] | undefined>(
 		currentIframesData?.[0]?.server
 	)
-	const [indicatorProps, setIndicatorProps] = useState<CSSProps>({
-		'--indicator-left': '0px',
-		'--indicator-width': '0px',
-		'--indicator-height': '0px',
-	})
+	const [indicatorProps, setIndicatorProps] = useState<CSSProps>({})
 
 	const activeIframeRef = useRef<HTMLLIElement | null>(null)
 
@@ -40,21 +36,15 @@ export function VideoNav({ currentIframesData }: VideoNavProps) {
 	}, [])
 
 	const setActiveDimensions = useCallback(
-		(e: HTMLLIElement) => {
-			const width = e.offsetWidth
-			const height = e.offsetHeight
-			const left = e.offsetLeft
-
+		(element: HTMLElement) => {
+			const { offsetWidth: width, offsetHeight: height, offsetLeft: left } = element
 			handleActiveIframe({ left, width, height })
 		},
 		[handleActiveIframe]
 	)
 
 	useEffect(() => {
-		const activeIframe = activeIframeRef.current
-		if (!activeIframe) return
-
-		setActiveDimensions(activeIframe)
+		if (activeIframeRef.current) setActiveDimensions(activeIframeRef.current)
 	}, [setActiveDimensions])
 
 	const handleMouseEnter = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
@@ -62,17 +52,20 @@ export function VideoNav({ currentIframesData }: VideoNavProps) {
 		setActiveDimensions(target)
 	}
 
-	const handleMouseLeave = () => {
-		const activeIframe = activeIframeRef.current
-		if (!activeIframe) return
-		setActiveDimensions(activeIframe)
-	}
+	const handleMouseLeave = useCallback(() => {
+		if (activeIframeRef.current) setActiveDimensions(activeIframeRef.current)
+	}, [setActiveDimensions])
+
+	const uniqueIframesData = useMemo(
+		() => currentIframesData.filter((iframe, index, self) => index === self.findIndex(i => i.code === iframe.code)),
+		[currentIframesData]
+	)
 
 	return (
 		<nav className={styles.iframeNav} style={indicatorProps}>
-			{currentIframesData && (
+			{uniqueIframesData && (
 				<ul className={styles.iframeNavOptions} onMouseLeave={handleMouseLeave}>
-					{currentIframesData.map(iframe => (
+					{uniqueIframesData.map(iframe => (
 						<VideoNavItem
 							key={iframe.code}
 							iframe={iframe}
