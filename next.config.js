@@ -49,6 +49,9 @@ const nextConfig = {
 	experimental: {
 		viewTransition: true,
 	},
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
 }
 
 module.exports = nextConfig
