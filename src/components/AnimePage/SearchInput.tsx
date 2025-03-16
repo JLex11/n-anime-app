@@ -2,8 +2,8 @@
 
 import { useDebounce } from '@/hooks/useDebounce'
 import clsx from 'clsx'
-import { useTransitionRouter } from 'next-view-transitions'
 import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import styles from './Anime.module.css'
 
@@ -15,7 +15,7 @@ export function SearchInput({ query }: InputProps) {
 	const [queryValue, setQueryValue] = useState(query)
 	const searchQuery = useDebounce(queryValue, 300)
 	const searchParams = useSearchParams()
-	const router = useTransitionRouter()
+	const router = useRouter()
 
 	useEffect(() => {
 		const params = new URLSearchParams(searchParams)

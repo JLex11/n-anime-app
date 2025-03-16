@@ -1,15 +1,15 @@
 import type { AutocompleteOutputItem } from '@/hooks/useAutocomplete.types'
+import { useChildItems } from '@/hooks/useChildItems'
 import { useToggle } from '@/hooks/useToggle'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useContext, useEffect, useMemo, memo } from 'react'
+import { memo, useContext, useEffect, useMemo } from 'react'
 import { FoldIcon } from '../Icons/FoldIcon'
 import styles from './Autocomplete.module.css'
 import { AutocompleteContext } from './Contexts'
 import { ItemChilds } from './ItemChilds'
 import { ItemInfo } from './ItemInfo'
-import { useChildItems } from '@/hooks/useChildItems'
 
 interface Props {
 	item: AutocompleteOutputItem

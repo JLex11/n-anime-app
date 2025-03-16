@@ -1,4 +1,4 @@
-import { Link } from 'next-view-transitions'
+import Link from 'next/link'
 import { Fragment, unstable_ViewTransition as ViewTransition } from 'react'
 import { CardImage } from '../Card/CardImage'
 import styles from './AnimeCard.module.css'

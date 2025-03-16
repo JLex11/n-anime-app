@@ -1,4 +1,4 @@
-import { Link } from 'next-view-transitions'
+import Link from 'next/link'
 import { unstable_ViewTransition as ViewTransition } from 'react'
 import { Pill } from '../Pill'
 import styles from './Card.module.css'
