@@ -35,9 +35,6 @@ export function NavigationButton({ title, animeId, images, onClick, ...buttonPro
 					priority
 					quality={15}
 					onError={onError}
-					/* style={{
-          viewTransitionName: `anime-image-${animeId}`
-        }} */
 				/>
 			</ViewTransition>
 		</button>

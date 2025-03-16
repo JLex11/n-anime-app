@@ -18,15 +18,7 @@ export function AnimeCard({ title, link, image, labels, rank, description, anime
 		<article className={styles.card}>
 			<Link href={link} className={styles.card_container}>
 				<ViewTransition name={`anime-image-${animeId}`}>
-					<CardImage
-						{...mappedImage}
-						className={styles.card_img}
-						decoding='async'
-						loading='lazy'
-						/* style={{
-							viewTransitionName: `anime-image-${animeId}`,
-						}} */
-					/>
+					<CardImage {...mappedImage} className={styles.card_img} decoding='async' loading='lazy' />
 				</ViewTransition>
 				<div className={styles.content}>
 					<h3 className={styles.title}>{title}</h3>

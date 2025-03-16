@@ -12,14 +12,7 @@ export function AnimeHeader({ animeId, title, otherTitles }: Props) {
 	return (
 		<header className={styles.header}>
 			<ViewTransition name={`anime-title-${animeId}`}>
-				<h1
-					className={styles.headerTitle}
-					/* style={{
-          viewTransitionName: `anime-title-${animeId}`
-        }} */
-				>
-					{title}
-				</h1>
+				<h1 className={styles.headerTitle}>{title}</h1>
 			</ViewTransition>
 			<BadgeList
 				items={otherTitles.map(title => ({ name: title }))}

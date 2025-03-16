@@ -1,9 +1,10 @@
 import { Header } from '@/components/Header'
 import clsx from 'clsx'
-import { unstable_ViewTransition as ViewTransition } from 'react'
 import { Montserrat } from 'next/font/google'
 import LocalFont from 'next/font/local'
+import { unstable_ViewTransition as ViewTransition } from 'react'
 import '../globals.css'
+import ReactScan from '@/components/ReactScan'
 import Script from 'next/script'
 
 export const metadata = {
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: Props) {
 				<Script type='speculationrules' id='speculation-rules-script'>
 					{speculationRulesJSON}
 				</Script>
+				{/* <ReactScan /> */}
 				<body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
 					<Header />
 					{children}
