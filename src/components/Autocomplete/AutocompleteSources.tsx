@@ -2,6 +2,7 @@ import { getAnimesByQuery } from '@/api/getAnimeByQuery'
 import { getAnimeEpisodes } from '@/api/getAnimeEpisodes'
 import { APP_ROUTES } from '@/constants'
 import type { AutocompleteItem, AutocompleteItemChilds } from '@/hooks/useAutocomplete.types'
+import blurImage from '@/public/lights-blur.webp'
 import AppWindow from '../Icons/AppWindow'
 
 const mapRouteItem = (route: (typeof APP_ROUTES)[number]) => ({
@@ -15,8 +16,13 @@ const mapRouteItem = (route: (typeof APP_ROUTES)[number]) => ({
 export const getRoutesItems = (query: string) => {
 	if (query.length < 1) return APP_ROUTES.map(mapRouteItem)
 
-	const regex = new RegExp(query, 'gi')
-	const filteredRoutes = APP_ROUTES.filter(route => regex.test(route.name) || regex.test(route.description))
+	const filteredRoutes = APP_ROUTES.filter(route => {
+		const routeName = route.name.toLowerCase()
+		const routeDescription = route.description.toLowerCase()
+		const lowerQuery = query.toLowerCase()
+
+		return routeName.includes(lowerQuery) || routeDescription.includes(lowerQuery) || route.link.includes(lowerQuery)
+	})
 
 	return filteredRoutes.map(mapRouteItem)
 }
@@ -27,7 +33,7 @@ const getAnimeItemChilds = async (animeId: AutocompleteItem['id']): Promise<Auto
 		id: episode.episodeId,
 		title: episode.episode,
 		image: {
-			src: episode.image || '/lights-blur.webp',
+			src: episode.image || blurImage.src,
 			alt: episode.title,
 		},
 		link: `/animes/${episode.animeId}/${episode.episode}`,
@@ -42,20 +48,25 @@ const getAnimeItemChilds = async (animeId: AutocompleteItem['id']): Promise<Auto
 export const getAnimeItems = async (query: string) => {
 	if (query.length < 1) return []
 
-	const limit = 10 + query.length * 2
+	const limit = Math.min(10 + query.length * 2, 15)
 	const animes = await getAnimesByQuery(encodeURIComponent(query), limit)
 
 	return animes
-		.map(anime => ({
-			id: anime.animeId,
-			title: anime.title,
-			image: anime.images?.coverImage || anime.images?.carouselImages[0]?.link || '/lights-blur.webp',
-			link: `/animes/${anime.animeId}`,
-			description: anime.description ?? 'Descripcion no disponible',
-			type: anime.type ?? 'Anime',
-			rank: anime.rank ?? 0,
-			genres: anime.genres,
-			childsCallback: () => getAnimeItemChilds(anime.animeId),
-		}))
+		.map(anime => {
+			const descriptionTooLong = anime.description.length > 100
+			const truncatedDescription = `${anime.description.slice(0, 100)}${descriptionTooLong ? '...' : ''}`
+
+			return {
+				id: anime.animeId,
+				title: anime.title,
+				image: anime.images?.coverImage || anime.images?.carouselImages[0]?.link || blurImage.src,
+				link: `/animes/${anime.animeId}`,
+				description: truncatedDescription ?? 'Descripcion no disponible',
+				type: anime.type ?? 'Anime',
+				rank: anime.rank ?? 0,
+				genres: anime.genres,
+				childsCallback: () => getAnimeItemChilds(anime.animeId),
+			}
+		})
 		.sort((a, b) => b.rank - a.rank)
 }

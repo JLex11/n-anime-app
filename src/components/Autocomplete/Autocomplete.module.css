@@ -119,6 +119,7 @@
 }
 
 .collectionsPanel {
+  --scrollbar-width: 0.3rem;
   --pd: 0.5rem;
   --panel-bg: rgba(59, 59, 59, 1);
   display: grid;
@@ -127,7 +128,7 @@
   border: 2px solid rgb(92 92 92);
   border-radius: 0.6rem;
   background-color: var(--panel-bg);
-  padding: var(--pd);
+  padding: var(--pd) 0.2rem var(--pd) calc(var(--pd) + var(--scrollbar-width));
   width: 100%;
   height: fit-content;
 }
@@ -167,8 +168,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  padding-bottom: 0.6rem;
   width: 100%;
+  padding: 0 .5rem .6rem 0;
 }
 
 .collection:not(:last-child) {
@@ -186,6 +187,7 @@
   background-color: var(--panel-bg);
   padding: 0.5rem;
   width: 100%;
+  z-index: 1;
 }
 
 .collectionTitle {

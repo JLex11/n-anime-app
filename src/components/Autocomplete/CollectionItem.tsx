@@ -28,7 +28,7 @@ export const CollectionItem = memo(function CollectionItem({ item }: Props) {
 
 	useEffect(() => {
 		if (!isActive) return
-		const timeoutId = setTimeout(() => router.prefetch(item.link), 200)
+		const timeoutId = setTimeout(() => router.prefetch(item.link), 300)
 		return () => clearTimeout(timeoutId)
 	}, [isActive, item.link, router])
 
