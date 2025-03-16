@@ -1,4 +1,4 @@
-import { Link } from 'next-view-transitions'
+import Link from 'next/link'
 import { unstable_ViewTransition as ViewTransition } from 'react'
 import { BadgeList } from '../BadgeList'
 import styles from './Carousel.module.css'
