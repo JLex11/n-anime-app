@@ -28,9 +28,9 @@ export const CollectionItem = memo(function CollectionItem({ item }: Props) {
 
 	useEffect(() => {
 		if (!isActive) return
-		const timeoutId = setTimeout(() => router.prefetch(item.link), 100)
-		return () => clearInterval(timeoutId)
-	}, [isActive, item, router])
+		const timeoutId = setTimeout(() => router.prefetch(item.link), 200)
+		return () => clearTimeout(timeoutId)
+	}, [isActive, item.link, router])
 
 	const handleHover = () => {
 		if (activeItemId !== Number(item.__autocomplete_id)) setActiveItemId(Number(item.__autocomplete_id))
@@ -45,8 +45,8 @@ export const CollectionItem = memo(function CollectionItem({ item }: Props) {
 			<img
 				src={item.image}
 				alt={item.title}
-				width={40}
-				height={50}
+				width={50}
+				height={62.5}
 				className={styles.itemImage}
 				decoding='async'
 				loading='lazy'

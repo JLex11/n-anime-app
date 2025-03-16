@@ -54,6 +54,7 @@ export const getAnimeItems = async (query: string) => {
 			description: anime.description ?? 'Descripcion no disponible',
 			type: anime.type ?? 'Anime',
 			rank: anime.rank ?? 0,
+			genres: anime.genres,
 			childsCallback: () => getAnimeItemChilds(anime.animeId),
 		}))
 		.sort((a, b) => b.rank - a.rank)

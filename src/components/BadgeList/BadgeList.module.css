@@ -2,7 +2,7 @@
   display: flex;
   column-gap: var(--badge-column-gap);
   row-gap: var(--badge-row-gap);
-  flex-wrap: wrap;
+  flex-wrap: var(--badge-wrap);
   align-items: center;
   width: var(--badge-width);
 }
