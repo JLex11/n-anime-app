@@ -35,11 +35,10 @@ interface Props {
 
 const speculationRulesConfig = {
 	prerender: [
-		{ source: 'list', urls: ['/', '/animes'] },
-		{ where: { selector_matches: 'a.prerender' }, eagerness: 'eager' },
-		{ where: { selector_matches: 'a.prerender-hover' }, eagerness: 'moderate' },
+		{ source: 'document', where: { selector_matches: 'a.prerender' }, eagerness: 'eager' },
+		{ source: 'document', where: { selector_matches: 'a.prerender-hover' }, eagerness: 'moderate' },
 	],
-	prefetch: [{ where: { selector_matches: 'a.prefetch' } }],
+	prefetch: [{ source: 'document', where: { selector_matches: 'a.prefetch' } }],
 }
 
 const speculationRulesJSON = JSON.stringify(speculationRulesConfig)
