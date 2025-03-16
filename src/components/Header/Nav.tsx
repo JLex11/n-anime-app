@@ -9,15 +9,13 @@ interface NavProps {
 export function Nav({ pages }: NavProps) {
 	return (
 		<nav className={styles.headerNav}>
-			{pages && (
-				<ul className={styles.pages}>
-					{pages.map(page => (
-						<li key={page.link}>
-							<NavLink page={page} />
-						</li>
-					))}
-				</ul>
-			)}
+			<ul className={styles.pages}>
+				{pages.map(page => (
+					<li key={page.link}>
+						<NavLink page={page} />
+					</li>
+				))}
+			</ul>
 		</nav>
 	)
 }
