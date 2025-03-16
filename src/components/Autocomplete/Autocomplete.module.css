@@ -23,6 +23,7 @@
   gap: var(--form-gap);
   transform: translate3d(0, var(--form-top), 0);
   transition: transform 0.3s ease;
+  will-change: transform;
   margin: 0 auto;
   padding: var(--form-pd);
   width: min(100%, var(--form-max-width));
@@ -199,6 +200,7 @@
   transition: background-color 0.2s;
   border-radius: 0.4rem;
   padding: 0.5rem;
+  content-visibility: auto;
 }
 
 .collectionItem.isActive {
@@ -229,7 +231,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.3rem;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .itemContent>* {
@@ -249,8 +251,13 @@
   font-size: 11pt;
 }
 
+.itemFooter {
+  padding-block: 0.3rem;
+}
+
 .itemIcon {
   transition: transform 0.3s ease-in-out;
+  will-change: transform;
   border: none;
   border-radius: 0.3rem;
   background-color: transparent;

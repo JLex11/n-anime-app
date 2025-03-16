@@ -13,6 +13,7 @@
   flex: 1;
   transition: filter 0.3s ease-in-out;
   transition-delay: 0.1s;
+  will-change: filter;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
   border-radius: 0.5rem;
   width: 100%;
@@ -63,6 +64,7 @@
   transition:
     opacity 0.3s ease-in-out,
     transform 0.3s ease-in-out;
+  will-change: opacity, transform;
   transition-delay: 0.1s;
   inset: 0;
   border-radius: 0.5rem;

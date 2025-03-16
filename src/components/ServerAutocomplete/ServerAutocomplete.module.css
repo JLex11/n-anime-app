@@ -24,6 +24,7 @@
   gap: var(--form-gap);
   transform: translate3d(0, var(--form-top), 0);
   transition: transform 0.5s ease;
+  will-change: transform;
   margin: 0 auto;
   padding: var(--form-pd);
   width: min(100%, var(--form-max-width));
@@ -48,17 +49,15 @@
   animation: animateGradient 5s ease alternate infinite;
   box-shadow: var(--input-shadow);
   border-radius: calc(4 * var(--borderWidth));
-  background: linear-gradient(
-    60deg,
-    #f79533,
-    #f37055,
-    #ef4e7b,
-    #a166ab,
-    #5073b8,
-    #1098ad,
-    #07b39b,
-    #6fba82
-  );
+  background: linear-gradient(60deg,
+      #f79533,
+      #f37055,
+      #ef4e7b,
+      #a166ab,
+      #5073b8,
+      #1098ad,
+      #07b39b,
+      #6fba82);
   background-size: 300% 300%;
   width: calc(100% + var(--borderWidth) * 2);
   height: calc(100% + var(--borderWidth) * 2);
@@ -69,9 +68,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -134,10 +135,7 @@
   --scrollbar-width: 0.3rem;
   transition: max-height 0.3s;
   width: 100%;
-  max-height: calc(
-    100vh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 -
-      var(--pd) * 2 - var(--footer-height)
-  );
+  max-height: calc(100vh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 - var(--pd) * 2 - var(--footer-height));
   overflow-y: auto;
 }
 
@@ -224,7 +222,7 @@
   overflow: hidden;
 }
 
-.itemContent > * {
+.itemContent>* {
   width: 100%;
   overflow: hidden;
   text-align: start;

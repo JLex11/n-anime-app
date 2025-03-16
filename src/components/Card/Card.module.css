@@ -38,6 +38,7 @@
   transition:
     box-shadow 0.3s ease,
     scale 0.3s ease;
+  will-change: box-shadow, transform;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 0.7rem;
   width: 100%;

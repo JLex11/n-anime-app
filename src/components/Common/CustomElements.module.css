@@ -5,6 +5,7 @@
   padding: var(--padding);
   font-weight: 600;
   height: 30px;
+  text-wrap: nowrap;
 }
 
 /* Breadcrumb */

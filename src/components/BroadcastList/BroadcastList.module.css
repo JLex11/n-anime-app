@@ -36,6 +36,7 @@
   perspective: 100px;
   z-index: 1;
   transition: transform 0.3s ease-in-out;
+  will-change: transform;
   cursor: pointer;
   border-radius: 0.4rem;
   padding: 0.5rem;
@@ -50,6 +51,7 @@
   transition:
     opacity 0.3s ease-in-out,
     transform 0.3s ease-in-out;
+  will-change: opacity, transform;
   inset: 0;
   border-radius: 0.4rem;
   background: linear-gradient(60deg, #5073b8, #1098ad, #07b39b, #6fba82);

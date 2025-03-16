@@ -18,7 +18,7 @@
   view-transition-name: carousel_before;
 }
 
-/* .carousel::view-transition-old(carousel_before), */
+.carousel::view-transition-old(carousel_before),
 .carousel::view-transition-new(carousel_before) {
   position: absolute;
   bottom: 0;
@@ -142,7 +142,7 @@
   transition:
     scale 0.2s ease-in-out,
     margin-inline 0.3s ease-in-out;
-  will-change: auto;
+  will-change: transform, margin-inline;
   border: none;
   border-radius: 0.5rem;
   background-color: transparent;
