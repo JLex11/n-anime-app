@@ -1,4 +1,5 @@
 import { getBroadcastAnimes } from '@/api/getBroadcastAnimes'
+import blurImage from '@/public/lights-blur.webp'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './BroadcastList.module.css'
@@ -12,7 +13,7 @@ export const BroadcastList = async () => {
 				<li key={animeId} className={styles.broadcastListItemParent}>
 					<Link href={`/animes/${animeId}`} className={styles.broadcastListItem}>
 						<Image
-							src={images?.coverImage || '/lights-blur.webp'}
+							src={images?.coverImage || blurImage}
 							alt={`cover image of the anime ${title}`}
 							width={40}
 							height={40}

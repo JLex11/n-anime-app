@@ -1,6 +1,8 @@
 import PlayIcon from '@/components/Icons/PlayIcon'
+import blurImage from '@/public/lights-blur.webp'
 import type { Episode } from '@/types'
 import clsx from 'clsx'
+import Image from 'next/image'
 import Link from 'next/link'
 import styles from './EpisodeList.module.css'
 
@@ -20,8 +22,8 @@ export function ListItem({ link, episode, isSeeing, animeImage, animeTitle }: As
 		<li>
 			<Link href={link} className={itemClass} scroll={false}>
 				<span>{isSeeing ? <PlayIcon width={50} /> : episode.episode}</span>
-				<img
-					src={fixedEpisodeImgSrc ?? animeImage ?? '/lights-blur.webp'}
+				<Image
+					src={fixedEpisodeImgSrc || animeImage || blurImage}
 					alt={`Episodio ${episode.episode} de ${animeTitle}`}
 					width={150}
 					height={100}

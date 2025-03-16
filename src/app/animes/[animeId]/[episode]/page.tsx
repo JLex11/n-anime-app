@@ -5,6 +5,7 @@ import { BackgroundBlurredImage } from '@/components/BackgroundBlurredImage'
 import { Aside } from '@/components/EpisodePage/Aside'
 import styles from '@/components/EpisodePage/Episode.module.css'
 import { VideoSection } from '@/components/VideoSection'
+import blurImage from '@/public/lights-blur.webp'
 import { normalizeAnimeId } from '@/utils/normalizeAnimeId'
 import { toCap } from '@/utils/textConverts'
 import clsx from 'clsx'
@@ -44,7 +45,7 @@ export default async function EpisodePage({ params, searchParams }: Props) {
 				/>
 			</section>
 			<BackgroundBlurredImage
-				src={animeInfo?.images?.carouselImages[0]?.link || animeInfo?.images?.coverImage || '/lights-blur.webp'}
+				src={animeInfo?.images?.carouselImages[0]?.link || animeInfo?.images?.coverImage || blurImage}
 				alt={normalizeAnimeId(animeId)}
 			/>
 		</EpisodePageContextProvider>

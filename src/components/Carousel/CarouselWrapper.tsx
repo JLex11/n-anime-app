@@ -1,6 +1,7 @@
 'use client'
 
 import { useCarousel } from '@/hooks/useCarousel'
+import blurImage from '@/public/lights-blur.webp'
 import type { Anime } from '@/types'
 import styles from './Carousel.module.css'
 import { CarouselNavigation } from './Navigation'
@@ -19,7 +20,7 @@ export function CarouselWrapper({ animes, children }: Props) {
 	const buttonsData = animes.map(({ title, animeId, images }) => ({
 		title,
 		animeId,
-		images: [images?.coverImage, '/lights-blur.webp'],
+		images: [images?.coverImage, blurImage.src].filter(Boolean) as string[],
 	}))
 
 	return (

@@ -1,3 +1,4 @@
+import blurImage from '@/public/lights-blur.webp'
 import type { Anime } from '@/types'
 import Image from 'next/image'
 import { unstable_ViewTransition as ViewTransition } from 'react'
@@ -10,18 +11,15 @@ export async function AnimeAside({ anime }: { anime: Anime }) {
 		<aside className={styles.aside}>
 			<ViewTransition name={`anime-image-${anime.animeId}`}>
 				<Image
-					src={anime.images?.coverImage ?? ''}
+					src={anime.images?.coverImage || blurImage}
 					alt={anime.title}
 					width={300}
 					height={300 / PORTRAIT_ASPECT_RATIO}
 					className={styles.asideImg}
 					priority
 					loading='eager'
-					blurDataURL='/lights-blur.webp'
+					blurDataURL={blurImage.src}
 					placeholder='blur'
-					/* style={{
-							viewTransitionName: `anime-image-${anime.animeId}`,
-						}} */
 				/>
 			</ViewTransition>
 			{anime.status && (
