@@ -1,37 +1,38 @@
-import { AutocompleteOptionsWithMetadata, BaseItem } from '@algolia/autocomplete-core'
+import type { AutocompleteOptionsWithMetadata, BaseItem } from '@algolia/autocomplete-core'
 
 export interface AutocompleteItemChild {
-  id: string
-  title: string | number
-  image: {
-    src: string | undefined
-    alt: string
-  }
-  link: string
+	id: string
+	title: string | number
+	image: {
+		src: string | undefined
+		alt: string
+	}
+	link: string
 }
 
 export interface AutocompleteItemChilds {
-  items: AutocompleteItemChild[]
-  title: string
+	items: AutocompleteItemChild[]
+	title: string
 }
 
 export type AutocompleteItemId = `autocompleteItem-${string | number}`
 
 export interface AutocompleteItem extends BaseItem {
-  id: string
-  title: string
-  image: string | React.ReactNode
-  link: string
-  description: string
-  type?: string
-  rank?: number
-  childsCallback?: () => Promise<AutocompleteItemChilds>
+	id: string
+	title: string
+	image: string | React.ReactNode
+	link: string
+	description: string
+	type?: string
+	rank?: number
+	genres?: string[]
+	childsCallback?: () => Promise<AutocompleteItemChilds>
 }
 
 export interface AutocompleteOutputItem extends AutocompleteItem {
-  getItemRef: (index: number) => RefObject<HTMLElement>
+	getItemRef: (index: number) => RefObject<HTMLElement>
 }
 
 export interface AutocompleteProps extends AutocompleteOptionsWithMetadata<AutocompleteOutputItem> {
-  handleLaunchAutocomplete: React.Dispatch<React.SetStateAction<boolean>>
+	handleLaunchAutocomplete: React.Dispatch<React.SetStateAction<boolean>>
 }
