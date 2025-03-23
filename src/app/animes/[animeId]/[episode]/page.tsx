@@ -21,17 +21,19 @@ export default async function EpisodePage({ params, searchParams }: Props) {
 
 	const [episodeSources, animeInfo] = await Promise.all([getEpisodeSources(`${animeId}-${episode}`), getAnime(animeId)])
 
-	const episodeWasFound = Boolean(episodeSources?.videos.SUB)
+	const animeTitle = animeInfo?.title ?? normalizeAnimeId(animeId)
+	const coverImage = animeInfo?.images?.coverImage
+	const bannerImage = animeInfo?.images?.carouselImages?.[0]?.link || coverImage || blurImage
+	const episodeWasFound = Boolean(episodeSources?.videos?.SUB)
 	const mainContentClass = clsx(styles.mainContent, !episodeWasFound && styles.episodeNotFound)
+
+	const formattedTitle = toCap(`episodio ${episode} de ${animeTitle}`)
 
 	return (
 		<EpisodePageContextProvider>
 			<section className={mainContentClass}>
 				{episodeWasFound ? (
-					<VideoSection
-						iframesData={episodeSources?.videos}
-						title={toCap(`episodio ${episode} de ${animeInfo?.title ?? normalizeAnimeId(animeId)}`)}
-					/>
+					<VideoSection iframesData={episodeSources?.videos} title={formattedTitle} />
 				) : (
 					<h2>Episodio no encontrado.</h2>
 				)}
@@ -39,15 +41,12 @@ export default async function EpisodePage({ params, searchParams }: Props) {
 				<Aside
 					searchParams={await searchParams}
 					animeId={animeId}
-					animeTitle={animeInfo?.title ?? normalizeAnimeId(animeId)}
-					animeImage={animeInfo?.images?.coverImage}
+					animeTitle={animeTitle}
+					animeImage={coverImage}
 					currentEpisode={Number(episode)}
 				/>
 			</section>
-			<BackgroundBlurredImage
-				src={animeInfo?.images?.carouselImages[0]?.link || animeInfo?.images?.coverImage || blurImage}
-				alt={normalizeAnimeId(animeId)}
-			/>
+			<BackgroundBlurredImage src={bannerImage} alt={normalizeAnimeId(animeId)} />
 		</EpisodePageContextProvider>
 	)
 }
