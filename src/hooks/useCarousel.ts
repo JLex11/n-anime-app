@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 interface Props {
 	itemIds: string[]
@@ -11,6 +11,9 @@ interface CurrentItem {
 
 const SESSION_STORAGE_KEY = 'currentSlideId'
 
+// Creamos una versión segura de useLayoutEffect que funciona en SSR
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
+
 export function useCarousel({ itemIds }: Props) {
 	const [currentItem, setCurrentItem] = useState<CurrentItem>({
 		value: 0,
@@ -19,13 +22,16 @@ export function useCarousel({ itemIds }: Props) {
 
 	const scrollerRef = useRef<HTMLUListElement>(null)
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: this must be on mount
-	useEffect(() => {
-		const currentSlideId = sessionStorage.getItem(SESSION_STORAGE_KEY)
-		const currentSlideIndex = currentSlideId ? itemIds.indexOf(currentSlideId) : null
+	// Usamos useIsomorphicLayoutEffect para que se ejecute solo una vez al montar el componente
+	useIsomorphicLayoutEffect(() => {
+		if (typeof window !== 'undefined') {
+			const currentSlideId = sessionStorage.getItem(SESSION_STORAGE_KEY)
+			const currentSlideIndex = currentSlideId ? itemIds.indexOf(currentSlideId) : -1
 
-		if (!currentSlideIndex) return
-		setCurrentItem({ value: currentSlideIndex, dispatchSource: 'init' })
+			if (currentSlideIndex !== -1) {
+				setCurrentItem({ value: currentSlideIndex, dispatchSource: 'init' })
+			}
+		}
 	}, [])
 
 	useEffect(() => {
