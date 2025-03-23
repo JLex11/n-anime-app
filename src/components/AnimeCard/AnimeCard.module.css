@@ -58,12 +58,12 @@
   position: absolute;
   flex-direction: column;
   gap: 0.5rem;
-  transform: translate3d(0, 1rem, 0);
+  transform: translate3d(0, 100%, 0);
   opacity: 0;
   z-index: 1;
   transition:
-    opacity 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
+    opacity 0.3s ease,
+      transform 0.3s ease;
   will-change: opacity, transform;
   transition-delay: 0.1s;
   inset: 0;
@@ -87,4 +87,9 @@
   font-size: 0.95rem;
   line-height: 1.25rem;
   text-overflow: ellipsis;
+}
+.card {
+  will-change: transform;
+  transform: translateZ(0);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
