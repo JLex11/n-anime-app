@@ -22,9 +22,9 @@ export default async function HomePage() {
 					icon={<LatestIcon />}
 					gridProps={{ width: CARDS_WIDTH, height: CARDS_HEIGHT }}
 				>
-					<Suspense fallback={<CardsSkeleton countCards={6} hasPill={true} />}>
-						<LatestEpisodes />
-					</Suspense>
+					{/* <Suspense fallback={<CardsSkeleton countCards={6} hasPill={true} />}> */}
+					<LatestEpisodes />
+					{/* </Suspense> */}
 				</CardsSection>
 
 				<CardsSection
@@ -34,14 +34,14 @@ export default async function HomePage() {
 					column='1 / span 2'
 					gridProps={{ width: '14rem', height: '26rem', gap: '1.5rem' }}
 				>
-					<Suspense fallback={<CardsSkeleton countCards={3} />}>
-						<LatestAnimes />
-					</Suspense>
+					{/* <Suspense fallback={<CardsSkeleton countCards={3} />}> */}
+					<LatestAnimes />
+					{/* </Suspense> */}
 				</CardsSection>
 
-				<Suspense>
-					<HomeAside />
-				</Suspense>
+				{/* <Suspense> */}
+				<HomeAside />
+				{/* </Suspense> */}
 			</main>
 		</>
 	)
