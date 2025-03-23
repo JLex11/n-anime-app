@@ -12,5 +12,8 @@
 		"**/logs": true,
 		"**/node_modules": false
 	},
-	"editor.defaultFormatter": "biomejs.biome"
+	"editor.defaultFormatter": "biomejs.biome",
+	"[jsonc]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	}
 }
