@@ -106,15 +106,16 @@
 .loadingIcon {
   display: flex;
   animation: spin 1s linear infinite;
+  will-change: transform;
 }
 
 @keyframes spin {
   from {
-    transform: rotate(0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
   }
 
   to {
-    transform: rotate(360deg);
+    transform: rotate3d(0, 0, 1, 360deg);
   }
 }
 
@@ -123,7 +124,7 @@
   --pd: 0.5rem;
   --panel-bg: rgba(59, 59, 59, 1);
   display: grid;
-  animation: expandAnimation 0.5s;
+  animation: expandAnimation 0.25s 0.2s forwards ease-out;
   box-shadow: var(--input-shadow);
   border: 2px solid rgb(92 92 92);
   border-radius: 0.6rem;
@@ -131,15 +132,21 @@
   padding: var(--pd) 0.2rem var(--pd) calc(var(--pd) + var(--scrollbar-width));
   width: 100%;
   height: fit-content;
+  grid-template-rows: 0fr;
+  will-change: transform, opacity;
 }
 
 @keyframes expandAnimation {
   from {
+
     grid-template-rows: 0fr;
+    transform: translate3d(0, -10px, 0);
   }
 
   to {
+
     grid-template-rows: 1fr;
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -149,6 +156,8 @@
   max-height: calc(100svh - var(--form-top) - var(--input-height) - var(--form-pd) * 2 - var(--form-gap) * 2 - var(--pd) * 2 - var(--footer-height));
   overflow-y: auto;
   overscroll-behavior: contain;
+  contain: content;
+  transform: translateZ(0);
 }
 
 .collectionsContainer::-webkit-scrollbar {
@@ -203,6 +212,8 @@
   border-radius: 0.4rem;
   padding: 0.5rem;
   content-visibility: auto;
+  will-change: background-color;
+  transform: translateZ(0);
 }
 
 .collectionItem.isActive {
@@ -260,6 +271,7 @@
 .itemIcon {
   transition: transform 0.3s ease-in-out;
   will-change: transform;
+  transform: translateZ(0);
   border: none;
   border-radius: 0.3rem;
   background-color: transparent;
@@ -272,7 +284,7 @@
 }
 
 .collectionItem.expanded .itemIcon {
-  transform: rotateX(180deg);
+  transform: translate3d(0, 0, 0) rotateX(180deg);
   background-color: rgba(255, 255, 255, 0.098);
 }
 
