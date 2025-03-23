@@ -1,4 +1,5 @@
 import type { AutocompleteOutputItem } from '@/hooks/useAutocomplete.types'
+import { memo } from 'react'
 import styles from './Autocomplete.module.css'
 import { Collection } from './Collection'
 import { PanelFooter } from './PanelFooter'
@@ -18,16 +19,33 @@ interface Props {
 	}[]
 }
 
-export function CollectionsPanel({ className: cssClass, panelRef, panelProps, collections }: Props) {
+export const CollectionsPanel = memo(function CollectionsPanel({ 
+	className: cssClass, 
+	panelRef, 
+	panelProps, 
+	collections 
+}: Props) {
+	// Calculamos si hay resultados totales para mejorar la accesibilidad
+	const totalResults = collections.reduce((sum, collection) => sum + collection.items.length, 0)
+
 	return (
-		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-		<div className={cssClass} ref={panelRef} {...(panelProps as any)}>
+		<div 
+			className={cssClass} 
+			ref={panelRef} 
+			{...(panelProps as any)}
+			role="region"
+			aria-label={`Resultados de búsqueda: ${totalResults} items encontrados`}
+		>
 			<div className={styles.collectionsContainer}>
 				{collections.map(collection => (
-					<Collection key={collection.source.sourceId} sourceId={collection.source.sourceId} items={collection.items} />
+					<Collection 
+						key={collection.source.sourceId} 
+						sourceId={collection.source.sourceId} 
+						items={collection.items} 
+					/>
 				))}
 			</div>
 			<PanelFooter />
 		</div>
 	)
-}
+})

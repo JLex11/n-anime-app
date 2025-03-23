@@ -1,6 +1,6 @@
 import { useAutocomplete } from '@/hooks/useAutocomplete'
 import clsx from 'clsx'
-import { useId, useMemo } from 'react'
+import { useId, useMemo, useCallback } from 'react'
 import styles from './Autocomplete.module.css'
 import { CollectionsPanel } from './CollectionsPanel'
 import { AutocompleteContext } from './Contexts'
@@ -16,28 +16,32 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
 	})
 	const autocompleteId = useId()
 
-	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+	const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
 		const target = e.target as HTMLElement
 		if (target.id === autocompleteId) handleLaunchAutocomplete(false)
-	}
+	}, [autocompleteId, handleLaunchAutocomplete])
 
 	const resultsPanelClassName = clsx(styles.collectionsPanel, autocomplete.isOpen && styles.isOpen)
 	const formClassName = clsx(styles.form, autocomplete.isOpen && styles.isOpen)
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const providerValue = useMemo(
 		() => ({
 			activeItemId: autocomplete.activeItemId ?? 0,
 			setActiveItemId,
 			handleLaunchAutocomplete,
 		}),
-		[autocomplete.activeItemId]
+		[autocomplete.activeItemId, setActiveItemId, handleLaunchAutocomplete]
 	)
 
 	return (
 		<AutocompleteContext.Provider value={providerValue}>
-			{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-			<div className={styles.autocompleteContainer} id={autocompleteId} onClick={handleClick}>
+			<div 
+				className={styles.autocompleteContainer} 
+				id={autocompleteId} 
+				onClick={handleClick}
+				role="dialog" 
+				aria-label="Búsqueda de animes"
+			>
 				<form className={formClassName} {...elementsProps.formProps}>
 					<Input
 						status={autocomplete.status}

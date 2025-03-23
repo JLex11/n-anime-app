@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { memo } from 'react'
 import { ShortcutLetter } from '../Common/ShortcutLetter'
 import LoadingIcon from '../Icons/LoadingIcon'
 import styles from './Autocomplete.module.css'
@@ -9,16 +10,29 @@ interface InputProps {
 	inputProps: React.InputHTMLAttributes<HTMLInputElement>
 }
 
-export function Input({ status, inputRef, inputProps }: InputProps) {
+export const Input = memo(function Input({ status, inputRef, inputProps }: InputProps) {
 	const loadingIconClass = clsx(styles.inputIcon, styles.loadingIcon)
+	const isLoading = status === 'loading'
 
 	return (
 		<div className={styles.inputContainer}>
-			<input className={styles.inputSearch} ref={inputRef} {...inputProps} />
+			<input 
+				className={styles.inputSearch} 
+				ref={inputRef} 
+				aria-label="Buscar animes o páginas"
+				{...inputProps} 
+			/>
 			<div className={styles.containerInputIcons}>
-				{status === 'loading' && <LoadingIcon className={loadingIconClass} />}
-				{status !== 'loading' && <ShortcutLetter letters='esc' className={styles.inputIcon} />}
+				{isLoading ? (
+					<LoadingIcon className={loadingIconClass} aria-hidden="true" />
+				) : (
+					<ShortcutLetter 
+						letters='esc' 
+						className={styles.inputIcon} 
+						aria-label="Presiona Escape para cerrar"
+					/>
+				)}
 			</div>
 		</div>
 	)
-}
+})

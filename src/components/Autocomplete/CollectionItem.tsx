@@ -4,7 +4,7 @@ import { useToggle } from '@/hooks/useToggle'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { memo, useContext, useEffect, useMemo } from 'react'
+import { memo, useContext, useEffect, useMemo, useCallback } from 'react'
 import { FoldIcon } from '../Icons/FoldIcon'
 import styles from './Autocomplete.module.css'
 import { AutocompleteContext } from './Contexts'
@@ -18,50 +18,62 @@ interface Props {
 export const CollectionItem = memo(function CollectionItem({ item }: Props) {
 	const [expanded, toggleExpanded] = useToggle(false)
 	const { activeItemId, setActiveItemId, handleLaunchAutocomplete } = useContext(AutocompleteContext)
-
-	const isActive = useMemo(
-		() => activeItemId === Number(item.__autocomplete_id),
-		[activeItemId, item.__autocomplete_id]
-	)
-
 	const router = useRouter()
+	
+	const itemId = Number(item.__autocomplete_id)
+	const isActive = useMemo(() => activeItemId === itemId, [activeItemId, itemId])
 
 	useEffect(() => {
 		if (!isActive) return
-		const timeoutId = setTimeout(() => router.prefetch(item.link), 300)
+		
+		// Solo prefetch cuando el item está activo
+		const timeoutId = setTimeout(() => router.prefetch(item.link), 200)
 		return () => clearTimeout(timeoutId)
 	}, [isActive, item.link, router])
 
-	const handleHover = () => {
-		if (activeItemId !== Number(item.__autocomplete_id)) setActiveItemId(Number(item.__autocomplete_id))
-	}
+	const handleHover = useCallback(() => {
+		if (activeItemId !== itemId) setActiveItemId(itemId)
+	}, [activeItemId, itemId, setActiveItemId])
 
 	const childItems = useChildItems(item, expanded)
 
-	const collectionItemClass = clsx(styles.collectionItem, isActive && styles.isActive, expanded && styles.expanded)
+	const collectionItemClass = clsx(
+		styles.collectionItem, 
+		isActive && styles.isActive, 
+		expanded && styles.expanded
+	)
 
-	const itemImageElement =
-		typeof item.image === 'string' ? (
-			<img
-				src={item.image}
-				alt={item.title}
-				width={50}
-				height={62.5}
-				className={styles.itemImage}
-				decoding='async'
-				loading='lazy'
-			/>
-		) : (
-			item.image
-		)
+	const handleItemClick = useCallback(() => handleLaunchAutocomplete(false), [handleLaunchAutocomplete])
+	
+	// Renderiza imagen o componente React según el tipo de item.image
+	const itemImageElement = useMemo(() => {
+		if (typeof item.image === 'string') {
+			return (
+				<img
+					src={item.image}
+					alt={item.title}
+					width={50}
+					height={62.5}
+					className={styles.itemImage}
+					decoding='async'
+					loading='lazy'
+				/>
+			)
+		}
+		return item.image
+	}, [item.image, item.title])
 
 	return (
-		<article onMouseEnter={handleHover} ref={item.getItemRef(Number(item.__autocomplete_id))} title={item.description}>
+		<article 
+			onMouseEnter={handleHover} 
+			ref={item.getItemRef(itemId)} 
+			title={item.description}
+		>
 			<div className={collectionItemClass}>
 				<Link
 					href={item.link}
 					className={`${styles.itemContainer} ${isActive ? 'prerender' : 'prerender-hover'}`}
-					onClick={() => handleLaunchAutocomplete(false)}
+					onClick={handleItemClick}
 				>
 					{itemImageElement}
 					<ItemInfo item={item} />
@@ -73,7 +85,7 @@ export const CollectionItem = memo(function CollectionItem({ item }: Props) {
 						type='button'
 						onClick={toggleExpanded}
 						aria-expanded={expanded}
-						aria-label={expanded ? 'Collapse' : 'Expand'}
+						aria-label={expanded ? 'Contraer' : 'Expandir'}
 					>
 						<FoldIcon />
 					</button>
