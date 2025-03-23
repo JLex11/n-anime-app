@@ -4,6 +4,7 @@ import { Montserrat } from 'next/font/google'
 import LocalFont from 'next/font/local'
 import '../globals.css'
 import Script from 'next/script'
+import { unstable_ViewTransition as ViewTransition } from 'react'
 
 export const metadata = {
 	title: 'One Anime',
@@ -44,14 +45,16 @@ const speculationRulesJSON = JSON.stringify(speculationRulesConfig)
 
 export default function RootLayout({ children }: Props) {
 	return (
-			<html lang='es'>
-				<Script type='speculationrules' id='speculation-rules-script'>
-					{speculationRulesJSON}
-				</Script>
-				<body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
-					<Header />
-					{children}
-				</body>
-			</html>
+			<ViewTransition>
+				<html lang='es'>
+					<Script type='speculationrules' id='speculation-rules-script'>
+						{speculationRulesJSON}
+					</Script>
+					<body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
+						<Header />
+						{children}
+					</body>
+				</html>
+			</ViewTransition>
 	)
 }
