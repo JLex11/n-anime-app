@@ -26,11 +26,11 @@
 }
 
 .carouselItem {
-  display: flex;
-  position: relative;
-  align-items: center;
-  min-width: 100%;
-  /* scroll-snap-align: start; */
+	display: flex;
+	position: relative;
+	align-items: center;
+	min-width: 100%;
+	scroll-snap-align: start;
 }
 
 .carouselPicture {
