@@ -2,9 +2,9 @@ import { Header } from '@/components/Header'
 import clsx from 'clsx'
 import { Montserrat } from 'next/font/google'
 import LocalFont from 'next/font/local'
-import '../globals.css'
 import Script from 'next/script'
 import { unstable_ViewTransition as ViewTransition } from 'react'
+import '../globals.css'
 
 export const metadata = {
 	title: 'One Anime',
