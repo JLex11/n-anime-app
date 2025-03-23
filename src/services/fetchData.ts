@@ -4,8 +4,6 @@ interface NextFetchInit extends RequestInit {
 	next?: Record<string, unknown>
 }
 
-const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
-
 export const fetchData = async <T>(
 	apiPath: string,
 	fetchConfig: NextFetchInit = {}
@@ -14,11 +12,7 @@ export const fetchData = async <T>(
 
 	const promiseArray = [
 		fetch(`${APIRoutes.vercelBaseUrl}${apiPath}`, { ...fetchConfig }),
-		fetch(`${APIRoutes.renderBaseUrl}${apiPath}`, { ...fetchConfig }).then(async response => {
-			await wait(100)
-			if (!response.ok) throw new Error(response.statusText)
-			return response.json()
-		}),
+		fetch(`${APIRoutes.renderBaseUrl}${apiPath}`, { ...fetchConfig }),
 	]
 
 	return Promise.any(promiseArray)
