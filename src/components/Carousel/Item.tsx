@@ -16,7 +16,6 @@ export function Item({ anime, showInfo, index }: Props) {
 
 	return (
 		<li id={anime.animeId} className={styles.carouselItem} {...{ active: 'false' }}>
-			<ViewTransition name={`carousel-picture-${anime.animeId}`}>
 				<Picture
 					alt={anime.title}
 					images={[...pictureImages, fbImage]}
@@ -26,7 +25,6 @@ export function Item({ anime, showInfo, index }: Props) {
 					quality={80}
 					decoding='async'
 				/>
-			</ViewTransition>
 			{showInfo && <ItemInfo animeId={anime.animeId} title={anime.title ?? ''} genres={anime.genres} />}
 		</li>
 	)
