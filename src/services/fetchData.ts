@@ -11,8 +11,8 @@ export const fetchData = async <T>(
 	if (!apiPath) throw new Error('apiPath is required')
 
 	const promiseArray = [
-		/* fetch(`${APIRoutes.renderBaseUrl}${apiPath}`, { ...fetchConfig }), */
 		fetch(`${APIRoutes.vercelBaseUrl}${apiPath}`, { ...fetchConfig }),
+		fetch(`${APIRoutes.renderBaseUrl}${apiPath}`, { ...fetchConfig }),
 	]
 
 	return Promise.any(promiseArray)
