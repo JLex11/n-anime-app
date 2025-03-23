@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Fragment, unstable_ViewTransition as ViewTransition } from 'react'
+import { Fragment } from 'react'
 import { CardImage } from '../Card/CardImage'
 import styles from './AnimeCard.module.css'
 import type { CardProps } from './types'
@@ -17,9 +17,7 @@ export function AnimeCard({ title, link, image, labels, rank, description, anime
 	return (
 		<article className={styles.card}>
 			<Link href={link} className={styles.card_container}>
-				{/* <ViewTransition name={`anime-image-${animeId}`}> */}
 				<CardImage {...mappedImage} className={styles.card_img} decoding='async' loading='lazy' />
-				{/* </ViewTransition> */}
 				<div className={styles.content}>
 					<h3 className={styles.title}>{title}</h3>
 					<div className={styles.footer}>
