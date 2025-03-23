@@ -6,23 +6,6 @@
   height: var(--carousel-height);
 }
 
-.carousel::before {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-  background: linear-gradient(to bottom, transparent, var(--primary-color));
-  width: 100%;
-  height: 70%;
-  content: '';
-  view-transition-name: carousel_before;
-}
-
-.carousel::view-transition-old(carousel_before),
-.carousel::view-transition-new(carousel_before) {
-  background: linear-gradient(to bottom, transparent, var(--primary-color));
-}
-
 .slidingButton {
   position: absolute;
   top: 5rem;
@@ -47,7 +30,7 @@
   position: relative;
   align-items: center;
   min-width: 100%;
-  scroll-snap-align: start;
+  /* scroll-snap-align: start; */
 }
 
 .carouselPicture {
@@ -56,6 +39,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  mask-image: linear-gradient(to top, transparent 1%, var(--primary-color) 100%);
 }
 
 .carouselItem picture img {
@@ -79,6 +63,7 @@
   transform: translate3d(0, 100%, 0);
   opacity: 0;
   transition: transform .5s, opacity 0.3s;
+  will-change: transform, opacity;
 }
 
 .carouselItem[active] .info {
@@ -135,7 +120,6 @@
 .navigateButton {
   display: flex;
   will-change: transform;
-  transform: translateZ(0);
   transition: transform 0.2s ease, opacity 0.2s ease;
   transform: translateY(-2.2rem);
   transform-origin: top;
