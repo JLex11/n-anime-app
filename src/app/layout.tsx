@@ -2,7 +2,6 @@ import { Header } from '@/components/Header'
 import clsx from 'clsx'
 import { Montserrat } from 'next/font/google'
 import LocalFont from 'next/font/local'
-import { unstable_ViewTransition as ViewTransition } from 'react'
 import '../globals.css'
 import Script from 'next/script'
 
@@ -45,7 +44,6 @@ const speculationRulesJSON = JSON.stringify(speculationRulesConfig)
 
 export default function RootLayout({ children }: Props) {
 	return (
-		<ViewTransition>
 			<html lang='es'>
 				<Script type='speculationrules' id='speculation-rules-script'>
 					{speculationRulesJSON}
@@ -55,6 +53,5 @@ export default function RootLayout({ children }: Props) {
 					{children}
 				</body>
 			</html>
-		</ViewTransition>
 	)
 }
