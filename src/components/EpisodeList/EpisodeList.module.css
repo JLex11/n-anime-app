@@ -37,6 +37,9 @@
   transition: background-color 0.2s;
   will-change: background-color;
   content-visibility: auto;
+  will-change: transform, box-shadow;
+    transform: translateZ(0);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .listItem.active::after {
@@ -77,4 +80,11 @@
 
 .buttonMore span {
   font-size: 13pt;
+}
+.listItem:hover {
+  transform: translate3d(0, -2px, 0);
+}
+
+.active {
+  transform: translate3d(0, 0, 0);
 }

@@ -6,13 +6,15 @@
   z-index: 99;
   backdrop-filter: blur(0px);
   transition: backdrop-filter 0.2s ease-in-out;
-  will-change: backdrop-filter;
+  will-change: backdrop-filter, background-color, box-shadow;
+    transform: translateZ(0);
   margin: 0 auto;
   background: linear-gradient(to bottom, var(--primary-color) -15%, transparent);
   width: 100%;
   color: white;
   text-align: center;
   view-transition-name: root_header;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .header::view-transition-new(root_header) {
@@ -81,6 +83,8 @@
   padding: 0.3rem 0.7rem;
   font-weight: 400;
   color: var(--page-item-text-color);
+  will-change: transform, color;
+    transform: translateZ(0);
 }
 
 .pageItem:is(.active) {
@@ -106,6 +110,10 @@
   view-transition-name: page-item-hover;
 }
 
+.active::after {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
 /* .header.scrolled .pageItem {
   --page-item-text-color: var(--primary-color);
 } */

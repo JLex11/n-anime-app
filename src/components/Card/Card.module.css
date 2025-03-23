@@ -1,8 +1,19 @@
 .card {
+  position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transform: translateZ(0);
+    /* Fuerza aceleración por GPU */
+    will-change: transform;
+    /* Prepara el navegador para animaciones */
+    transition: transform 0.2s ease;
   padding: 0.5rem;
   content-visibility: auto;
 }
 
+.card:hover {
+  transform: translate3d(0, -5px, 0) scale(1.02);
+}
 .showOnHoverContainer {
   position: absolute;
   top: 2rem;
@@ -78,6 +89,12 @@
   height: 100%;
   object-fit: cover;
   border-radius: 0.7rem;
+  will-change: transform;
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover .card_img {
+    transform: scale3d(1.05, 1.05, 1);
 }
 
 .pill {
