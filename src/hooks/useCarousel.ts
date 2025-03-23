@@ -19,6 +19,7 @@ export function useCarousel({ itemIds }: Props) {
 
 	const scrollerRef = useRef<HTMLUListElement>(null)
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: it must be run only once
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			const currentSlideId = sessionStorage.getItem(SESSION_STORAGE_KEY)
