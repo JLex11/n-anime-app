@@ -41,7 +41,7 @@ export function useAutocomplete({ handleLaunchAutocomplete }: AutocompleteProps)
 
 	// Debounce la búsqueda de animes para mejorar rendimiento
 	const debouncedGetAnimeItems = useMemo(
-		() => debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 250),
+		() => debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 300),
 		[]
 	)
 
