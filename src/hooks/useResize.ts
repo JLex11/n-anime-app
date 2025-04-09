@@ -1,36 +1,36 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useSyncExternalStore } from 'react'
 
 export const useResize = (ref: React.RefObject<HTMLElement>) => {
-  const [size, setSize] = useState({
-    width: 0,
-    height: 0
-  })
+	const [size, setSize] = useState({
+		width: 0,
+		height: 0,
+	})
 
-  useEffect(() => {
-    if (ref.current) {
-      setSize({
-        width: ref.current.offsetWidth,
-        height: ref.current.offsetHeight
-      })
-    }
-  }, [ref])
+	useEffect(() => {
+		if (ref.current) {
+			setSize({
+				width: ref.current.offsetWidth,
+				height: ref.current.offsetHeight,
+			})
+		}
+	}, [ref])
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (ref.current) {
-        setSize({
-          width: ref.current.offsetWidth,
-          height: ref.current.offsetHeight
-        })
-      }
-    }
+	const subscribe = (callback: () => void) => {
+		window.addEventListener('resize', callback, { passive: true })
+		return () => {
+			window.removeEventListener('resize', callback)
+		}
+	}
 
-    window.addEventListener('resize', handleResize)
+	const getSnapshot = () => {
+		if (ref.current) {
+			return {
+				width: ref.current.offsetWidth,
+				height: ref.current.offsetHeight,
+			}
+		}
+		return size
+	}
 
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [ref])
-
-  return size
+	return useSyncExternalStore(subscribe, getSnapshot)
 }

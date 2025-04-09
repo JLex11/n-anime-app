@@ -18,12 +18,12 @@ const autocompleteInitialState: AutocompleteState<AutocompleteOutputItem> = {
 // Función para crear un array de referencias basado en una clave
 const createItemRefGetter = () => {
 	const itemRefs = new Map<number, React.RefObject<HTMLElement | null>>()
-	
+
 	return (index: number) => {
 		if (!itemRefs.has(index)) {
 			itemRefs.set(index, createRef<HTMLElement>())
 		}
-		return itemRefs.get(index)!
+		return itemRefs.get(index) as React.RefObject<HTMLElement>
 	}
 }
 
@@ -32,7 +32,7 @@ export function useAutocomplete({ handleLaunchAutocomplete }: AutocompleteProps)
 
 	const inputRef = useRef<HTMLInputElement>(null)
 	const panelRef = useRef<HTMLDivElement>(null)
-	
+
 	const router = useRouter()
 	const autocompleteId = useId()
 
@@ -40,28 +40,23 @@ export function useAutocomplete({ handleLaunchAutocomplete }: AutocompleteProps)
 	const getItemRef = useMemo(() => createItemRefGetter(), [])
 
 	// Debounce la búsqueda de animes para mejorar rendimiento
-	const debouncedGetAnimeItems = useMemo(
-		() => debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 300),
-		[]
-	)
+	const debouncedGetAnimeItems = useMemo(() => debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 100), [])
 
 	const handleActiveItem = useCallback(
 		({ item, event, state }: OnActiveParams<AutocompleteOutputItem>) => {
-			// Prefetch optimizado
 			router.prefetch(item.link)
 
 			if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
 				const itemId = Number(item.__autocomplete_id)
 				const totalItems = state.collections.reduce((acc, collection) => acc + collection.items.length, 0)
-				
-				// Scroll optimizado para mejor UX
+
 				const block = itemId < 4 || itemId > totalItems - 4 ? 'center' : 'nearest'
 				const itemElement = getItemRef(itemId).current
-				
+
 				if (itemElement) {
-					itemElement.scrollIntoView({ 
-						behavior: 'smooth', 
-						block 
+					itemElement.scrollIntoView({
+						behavior: 'smooth',
+						block,
 					})
 				}
 			}
@@ -93,11 +88,11 @@ export function useAutocomplete({ handleLaunchAutocomplete }: AutocompleteProps)
 						getItemUrl: ({ item }) => item.link,
 						getItems: async () => {
 							if (query.length < 1) return []
-							
+
 							const animeItems = await debouncedGetAnimeItems(query)
-							return animeItems.map(animeItem => ({ 
-								...animeItem, 
-								getItemRef 
+							return animeItems.map(animeItem => ({
+								...animeItem,
+								getItemRef,
 							}))
 						},
 					},
@@ -121,10 +116,8 @@ export function useAutocomplete({ handleLaunchAutocomplete }: AutocompleteProps)
 		return {
 			action: autocompleteFormProps.action,
 			noValidate: autocompleteFormProps.noValidate,
-			onSubmit: (event: React.FormEvent<HTMLFormElement>) => 
-				autocompleteFormProps.onSubmit(event as unknown as Event),
-			onReset: (event: React.FormEvent<HTMLFormElement>) => 
-				autocompleteFormProps.onReset(event as unknown as Event),
+			onSubmit: (event: React.FormEvent<HTMLFormElement>) => autocompleteFormProps.onSubmit(event as unknown as Event),
+			onReset: (event: React.FormEvent<HTMLFormElement>) => autocompleteFormProps.onReset(event as unknown as Event),
 		}
 	}, [autoComplete])
 
@@ -132,8 +125,8 @@ export function useAutocomplete({ handleLaunchAutocomplete }: AutocompleteProps)
 	const inputProps = autoComplete.getInputProps({
 		inputElement: inputRef.current,
 	})
-	const panelProps = autoComplete.getPanelProps({ 
-		ref: panelRef.current 
+	const panelProps = autoComplete.getPanelProps({
+		ref: panelRef.current,
 	})
 
 	return {
