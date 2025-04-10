@@ -1,31 +1,7 @@
-import { useEffect, useState, useSyncExternalStore } from 'react'
+import { useEffect, useState } from 'react'
 
-export const useResizeObserver = (target: Element | null) => {
+export const useResizeObserver = (target?: Element | null) => {
 	const [elementSizes, setElementSizes] = useState<ResizeObserverSize>({
-		inlineSize: 0,
-		blockSize: 0,
-	})
-
-	const subscribe = (callback: () => void) => {
-		if (!target) return () => {}
-
-		const handleResize: ResizeObserverCallback = entries => {
-			if (!entries || entries.length === 0) return
-			const [firstEntry] = entries
-			const [borderSizes] = firstEntry.borderBoxSize
-			setElementSizes(borderSizes)
-			callback()
-		}
-
-		const observer = new ResizeObserver(handleResize)
-		observer.observe(target)
-
-		return observer.disconnect
-	}
-
-	const getSnapshot = () => elementSizes
-
-	const getServerSnapshot = () => ({
 		inlineSize: 0,
 		blockSize: 0,
 	})
@@ -33,11 +9,26 @@ export const useResizeObserver = (target: Element | null) => {
 	useEffect(() => {
 		if (!target) return
 
-		setElementSizes({
-			inlineSize: target.clientWidth,
-			blockSize: target.clientHeight,
-		})
+		const handleResize: ResizeObserverCallback = entries => {
+			if (!entries || entries.length === 0) return
+
+			const firstEntry = entries[0]
+
+			if (firstEntry.borderBoxSize && Array.isArray(firstEntry.borderBoxSize) && firstEntry.borderBoxSize.length > 0) {
+				setElementSizes(firstEntry.borderBoxSize[0])
+			} else if (firstEntry.contentRect) {
+				setElementSizes({
+					inlineSize: firstEntry.contentRect.width,
+					blockSize: firstEntry.contentRect.height,
+				})
+			}
+		}
+
+		const observer = new ResizeObserver(handleResize)
+		observer.observe(target)
+
+		return () => observer.disconnect()
 	}, [target])
 
-	return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+	return elementSizes
 }
