@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const withRspack = require('next-rspack')
 
 const IMAGE_DAYS_CACHE = 30
 
@@ -54,4 +55,4 @@ const nextConfig = {
 	},
 }
 
-module.exports = nextConfig
+module.exports = withRspack(nextConfig)

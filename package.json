@@ -3,9 +3,11 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev --turbopack",
+		"dev:turbo": "next dev --turbopack",
+		"dev": "next dev",
 		"tscheck": "tsc --noEmit",
-		"build": "next build --turbopack",
+		"build:turbo": "next build --turbopack",
+		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
 		"format:fix": "prettier --write --ignore-path .gitignore .",
@@ -27,6 +29,7 @@
 		"@types/node": "22.14.0",
 		"@types/react": "19.1.0",
 		"@types/react-dom": "19.1.2",
+		"next-rspack": "^15.3.0",
 		"prettier": "^3.5.3",
 		"prettier-plugin-css-order": "^2.1.2",
 		"typescript": "^5.8.3"
