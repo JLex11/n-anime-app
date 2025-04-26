@@ -5,9 +5,8 @@ import { CarouselHero } from '@/components/HomePage/CarouselHero'
 import styles from '@/components/HomePage/Home.module.css'
 import { HomeAside } from '@/components/HomePage/HomeAside'
 import { LatestAnimes } from '@/components/HomePage/LatestAnimes'
-import { CardsSkeleton, LatestEpisodes } from '@/components/HomePage/LatestEpisodes'
+import { LatestEpisodes } from '@/components/HomePage/LatestEpisodes'
 import LatestIcon from '@/components/Icons/LatestIcon'
-import { Suspense } from 'react'
 
 export default async function HomePage() {
 	const CARDS_WIDTH = '230px'
@@ -22,9 +21,7 @@ export default async function HomePage() {
 					icon={<LatestIcon />}
 					gridProps={{ width: CARDS_WIDTH, height: CARDS_HEIGHT }}
 				>
-					{/* <Suspense fallback={<CardsSkeleton countCards={6} hasPill={true} />}> */}
 					<LatestEpisodes />
-					{/* </Suspense> */}
 				</CardsSection>
 
 				<CardsSection
@@ -34,14 +31,9 @@ export default async function HomePage() {
 					column='1 / span 2'
 					gridProps={{ width: '14rem', height: '26rem', gap: '1.5rem' }}
 				>
-					{/* <Suspense fallback={<CardsSkeleton countCards={3} />}> */}
 					<LatestAnimes />
-					{/* </Suspense> */}
 				</CardsSection>
-
-				{/* <Suspense> */}
 				<HomeAside />
-				{/* </Suspense> */}
 			</main>
 		</>
 	)
