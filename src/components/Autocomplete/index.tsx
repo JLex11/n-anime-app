@@ -1,6 +1,6 @@
 import { useAutocomplete } from '@/hooks/useAutocomplete'
 import clsx from 'clsx'
-import { useId, useMemo, useCallback } from 'react'
+import { useCallback, useId, useMemo } from 'react'
 import styles from './Autocomplete.module.css'
 import { CollectionsPanel } from './CollectionsPanel'
 import { AutocompleteContext } from './Contexts'
@@ -16,10 +16,13 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
 	})
 	const autocompleteId = useId()
 
-	const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-		const target = e.target as HTMLElement
-		if (target.id === autocompleteId) handleLaunchAutocomplete(false)
-	}, [autocompleteId, handleLaunchAutocomplete])
+	const handleClick = useCallback(
+		(e: React.MouseEvent<HTMLDivElement>) => {
+			const target = e.target as HTMLElement
+			if (target.id === autocompleteId) handleLaunchAutocomplete(false)
+		},
+		[autocompleteId, handleLaunchAutocomplete]
+	)
 
 	const resultsPanelClassName = clsx(styles.collectionsPanel, autocomplete.isOpen && styles.isOpen)
 	const formClassName = clsx(styles.form, autocomplete.isOpen && styles.isOpen)
@@ -35,12 +38,12 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
 
 	return (
 		<AutocompleteContext.Provider value={providerValue}>
-			<div 
-				className={styles.autocompleteContainer} 
-				id={autocompleteId} 
+			<div
+				className={styles.autocompleteContainer}
+				id={autocompleteId}
 				onClick={handleClick}
-				role="dialog" 
-				aria-label="Búsqueda de animes"
+				role='dialog'
+				aria-label='Búsqueda de animes'
 			>
 				<form className={formClassName} {...elementsProps.formProps}>
 					<Input
