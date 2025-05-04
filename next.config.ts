@@ -51,7 +51,6 @@ const nextConfig: NextConfig = {
 	experimental: {
 		viewTransition: true,
 		cssChunking: true,
-		ppr: 'incremental',
 		reactCompiler: true,
 	},
 	eslint: {

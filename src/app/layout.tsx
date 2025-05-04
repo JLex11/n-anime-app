@@ -45,16 +45,16 @@ const speculationRulesJSON = JSON.stringify(speculationRulesConfig)
 
 export default function RootLayout({ children }: Props) {
 	return (
-			<ViewTransition>
-				<html lang='es'>
-					<Script type='speculationrules' id='speculation-rules-script'>
-						{speculationRulesJSON}
-					</Script>
-					<body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
-						<Header />
-						{children}
-					</body>
-				</html>
-			</ViewTransition>
+		<ViewTransition>
+			<html lang='es'>
+				<Script type='speculationrules' id='speculation-rules-script'>
+					{speculationRulesJSON}
+				</Script>
+				<body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
+					<Header />
+					{children}
+				</body>
+			</html>
+		</ViewTransition>
 	)
 }
