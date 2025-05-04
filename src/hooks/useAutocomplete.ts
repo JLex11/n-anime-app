@@ -36,11 +36,9 @@ export function useAutocomplete({ handleLaunchAutocomplete }: AutocompleteProps)
 	const router = useRouter()
 	const autocompleteId = useId()
 
-	// Usamos una función para crear un getter de refs que mejora la memoización
 	const getItemRef = useMemo(() => createItemRefGetter(), [])
 
-	// Debounce la búsqueda de animes para mejorar rendimiento
-	const debouncedGetAnimeItems = useMemo(() => debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 100), [])
+	const debouncedGetAnimeItems = useMemo(() => debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 300), [])
 
 	const handleActiveItem = useCallback(
 		({ item, event, state }: OnActiveParams<AutocompleteOutputItem>) => {
