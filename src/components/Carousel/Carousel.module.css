@@ -1,28 +1,28 @@
 .carousel {
-  display: flex;
-  position: relative;
-  margin: 0 auto;
-  width: 100%;
-  height: var(--carousel-height);
+	display: flex;
+	position: relative;
+	margin: 0 auto;
+	width: 100%;
+	height: var(--carousel-height);
 }
 
 .slidingButton {
-  position: absolute;
-  top: 5rem;
-  right: 1rem;
-  z-index: 3;
+	position: absolute;
+	top: 5rem;
+	right: 1rem;
+	z-index: 3;
 }
 
 .scroller {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  scroll-snap-type: x mandatory;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	scroll-snap-type: x mandatory;
 }
 
 .scroller::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 .carouselItem {
@@ -34,145 +34,147 @@
 }
 
 .carouselPicture {
-  z-index: 0;
-  margin: 0 auto;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  mask-image: linear-gradient(to top, transparent 1%, var(--primary-color) 100%);
+	z-index: 0;
+	margin: 0 auto;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	mask-image: linear-gradient(to top, transparent 1%, var(--primary-color) 100%);
+}
+
+.blurImage {
+	filter: blur(5px);
 }
 
 .carouselItem picture img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: var(--bg-position);
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: var(--bg-position);
 }
 
 .info {
-  display: flex;
-  position: absolute;
-  right: 0;
-  bottom: 10px;
-  left: 0;
-  justify-content: center;
-  align-items: flex-end;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  transform: translate3d(0, 100%, 0);
-  opacity: 0;
-  transition: transform .5s, opacity 0.3s;
-  will-change: transform, opacity;
+	display: flex;
+	position: absolute;
+	right: 0;
+	bottom: 10px;
+	left: 0;
+	justify-content: center;
+	align-items: flex-end;
+	z-index: 2;
+	width: 100%;
+	height: 100%;
+	transform: translate3d(0, 100%, 0);
+	opacity: 0;
+	transition: transform .5s, opacity 0.3s;
+	will-change: transform, opacity;
 }
 
 .carouselItem[active] .info {
-  transform: translate3d(0, 0, 0);
-  opacity: 1;
+	transform: translate3d(0, 0, 0);
+	opacity: 1;
 }
 
 .info .content {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  gap: 1.5rem;
-  padding: 0 var(--global-padding);
-  width: var(--max-width);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: flex-start;
+	gap: 1.5rem;
+	padding: 0 var(--global-padding);
+	width: var(--max-width);
 }
 
 .infoTitle {
-  display: -webkit-box;
-  max-width: min(100%, 700px);
-  font-weight: 600;
-  font-size: 2.7rem;
-  text-overflow: ellipsis;
-  text-wrap: balance;
-  overflow: hidden;
-  color: #fff;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  font-family: var(--anime-ace-bb-font);
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.315);
+	display: -webkit-box;
+	max-width: min(100%, 700px);
+	font-weight: 600;
+	font-size: 2.7rem;
+	text-overflow: ellipsis;
+	text-wrap: balance;
+	overflow: hidden;
+	color: #fff;
+	-webkit-line-clamp: 3;
+	line-clamp: 3;
+	-webkit-box-orient: vertical;
+	font-family: var(--anime-ace-bb-font);
+	text-shadow: 0 0 10px rgba(0, 0, 0, 0.315);
 }
 
 .navigateButtons {
-  display: flex;
-  position: absolute;
-  right: 0;
-  bottom: -30px;
-  justify-content: center;
-  align-items: center;
-  z-index: 2;
-  width: 100%;
+	display: flex;
+	position: absolute;
+	right: 0;
+	bottom: -30px;
+	justify-content: center;
+	align-items: center;
+	z-index: 2;
+	width: 100%;
 }
 
 .containerButtons {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  gap: 0.5rem;
-  padding: 0 var(--global-padding);
-  width: var(--max-width);
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	gap: 0.5rem;
+	padding: 0 var(--global-padding);
+	width: var(--max-width);
 }
 
 .navigateButton {
-  display: flex;
-  will-change: transform;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-  transform: translateY(-2.2rem);
-  transform-origin: top;
-  transition:
-    scale 0.2s ease-in-out,
-    margin-inline 0.3s ease-in-out;
-  will-change: transform, margin-inline;
-  border: none;
-  border-radius: 0.5rem;
-  background-color: transparent;
-  width: 3.3rem;
-  height: 3.9rem;
-  overflow: hidden;
+	display: flex;
+	will-change: transform;
+	transition: transform 0.2s ease, opacity 0.2s ease;
+	transform: translateY(-2.2rem);
+	transform-origin: top;
+	transition: scale 0.2s ease-in-out, margin-inline 0.3s ease-in-out;
+	will-change: transform, margin-inline;
+	border: none;
+	border-radius: 0.5rem;
+	background-color: transparent;
+	width: 3.3rem;
+	height: 3.9rem;
+	overflow: hidden;
 }
 
 .navigateButton:focus,
 .navigateButton:focus-visible {
-  outline: none;
+	outline: none;
 }
 
 .navigateButton:hover {
-  scale: 1.1;
+	scale: 1.1;
 }
 
 .navigateButton.active {
-  scale: 1.4;
-  margin-inline: 0.5rem;
+	scale: 1.4;
+	margin-inline: 0.5rem;
 }
 
 .navigateButton img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0.5rem;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 0.5rem;
 }
 
-@media (width <=56rem) {
-  .info ul {
-    width: 100%;
-  }
+@media (width <= 56rem) {
+	.info ul {
+		width: 100%;
+	}
 
-  .info .content {
-    margin-bottom: 5rem;
-  }
+	.info .content {
+		margin-bottom: 5rem;
+	}
 
-  .containerButtons {
-    justify-content: center;
-  }
+	.containerButtons {
+		justify-content: center;
+	}
 
-  .navigateButton {
-    transform: translateY(0);
-    transform-origin: center;
-    width: 3.6rem;
-    height: 4.5rem;
-  }
+	.navigateButton {
+		transform: translateY(0);
+		transform-origin: center;
+		width: 3.6rem;
+		height: 4.5rem;
+	}
 }

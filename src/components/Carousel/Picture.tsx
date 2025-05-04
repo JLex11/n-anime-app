@@ -1,6 +1,7 @@
 'use client'
 
 import { useFallbackImage } from '@/hooks/useFallbackImage'
+import clsx from 'clsx'
 import Image from 'next/image'
 import styles from './Carousel.module.css'
 
@@ -9,6 +10,7 @@ interface PictureImage {
 	width?: number
 	height?: number
 	position?: string
+	isBlur?: boolean
 }
 
 interface Props extends Omit<React.ComponentProps<typeof Image>, 'src' | 'width' | 'height'> {
@@ -26,7 +28,7 @@ export default function Picture({ images, defaultSize, preferDefaultSize, ...ima
 	const imageHeight = preferDefaultSize ? defaultSize.height : carouselImage.height
 
 	return (
-		<picture className={styles.carouselPicture}>
+		<picture className={clsx(styles.carouselPicture, carouselImage.isBlur && styles.blurImage)}>
 			<Image
 				{...imageProps}
 				src={carouselImage.link}

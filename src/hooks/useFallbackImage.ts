@@ -6,6 +6,7 @@ interface Image {
 	width?: number
 	height?: number
 	position?: string
+	isBlur?: boolean
 }
 
 type ValidImage = Image & { link: string }
@@ -28,6 +29,7 @@ export const useFallbackImage = (images: Image[], defaultDimensions: DefaultDime
 				width: defaultDimensions.width,
 				height: defaultDimensions.height,
 				position: 'center',
+				isBlur: true,
 			}
 		}
 
@@ -36,6 +38,7 @@ export const useFallbackImage = (images: Image[], defaultDimensions: DefaultDime
 			width: filteredImages[errorCount % filteredImages.length].width || defaultDimensions.width,
 			height: filteredImages[errorCount % filteredImages.length].height || defaultDimensions.height,
 			position: filteredImages[errorCount % filteredImages.length].position ?? 'center',
+			isBlur: filteredImages[errorCount % filteredImages.length].isBlur,
 		}
 	}
 

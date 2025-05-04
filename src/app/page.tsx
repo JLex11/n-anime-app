@@ -8,6 +8,8 @@ import { LatestAnimes } from '@/components/HomePage/LatestAnimes'
 import { LatestEpisodes } from '@/components/HomePage/LatestEpisodes'
 import LatestIcon from '@/components/Icons/LatestIcon'
 
+export const experimental_ppr = true
+
 export default async function HomePage() {
 	const CARDS_WIDTH = '230px'
 	const CARDS_HEIGHT = '190px'
