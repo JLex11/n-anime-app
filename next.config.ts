@@ -1,9 +1,10 @@
-/** @type {import('next').NextConfig} */
-const withRspack = require('next-rspack')
+import type { NextConfig } from 'next'
+import withRspack from 'next-rspack'
+import type { RemotePattern } from 'next/dist/shared/lib/image-config'
 
 const IMAGE_DAYS_CACHE = 30
 
-const images = {
+const images: { minimumCacheTTL: number; remotePatterns: RemotePattern[] } = {
 	minimumCacheTTL: IMAGE_DAYS_CACHE * 24 * 60 * 60,
 	remotePatterns: [
 		{
@@ -45,10 +46,12 @@ const images = {
 	],
 }
 
-const nextConfig = {
+const nextConfig: NextConfig = {
 	images,
 	experimental: {
 		viewTransition: true,
+		cssChunking: true,
+		ppr: true,
 	},
 	eslint: {
 		ignoreDuringBuilds: true,
