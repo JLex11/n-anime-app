@@ -4,13 +4,12 @@ interface NextFetchInit extends RequestInit {
 	next?: Record<string, unknown>
 }
 
-export const fetchData = async <T>(apiPath: string, fetchConfig: NextFetchInit = {}): Promise<T | undefined> => {
+type FetchData = <T>(apiPath: string, fetchConfig?: NextFetchInit) => Promise<T | undefined>
+
+export const fetchData: FetchData = async (apiPath, fetchConfig) => {
 	if (!apiPath) throw new Error('apiPath is required')
 
-	const promiseArray = [
-		fetch(`${APIRoutes.vercelBaseUrl}${apiPath}`, { ...fetchConfig }),
-		// fetch(`${APIRoutes.renderBaseUrl}${apiPath}`, { ...fetchConfig }),
-	]
+	const promiseArray = [fetch(`${APIRoutes.vercelBaseUrl}${apiPath}`, { ...fetchConfig })]
 
 	return Promise.any(promiseArray)
 		.then(async response => {
