@@ -42,7 +42,6 @@ export function useCarousel({ itemIds }: Props) {
 
 		scrollerRef.current.scrollTo({
 			left: element?.offsetLeft,
-			top: window.scrollY,
 			behavior: currentItem.dispatchSource === 'user' ? 'smooth' : 'auto',
 		})
 	}, [currentItem])
