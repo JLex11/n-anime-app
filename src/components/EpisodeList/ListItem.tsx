@@ -16,14 +16,13 @@ interface AsideListItemProps {
 
 export function ListItem({ link, episode, isSeeing, animeImage, animeTitle }: AsideListItemProps) {
 	const itemClass = clsx(styles.listItem, isSeeing && styles.active, 'prefetch')
-	const fixedEpisodeImgSrc = episode.image?.replace('http://anime-scrapper-lake.vercel.app/api/', '')
 
 	return (
 		<li>
 			<Link href={link} className={itemClass} scroll={false}>
 				<span>{isSeeing ? <PlayIcon width={50} /> : episode.episode}</span>
 				<Image
-					src={fixedEpisodeImgSrc || animeImage || blurImage}
+					src={episode.image || animeImage || blurImage}
 					alt={`Episodio ${episode.episode} de ${animeTitle}`}
 					width={150}
 					height={100}
