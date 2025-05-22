@@ -1,5 +1,5 @@
 import blurImage from '@/public/lights-blur.webp'
-import { useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 interface Image {
 	link?: string | null
@@ -16,16 +16,49 @@ type DefaultDimensions = {
 	height: number
 }
 
-export const useFallbackImage = (images: Image[], defaultDimensions: DefaultDimensions) => {
+const globalImageCache = new Map<string, boolean>()
+
+export const useFallbackImage = (images: Image[], defaultDimensions: DefaultDimensions, preloadImages = false) => {
 	const [errorCount, setErrorCount] = useState(0)
-	const filteredImages = useMemo(() => images.filter((image): image is ValidImage => Boolean(image.link)), [images])
+	const previousImagesRef = useRef<Image[]>([])
+	const [failedImageUrls, setFailedImageUrls] = useState<Set<string>>(new Set())
 
-	const handleImageError = () => setErrorCount(prevCount => prevCount + 1)
+	const filteredImages = useMemo(() => {
+		const valid = images.filter((image): image is ValidImage => {
+			if (!image.link) return false
+			if (globalImageCache.has(image.link) && globalImageCache.get(image.link) === false) return false
+			if (failedImageUrls.has(image.link)) return false
 
-	const getCurrentImage = () => {
-		if (errorCount >= filteredImages.length) {
+			return true
+		})
+
+		if (JSON.stringify(previousImagesRef.current) !== JSON.stringify(images)) {
+			previousImagesRef.current = [...images]
+			if (errorCount > 0) setErrorCount(0)
+		}
+
+		return valid
+	}, [images, failedImageUrls, errorCount])
+
+	const handleImageError = useCallback(() => {
+		const currentImage = filteredImages[errorCount % filteredImages.length]
+
+		if (currentImage?.link) {
+			setFailedImageUrls(prev => {
+				const newSet = new Set(prev)
+				newSet.add(currentImage.link)
+				return newSet
+			})
+			globalImageCache.set(currentImage.link, false)
+		}
+
+		setErrorCount(prevCount => prevCount + 1)
+	}, [errorCount, filteredImages])
+
+	const getCurrentImage = useCallback(() => {
+		if (!filteredImages.length || errorCount >= filteredImages.length) {
 			return {
-				link: blurImage,
+				link: blurImage.src,
 				width: defaultDimensions.width,
 				height: defaultDimensions.height,
 				position: 'center',
@@ -33,16 +66,64 @@ export const useFallbackImage = (images: Image[], defaultDimensions: DefaultDime
 			}
 		}
 
+		const currentIndex = errorCount % filteredImages.length
+		const image = filteredImages[currentIndex]
+
 		return {
-			link: filteredImages[errorCount % filteredImages.length].link,
-			width: filteredImages[errorCount % filteredImages.length].width || defaultDimensions.width,
-			height: filteredImages[errorCount % filteredImages.length].height || defaultDimensions.height,
-			position: filteredImages[errorCount % filteredImages.length].position ?? 'center',
-			isBlur: filteredImages[errorCount % filteredImages.length].isBlur,
+			link: image.link,
+			width: image.width ?? defaultDimensions.width,
+			height: image.height ?? defaultDimensions.height,
+			position: image.position ?? 'center',
+			isBlur: image.isBlur,
 		}
-	}
+	}, [filteredImages, errorCount, defaultDimensions])
+
+	useEffect(() => {
+		const imageInstances: HTMLImageElement[] = []
+
+		if (preloadImages && filteredImages.length > 0) {
+			for (const image of filteredImages) {
+				const imageLink = image.link
+
+				if (!globalImageCache.has(imageLink) || globalImageCache.get(imageLink)) {
+					const img = new Image()
+					imageInstances.push(img)
+
+					img.onload = () => {
+						globalImageCache.set(imageLink, true)
+					}
+
+					img.onerror = () => {
+						globalImageCache.set(imageLink, false)
+						setFailedImageUrls(prev => {
+							const newSet = new Set(prev)
+							newSet.add(imageLink)
+							return newSet
+						})
+					}
+
+					img.src = imageLink
+				}
+			}
+		}
+
+		return () => {
+			for (const img of imageInstances) {
+				img.onload = null
+				img.onerror = null
+				img.src = ''
+			}
+		}
+	}, [filteredImages, preloadImages])
 
 	const currentImage = getCurrentImage()
 
-	return { currentImage: currentImage, onError: handleImageError }
+	return {
+		currentImage,
+		onError: handleImageError,
+		failedUrls: Array.from(failedImageUrls),
+		isUsingFallback: errorCount >= filteredImages.length,
+		imageCount: filteredImages.length,
+		errorCount,
+	}
 }
