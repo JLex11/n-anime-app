@@ -11,7 +11,10 @@ export const getAnimeEpisodes = async (animeId: string, offset?: number, limit?:
 	const animeEpisodes = await fetchData<Episode[]>(
 		`${APIRoutes.AnimeEpisodes.replace(':animeId', animeId)}?offset=${offset}&limit=${limit}`,
 		fetchConfig
-	)
+	).catch(error => {
+		console.error('Error fetching anime episodes:', error)
+		return undefined
+	})
 
 	return animeEpisodes || []
 }
