@@ -1,18 +1,39 @@
+'use client'
+
+import { getAnimeEpisodes } from '@/api/getAnimeEpisodes'
 import type { Episode } from '@/types'
+import { useSearchParams } from 'next/navigation'
+import { useMemo, useState, useTransition } from 'react'
 import { ButtonMore } from './ButtonMore'
 import styles from './EpisodeList.module.css'
 import { ListItem } from './ListItem'
 
 interface Props {
-	limit: string | number
-	episodes: Episode[]
+	animeId: string
+	initialEpisodes: Episode[]
 	animeImage?: string | null
 	animeTitle?: string
 	currentEpisode?: number
 	pathname?: string
 }
 
-export function EpisodeList({ limit, episodes, currentEpisode, animeImage, animeTitle, pathname = '' }: Props) {
+export function EpisodeList({ animeId, initialEpisodes, currentEpisode, animeImage, animeTitle, pathname = '' }: Props) {
+	const [episodes, setEpisodes] = useState<Episode[]>(initialEpisodes)
+	const [isPending, startTransition] = useTransition()
+	const searchParams = useSearchParams()
+
+	const limitParam = searchParams.get('limit')
+	const limit = useMemo(() => Number(limitParam) || 5, [limitParam])
+
+	const loadMoreEpisodes = () => {
+		getAnimeEpisodes(animeId, limit, limit + 5).then(newEpisodes => {
+			startTransition(() => {
+				setEpisodes(prevEpisodes => noDups([...prevEpisodes, ...newEpisodes]))
+				window.history.replaceState({}, '', `?limit=${limit + 5}`)
+			})
+		})
+	}
+
 	const createItemLink = (episode: Episode) => `${pathname}${episode.episode}${limit ? `?limit=${limit}` : ''}`
 	const firstEpisodeInList = episodes.some(({ episode }) => episode === 1)
 
@@ -28,7 +49,7 @@ export function EpisodeList({ limit, episodes, currentEpisode, animeImage, anime
 					animeTitle={animeTitle}
 				/>
 			))}
-			{!firstEpisodeInList && <ButtonMore limit={episodes.length + 5} />}
+			{!firstEpisodeInList && <ButtonMore handleClick={loadMoreEpisodes} isPending={isPending} />}
 		</ul>
 	)
 }
@@ -43,4 +64,14 @@ export function EpisodeListSkeleton() {
 			))}
 		</ul>
 	)
+}
+
+function noDups(episodes: Episode[]): Episode[] {
+	const seen = new Set()
+	return episodes.filter(episode => {
+		const id = episode.episodeId || episode.title
+		if (seen.has(id)) return false
+		seen.add(id)
+		return true
+	})
 }

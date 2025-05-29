@@ -1,37 +1,18 @@
-'use client'
-
 import clsx from 'clsx'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useRef, useTransition } from 'react'
 import LoadingIcon from '../Icons/LoadingIcon'
 import styles from './EpisodeList.module.css'
 
-export const ButtonMore = ({ limit }: { limit: number }) => {
-	const [isPending, startTransition] = useTransition()
-	const buttonRef = useRef<HTMLButtonElement>(null)
-	const router = useRouter()
-	const searchParams = useSearchParams()
+type ButtonMoreProps = {
+	handleClick: () => void
+	isPending?: boolean
+}
 
-	useEffect(() => router.prefetch(`?limit=${limit}`), [limit, router])
-
-	useEffect(() => {
-		const { current: button } = buttonRef
-		return () => {
-			if (searchParams.has('limit') || isPending) button?.scrollIntoView({ behavior: 'smooth' })
-		}
-	}, [isPending, searchParams])
-
-	const handleClick = () => {
-		startTransition(() => {
-			router.replace(`?limit=${limit}`, { scroll: false })
-		})
-	}
-
+export const ButtonMore = ({ handleClick, isPending = false }: ButtonMoreProps) => {
 	const buttonClass = clsx(styles.listItem, styles.buttonMore, isPending && styles.loadingMore)
 
 	return (
 		<li>
-			<button className={buttonClass} onClick={handleClick} ref={buttonRef} type='button'>
+			<button className={buttonClass} onClick={handleClick} type='button'>
 				{isPending ? (
 					<div className='page-loader'>
 						<LoadingIcon />

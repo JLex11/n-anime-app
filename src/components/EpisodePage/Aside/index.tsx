@@ -14,15 +14,15 @@ export interface AsideProps {
 }
 
 export async function Aside({ searchParams, animeId, animeImage, animeTitle, currentEpisode }: AsideProps) {
-	const { limit } = searchParams
-	const animeEpisodes = await getAnimeEpisodes(animeId, 0, Number(limit) || 5)
+	const limit = Number(searchParams.limit)
+	const animeEpisodes = await getAnimeEpisodes(animeId, 0, limit || 5)
 
 	return (
 		<AsideWrapper>
 			<AsideHeader animeImage={animeImage} animeTitle={animeTitle} />
 			<EpisodeList
-				limit={limit}
-				episodes={animeEpisodes}
+				animeId={animeId}
+				initialEpisodes={animeEpisodes}
 				animeImage={animeImage}
 				animeTitle={animeTitle}
 				currentEpisode={currentEpisode}
