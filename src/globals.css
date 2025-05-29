@@ -1,100 +1,93 @@
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  /* outline: 1px solid red; */
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	/* outline: 1px solid red; */
 }
 
 :root {
-  --max-width: min(100%, 1300px);
-  --primary-color: rgb(19, 19, 25);
-  --carousel-height: 70vh;
-  --global-padding: 2rem;
+	--max-width: min(100%, 1300px);
+	--primary-color: rgb(19, 19, 25);
+	--carousel-height: 70vh;
+	--global-padding: 2rem;
 }
 
 html,
 body {
-  background-color: var(--primary-color);
-  max-width: 100vw;
-  overflow: hidden auto;
-  color: white;
-  font-weight: 350;
-  font-family: var(--montserrat-font);
+	background-color: var(--primary-color);
+	max-width: 100vw;
+	overflow: hidden auto;
+	color: white;
+	font-weight: 350;
+	font-family: var(--montserrat-font);
 }
 
 code {
-  font-family:
-    Menlo,
-    Monaco,
-    Lucida Console,
-    Liberation Mono,
-    DejaVu Sans Mono,
-    Bitstream Vera Sans Mono,
-    Courier New,
-    monospace;
+	font-family: Menlo, Monaco, Lucida Console, Liberation Mono, Courier New,
+		monospace;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }
 
 li {
-  color: inherit;
-  list-style: none;
+	color: inherit;
+	list-style: none;
 }
 
 main {
-  margin: 5rem auto;
-  padding: var(--global-padding);
-  width: min(100%, var(--max-width));
+	margin: 5rem auto;
+	padding: var(--global-padding);
+	width: min(100%, var(--max-width));
 }
 
-@media (width <=56rem) {
-  :root {
-    --global-padding: 0.5rem;
-  }
+@media (width <= 56rem) {
+	:root {
+		--global-padding: 0.5rem;
+	}
 }
 
 .page-loader {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
+	display: grid;
+	place-items: center;
+	width: 100%;
+	height: 100%;
 }
 
 .page-loader img {
-  position: absolute;
-  filter: brightness(0) invert(1);
-  animation: zoom 1s ease-in-out infinite alternate;
+	position: absolute;
+	filter: brightness(0) invert(1);
+	animation: zoom 1s ease-in-out infinite alternate;
 }
 
 @keyframes zoom {
-  from {
-    transform: scale(1);
-  }
+	from {
+		transform: scale(1);
+	}
 
-  to {
-    transform: scale(1.1);
-  }
+	to {
+		transform: scale(1.1);
+	}
 }
 
 .page-loader svg {
-  animation: spin 1s linear infinite;
+	animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
+	from {
+		transform: rotate(0deg);
+	}
 
-  to {
-    transform: rotate(360deg);
-  }
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+	html {
+		color-scheme: dark;
+	}
 }
