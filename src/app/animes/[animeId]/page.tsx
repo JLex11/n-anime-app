@@ -1,4 +1,4 @@
-import { AnimeCarousel } from '@/components/AnimePage/AnimeCarousel'
+import { AnimeBanner } from '@/components/AnimePage/AnimeBanner'
 import { AnimeMain } from '@/components/AnimePage/AnimeMain'
 import type { Metadata } from 'next'
 import { type PageProps, generateMetadataFromAnimeId, generatePageStaticParams } from './pageMisc'
@@ -8,7 +8,7 @@ export default async function AnimePage({ params }: PageProps) {
 
 	return (
 		<>
-			<AnimeCarousel animeId={animeId} />
+			<AnimeBanner animeId={animeId} />
 			<AnimeMain animeId={animeId} />
 		</>
 	)
