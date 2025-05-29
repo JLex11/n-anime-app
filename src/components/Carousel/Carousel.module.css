@@ -34,6 +34,7 @@
 }
 
 .carouselPicture {
+	display: flex;
 	z-index: 0;
 	margin: 0 auto;
 	width: 100%;
@@ -46,7 +47,7 @@
 	filter: blur(5px);
 }
 
-.carouselItem picture img {
+.carouselPicture img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
