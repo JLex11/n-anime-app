@@ -38,7 +38,7 @@
 			"bracketSpacing": true,
 			"jsxQuoteStyle": "single",
 			"quoteProperties": "asNeeded",
-			"lineWidth": 120,
+			"lineWidth": 140,
 			"indentWidth": 2
 		}
 	}
