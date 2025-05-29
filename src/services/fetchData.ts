@@ -1,4 +1,5 @@
 import { APIRoutes } from '@/enums'
+import { cache } from 'react'
 
 interface NextFetchInit extends RequestInit {
 	next?: Record<string, unknown>
@@ -9,17 +10,15 @@ type FetchData = <T>(apiPath: string, fetchConfig?: NextFetchInit) => Promise<T 
 export const fetchData: FetchData = async (apiPath, fetchConfig) => {
 	if (!apiPath) throw new Error('apiPath is required')
 
-	const promiseArray = [fetch(`${APIRoutes.vercelBaseUrl}${apiPath}`, { ...fetchConfig })]
+	const fetchWithDeduping = cache(() => fetch(`${APIRoutes.vercelBaseUrl}${apiPath}`, { ...fetchConfig }))
 
-	return Promise.any(promiseArray)
-		.then(async response => {
-			if (!response.ok) {
-				throw new Error(response.statusText)
-			}
+	const promiseArray = [fetchWithDeduping()]
 
-			return response.json()
-		})
-		.catch(error => {
-			console.warn(error.message)
-		})
+	return Promise.any(promiseArray).then(async response => {
+		if (!response.ok) {
+			throw new Error(response.statusText)
+		}
+
+		return response.json()
+	})
 }
