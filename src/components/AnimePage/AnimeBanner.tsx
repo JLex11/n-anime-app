@@ -5,7 +5,7 @@ import styles from './Anime.module.css'
 
 export async function AnimeBanner({ animeId }: { animeId: string }) {
 	const anime = await getAnime(animeId)
-	if (!anime) return null
+	if (!anime || !animeId || !anime.title) return null
 
 	const pictureImages = anime.images?.carouselImages.filter(carouselImage => carouselImage.link) ?? []
 	const fbImage = { link: anime.images?.coverImage, isBlur: true }

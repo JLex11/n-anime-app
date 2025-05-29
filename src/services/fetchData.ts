@@ -14,11 +14,16 @@ export const fetchData: FetchData = async (apiPath, fetchConfig) => {
 
 	const promiseArray = [fetchWithDeduping()]
 
-	return Promise.any(promiseArray).then(async response => {
-		if (!response.ok) {
-			throw new Error(response.statusText)
-		}
+	return Promise.any(promiseArray)
+		.then(async response => {
+			if (!response.ok) {
+				throw new Error(response.statusText)
+			}
 
-		return response.json()
-	})
+			return response.json()
+		})
+		.catch(error => {
+			console.warn(`Error fetching data from ${apiPath}:`, error)
+			return undefined
+		})
 }

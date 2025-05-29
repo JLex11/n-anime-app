@@ -13,7 +13,7 @@ interface Props {
 
 export async function AnimeMain({ animeId }: Props) {
 	const anime = await getAnime(animeId)
-	if (!anime) return null
+	if (!anime || !animeId || !anime.title) return null
 
 	return (
 		<main className={styles.main}>
