@@ -1,9 +1,9 @@
 import { useAutocomplete } from '@/hooks/useAutocomplete'
 import clsx from 'clsx'
-import { useCallback, useId, useMemo } from 'react'
+import { useCallback, useId } from 'react'
 import styles from './Autocomplete.module.css'
 import { CollectionsPanel } from './CollectionsPanel'
-import { AutocompleteContext } from './Contexts'
+import { AutocompleteProvider } from './Contexts'
 import { Input } from './Input'
 
 interface Props {
@@ -27,17 +27,12 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
 	const resultsPanelClassName = clsx(styles.collectionsPanel, autocomplete.isOpen && styles.isOpen)
 	const formClassName = clsx(styles.form, autocomplete.isOpen && styles.isOpen)
 
-	const providerValue = useMemo(
-		() => ({
-			activeItemId: autocomplete.activeItemId ?? 0,
-			setActiveItemId,
-			handleLaunchAutocomplete,
-		}),
-		[autocomplete.activeItemId, setActiveItemId, handleLaunchAutocomplete]
-	)
-
 	return (
-		<AutocompleteContext.Provider value={providerValue}>
+		<AutocompleteProvider
+			activeItemId={autocomplete.activeItemId ?? 0}
+			setActiveItemId={setActiveItemId}
+			handleLaunchAutocomplete={handleLaunchAutocomplete}
+		>
 			<div
 				className={styles.autocompleteContainer}
 				id={autocompleteId}
@@ -61,6 +56,6 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
 					)}
 				</form>
 			</div>
-		</AutocompleteContext.Provider>
+		</AutocompleteProvider>
 	)
 }

@@ -15,7 +15,10 @@ interface Props {
 export function SearchLauncher({ className: cssClass, children }: Props) {
 	const [autocompleteLaunched, setAutocompleteLaunched] = useState(false)
 
-	const handleToggleSearch = () => setAutocompleteLaunched(!autocompleteLaunched)
+	const handleToggleSearch = () => {
+		console.log('handleToggleSearch')
+		setAutocompleteLaunched(!autocompleteLaunched)
+	}
 	const handleCloseAutocomplete = () => setAutocompleteLaunched(false)
 
 	const hotkeysOptions = {

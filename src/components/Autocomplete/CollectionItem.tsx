@@ -26,10 +26,16 @@ export const CollectionItem = memo(function CollectionItem({ item }: Props) {
 	useEffect(() => {
 		if (!isActive) return
 		
-		// Solo prefetch cuando el item está activo
-		const timeoutId = setTimeout(() => router.prefetch(item.link), 200)
+		// Prefetch más conservador - solo después de estar activo por un tiempo
+		const timeoutId = setTimeout(() => {
+			// Verificar si el item sigue siendo activo
+			if (activeItemId === itemId) {
+				router.prefetch(item.link)
+			}
+		}, 500) // Aumentar el delay
+		
 		return () => clearTimeout(timeoutId)
-	}, [isActive, item.link, router])
+	}, [isActive, item.link, router, activeItemId, itemId])
 
 	const handleHover = useCallback(() => {
 		if (activeItemId !== itemId) setActiveItemId(itemId)
@@ -57,6 +63,14 @@ export const CollectionItem = memo(function CollectionItem({ item }: Props) {
 					className={styles.itemImage}
 					decoding='async'
 					loading='lazy'
+					onLoad={(e) => {
+						e.currentTarget.style.opacity = '1'
+					}}
+					style={{ 
+						opacity: '0', 
+						transition: 'opacity 0.2s ease',
+						backgroundColor: '#2a2a2a' // Placeholder mientras carga
+					}}
 				/>
 			)
 		}
