@@ -1,11 +1,20 @@
 .main {
+	--negative-margin-offset: -20vw;
 	display: flex;
 	position: relative;
 	justify-content: center;
 	gap: 50px;
 	z-index: 2;
-	margin: 0 auto;
+	margin: var(--negative-margin-offset) auto 0 auto;
 	padding: 0 35px var(--global-padding);
+}
+
+.banner {
+	width: 100%;
+	margin: 0 auto;
+	overflow: hidden;
+	height: var(--carousel-height);
+	mask-image: linear-gradient(to top, transparent 1%, var(--primary-color) 100%);
 }
 
 .aside {
@@ -16,7 +25,6 @@
 	transform: translateY(1.30rem);
 	opacity: 0;
 	animation: fadeIn 0.3s ease-in-out forwards;
-	margin-top: -250px;
 	width: min-content;
 }
 
@@ -58,7 +66,7 @@
 	transform: translateY(20px);
 	opacity: 0;
 	animation: fadeIn 0.3s ease-in-out forwards;
-	margin-top: -150px;
+	margin-top: 100px;
 	width: min(100%, 45rem);
 }
 
@@ -125,6 +133,11 @@
 	grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr));
 	gap: 0.5rem;
 	width: 100%;
+}
+
+.episodesSection {
+	max-height: 500px;
+	overflow-y: auto;
 }
 
 .episodesList {
