@@ -12,24 +12,23 @@
 		"preview": "next build && next start"
 	},
 	"dependencies": {
-		"@algolia/autocomplete-core": "1.19.2",
+		"@algolia/autocomplete-core": "1.19.4",
 		"babel-plugin-react-compiler": "^19.1.0-rc.1",
 		"clsx": "2.1.1",
-		"next": "^15.4.0-canary.56",
-		"react": "^19.1.0",
-		"react-dom": "^19.1.0",
+		"eslint-config-next": "^15.5.3",
+		"next": "^15.5.3",
+		"react": "^19.1.1",
+		"react-dom": "^19.1.1",
 		"react-hotkeys-hook": "5.1.0",
 		"sharp": "0.34.2",
-		"uuid": "^11.1.0"
+		"uuid": "^13.0.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
+		"@biomejs/biome": "^2.2.4",
 		"@locator/babel-jsx": "^0.4.4",
-		"@types/node": "22.15.24",
-		"@types/react": "19.1.6",
-		"@types/react-dom": "19.1.5",
-		"prettier": "^3.5.3",
-		"prettier-plugin-css-order": "^2.1.2",
-		"typescript": "^5.8.3"
+		"@types/node": "24.5.2",
+		"@types/react": "19.1.13",
+		"@types/react-dom": "19.1.9",
+		"typescript": "^5.9.2"
 	}
 }
