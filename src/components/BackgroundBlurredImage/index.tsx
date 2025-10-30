@@ -1,10 +1,13 @@
 'use client'
 
-import blurImage from '@/public/lights-blur.webp'
 import Image, { type StaticImageData } from 'next/image'
 import styles from './BackgroundBlurredImage.module.css'
 
 export function BackgroundBlurredImage({ src, alt }: { src: string | StaticImageData; alt: string }) {
+	// External URLs cannot use blur placeholder without blurDataURL
+	// Use empty placeholder for external URLs to avoid 404 errors
+	const isExternalUrl = typeof src === 'string'
+
 	return (
 		<Image
 			src={src}
@@ -14,11 +17,7 @@ export function BackgroundBlurredImage({ src, alt }: { src: string | StaticImage
 			decoding='async'
 			priority={false}
 			className={styles.bgImage}
-			placeholder='blur'
-			blurDataURL={blurImage.src}
-			onLoad={(e) => {
-				e.currentTarget.setAttribute('data-loaded', 'true')
-			}}
+			placeholder='empty'
 		/>
 	)
 }

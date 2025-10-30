@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { AnimeBanner } from '@/components/AnimePage/AnimeBanner'
 import { AnimeMain } from '@/components/AnimePage/AnimeMain'
 import type { Metadata } from 'next'
@@ -8,8 +9,12 @@ export default async function AnimePage({ params }: PageProps) {
 
 	return (
 		<>
-			<AnimeBanner animeId={animeId} />
-			<AnimeMain animeId={animeId} />
+			<Suspense fallback={<div style={{ height: '400px', background: '#1a1a1a' }}>Cargando banner...</div>}>
+				<AnimeBanner animeId={animeId} />
+			</Suspense>
+			<Suspense fallback={<div style={{ padding: '2rem' }}>Cargando información...</div>}>
+				<AnimeMain animeId={animeId} />
+			</Suspense>
 		</>
 	)
 }

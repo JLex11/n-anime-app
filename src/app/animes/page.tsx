@@ -17,6 +17,11 @@ interface Props {
 	}>
 }
 
+async function AnimeListContent({ query }: { query: string }) {
+	const animes = query.length > 0 ? await getAnimesByQuery(query) : await getBroadcastAnimes()
+	return <AnimeList animesSource={Promise.resolve(animes)} />
+}
+
 export default async function AnimesPage({ searchParams }: Props) {
 	const { query = '' } = await searchParams
 
@@ -28,7 +33,7 @@ export default async function AnimesPage({ searchParams }: Props) {
 				<SearchInput query={query} />
 			</header>
 			<Suspense key={query} fallback={<CardsSkeleton countCards={20} />}>
-				<AnimeList animesSource={query.length > 0 ? getAnimesByQuery(query) : getBroadcastAnimes()} />
+				<AnimeListContent query={query} />
 			</Suspense>
 		</main>
 	)

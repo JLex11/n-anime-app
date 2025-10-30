@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { getLatestAnimes } from '@/api/getLatestAnimes'
 import { getRatingAnimes } from '@/api/getRatingAnimes'
 import { CardsSection } from '@/components/CardsSection'
@@ -14,14 +15,18 @@ export default async function HomePage() {
 
 	return (
 		<>
-			<CarouselHero animesPromise={getRatingAnimes(5)} fallbackPromise={getLatestAnimes(5)} />
+			<Suspense fallback={<div style={{ height: '500px', background: '#1a1a1a' }}>Cargando...</div>}>
+				<CarouselHero animesPromise={getRatingAnimes(5)} fallbackPromise={getLatestAnimes(5)} />
+			</Suspense>
 			<main className={styles.main}>
 				<CardsSection
 					title='Últimos episodios'
 					icon={<LatestIcon />}
 					gridProps={{ width: CARDS_WIDTH, height: CARDS_HEIGHT }}
 				>
-					<LatestEpisodes />
+					<Suspense fallback={<div>Cargando episodios...</div>}>
+						<LatestEpisodes />
+					</Suspense>
 				</CardsSection>
 
 				<CardsSection
@@ -31,9 +36,13 @@ export default async function HomePage() {
 					column='1 / span 2'
 					gridProps={{ width: '14rem', height: '26rem', gap: '1.5rem' }}
 				>
-					<LatestAnimes />
+					<Suspense fallback={<div>Cargando animes...</div>}>
+						<LatestAnimes />
+					</Suspense>
 				</CardsSection>
-				<HomeAside />
+				<Suspense fallback={<div>Cargando aside...</div>}>
+					<HomeAside />
+				</Suspense>
 			</main>
 		</>
 	)

@@ -23,6 +23,16 @@ export const useFallbackImage = (images: Image[], defaultDimensions: DefaultDime
 	const previousImagesRef = useRef<Image[]>([])
 	const [failedImageUrls, setFailedImageUrls] = useState<Set<string>>(new Set())
 
+	// Reset error count when images change (using useEffect, not useMemo)
+	useEffect(() => {
+		if (JSON.stringify(previousImagesRef.current) !== JSON.stringify(images)) {
+			previousImagesRef.current = [...images]
+			if (errorCount > 0) {
+				setErrorCount(0)
+			}
+		}
+	}, [images, errorCount])
+
 	const filteredImages = useMemo(() => {
 		const valid = images.filter((image): image is ValidImage => {
 			if (!image.link) return false
@@ -32,13 +42,8 @@ export const useFallbackImage = (images: Image[], defaultDimensions: DefaultDime
 			return true
 		})
 
-		if (JSON.stringify(previousImagesRef.current) !== JSON.stringify(images)) {
-			previousImagesRef.current = [...images]
-			if (errorCount > 0) setErrorCount(0)
-		}
-
 		return valid
-	}, [images, failedImageUrls, errorCount])
+	}, [images, failedImageUrls])
 
 	const handleImageError = useCallback(() => {
 		const currentImage = filteredImages[errorCount % filteredImages.length]
@@ -52,7 +57,10 @@ export const useFallbackImage = (images: Image[], defaultDimensions: DefaultDime
 			globalImageCache.set(currentImage.link, false)
 		}
 
-		setErrorCount(prevCount => prevCount + 1)
+		// Stop retrying after we've tried all images once
+		if (errorCount < filteredImages.length - 1) {
+			setErrorCount(prevCount => prevCount + 1)
+		}
 	}, [errorCount, filteredImages])
 
 	const getCurrentImage = useCallback(() => {

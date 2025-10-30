@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 import LocalFont from 'next/font/local'
 import Script from 'next/script'
-import { unstable_ViewTransition as ViewTransition } from 'react'
+import { ViewTransition } from 'react'
 import '../globals.css'
 
 export const metadata: Metadata = {

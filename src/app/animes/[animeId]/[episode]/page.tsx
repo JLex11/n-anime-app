@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { getAnime } from '@/api/getAnime'
 import { getEpisodeSources } from '@/api/getEpisodeSources'
 import { getLatestEpisodes } from '@/api/getLatestEpisodes'
@@ -16,9 +17,7 @@ interface Props {
 	searchParams: Promise<{ limit: string }>
 }
 
-export default async function EpisodePage({ params, searchParams }: Props) {
-	const { animeId, episode } = await params
-
+async function EpisodeContent({ animeId, episode, searchParams }: { animeId: string; episode: string; searchParams: Promise<{ limit: string }> }) {
 	const [episodeSources, animeInfo] = await Promise.all([getEpisodeSources(`${animeId}-${episode}`), getAnime(animeId)])
 
 	const animeTitle = animeInfo?.title ?? normalizeAnimeId(animeId)
@@ -30,7 +29,7 @@ export default async function EpisodePage({ params, searchParams }: Props) {
 	const formattedTitle = toCap(`episodio ${episode} de ${animeTitle}`)
 
 	return (
-		<EpisodePageContextProvider>
+		<>
 			<section className={mainContentClass}>
 				{episodeWasFound ? (
 					<VideoSection iframesData={episodeSources?.videos} title={formattedTitle} />
@@ -47,6 +46,18 @@ export default async function EpisodePage({ params, searchParams }: Props) {
 				/>
 			</section>
 			<BackgroundBlurredImage src={bannerImage} alt={normalizeAnimeId(animeId)} />
+		</>
+	)
+}
+
+export default async function EpisodePage({ params, searchParams }: Props) {
+	const { animeId, episode } = await params
+
+	return (
+		<EpisodePageContextProvider>
+			<Suspense fallback={<div className={styles.mainContent}>Cargando episodio...</div>}>
+				<EpisodeContent animeId={animeId} episode={episode} searchParams={searchParams} />
+			</Suspense>
 		</EpisodePageContextProvider>
 	)
 }

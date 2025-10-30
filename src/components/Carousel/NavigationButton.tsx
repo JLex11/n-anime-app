@@ -1,6 +1,6 @@
 import { useFallbackImage } from '@/hooks/useFallbackImage'
 import Image from 'next/image'
-import { unstable_ViewTransition as ViewTransition } from 'react'
+import { ViewTransition } from 'react'
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	title: string
