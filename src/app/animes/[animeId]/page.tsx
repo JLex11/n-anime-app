@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { AnimeBanner } from '@/components/AnimePage/AnimeBanner'
 import { AnimeMain } from '@/components/AnimePage/AnimeMain'
+import { AnimeBannerSkeleton, AnimeMainSkeleton } from '@/components/Skeletons'
 import type { Metadata } from 'next'
 import { type PageProps, generateMetadataFromAnimeId, generatePageStaticParams } from './pageMisc'
 
@@ -9,10 +10,10 @@ export default async function AnimePage({ params }: PageProps) {
 
 	return (
 		<>
-			<Suspense fallback={<div style={{ height: '400px', background: '#1a1a1a' }}>Cargando banner...</div>}>
+			<Suspense fallback={<AnimeBannerSkeleton />}>
 				<AnimeBanner animeId={animeId} />
 			</Suspense>
-			<Suspense fallback={<div style={{ padding: '2rem' }}>Cargando información...</div>}>
+			<Suspense fallback={<AnimeMainSkeleton />}>
 				<AnimeMain animeId={animeId} />
 			</Suspense>
 		</>

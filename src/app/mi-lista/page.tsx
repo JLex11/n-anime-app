@@ -1,6 +1,7 @@
 import { getContinueWatching } from '@/app/actions/watch-progress'
 import { getUser } from '@/app/actions/auth'
 import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import type { WatchProgress } from '@/types'
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 	title: 'Continuar Viendo - One Anime',
 }
 
-export default async function ContinueWatchingPage() {
+async function ContinueWatchingContent() {
 	const user = await getUser()
 
 	if (!user) {
@@ -19,7 +20,7 @@ export default async function ContinueWatchingPage() {
 	const continueWatching: WatchProgress[] = await getContinueWatching()
 
 	return (
-		<main style={{ padding: '2rem' }}>
+		<>
 			<h1>Continuar Viendo</h1>
 
 			{continueWatching.length === 0 ? (
@@ -91,6 +92,16 @@ export default async function ContinueWatchingPage() {
 					})}
 				</div>
 			)}
+		</>
+	)
+}
+
+export default async function ContinueWatchingPage() {
+	return (
+		<main style={{ padding: '2rem' }}>
+			<Suspense fallback={<div>Cargando...</div>}>
+				<ContinueWatchingContent />
+			</Suspense>
 		</main>
 	)
 }

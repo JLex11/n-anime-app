@@ -6,6 +6,7 @@ import { BackgroundBlurredImage } from '@/components/BackgroundBlurredImage'
 import { Aside } from '@/components/EpisodePage/Aside'
 import styles from '@/components/EpisodePage/Episode.module.css'
 import { VideoSection } from '@/components/VideoSection'
+import { EpisodeContentSkeleton } from '@/components/Skeletons'
 import blurImage from '@/public/lights-blur.webp'
 import { normalizeAnimeId } from '@/utils/normalizeAnimeId'
 import { toCap } from '@/utils/textConverts'
@@ -55,7 +56,7 @@ export default async function EpisodePage({ params, searchParams }: Props) {
 
 	return (
 		<EpisodePageContextProvider>
-			<Suspense fallback={<div className={styles.mainContent}>Cargando episodio...</div>}>
+			<Suspense fallback={<EpisodeContentSkeleton />}>
 				<EpisodeContent animeId={animeId} episode={episode} searchParams={searchParams} />
 			</Suspense>
 		</EpisodePageContextProvider>

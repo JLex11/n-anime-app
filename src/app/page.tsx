@@ -8,6 +8,12 @@ import { HomeAside } from '@/components/HomePage/HomeAside'
 import { LatestAnimes } from '@/components/HomePage/LatestAnimes'
 import { LatestEpisodes } from '@/components/HomePage/LatestEpisodes'
 import LatestIcon from '@/components/Icons/LatestIcon'
+import {
+	CarouselHeroSkeleton,
+	CardGridSkeleton,
+	AnimeCardGridSkeleton,
+	HomeAsideSkeleton
+} from '@/components/Skeletons'
 
 export default async function HomePage() {
 	const CARDS_WIDTH = '230px'
@@ -15,7 +21,7 @@ export default async function HomePage() {
 
 	return (
 		<>
-			<Suspense fallback={<div style={{ height: '500px', background: '#1a1a1a' }}>Cargando...</div>}>
+			<Suspense fallback={<CarouselHeroSkeleton />}>
 				<CarouselHero animesPromise={getRatingAnimes(5)} fallbackPromise={getLatestAnimes(5)} />
 			</Suspense>
 			<main className={styles.main}>
@@ -24,7 +30,7 @@ export default async function HomePage() {
 					icon={<LatestIcon />}
 					gridProps={{ width: CARDS_WIDTH, height: CARDS_HEIGHT }}
 				>
-					<Suspense fallback={<div>Cargando episodios...</div>}>
+					<Suspense fallback={<CardGridSkeleton count={20} width={CARDS_WIDTH} height={CARDS_HEIGHT} hasPill />}>
 						<LatestEpisodes />
 					</Suspense>
 				</CardsSection>
@@ -36,11 +42,11 @@ export default async function HomePage() {
 					column='1 / span 2'
 					gridProps={{ width: '14rem', height: '26rem', gap: '1.5rem' }}
 				>
-					<Suspense fallback={<div>Cargando animes...</div>}>
+					<Suspense fallback={<AnimeCardGridSkeleton count={12} />}>
 						<LatestAnimes />
 					</Suspense>
 				</CardsSection>
-				<Suspense fallback={<div>Cargando aside...</div>}>
+				<Suspense fallback={<HomeAsideSkeleton />}>
 					<HomeAside />
 				</Suspense>
 			</main>

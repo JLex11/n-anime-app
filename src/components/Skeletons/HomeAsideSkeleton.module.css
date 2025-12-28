@@ -1,0 +1,75 @@
+.aside {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	width: 100%;
+	height: fit-content;
+	overflow: hidden;
+}
+
+.asideTitle {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding-inline: 0.5rem;
+}
+
+.icon {
+	width: 1.5rem;
+	height: 1.5rem;
+	border-radius: 50%;
+}
+
+.titleText {
+	width: 8rem;
+}
+
+.asideInner {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.broadcastItem {
+	display: grid;
+	grid-template-columns: 1fr 8fr;
+	align-items: start;
+	gap: 0.5rem;
+	border-radius: 0.4rem;
+	padding: 0.5rem;
+	width: 100%;
+}
+
+.itemImage {
+	width: 45px;
+	height: 50px;
+	border-radius: 0.2rem;
+}
+
+.itemContent {
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+	width: 100%;
+}
+
+.itemTitle {
+	width: 80%;
+}
+
+.itemRating {
+	width: 40%;
+}
+
+@media (width <= 56rem) {
+	.asideInner {
+		flex-direction: row;
+		overflow-x: auto;
+		overflow-y: hidden;
+	}
+
+	.broadcastItem {
+		min-width: 10rem;
+		margin-bottom: 0.5rem;
+	}
+}

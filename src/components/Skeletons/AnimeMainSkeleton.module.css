@@ -1,0 +1,118 @@
+.main {
+	--negative-margin-offset: -20vw;
+	display: flex;
+	position: relative;
+	justify-content: center;
+	gap: 50px;
+	z-index: 2;
+	margin: var(--negative-margin-offset) auto 0 auto;
+	padding: 0 35px var(--global-padding);
+}
+
+.aside {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	width: min-content;
+}
+
+.asideImg {
+	width: 225px;
+	height: 350px;
+	border-radius: 1rem;
+}
+
+.status {
+	display: flex;
+	justify-content: space-around;
+	gap: 5px;
+	width: 225px;
+}
+
+.statusBadge {
+	flex: 1;
+	height: 30px;
+	border-radius: 7px;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	gap: 3rem;
+	margin-top: 100px;
+	width: min(100%, 45rem);
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	gap: 20px;
+	width: 100%;
+}
+
+.headerTitle {
+	width: 80%;
+	height: 2.5rem;
+}
+
+.metadata {
+	width: 60%;
+}
+
+.metadataSmall {
+	width: 40%;
+}
+
+.section {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 100%;
+}
+
+.sectionTitle {
+	width: 30%;
+	height: 1.5rem;
+}
+
+.descriptionLine {
+	width: 100%;
+}
+
+.descriptionLineShort {
+	width: 70%;
+}
+
+.genresGrid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.genre {
+	width: 5rem;
+	height: 2rem;
+	border-radius: 1rem;
+}
+
+@media (width <= 56rem) {
+	.main {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.content {
+		align-items: center;
+		margin-top: unset;
+	}
+
+	.header {
+		align-items: center;
+		width: 100%;
+	}
+}

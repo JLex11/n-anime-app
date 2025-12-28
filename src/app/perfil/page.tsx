@@ -1,12 +1,13 @@
 import { getUser } from '@/app/actions/auth'
 import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
 	title: 'Mi Perfil - One Anime',
 }
 
-export default async function ProfilePage() {
+async function ProfileContent() {
 	const user = await getUser()
 
 	if (!user) {
@@ -14,7 +15,7 @@ export default async function ProfilePage() {
 	}
 
 	return (
-		<main style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
+		<>
 			<h1>Mi Perfil</h1>
 
 			<div
@@ -36,6 +37,16 @@ export default async function ProfilePage() {
 					{new Date(user.created_at).toLocaleDateString('es-ES')}
 				</div>
 			</div>
+		</>
+	)
+}
+
+export default async function ProfilePage() {
+	return (
+		<main style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
+			<Suspense fallback={<div>Cargando...</div>}>
+				<ProfileContent />
+			</Suspense>
 		</main>
 	)
 }

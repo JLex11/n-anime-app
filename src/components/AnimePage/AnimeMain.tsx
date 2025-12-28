@@ -1,6 +1,7 @@
 import { getAnime } from '@/api/getAnime'
 import { getUser } from '@/app/actions/auth'
 import { isFavorite } from '@/app/actions/favorites'
+import { SkeletonBase } from '@/components/Skeletons'
 import { Suspense } from 'react'
 import styles from './Anime.module.css'
 import { AnimeAside } from './AnimeAside'
@@ -35,7 +36,7 @@ export async function AnimeMain({ animeId }: Props) {
 				/>
 				<Description description={anime.description} />
 				<Genres genres={anime.genres} />
-				<Suspense>
+				<Suspense fallback={<div className={styles.section}><SkeletonBase height='10rem' /></div>}>
 					<Episodes animeId={anime.animeId} fallbackImg={anime.images?.coverImage} animeTitle={anime.title} />
 				</Suspense>
 			</section>

@@ -1,6 +1,7 @@
 import { getUser } from '@/app/actions/auth'
 import { RegisterForm } from '@/components/Auth/RegisterForm'
 import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -8,13 +9,17 @@ export const metadata: Metadata = {
 	description: 'Crea una cuenta para guardar tus animes favoritos',
 }
 
-export default async function RegisterPage() {
+async function RegisterContent() {
 	const user = await getUser()
 
 	if (user) {
 		redirect('/')
 	}
 
+	return <RegisterForm />
+}
+
+export default async function RegisterPage() {
 	return (
 		<main
 			style={{
@@ -25,7 +30,9 @@ export default async function RegisterPage() {
 				padding: '2rem',
 			}}
 		>
-			<RegisterForm />
+			<Suspense fallback={<div>Cargando...</div>}>
+				<RegisterContent />
+			</Suspense>
 		</main>
 	)
 }

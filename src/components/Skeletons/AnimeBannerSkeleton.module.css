@@ -1,0 +1,11 @@
+.banner {
+	width: 100%;
+	height: var(--carousel-height);
+	margin: 0 auto;
+	overflow: hidden;
+	mask-image: linear-gradient(
+		to top,
+		transparent 1%,
+		var(--primary-color) 100%
+	);
+}

@@ -1,0 +1,45 @@
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+	gap: 1.5rem;
+	width: 100%;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	width: 14rem;
+	height: 26rem;
+}
+
+.image {
+	flex: 1;
+	border-radius: 0.7rem;
+}
+
+.textContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+}
+
+.title {
+	width: 90%;
+}
+
+.metadata {
+	width: 60%;
+}
+
+.badges {
+	display: flex;
+	gap: 0.3rem;
+	margin-top: 0.2rem;
+}
+
+.badge {
+	width: 3rem;
+	height: 1.2rem;
+	border-radius: 0.3rem;
+}

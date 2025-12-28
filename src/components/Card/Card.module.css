@@ -107,20 +107,53 @@
 }
 
 .cardSkeleton .card_anchor {
-  background-color: rgb(117, 117, 117);
+  background-color: rgba(26, 26, 26, 0.8);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
 }
 
 .cardSkeleton .title {
   border-radius: 1rem;
-  background: linear-gradient(to right bottom,
-      rgb(148, 148, 148),
-      rgb(194, 194, 194),
-      rgb(148, 148, 148));
+  background: linear-gradient(
+    to right,
+    rgba(26, 26, 26, 0.8) 0%,
+    rgba(40, 40, 45, 0.8) 20%,
+    rgba(50, 50, 55, 0.8) 40%,
+    rgba(40, 40, 45, 0.8) 60%,
+    rgba(26, 26, 26, 0.8) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
   width: 85%;
   height: 1.3rem;
 }
 
 .cardSkeleton .pill {
+  background: linear-gradient(
+    to right,
+    rgba(26, 26, 26, 0.8) 0%,
+    rgba(40, 40, 45, 0.8) 20%,
+    rgba(50, 50, 55, 0.8) 40%,
+    rgba(40, 40, 45, 0.8) 60%,
+    rgba(26, 26, 26, 0.8) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
   width: 25%;
   height: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardSkeleton .title,
+  .cardSkeleton .pill {
+    animation: none;
+    opacity: 0.7;
+  }
 }

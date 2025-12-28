@@ -1,6 +1,7 @@
 import { getFavorites } from '@/app/actions/favorites'
 import { getUser } from '@/app/actions/auth'
 import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import type { UserFavorite } from '@/types'
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 	title: 'Mis Favoritos - One Anime',
 }
 
-export default async function FavoritesPage() {
+async function FavoritesContent() {
 	const user = await getUser()
 
 	if (!user) {
@@ -19,7 +20,7 @@ export default async function FavoritesPage() {
 	const favorites: UserFavorite[] = await getFavorites()
 
 	return (
-		<main style={{ padding: '2rem' }}>
+		<>
 			<h1>Mis Favoritos</h1>
 
 			{favorites.length === 0 ? (
@@ -79,6 +80,16 @@ export default async function FavoritesPage() {
 					))}
 				</div>
 			)}
+		</>
+	)
+}
+
+export default async function FavoritesPage() {
+	return (
+		<main style={{ padding: '2rem' }}>
+			<Suspense fallback={<div>Cargando favoritos...</div>}>
+				<FavoritesContent />
+			</Suspense>
 		</main>
 	)
 }

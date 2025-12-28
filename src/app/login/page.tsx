@@ -1,6 +1,7 @@
 import { getUser } from '@/app/actions/auth'
 import { LoginForm } from '@/components/Auth/LoginForm'
 import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ interface PageProps {
 	searchParams: Promise<{ redirect?: string }>
 }
 
-export default async function LoginPage({ searchParams }: PageProps) {
+async function LoginContent({ searchParams }: PageProps) {
 	const user = await getUser()
 
 	if (user) {
@@ -22,6 +23,10 @@ export default async function LoginPage({ searchParams }: PageProps) {
 
 	const { redirect: redirectTo } = await searchParams
 
+	return <LoginForm redirectTo={redirectTo} />
+}
+
+export default async function LoginPage({ searchParams }: PageProps) {
 	return (
 		<main
 			style={{
@@ -32,7 +37,9 @@ export default async function LoginPage({ searchParams }: PageProps) {
 				padding: '2rem',
 			}}
 		>
-			<LoginForm redirectTo={redirectTo} />
+			<Suspense fallback={<div>Cargando...</div>}>
+				<LoginContent searchParams={searchParams} />
+			</Suspense>
 		</main>
 	)
 }
