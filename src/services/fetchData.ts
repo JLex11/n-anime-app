@@ -10,20 +10,43 @@ type FetchData = <T>(apiPath: string, fetchConfig?: NextFetchInit) => Promise<T 
 export const fetchData: FetchData = async (apiPath, fetchConfig) => {
 	if (!apiPath) throw new Error('apiPath is required')
 
-	const fetchWithDeduping = cache(() => fetch(`${APIRoutes.vercelBaseUrl}${apiPath}`, { ...fetchConfig }))
+	const url = `${APIRoutes.vercelBaseUrl}${apiPath}`
+	const maxRetries = 3
+	const retryDelay = 1000 // ms - Incrementado para dar tiempo a cold starts de Vercel
 
-	const promiseArray = [fetchWithDeduping()]
+	const fetchWithRetry = async (attempt = 1): Promise<Response> => {
+		try {
+			const response = await fetch(url, {
+				...fetchConfig,
+				headers: {
+					'Content-Type': 'application/json',
+					...fetchConfig?.headers,
+				},
+			})
 
-	return Promise.any(promiseArray)
-		.then(async response => {
 			if (!response.ok) {
-				throw new Error(response.statusText)
+				throw new Error(`${response.status} ${response.statusText}`)
 			}
 
-			return response.json()
-		})
-		.catch(error => {
-			console.warn(`Error fetching data from ${apiPath}:`, error)
-			return undefined
-		})
+			return response
+		} catch (error) {
+			if (attempt < maxRetries) {
+				console.warn(`Retry ${attempt}/${maxRetries} for ${apiPath}:`, (error as Error).message)
+				// Esperar un poco antes de reintentar
+				await new Promise(resolve => setTimeout(resolve, retryDelay * attempt))
+				return fetchWithRetry(attempt + 1)
+			}
+			throw error
+		}
+	}
+
+	const fetchWithDeduping = cache(() => fetchWithRetry())
+
+	try {
+		const response = await fetchWithDeduping()
+		return response.json()
+	} catch (error) {
+		console.error(`Failed to fetch ${apiPath} after ${maxRetries} attempts:`, error)
+		return undefined
+	}
 }

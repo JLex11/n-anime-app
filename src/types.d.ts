@@ -80,3 +80,32 @@ type Enumerate<N extends number, Acc extends number[] = []> = Acc['length'] exte
 	: Enumerate<N, [...Acc, Acc['length']]>
 
 type Range<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>>
+
+export interface UserProfile {
+	id: string
+	username: string | null
+	avatar_url: string | null
+	created_at: string
+	updated_at: string
+}
+
+export interface UserFavorite {
+	id: string
+	user_id: string
+	anime_id: string
+	anime_title: string
+	anime_image: string | null
+	created_at: string
+}
+
+export interface WatchProgress {
+	id: string
+	user_id: string
+	anime_id: string
+	episode_number: number
+	episode_id: string
+	progress_seconds: number
+	duration_seconds: number | null
+	completed: boolean
+	last_watched: string
+}

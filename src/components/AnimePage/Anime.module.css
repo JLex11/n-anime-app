@@ -254,3 +254,38 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 } */
+
+/* Favorite Button */
+.favoriteButton {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1.5rem;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 8px;
+	background: rgba(255, 255, 255, 0.05);
+	color: #fff;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.favoriteButton:hover:not(:disabled) {
+	background: rgba(255, 255, 255, 0.1);
+	border-color: rgba(255, 255, 255, 0.3);
+	transform: translateY(-2px);
+}
+
+.favoriteButton:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.favoriteActive {
+	background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+	border-color: transparent;
+}
+
+.favoriteActive:hover:not(:disabled) {
+	background: linear-gradient(135deg, #ff5252 0%, #e63946 100%);
+}
