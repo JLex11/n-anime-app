@@ -1,6 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { revalidatePath } from 'next/cache'
 
 export async function updateWatchProgress(
 	animeId: string,
@@ -44,6 +45,8 @@ export async function updateWatchProgress(
 		return { error: error.message }
 	}
 
+	// Invalidar caché de mi-lista
+	revalidatePath('/mi-lista')
 	return { success: true }
 }
 

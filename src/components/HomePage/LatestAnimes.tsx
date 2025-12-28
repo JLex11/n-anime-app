@@ -1,7 +1,12 @@
+'use cache'
+
 import { getLatestAnimes } from '@/api/getLatestAnimes'
 import { AnimeCard } from '../AnimeCard'
+import { cacheLife } from 'next/cache'
 
 export const LatestAnimes = async () => {
+	cacheLife('animeList')
+
 	const latestAnimes = await getLatestAnimes()
 
 	const animesData = latestAnimes.map(anime => {

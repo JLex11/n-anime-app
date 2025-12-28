@@ -3,6 +3,7 @@ import { getUser } from '@/app/actions/auth'
 import { isFavorite } from '@/app/actions/favorites'
 import { SkeletonBase } from '@/components/Skeletons'
 import { Suspense } from 'react'
+import { cacheLife, cacheTag } from 'next/cache'
 import styles from './Anime.module.css'
 import { AnimeAside } from './AnimeAside'
 import { AnimeHeader } from './AnimeHeader'
@@ -15,12 +16,20 @@ interface Props {
 	animeId: string
 }
 
-export async function AnimeMain({ animeId }: Props) {
+interface CachedAnimeContentProps {
+	animeId: string
+	userId: string | null
+	userIsFavorite: boolean
+}
+
+// Componente cacheado que recibe datos dinámicos como props
+async function CachedAnimeContent({ animeId, userId, userIsFavorite }: CachedAnimeContentProps) {
+	'use cache'
+	cacheLife('animeDetails')
+	cacheTag(`anime-${animeId}`)
+
 	const anime = await getAnime(animeId)
 	if (!anime || !animeId || !anime.title) return null
-
-	const user = await getUser()
-	const userIsFavorite = user ? await isFavorite(animeId) : false
 
 	return (
 		<main className={styles.main}>
@@ -32,7 +41,7 @@ export async function AnimeMain({ animeId }: Props) {
 					animeTitle={anime.title}
 					animeImage={anime.images?.coverImage || undefined}
 					initialIsFavorite={userIsFavorite}
-					isAuthenticated={!!user}
+					isAuthenticated={!!userId}
 				/>
 				<Description description={anime.description} />
 				<Genres genres={anime.genres} />
@@ -41,5 +50,21 @@ export async function AnimeMain({ animeId }: Props) {
 				</Suspense>
 			</section>
 		</main>
+	)
+}
+
+// Wrapper que extrae datos dinámicos (cookies) y los pasa como props
+export async function AnimeMain({ animeId }: Props) {
+	// Extraer datos dinámicos FUERA de 'use cache'
+	const user = await getUser()
+	const userIsFavorite = user ? await isFavorite(animeId) : false
+
+	// Pasar como props simples al componente cacheado
+	return (
+		<CachedAnimeContent
+			animeId={animeId}
+			userId={user?.id ?? null}
+			userIsFavorite={userIsFavorite}
+		/>
 	)
 }

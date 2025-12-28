@@ -1,7 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { cache } from 'react'
 
 export async function addToFavorites(
@@ -31,7 +31,9 @@ export async function addToFavorites(
 		return { error: error.message }
 	}
 
+	// Invalidar caché de favoritos y página del anime usando tags
 	revalidatePath('/favoritos')
+	revalidateTag(`anime-${animeId}`, 'max')
 	return { success: true }
 }
 
@@ -55,7 +57,9 @@ export async function removeFromFavorites(animeId: string) {
 		return { error: error.message }
 	}
 
+	// Invalidar caché de favoritos y página del anime usando tags
 	revalidatePath('/favoritos')
+	revalidateTag(`anime-${animeId}`, 'max')
 	return { success: true }
 }
 

@@ -16,6 +16,7 @@ import {
 } from '@/components/Skeletons'
 
 export default async function HomePage() {
+
 	const CARDS_WIDTH = '230px'
 	const CARDS_HEIGHT = '190px'
 

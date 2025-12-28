@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 }
 
 async function ContinueWatchingContent() {
+
 	const user = await getUser()
 
 	if (!user) {

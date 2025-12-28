@@ -2,8 +2,13 @@ import { getAnime } from '@/api/getAnime'
 import { Suspense } from 'react'
 import Picture from '../Carousel/Picture'
 import styles from './Anime.module.css'
+import { cacheLife, cacheTag } from 'next/cache'
 
 export async function AnimeBanner({ animeId }: { animeId: string }) {
+	'use cache'
+	cacheLife('animeDetails')
+	cacheTag(`anime-${animeId}`)
+
 	const anime = await getAnime(animeId)
 	if (!anime || !animeId || !anime.title) return null
 

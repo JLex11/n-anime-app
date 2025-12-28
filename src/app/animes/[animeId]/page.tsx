@@ -24,4 +24,5 @@ export const generateMetadata = async ({ params }: PageProps): Promise<Metadata>
 	const { animeId } = await params
 	return generateMetadataFromAnimeId(animeId)
 }
+
 export const generateStaticParams = generatePageStaticParams

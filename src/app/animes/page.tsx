@@ -2,7 +2,7 @@ import { getAnimesByQuery } from '@/api/getAnimeByQuery'
 import { getBroadcastAnimes } from '@/api/getBroadcastAnimes'
 import { AnimeList } from '@/components/AnimeList'
 import { SearchInput } from '@/components/AnimePage/SearchInput'
-import { CardsSkeleton } from '@/components/HomePage/LatestEpisodes'
+import { CardsSkeleton } from '@/components/HomePage/CardsSkeleton'
 import { Suspense } from 'react'
 
 interface Props {
@@ -18,6 +18,7 @@ interface Props {
 }
 
 async function AnimeListContent({ query }: { query: string }) {
+
 	const animes = query.length > 0 ? await getAnimesByQuery(query) : await getBroadcastAnimes()
 	return <AnimeList animesSource={Promise.resolve(animes)} />
 }

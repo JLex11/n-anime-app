@@ -1,8 +1,12 @@
+'use cache'
+
 import { getLatestEpisodes } from '@/api/getLatestEpisodes'
 import { Card } from '../Card'
-import { CardSkeleton } from '../Card/CardSkeleton'
+import { cacheLife } from 'next/cache'
 
 export async function LatestEpisodes() {
+	cacheLife('episodes')
+
 	const latestEpisodes = await getLatestEpisodes()
 
 	const episodeData = latestEpisodes.map((episode, index) => {
@@ -22,8 +26,4 @@ export async function LatestEpisodes() {
 	})
 
 	return episodeData.map(({ key, ...props }) => <Card key={key} {...props} />)
-}
-
-export function CardsSkeleton({ countCards, hasPill }: { countCards: number; hasPill?: boolean }) {
-	return new Array(countCards).fill(0).map((_, i) => <CardSkeleton key={i} hasPill={hasPill} />)
 }
