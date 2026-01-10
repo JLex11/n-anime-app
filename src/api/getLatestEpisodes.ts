@@ -1,5 +1,3 @@
-'use cache'
-
 import { APIRoutes } from '@/enums'
 import type { Episode } from '@/types'
 import { minToSeconds } from '@/utils/convertTime'

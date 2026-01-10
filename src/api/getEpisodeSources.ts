@@ -1,5 +1,3 @@
-'use cache'
-
 import { APIRoutes } from '@/enums'
 import type { EpisodeSources } from '@/types'
 import { hoursToSeconds } from '@/utils/convertTime'

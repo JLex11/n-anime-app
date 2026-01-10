@@ -1,5 +1,3 @@
-'use cache'
-
 import { APIRoutes } from '@/enums'
 import { fetchAnimeHelper } from '@/services/fetchAnimeHelper'
 import type { Anime } from '@/types'
