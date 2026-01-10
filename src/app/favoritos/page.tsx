@@ -2,6 +2,7 @@ import { getFavorites } from '@/app/actions/favorites'
 import { getUser } from '@/app/actions/auth'
 import { redirect } from 'next/navigation'
 import { Suspense } from 'react'
+import { CardGridSkeleton } from '@/components/Skeletons'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import type { UserFavorite } from '@/types'
@@ -88,7 +89,7 @@ async function FavoritesContent() {
 export default async function FavoritesPage() {
 	return (
 		<main style={{ padding: '2rem' }}>
-			<Suspense fallback={<div>Cargando favoritos...</div>}>
+			<Suspense fallback={<CardGridSkeleton count={12} width='14rem' height='300px' />}>
 				<FavoritesContent />
 			</Suspense>
 		</main>

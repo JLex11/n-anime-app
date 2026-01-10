@@ -2,6 +2,7 @@ import { getUser } from '@/app/actions/auth'
 import { LoginForm } from '@/components/Auth/LoginForm'
 import { redirect } from 'next/navigation'
 import { Suspense } from 'react'
+import { AuthSkeleton } from '@/components/Auth/AuthSkeleton'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -37,7 +38,7 @@ export default async function LoginPage({ searchParams }: PageProps) {
 				padding: '2rem',
 			}}
 		>
-			<Suspense fallback={<div>Cargando...</div>}>
+			<Suspense fallback={<AuthSkeleton />}>
 				<LoginContent searchParams={searchParams} />
 			</Suspense>
 		</main>

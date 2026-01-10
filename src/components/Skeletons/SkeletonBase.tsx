@@ -6,13 +6,15 @@ interface SkeletonBaseProps {
 	height?: string
 	variant?: 'rectangle' | 'circle' | 'text'
 	className?: string
+	style?: React.CSSProperties
 }
 
 export function SkeletonBase({
 	width = '100%',
 	height = '1.3rem',
 	variant = 'rectangle',
-	className
+	className,
+	style
 }: SkeletonBaseProps) {
 	const variantClass = {
 		rectangle: styles.skeleton,
@@ -23,7 +25,7 @@ export function SkeletonBase({
 	return (
 		<div
 			className={clsx(variantClass, className)}
-			style={{ width, height }}
+			style={{ width, height, ...style }}
 			aria-busy='true'
 			aria-label='Cargando...'
 		/>

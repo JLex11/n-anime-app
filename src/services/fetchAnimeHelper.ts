@@ -1,10 +1,8 @@
-// fetchAnimeHelper.ts
 import { APIRoutes } from '@/enums'
 import type { Anime } from '@/types'
 import { daysToSeconds, hoursToSeconds, minToSeconds } from '@/utils/convertTime'
 import { filterUnsupportDomains } from '@/utils/filterUnsupportDomains'
 import { sortByRank } from '@/utils/sortByRank'
-import { addAnimeToIndex, getIndexedAnime } from '../services/animesState'
 import { fetchData } from '../services/fetchData'
 
 interface FetchConfig {
@@ -19,10 +17,10 @@ function processAnimeData(data: Anime | Anime[] | undefined): Anime | Anime[] | 
 	if (!data) return undefined
 
 	if (Array.isArray(data)) {
-		return data.map(anime => addAnimeToIndex(filterUnsupportDomains(anime))).filter(Boolean)
+		return data.map(anime => filterUnsupportDomains(anime)).filter(Boolean)
 	}
 
-	return addAnimeToIndex(filterUnsupportDomains(data))
+	return filterUnsupportDomains(data)
 }
 
 /**
@@ -43,12 +41,6 @@ export async function fetchAnimeHelper<T extends Anime | Anime[]>(
 		: ''
 
 	const url = `${endpoint}${queryParams}`
-
-	// Verificar caché si está habilitado
-	if (config.useCache && !Array.isArray(params)) {
-		const cachedData = getIndexedAnime(String(params))
-		if (cachedData) return cachedData as T
-	}
 
 	try {
 		const data = await fetchData<T>(url, {

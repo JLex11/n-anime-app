@@ -1,12 +1,18 @@
 import { Suspense } from 'react'
 import { AnimeBanner } from '@/components/AnimePage/AnimeBanner'
 import { AnimeMain } from '@/components/AnimePage/AnimeMain'
-import { AnimeBannerSkeleton, AnimeMainSkeleton } from '@/components/Skeletons'
+import { AnimeBannerSkeleton, AnimeMainSkeleton, FavoriteButtonSkeleton } from '@/components/Skeletons'
 import type { Metadata } from 'next'
+import { FavoriteButtonContainer } from '@/components/AnimePage/FavoriteButtonContainer'
+import { getAnime } from '@/api/getAnime'
+import { notFound } from 'next/navigation'
 import { type PageProps, generateMetadataFromAnimeId, generatePageStaticParams } from './pageMisc'
 
 export default async function AnimePage({ params }: PageProps) {
 	const { animeId } = await params
+	const anime = await getAnime(animeId)
+
+	if (!anime) notFound()
 
 	return (
 		<>
@@ -14,7 +20,18 @@ export default async function AnimePage({ params }: PageProps) {
 				<AnimeBanner animeId={animeId} />
 			</Suspense>
 			<Suspense fallback={<AnimeMainSkeleton />}>
-				<AnimeMain animeId={animeId} />
+				<AnimeMain
+					animeId={animeId}
+					favoriteButtonSlot={
+						<Suspense key='favorite-btn' fallback={<FavoriteButtonSkeleton />}>
+							<FavoriteButtonContainer
+								animeId={animeId}
+								animeTitle={anime.title}
+								animeImage={anime.images?.coverImage || undefined}
+							/>
+						</Suspense>
+					}
+				/>
 			</Suspense>
 		</>
 	)

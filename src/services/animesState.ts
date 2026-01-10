@@ -8,7 +8,7 @@ interface CachedAnime {
 const CACHE_DURATION = 1000 * 60 * 60 * 12 // 12 horas
 const store = new Map<Anime['animeId'], CachedAnime>()
 
-let lastCleanupTime = Date.now()
+let lastCleanupTime = 0
 const CLEANUP_INTERVAL = 1000 * 60 * 5 // Limpiar cada 5 minutos como máximo
 let pendingCleanup = false // Bandera para limpieza diferida
 

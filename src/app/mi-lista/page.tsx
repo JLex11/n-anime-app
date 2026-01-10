@@ -2,6 +2,7 @@ import { getContinueWatching } from '@/app/actions/watch-progress'
 import { getUser } from '@/app/actions/auth'
 import { redirect } from 'next/navigation'
 import { Suspense } from 'react'
+import { SkeletonBase } from '@/components/Skeletons'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import type { WatchProgress } from '@/types'
@@ -97,10 +98,35 @@ async function ContinueWatchingContent() {
 	)
 }
 
+function ContinueWatchingSkeleton() {
+	return (
+		<div style={{ marginTop: '2rem' }}>
+			{Array.from({ length: 4 }).map((_, i) => (
+				<div
+					key={i}
+					style={{
+						background: 'rgba(26, 26, 26, 0.9)',
+						padding: '1.5rem',
+						borderRadius: '8px',
+						marginBottom: '1rem',
+					}}
+				>
+					<SkeletonBase width='60%' height='1.5rem' style={{ marginBottom: '1rem' }} />
+					<SkeletonBase width='100%' height='8px' style={{ borderRadius: '4px', marginTop: '1rem' }} />
+					<div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.5rem' }}>
+						<SkeletonBase width='80px' height='0.875rem' />
+						<SkeletonBase width='120px' height='0.875rem' />
+					</div>
+				</div>
+			))}
+		</div>
+	)
+}
+
 export default async function ContinueWatchingPage() {
 	return (
 		<main style={{ padding: '2rem' }}>
-			<Suspense fallback={<div>Cargando...</div>}>
+			<Suspense fallback={<ContinueWatchingSkeleton />}>
 				<ContinueWatchingContent />
 			</Suspense>
 		</main>
