@@ -14,7 +14,13 @@ export async function ContinueWatchingSection() {
 					No tienes episodios pendientes.
 				</p>
 			) : (
-				<div>
+				<div
+					style={{
+						display: 'grid',
+						gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 450px), 1fr))',
+						gap: '1rem',
+					}}
+				>
 					{continueWatching.map((item) => {
 						const progressPercent = item.duration_seconds
 							? Math.round((item.progress_seconds / item.duration_seconds) * 100)
@@ -29,7 +35,6 @@ export async function ContinueWatchingSection() {
 									background: 'rgba(26, 26, 26, 0.9)',
 									padding: '1.5rem',
 									borderRadius: '8px',
-									marginBottom: '1rem',
 									textDecoration: 'none',
 									color: 'inherit',
 									transition: 'background 0.2s',

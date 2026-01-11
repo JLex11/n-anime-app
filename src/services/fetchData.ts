@@ -46,7 +46,7 @@ export const fetchData: FetchData = async (apiPath, fetchConfig) => {
 		const response = await fetchWithDeduping()
 		return response.json()
 	} catch (error) {
-		console.error(`Failed to fetch ${apiPath} after ${maxRetries} attempts:`, error)
+		console.warn(`Failed to fetch ${apiPath} after ${maxRetries} attempts:`, error)
 		return undefined
 	}
 }

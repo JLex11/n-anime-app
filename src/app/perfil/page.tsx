@@ -4,6 +4,7 @@ import { UserSection } from '@/components/Profile/UserSection'
 import { ContinueWatchingSection } from '@/components/Profile/ContinueWatchingSection'
 import { FavoritesSection } from '@/components/Profile/FavoritesSection'
 import { SkeletonBase, CardGridSkeleton } from '@/components/Skeletons'
+import styles from '@/components/Profile/Profile.module.css'
 
 export const metadata: Metadata = {
 	title: 'Mi Perfil - One Anime',
@@ -59,8 +60,8 @@ function FavoritesSkeleton() {
 
 export default function ProfilePage() {
 	return (
-		<main style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-			<h1 style={{ marginBottom: '2rem' }}>Mi Perfil</h1>
+		<main className={styles.main}>
+			<h1 className={styles.title}>Mi Perfil</h1>
 
 			<Suspense fallback={<UserSectionSkeleton />}>
 				<UserSection />
