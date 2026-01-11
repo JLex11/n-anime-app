@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import type { WatchProgress } from '@/types'
 
 export async function updateWatchProgress(
 	animeId: string,
@@ -50,7 +51,9 @@ export async function updateWatchProgress(
 	return { success: true }
 }
 
-export async function getWatchProgress(animeId: string, episodeId?: string) {
+export async function getWatchProgress(animeId: string, episodeId: string): Promise<WatchProgress | null>
+export async function getWatchProgress(animeId: string): Promise<WatchProgress[] | null>
+export async function getWatchProgress(animeId: string, episodeId?: string): Promise<WatchProgress | WatchProgress[] | null> {
 	const supabase = await createClient()
 	const {
 		data: { user },

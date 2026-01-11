@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 import { FavoriteButtonContainer } from '@/components/AnimePage/FavoriteButtonContainer'
 import { getAnime } from '@/api/getAnime'
 import { notFound } from 'next/navigation'
-import { type PageProps, generateMetadataFromAnimeId, generatePageStaticParams } from './pageMisc'
+import { type PageProps, generateMetadataFromAnimeId } from './pageMisc'
 
 export default async function AnimePage({ params }: PageProps) {
 	const { animeId } = await params
@@ -42,4 +42,4 @@ export const generateMetadata = async ({ params }: PageProps): Promise<Metadata>
 	return generateMetadataFromAnimeId(animeId)
 }
 
-export const generateStaticParams = generatePageStaticParams
+//export const generateStaticParams = generatePageStaticParams
