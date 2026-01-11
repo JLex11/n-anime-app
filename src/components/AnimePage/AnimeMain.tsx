@@ -8,14 +8,16 @@ import { AnimeHeader } from './AnimeHeader'
 import { Description } from './DescriptionSection'
 import { Episodes } from './EpisodesSection'
 import { Genres } from './GenresSection'
+import { CommentsSection } from '../Comments';
 
 
 interface Props {
 	animeId: string
 	favoriteButtonSlot: React.ReactNode
+	commentsSlot?: React.ReactNode
 }
 
-export async function AnimeMain({ animeId, favoriteButtonSlot }: Props) {
+export async function AnimeMain({ animeId, favoriteButtonSlot, commentsSlot }: Props) {
 	'use cache'
 	cacheLife('animeDetails')
 	cacheTag(`anime-${animeId}`)
@@ -39,6 +41,7 @@ export async function AnimeMain({ animeId, favoriteButtonSlot }: Props) {
 					}
 				>
 					<Episodes animeId={anime.animeId} fallbackImg={anime.images?.coverImage} animeTitle={anime.title} />
+					{commentsSlot}
 				</Suspense>
 			</section>
 		</main>

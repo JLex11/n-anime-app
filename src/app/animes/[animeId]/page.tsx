@@ -32,9 +32,13 @@ async function AnimePageContent({ params }: PageProps) {
 							/>
 						</Suspense>
 					}
+					commentsSlot={
+						<Suspense key='comments-section' fallback={null}>
+							<CommentsSection animeId={animeId} />
+						</Suspense>
+					}
 				/>
 			</Suspense>
-			<CommentsSection animeId={animeId} />
 		</>
 	)
 }

@@ -4,7 +4,6 @@
 
 .commentsSection {
 	width: 100%;
-	max-width: 900px;
 	margin: 0 auto;
 	padding: 2rem 0;
 }
@@ -187,7 +186,8 @@
 	backdrop-filter: blur(10px);
 	border: 1px solid rgba(255, 255, 255, 0.1);
 	border-radius: 8px;
-	padding: 0.7rem;
+	padding-inline: 0.7rem;
+	padding-block: 0.5rem;
 	transition: all 0.2s ease;
 }
 
@@ -461,6 +461,21 @@
 .mention {
 	color: rgba(102, 126, 234, 1);
 	font-weight: 600;
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+/* =====================================================
+   SKELETON LOADING
+   ===================================================== */
+
+.commentsSkeletonContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin-top: 1rem;
 }
 
 /* =====================================================
