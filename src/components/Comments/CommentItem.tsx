@@ -127,7 +127,13 @@ export function CommentItem({
 	}
 
 	return (
-		<div ref={commentRef} className={styles.commentItem} data-level={level}>
+		<div 
+			ref={commentRef} 
+			className={styles.commentItem} 
+			data-level={level}
+			data-comment-id={comment.id}
+			data-parent-id={comment.parent_id || ''}
+		>
 			<div className={styles.commentHeader}>
 				<div className={styles.commentAuthor}>
 					{avatarUrl && (
@@ -137,7 +143,37 @@ export function CommentItem({
 					{comment.replying_to_username && (
 						<>
 							<span className={styles.replyArrow}>›</span>
-							<span className={styles.replyingTo}>@{comment.replying_to_username}</span>
+							<span 
+								className={styles.replyingTo}
+								onClick={(e) => {
+									e.preventDefault()
+									e.stopPropagation()
+									if (comment.parent_id) {
+										// Remover highlight de cualquier comentario que lo tenga actualmente
+										const allHighlighted = document.querySelectorAll(`.${styles.commentHighlight}`)
+										allHighlighted.forEach(el => el.classList.remove(styles.commentHighlight))
+										
+										const parentElement = document.querySelector(
+											`.${styles.commentItem}[data-comment-id="${comment.parent_id}"]`
+										) as HTMLElement
+										if (parentElement) {
+											// Hacer scroll al comentario padre
+											parentElement.scrollIntoView({
+												behavior: 'smooth',
+												block: 'center',
+											})
+											// Aplicar highlight
+											parentElement.classList.add(styles.commentHighlight)
+											// Remover highlight después de la animación
+											setTimeout(() => {
+												parentElement.classList.remove(styles.commentHighlight)
+											}, 1500)
+										}
+									}
+								}}
+							>
+								@{comment.replying_to_username}
+							</span>
 						</>
 					)}
 					<span className={styles.commentDate}>{formatDate(comment.created_at)}</span>

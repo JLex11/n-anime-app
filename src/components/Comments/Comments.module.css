@@ -253,10 +253,30 @@
 	font-size: 0.9rem;
 	color: rgba(102, 126, 234, 1);
 	transition: color 0.2s ease;
+	cursor: pointer;
 }
 
 .replyingTo:hover {
 	color: rgba(118, 75, 162, 1);
+}
+
+.commentHighlight {
+	animation: highlightPulse 1.5s ease-out;
+}
+
+@keyframes highlightPulse {
+	0% {
+		background-color: rgba(102, 126, 234, 0.3);
+		border-color: rgba(102, 126, 234, 0.5);
+	}
+	50% {
+		background-color: rgba(102, 126, 234, 0.2);
+		border-color: rgba(102, 126, 234, 0.4);
+	}
+	100% {
+		background-color: rgba(37, 37, 37, 0.95);
+		border-color: rgba(255, 255, 255, 0.1);
+	}
 }
 
 .commentDate {
