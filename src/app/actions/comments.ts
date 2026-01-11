@@ -660,3 +660,307 @@ export const getCommentCount = cache(
 		return count || 0
 	}
 )
+
+// =====================================================
+// PAGINATION FUNCTIONS
+// =====================================================
+
+export interface PaginatedCommentsResponse {
+	comments: CommentWithReplies[]
+	hasMore: boolean
+	nextCursor: string | null
+	totalCount: number
+}
+
+export const getCommentsPaginated = cache(
+	async (
+		animeId: string,
+		episodeId?: string | null,
+		pageSize: number = 10,
+		cursor?: string | null,
+		initialRepliesLimit: number = 3
+	): Promise<PaginatedCommentsResponse> => {
+		const supabase = await createClient()
+		const {
+			data: { user },
+		} = await supabase.auth.getUser()
+
+		// 1. Fetch top-level comments with cursor pagination
+		const query = supabase
+			.from('comments')
+			.select('*, user_profiles!comments_user_id_fkey(username, avatar_url)', {
+				count: 'exact',
+			})
+			.eq('anime_id', animeId)
+			.is('parent_id', null)
+			.order('created_at', { ascending: false })
+			.limit(pageSize + 1)
+
+		if (episodeId) {
+			query.eq('episode_id', episodeId)
+		} else {
+			query.is('episode_id', null)
+		}
+
+		if (cursor) {
+			query.lt('created_at', cursor)
+		}
+
+		const { data: topLevelComments, error, count } = (await query) as any
+
+		if (error || !topLevelComments) {
+			return { comments: [], hasMore: false, nextCursor: null, totalCount: 0 }
+		}
+
+		const hasMore = topLevelComments.length > pageSize
+		const commentsToReturn = hasMore ? topLevelComments.slice(0, pageSize) : topLevelComments
+		const topLevelIds = commentsToReturn.map((c: any) => c.id)
+
+		// 2. Fetch ALL replies for these threads
+		const { data: allReplies } = (await supabase
+			.from('comments')
+			.select('*, user_profiles!comments_user_id_fkey(username, avatar_url)')
+			.in('thread_id', topLevelIds)
+			.not('parent_id', 'is', null)
+			.order('created_at', { ascending: true })) as any
+
+		// 3. Count total replies per thread
+		const replyCountMap = new Map<string, number>()
+		allReplies?.forEach((r: any) => {
+			replyCountMap.set(r.thread_id, (replyCountMap.get(r.thread_id) || 0) + 1)
+		})
+
+		// 4. Limit replies in memory
+		const limitedRepliesMap = new Map<string, any[]>()
+		allReplies?.forEach((reply: any) => {
+			if (!limitedRepliesMap.has(reply.thread_id)) {
+				limitedRepliesMap.set(reply.thread_id, [])
+			}
+			const current = limitedRepliesMap.get(reply.thread_id)!
+			if (current.length < initialRepliesLimit) {
+				current.push(reply)
+			}
+		})
+
+		const limitedReplies = Array.from(limitedRepliesMap.values()).flat()
+		const allCommentIds = [...topLevelIds, ...limitedReplies.map((r: any) => r.id)]
+
+		// 5. Get aggregated like/dislike counts (OPTIMIZED)
+		const { data: likesDislikesData } = await supabase.rpc('get_comment_likes_counts', {
+			comment_ids: allCommentIds,
+		} as any) as any
+
+		const likeCountMap = new Map<string, number>()
+		const dislikeCountMap = new Map<string, number>()
+		likesDislikesData?.forEach((row: any) => {
+			likeCountMap.set(row.comment_id, Number(row.like_count))
+			dislikeCountMap.set(row.comment_id, Number(row.dislike_count))
+		})
+
+		// 6. Get user's likes/dislikes
+		let userLikes: string[] = []
+		let userDislikes: string[] = []
+		if (user) {
+			const [{ data: likesData }, { data: dislikesData }] = await Promise.all([
+				supabase
+					.from('comment_likes')
+					.select('comment_id')
+					.eq('user_id', user.id)
+					.in('comment_id', allCommentIds) as any,
+				supabase
+					.from('comment_dislikes')
+					.select('comment_id')
+					.eq('user_id', user.id)
+					.in('comment_id', allCommentIds) as any,
+			])
+			userLikes = likesData?.map((l: any) => l.comment_id) || []
+			userDislikes = dislikesData?.map((d: any) => d.comment_id) || []
+		}
+
+		// 7. Build enriched comments (same logic as original getComments)
+		const usernameById = new Map<string, string>()
+		commentsToReturn.forEach((c: any) => {
+			usernameById.set(c.id, c.user_profiles?.username || 'Usuario')
+		})
+		limitedReplies.forEach((r: any) => {
+			usernameById.set(r.id, r.user_profiles?.username || 'Usuario')
+		})
+
+		const repliesById = new Map<string, CommentWithReplies>()
+		limitedReplies.forEach((reply: any) => {
+			repliesById.set(reply.id, {
+				...reply,
+				user_profile: reply.user_profiles,
+				like_count: likeCountMap.get(reply.id) || 0,
+				user_has_liked: userLikes.includes(reply.id),
+				dislike_count: dislikeCountMap.get(reply.id) || 0,
+				user_has_disliked: userDislikes.includes(reply.id),
+				replies: [],
+				reply_count: 0,
+			} as CommentWithReplies)
+		})
+
+		// Identify level 1 replies
+		const level1Ids = new Set<string>()
+		limitedReplies.forEach((r: any) => {
+			if (commentsToReturn.some((c: any) => c.id === r.parent_id)) {
+				level1Ids.add(r.id)
+			}
+		})
+
+		// Group level 2+ as siblings under level 1
+		const repliesByLevel1 = new Map<string, CommentWithReplies[]>()
+		limitedReplies.forEach((reply: any) => {
+			const enriched = repliesById.get(reply.id)!
+			enriched.replying_to_username = usernameById.get(reply.parent_id) || null
+
+			if (!level1Ids.has(reply.id)) {
+				let currentParentId = reply.parent_id
+				while (currentParentId && !level1Ids.has(currentParentId)) {
+					const parent = limitedReplies.find((r: any) => r.id === currentParentId)
+					if (!parent) break
+					currentParentId = parent.parent_id
+				}
+				if (currentParentId && level1Ids.has(currentParentId)) {
+					if (!repliesByLevel1.has(currentParentId)) {
+						repliesByLevel1.set(currentParentId, [])
+					}
+					repliesByLevel1.get(currentParentId)!.push(enriched)
+				}
+			}
+		})
+
+		level1Ids.forEach(id => {
+			const level1 = repliesById.get(id)!
+			level1.replies = repliesByLevel1.get(id) || []
+			level1.reply_count = level1.replies.length
+		})
+
+		// Group level 1 by root
+		const repliesByRoot = new Map<string, CommentWithReplies[]>()
+		limitedReplies.forEach((reply: any) => {
+			if (level1Ids.has(reply.id)) {
+				const enriched = repliesById.get(reply.id)!
+				if (!repliesByRoot.has(reply.parent_id)) {
+					repliesByRoot.set(reply.parent_id, [])
+				}
+				repliesByRoot.get(reply.parent_id)!.push(enriched)
+			}
+		})
+
+		// Build final enriched comments
+		const enrichedComments: CommentWithReplies[] = commentsToReturn.map((comment: any) => {
+			const directReplies = repliesByRoot.get(comment.id) || []
+			const totalReplies = replyCountMap.get(comment.id) || 0
+			const loadedReplies = directReplies.length
+
+			return {
+				...comment,
+				user_profile: comment.user_profiles,
+				like_count: likeCountMap.get(comment.id) || 0,
+				user_has_liked: userLikes.includes(comment.id),
+				dislike_count: dislikeCountMap.get(comment.id) || 0,
+				user_has_disliked: userDislikes.includes(comment.id),
+				replies: directReplies,
+				reply_count: totalReplies,
+				has_hidden_replies: totalReplies > loadedReplies,
+				loaded_reply_count: loadedReplies,
+			}
+		})
+
+		return {
+			comments: enrichedComments,
+			hasMore,
+			nextCursor: hasMore
+				? commentsToReturn[commentsToReturn.length - 1].created_at
+				: null,
+			totalCount: count || 0,
+		}
+	}
+)
+
+export interface ThreadRepliesResponse {
+	replies: CommentWithReplies[]
+	hasMore: boolean
+	totalCount: number
+}
+
+export async function getThreadReplies(
+	threadId: string,
+	offset: number = 0,
+	limit: number = 10
+): Promise<ThreadRepliesResponse> {
+	const supabase = await createClient()
+	const {
+		data: { user },
+	} = await supabase.auth.getUser()
+
+	const { data: replies, error, count } = (await supabase
+		.from('comments')
+		.select('*, user_profiles!comments_user_id_fkey(username, avatar_url)', {
+			count: 'exact',
+		})
+		.eq('thread_id', threadId)
+		.not('parent_id', 'is', null)
+		.order('created_at', { ascending: true })
+		.range(offset, offset + limit - 1)) as any
+
+	if (error || !replies) {
+		return { replies: [], hasMore: false, totalCount: 0 }
+	}
+
+	const replyIds = replies.map((r: any) => r.id)
+
+	const { data: likesDislikesData } = await supabase.rpc('get_comment_likes_counts', {
+		comment_ids: replyIds,
+	} as any) as any
+
+	const likeCountMap = new Map<string, number>()
+	const dislikeCountMap = new Map<string, number>()
+	likesDislikesData?.forEach((row: any) => {
+		likeCountMap.set(row.comment_id, Number(row.like_count))
+		dislikeCountMap.set(row.comment_id, Number(row.dislike_count))
+	})
+
+	let userLikes: string[] = []
+	let userDislikes: string[] = []
+	if (user) {
+		const [{ data: likesData }, { data: dislikesData }] = await Promise.all([
+			supabase
+				.from('comment_likes')
+				.select('comment_id')
+				.eq('user_id', user.id)
+				.in('comment_id', replyIds) as any,
+			supabase
+				.from('comment_dislikes')
+				.select('comment_id')
+				.eq('user_id', user.id)
+				.in('comment_id', replyIds) as any,
+		])
+		userLikes = likesData?.map((l: any) => l.comment_id) || []
+		userDislikes = dislikesData?.map((d: any) => d.comment_id) || []
+	}
+
+	const usernameById = new Map<string, string>()
+	replies.forEach((r: any) => {
+		usernameById.set(r.id, r.user_profiles?.username || 'Usuario')
+	})
+
+	const enrichedReplies: CommentWithReplies[] = replies.map((reply: any) => ({
+		...reply,
+		user_profile: reply.user_profiles,
+		like_count: likeCountMap.get(reply.id) || 0,
+		user_has_liked: userLikes.includes(reply.id),
+		dislike_count: dislikeCountMap.get(reply.id) || 0,
+		user_has_disliked: userDislikes.includes(reply.id),
+		replies: [],
+		reply_count: 0,
+		replying_to_username: usernameById.get(reply.parent_id) || null,
+	}))
+
+	return {
+		replies: enrichedReplies,
+		hasMore: (count || 0) > offset + limit,
+		totalCount: count || 0,
+	}
+}

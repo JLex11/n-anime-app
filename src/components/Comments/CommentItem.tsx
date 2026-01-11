@@ -6,6 +6,8 @@ import { LikeButton } from './LikeButton'
 import { CommentForm } from './CommentForm'
 import { MarkdownRenderer } from './MarkdownRenderer'
 import { CommentsList } from './CommentsList'
+import { useCommentsContext } from './CommentsContext'
+import LoadingIcon from '@/components/Icons/LoadingIcon'
 import type { CommentWithReplies } from '@/types'
 import styles from './Comments.module.css'
 import clsx from 'clsx'
@@ -38,8 +40,10 @@ export function CommentItem({
 	const [showReplyForm, setShowReplyForm] = useState(false)
 	const [isDeleting, startDeleteTransition] = useTransition()
 	const [showReplies, setShowReplies] = useState(level === 0)
+	const [isLoadingReplies, setIsLoadingReplies] = useState(false)
 	const commentRef = useRef<HTMLDivElement>(null)
 	const prevReplyCountRef = useRef(comment.replies?.length || 0)
+	const { handleLoadMoreReplies } = useCommentsContext()
 
 	// Auto-expandir y hacer scroll cuando se agregan nuevas respuestas a comentarios de nivel 1
 	useLayoutEffect(() => {
@@ -96,6 +100,18 @@ export function CommentItem({
 		startDeleteTransition(async () => {
 			await deleteComment(comment.id)
 		})
+	}
+
+	const handleLoadMoreRepliesClick = async () => {
+		if (isLoadingReplies) return
+
+		setIsLoadingReplies(true)
+		try {
+			const currentOffset = comment.loaded_reply_count || comment.replies?.length || 0
+			await handleLoadMoreReplies(comment.id, currentOffset)
+		} finally {
+			setIsLoadingReplies(false)
+		}
 	}
 
 	const formatDate = (dateString: string) => {
@@ -282,6 +298,26 @@ export function CommentItem({
 							currentUserProfile={currentUserProfile}
 							onExpandReplies={level === 1 ? () => setShowReplies(true) : undefined}
 						/>
+
+						{level === 0 && comment.has_hidden_replies && (
+							<div className={styles.loadMoreRepliesContainer}>
+								<button
+									onClick={handleLoadMoreRepliesClick}
+									disabled={isLoadingReplies}
+									className={styles.loadMoreRepliesButton}
+									type="button"
+								>
+									{isLoadingReplies ? (
+										<>
+											<LoadingIcon width={16} />
+											<span>Cargando...</span>
+										</>
+									) : (
+										`Ver más respuestas (${(comment.reply_count || 0) - (comment.loaded_reply_count || comment.replies.length)})`
+									)}
+								</button>
+							</div>
+						)}
 					</div>
 				)}
 		</div>

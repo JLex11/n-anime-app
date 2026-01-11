@@ -137,4 +137,19 @@ export interface Comment {
 
 export interface CommentWithReplies extends Comment {
 	replies: Comment[]
+	has_hidden_replies?: boolean // NEW: indica si hay más respuestas para cargar
+	loaded_reply_count?: number // NEW: cuántas respuestas están cargadas actualmente
+}
+
+export interface PaginatedCommentsResponse {
+	comments: CommentWithReplies[]
+	hasMore: boolean
+	nextCursor: string | null
+	totalCount: number
+}
+
+export interface ThreadRepliesResponse {
+	replies: CommentWithReplies[]
+	hasMore: boolean
+	totalCount: number
 }
