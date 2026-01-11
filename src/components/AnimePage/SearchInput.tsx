@@ -2,7 +2,6 @@
 
 import { useDebounce } from '@/hooks/useDebounce'
 import clsx from 'clsx'
-import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import styles from './Anime.module.css'
@@ -12,31 +11,29 @@ interface InputProps {
 }
 
 export function SearchInput({ query }: InputProps) {
-	const [queryValue, setQueryValue] = useState(query)
-	const searchQuery = useDebounce(queryValue, 300)
-	const searchParams = useSearchParams()
 	const router = useRouter()
+	const [localValue, setLocalValue] = useState(query || '')
+	const debouncedValue = useDebounce(localValue, 300)
 
 	useEffect(() => {
-		const params = new URLSearchParams(searchParams)
-		const currentQuery = params.get('query') || ''
+		if (!debouncedValue) return
 
-		if (searchQuery !== currentQuery) {
-			searchQuery.length > 0 ? params.set('query', searchQuery) : params.delete('query')
-			router.replace(`?${params.toString()}`)
-		}
-	}, [searchQuery, router, searchParams])
+		const params = new URLSearchParams(window.location.search)
+		params.set('query', debouncedValue)
+		router.replace(`?${params.toString()}`)
+	}, [debouncedValue, router])
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { target } = e
-		setQueryValue(target.value)
-	}
-
-	const inputContainerClass = clsx(styles.inputContainer, query.length > 0 && styles.active)
+	const inputContainerClass = clsx(styles.inputContainer, localValue.length > 0 && styles.active)
 
 	return (
 		<div className={inputContainerClass}>
-			<input className={styles.inputSearch} type='search' defaultValue={query} onChange={handleChange} />
+			<input
+				key={query}
+				className={styles.inputSearch}
+				type='search'
+				defaultValue={query || ''}
+				onChange={(e) => setLocalValue(e.target.value)}
+			/>
 		</div>
 	)
 }

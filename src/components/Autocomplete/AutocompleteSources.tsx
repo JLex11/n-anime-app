@@ -104,9 +104,7 @@ export const getAnimeItems = async (query: string) => {
 	}
 
 	try {
-		// Ajustar límite dinámicamente basado en la longitud de la query
-		const limit = Math.min(10 + query.length * 2, 15)
-		const animes = await getAnimesByQuery(encodeURIComponent(query), limit)
+		const animes = await getAnimesByQuery(encodeURIComponent(query), 15)
 
 		const result = animes
 			.map(anime => {

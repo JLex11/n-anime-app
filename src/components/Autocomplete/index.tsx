@@ -52,6 +52,7 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
 							panelRef={elementsRef.panelRef as React.RefObject<HTMLDivElement>}
 							panelProps={elementsProps.panelProps}
 							className={resultsPanelClassName}
+							query={autocomplete.query}
 						/>
 					)}
 				</form>

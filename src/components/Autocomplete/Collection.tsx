@@ -3,10 +3,14 @@ import { toCap } from '@/utils/textConverts'
 import { memo, useEffect, useState } from 'react'
 import styles from './Autocomplete.module.css'
 import { CollectionItem } from './CollectionItem'
+import Link from 'next/link'
+import { useAutocompleteContext } from './Contexts'
+import SearchIcon from '../Icons/SearchIcon'
 
 interface Props {
 	items: AutocompleteOutputItem[]
 	sourceId: string
+	query?: string
 }
 
 const LazyCollectionItem = memo(function LazyCollectionItem({
@@ -41,8 +45,12 @@ const LazyCollectionItem = memo(function LazyCollectionItem({
 	return <CollectionItem item={item} />
 })
 
-export function Collection({ items, sourceId }: Props) {
+export function Collection({ items, sourceId, query }: Props) {
+	const { handleLaunchAutocomplete } = useAutocompleteContext()
+
 	if (items.length === 0) return null
+
+	const shouldShowViewMore = sourceId === 'Animes' && query && query.length > 0
 
 	return (
 		<section className={styles.collection}>
@@ -57,6 +65,21 @@ export function Collection({ items, sourceId }: Props) {
 					delay={index * 30} // Escalonar la carga
 				/>
 			))}
+			{shouldShowViewMore && (
+				<Link
+					href={`/animes?query=${encodeURIComponent(query)}`}
+					className={styles.viewMoreButton}
+					onClick={() => handleLaunchAutocomplete(false)}
+				>
+					<div className={styles.viewMoreIconContainer}>
+						<SearchIcon width={50} />
+					</div>
+					<div className={styles.viewMoreContent}>
+						<span className={styles.viewMoreTitle}>Ver más resultados</span>
+						<span className={styles.viewMoreSubtitle}>Animes: {query}</span>
+					</div>
+				</Link>
+			)}
 		</section>
 	)
 }
