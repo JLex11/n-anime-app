@@ -9,6 +9,10 @@ interface Props {
 	onCommentDeleted?: (commentId: string) => void
 	onCommentUpdated?: (commentId: string, content: string) => void
 	onCommentAdded?: (optimisticComment: CommentWithReplies, realComment?: CommentWithReplies) => void
+	currentUserProfile?: {
+		username: string | null
+		avatar_url: string | null
+	} | null
 }
 
 export function CommentsList({
@@ -18,6 +22,7 @@ export function CommentsList({
 	onCommentDeleted,
 	onCommentUpdated,
 	onCommentAdded,
+	currentUserProfile,
 }: Props) {
 	return (
 		<div className={styles.commentsList} data-level={level}>
@@ -30,6 +35,7 @@ export function CommentsList({
 					onCommentDeleted={onCommentDeleted}
 					onCommentUpdated={onCommentUpdated}
 					onCommentAdded={onCommentAdded}
+					currentUserProfile={currentUserProfile}
 				/>
 			))}
 		</div>

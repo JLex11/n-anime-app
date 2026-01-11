@@ -17,6 +17,10 @@ interface Props {
 	onCommentDeleted?: (commentId: string) => void
 	onCommentUpdated?: (commentId: string, content: string) => void
 	onCommentAdded?: (optimisticComment: CommentWithReplies, realComment?: CommentWithReplies) => void
+	currentUserProfile?: {
+		username: string | null
+		avatar_url: string | null
+	} | null
 }
 
 export function CommentItem({
@@ -26,11 +30,12 @@ export function CommentItem({
 	onCommentDeleted,
 	onCommentUpdated,
 	onCommentAdded,
+	currentUserProfile,
 }: Props) {
 	const [isEditing, setIsEditing] = useState(false)
 	const [showReplyForm, setShowReplyForm] = useState(false)
 	const [isDeleting, startDeleteTransition] = useTransition()
-	const [showReplies, setShowReplies] = useState(true)
+	const [showReplies, setShowReplies] = useState(level === 0)
 
 	const isOwner = currentUserId === comment.user_id
 	const canReply = true // Permitir responder en cualquier nivel (flat thread)
@@ -126,6 +131,7 @@ export function CommentItem({
 					onCommentUpdated={onCommentUpdated}
 					isAuthenticated={true}
 					currentUserId={currentUserId}
+					currentUserProfile={currentUserProfile}
 				/>
 			) : (
 				<div className={styles.commentContent}>
@@ -153,7 +159,7 @@ export function CommentItem({
 					</button>
 				)}
 
-				{comment.replies && comment.replies.length > 0 && (
+				{comment.replies && comment.replies.length > 0 && level <= 1 && (
 					<button
 						onClick={() => setShowReplies(!showReplies)}
 						className={styles.toggleRepliesButton}
@@ -178,22 +184,26 @@ export function CommentItem({
 						placeholder={`Responder a @${username}...`}
 						currentUserId={currentUserId}
 						replyingToUser={username}
+						currentUserProfile={currentUserProfile}
 					/>
 				</div>
 			)}
 
-			{showReplies && comment.replies && comment.replies.length > 0 && (
-				<div className={styles.commentReplies}>
-					<CommentsList
-						comments={comment.replies as any}
-						currentUserId={currentUserId}
-						level={level + 1}
-						onCommentDeleted={onCommentDeleted}
-						onCommentUpdated={onCommentUpdated}
-						onCommentAdded={onCommentAdded}
-					/>
-				</div>
-			)}
+			{((showReplies && level <= 1) || level > 1) &&
+				comment.replies &&
+				comment.replies.length > 0 && (
+					<div className={styles.commentReplies}>
+						<CommentsList
+							comments={comment.replies as any}
+							currentUserId={currentUserId}
+							level={level + 1}
+							onCommentDeleted={onCommentDeleted}
+							onCommentUpdated={onCommentUpdated}
+							onCommentAdded={onCommentAdded}
+							currentUserProfile={currentUserProfile}
+						/>
+					</div>
+				)}
 		</div>
 	)
 }

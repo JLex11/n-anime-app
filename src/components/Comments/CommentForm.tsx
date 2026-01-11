@@ -20,6 +20,10 @@ interface Props {
 	placeholder?: string
 	currentUserId?: string
 	replyingToUser?: string
+	currentUserProfile?: {
+		username: string | null
+		avatar_url: string | null
+	} | null
 }
 
 export function CommentForm({
@@ -36,6 +40,7 @@ export function CommentForm({
 	placeholder = 'Escribe un comentario... (Markdown soportado)',
 	currentUserId,
 	replyingToUser,
+	currentUserProfile,
 }: Props) {
 	const [content, setContent] = useState(editingComment?.content || '')
 	const [error, setError] = useState<string | null>(null)
@@ -92,8 +97,8 @@ export function CommentForm({
 					created_at: new Date().toISOString(),
 					updated_at: new Date().toISOString(),
 					user_profile: {
-						username: 'Tú',
-						avatar_url: null,
+						username: currentUserProfile?.username || 'Tú',
+						avatar_url: currentUserProfile?.avatar_url || null,
 					},
 					like_count: 0,
 					dislike_count: 0,
@@ -128,8 +133,8 @@ export function CommentForm({
 					const realComment: CommentWithReplies = {
 						...result.data,
 						user_profile: result.data.user_profile || {
-							username: 'Tú',
-							avatar_url: null,
+							username: currentUserProfile?.username || 'Tú',
+							avatar_url: currentUserProfile?.avatar_url || null,
 						},
 						like_count: 0,
 						dislike_count: 0,

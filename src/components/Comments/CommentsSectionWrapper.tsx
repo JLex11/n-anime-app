@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { getComments, getCommentCount } from '@/app/actions/comments'
-import { getUser } from '@/app/actions/auth'
+import { getUser, getUserProfile } from '@/app/actions/auth'
 import { CommentsSection } from './CommentsSection'
 import { SkeletonBase } from '@/components/Skeletons'
 import styles from './Comments.module.css'
@@ -11,10 +11,11 @@ interface Props {
 }
 
 async function CommentsSectionContent({ animeId, episodeId }: Props) {
-	const [comments, user, count] = await Promise.all([
+	const [comments, user, count, profile] = await Promise.all([
 		getComments(animeId, episodeId),
 		getUser(),
 		getCommentCount(animeId, episodeId),
+		getUserProfile(),
 	])
 
 	return (
@@ -25,6 +26,7 @@ async function CommentsSectionContent({ animeId, episodeId }: Props) {
 			initialCount={count}
 			currentUserId={user?.id}
 			isAuthenticated={!!user}
+			currentUserProfile={profile}
 		/>
 	)
 }

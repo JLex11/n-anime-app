@@ -19,6 +19,10 @@ interface Props {
 	initialCount: number
 	currentUserId?: string
 	isAuthenticated: boolean
+	currentUserProfile?: {
+		username: string | null
+		avatar_url: string | null
+	} | null
 }
 
 export function CommentsSection({
@@ -28,6 +32,7 @@ export function CommentsSection({
 	initialCount,
 	currentUserId,
 	isAuthenticated,
+	currentUserProfile,
 }: Props) {
 	const [comments, setComments] = useState(initialComments)
 	const [optimisticQueue, setOptimisticQueue] = useState<CommentWithReplies[]>([])
@@ -91,7 +96,14 @@ export function CommentsSection({
 		setComments(prevComments => updateCommentInState(prevComments, commentId, content))
 	}
 
-	const count = displayedComments.length
+	const count = useMemo(() => {
+		const countAllComments = (comments: CommentWithReplies[]): number => {
+			return comments.reduce((total, comment) => {
+				return total + 1 + (comment.replies ? countAllComments(comment.replies as CommentWithReplies[]) : 0)
+			}, 0)
+		}
+		return countAllComments(displayedComments)
+	}, [displayedComments])
 
 	return (
 		<div className={styles.commentsSection}>
@@ -108,6 +120,7 @@ export function CommentsSection({
 				onCommentAdded={handleCommentAdded}
 				onCommentError={handleCommentError}
 				currentUserId={currentUserId}
+				currentUserProfile={currentUserProfile}
 			/>
 
 			{displayedComments.length > 0 ? (
@@ -117,6 +130,7 @@ export function CommentsSection({
 					onCommentDeleted={handleCommentDeleted}
 					onCommentUpdated={handleCommentUpdated}
 					onCommentAdded={handleCommentAdded}
+					currentUserProfile={currentUserProfile}
 				/>
 			) : (
 				<p className={styles.noComments}>Sé el primero en comentar</p>

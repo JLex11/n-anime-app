@@ -75,3 +75,17 @@ export const getUser = cache(async () => {
 	} = await supabase.auth.getUser()
 	return user
 })
+
+export const getUserProfile = cache(async () => {
+	const user = await getUser()
+	if (!user) return null
+
+	const supabase = await createClient()
+	const { data } = await supabase
+		.from('user_profiles')
+		.select('username, avatar_url')
+		.eq('id', user.id)
+		.single()
+
+	return data
+})
