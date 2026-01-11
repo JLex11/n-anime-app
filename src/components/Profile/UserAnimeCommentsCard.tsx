@@ -35,11 +35,11 @@ export function UserAnimeCommentsCard({ anime, comments }: UserAnimeCommentsCard
 	}
 
 	return (
-		<div 
+		<article 
 			className={styles.animeCommentsCard}
 			style={{ viewTransitionName: `anime-card-${anime.id}` } as any}
 		>
-			<div 
+			<header 
 				className={styles.animeCommentsHeader} 
 				onClick={toggleCollapse}
 				role="button"
@@ -82,13 +82,13 @@ export function UserAnimeCommentsCard({ anime, comments }: UserAnimeCommentsCard
 						<polyline points="6 9 12 15 18 9"></polyline>
 					</svg>
 				</button>
-			</div>
+			</header>
 			
 			<div className={clsx(styles.animeCommentsList, isCollapsed && styles.animeCommentsListCollapsed)}>
 				{comments.map(comment => (
 					<UserCommentItem key={comment.id} comment={comment} />
 				))}
 			</div>
-		</div>
+		</article>
 	)
 }

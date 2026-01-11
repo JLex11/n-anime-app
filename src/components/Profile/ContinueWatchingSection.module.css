@@ -1,0 +1,74 @@
+/* .section {
+} */
+
+.sectionTitle {
+	margin-bottom: 1.5rem;
+}
+
+.emptyState {
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 450px), 1fr));
+	gap: 1rem;
+}
+
+.card {
+	display: block;
+	background: rgba(26, 26, 26, 0.9);
+	padding: 1rem;
+	border-radius: 8px;
+	text-decoration: none;
+	color: inherit;
+	transition: background 0.2s;
+}
+
+.card:hover {
+	background: rgba(40, 40, 40, 0.9);
+}
+
+.cardHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.8rem;
+	gap: 0.5rem;
+}
+
+.animeTitle {
+	margin: 0;
+	font-size: 1.1rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.episodeBadge {
+	background: rgba(255, 255, 255, 0.1);
+	padding: 0.2rem 0.6rem;
+	border-radius: 4px;
+	font-size: 0.9rem;
+	text-wrap: nowrap;
+}
+
+.progressBarContainer {
+	background: rgba(255, 255, 255, 0.1);
+	height: 6px;
+	border-radius: 3px;
+	overflow: hidden;
+}
+
+.progressBar {
+	background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+	height: 100%;
+}
+
+.cardFooter {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 0.5rem;
+	color: rgba(255, 255, 255, 0.5);
+	font-size: 0.8rem;
+}

@@ -79,19 +79,19 @@ export function UserCommentsSection({ userId }: UserCommentsSectionProps) {
 
 	if (isLoading && comments.length === 0) {
 		return (
-			<div className={styles.section}>
+			<section className={styles.section}>
 				<h2 className={styles.sectionTitle}>Mis Comentarios</h2>
 				<div className={styles.commentsList}>
 					{Array.from({ length: 2 }).map((_, i) => (
 						<div key={i} className={styles.commentSkeleton} style={{ height: '200px' }} />
 					))}
 				</div>
-			</div>
+			</section>
 		)
 	}
 
 	return (
-		<div className={styles.section}>
+		<section className={styles.section}>
 			<h2 className={styles.sectionTitle}>Mis Comentarios</h2>
 			
 			{comments.length === 0 ? (
@@ -111,16 +111,18 @@ export function UserCommentsSection({ userId }: UserCommentsSectionProps) {
 							comments={group.comments} 
 						/>
 					))}
-					
-					{hasMore && (
-						<LoadMoreButton 
-							onClick={handleLoadMore} 
-							isLoading={isLoadingMore} 
-							label="Cargar más comentarios" 
-						/>
-					)}
 				</div>
 			)}
-		</div>
+
+			{hasMore && (
+				<div className={styles.loadMoreContainer}>
+					<LoadMoreButton 
+						onClick={handleLoadMore} 
+						isLoading={isLoadingMore} 
+						label="Cargar más comentarios" 
+					/>
+				</div>
+			)}
+		</section>
 	)
 }

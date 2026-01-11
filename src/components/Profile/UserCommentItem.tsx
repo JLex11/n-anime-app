@@ -27,11 +27,11 @@ export function UserCommentItem({ comment }: UserCommentItemProps) {
 	})
 
 	return (
-		<div 
+		<article 
 			className={styles.commentItemInner}
 			style={{ viewTransitionName: `comment-${comment.id}` } as any}
 		>
-			<div className={styles.commentHeader}>
+			<header className={styles.commentHeader}>
 				{comment.episode_id && (
 					<span className={styles.commentEpisodeSmall}>
 						Ep. {episodeSlug}
@@ -45,13 +45,13 @@ export function UserCommentItem({ comment }: UserCommentItemProps) {
 						<line x1="10" y1="14" x2="21" y2="3"></line>
 					</svg>
 				</Link>
-			</div>
+			</header>
 			
 			<div className={styles.commentContentSmall}>
 				<MarkdownRenderer content={comment.content} />
 			</div>
 			
-			<div className={styles.commentFooterSmall}>
+			<footer className={styles.commentFooterSmall}>
 				<div className={styles.commentStatSmall}>
 					<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
 						<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
@@ -73,7 +73,7 @@ export function UserCommentItem({ comment }: UserCommentItemProps) {
 						<span>{comment.reply_count}</span>
 					</div>
 				)}
-			</div>
-		</div>
+			</footer>
+		</article>
 	)
 }
