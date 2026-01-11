@@ -19,8 +19,12 @@ export function SearchInput({ query }: InputProps) {
 
 	useEffect(() => {
 		const params = new URLSearchParams(searchParams)
-		searchQuery.length > 0 ? params.set('query', searchQuery) : params.delete('query')
-		router.replace(`?${params.toString()}`)
+		const currentQuery = params.get('query') || ''
+
+		if (searchQuery !== currentQuery) {
+			searchQuery.length > 0 ? params.set('query', searchQuery) : params.delete('query')
+			router.replace(`?${params.toString()}`)
+		}
 	}, [searchQuery, router, searchParams])
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

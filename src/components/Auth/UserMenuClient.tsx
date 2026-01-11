@@ -57,12 +57,6 @@ export function UserMenuClient({ user }: Props) {
 						<Link href="/perfil" onClick={() => setIsOpen(false)}>
 							Mi Perfil
 						</Link>
-						<Link href="/favoritos" onClick={() => setIsOpen(false)}>
-							Mis Favoritos
-						</Link>
-						<Link href="/mi-lista" onClick={() => setIsOpen(false)}>
-							Continuar Viendo
-						</Link>
 					</div>
 
 					<div className={styles.userMenuFooter}>

@@ -1,6 +1,9 @@
 .banner {
 	width: 100%;
-	height: var(--carousel-height);
+	/* maintain 2:1 aspect ratio like the real banner images */
+	aspect-ratio: 2 / 1;
+	/* limit height to the carousel height constraint */
+	max-height: var(--carousel-height, 600px);
 	margin: 0 auto;
 	overflow: hidden;
 	mask-image: linear-gradient(
