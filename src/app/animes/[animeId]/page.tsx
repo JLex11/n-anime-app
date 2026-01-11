@@ -7,6 +7,7 @@ import { FavoriteButtonContainer } from '@/components/AnimePage/FavoriteButtonCo
 import { getAnime } from '@/api/getAnime'
 import { notFound } from 'next/navigation'
 import { type PageProps, generateMetadataFromAnimeId } from './pageMisc'
+import { CommentsSection } from '@/components/Comments'
 
 async function AnimePageContent({ params }: PageProps) {
 	const { animeId } = await params
@@ -33,6 +34,7 @@ async function AnimePageContent({ params }: PageProps) {
 					}
 				/>
 			</Suspense>
+			<CommentsSection animeId={animeId} />
 		</>
 	)
 }

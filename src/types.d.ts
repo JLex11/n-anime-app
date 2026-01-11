@@ -109,3 +109,32 @@ export interface WatchProgress {
 	completed: boolean
 	last_watched: string
 }
+
+export interface Comment {
+	id: string
+	user_id: string
+	anime_id: string
+	episode_id: string | null
+	parent_id: string | null
+	thread_id: string | null
+	content: string
+	edited: boolean
+	created_at: string
+	updated_at: string
+	// Joined data from queries
+	user_profile?: {
+		username: string | null
+		avatar_url: string | null
+	}
+	replying_to_username?: string | null
+	like_count?: number
+	user_has_liked?: boolean
+	dislike_count?: number
+	user_has_disliked?: boolean
+	replies?: Comment[]
+	reply_count?: number
+}
+
+export interface CommentWithReplies extends Comment {
+	replies: Comment[]
+}

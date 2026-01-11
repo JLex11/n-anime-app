@@ -83,6 +83,89 @@ export interface Database {
 					last_watched?: string
 				}
 			}
+			comments: {
+				Row: {
+					id: string
+					user_id: string
+					anime_id: string
+					episode_id: string | null
+					parent_id: string | null
+					thread_id: string | null
+					content: string
+					edited: boolean
+					created_at: string
+					updated_at: string
+				}
+				Insert: {
+					id?: string
+					user_id: string
+					anime_id: string
+					episode_id?: string | null
+					parent_id?: string | null
+					thread_id?: string | null
+					content: string
+					edited?: boolean
+					created_at?: string
+					updated_at?: string
+				}
+				Update: {
+					content?: string
+					edited?: boolean
+					thread_id?: string | null
+					updated_at?: string
+				}
+			}
+			comment_likes: {
+				Row: {
+					id: string
+					user_id: string
+					comment_id: string
+					created_at: string
+				}
+				Insert: {
+					id?: string
+					user_id: string
+					comment_id: string
+					created_at?: string
+				}
+				Update: {
+					[key: string]: never
+				}
+			}
+			comment_dislikes: {
+				Row: {
+					id: string
+					user_id: string
+					comment_id: string
+					created_at: string
+				}
+				Insert: {
+					id?: string
+					user_id: string
+					comment_id: string
+					created_at?: string
+				}
+				Update: {
+					[key: string]: never
+				}
+			}
+			comment_mentions: {
+				Row: {
+					id: string
+					comment_id: string
+					mentioned_user_id: string
+					created_at: string
+				}
+				Insert: {
+					id?: string
+					comment_id: string
+					mentioned_user_id: string
+					created_at?: string
+				}
+				Update: {
+					[key: string]: never
+				}
+			}
 		}
 	}
 }

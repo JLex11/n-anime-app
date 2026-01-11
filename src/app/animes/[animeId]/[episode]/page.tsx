@@ -14,6 +14,7 @@ import { normalizeAnimeId } from '@/utils/normalizeAnimeId'
 import { toCap } from '@/utils/textConverts'
 import clsx from 'clsx'
 import { EpisodePageContextProvider } from './PageContext'
+import { CommentsSection } from '@/components/Comments'
 
 interface Props {
 	params: Promise<{ animeId: string; episode: string }>
@@ -38,9 +39,9 @@ async function EpisodeContent({ animeId, episode, searchParams }: { animeId: str
 
 	return (
 		<>
-			<WatchProgressTracker 
-				animeId={animeId} 
-				episodeNumber={Number(episode)} 
+			<WatchProgressTracker
+				animeId={animeId}
+				episodeNumber={Number(episode)}
 				initialProgressSeconds={watchProgress?.progress_seconds || 0}
 			/>
 			<section className={mainContentClass}>
@@ -58,6 +59,7 @@ async function EpisodeContent({ animeId, episode, searchParams }: { animeId: str
 					currentEpisode={Number(episode)}
 				/>
 			</section>
+			<CommentsSection animeId={animeId} episodeId={episodeId} />
 			<BackgroundBlurredImage src={bannerImage} alt={normalizeAnimeId(animeId)} />
 		</>
 	)
