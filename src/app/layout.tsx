@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 import LocalFont from 'next/font/local'
 import Script from 'next/script'
+import { Suspense } from 'react'
 import { ViewTransition } from 'react'
 import '../globals.css'
 
@@ -52,7 +53,9 @@ export default function RootLayout({ children }: Props) {
 					{speculationRulesJSON}
 				</Script>
 				<body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
-					<Header />
+					<Suspense fallback={null}>
+						<Header />
+					</Suspense>
 					{children}
 				</body>
 			</html>

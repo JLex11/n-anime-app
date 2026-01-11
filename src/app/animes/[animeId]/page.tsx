@@ -8,7 +8,7 @@ import { getAnime } from '@/api/getAnime'
 import { notFound } from 'next/navigation'
 import { type PageProps, generateMetadataFromAnimeId } from './pageMisc'
 
-export default async function AnimePage({ params }: PageProps) {
+async function AnimePageContent({ params }: PageProps) {
 	const { animeId } = await params
 	const anime = await getAnime(animeId)
 
@@ -34,6 +34,14 @@ export default async function AnimePage({ params }: PageProps) {
 				/>
 			</Suspense>
 		</>
+	)
+}
+
+export default async function AnimePage({ params }: PageProps) {
+	return (
+		<Suspense fallback={<><AnimeBannerSkeleton /><AnimeMainSkeleton /></>}>
+			<AnimePageContent params={params} />
+		</Suspense>
 	)
 }
 
