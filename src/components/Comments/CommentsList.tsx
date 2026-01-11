@@ -13,6 +13,7 @@ interface Props {
 		username: string | null
 		avatar_url: string | null
 	} | null
+	onExpandReplies?: () => void
 }
 
 export function CommentsList({
@@ -23,6 +24,7 @@ export function CommentsList({
 	onCommentUpdated,
 	onCommentAdded,
 	currentUserProfile,
+	onExpandReplies,
 }: Props) {
 	return (
 		<div className={styles.commentsList} data-level={level}>
@@ -36,6 +38,7 @@ export function CommentsList({
 					onCommentUpdated={onCommentUpdated}
 					onCommentAdded={onCommentAdded}
 					currentUserProfile={currentUserProfile}
+					onExpandReplies={onExpandReplies}
 				/>
 			))}
 		</div>

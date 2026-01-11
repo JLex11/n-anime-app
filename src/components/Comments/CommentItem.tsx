@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useState, useTransition, useRef, useLayoutEffect } from 'react'
 import { deleteComment } from '@/app/actions/comments'
 import { LikeButton } from './LikeButton'
 import { CommentForm } from './CommentForm'
@@ -21,6 +21,7 @@ interface Props {
 		username: string | null
 		avatar_url: string | null
 	} | null
+	onExpandReplies?: () => void
 }
 
 export function CommentItem({
@@ -31,11 +32,53 @@ export function CommentItem({
 	onCommentUpdated,
 	onCommentAdded,
 	currentUserProfile,
+	onExpandReplies,
 }: Props) {
 	const [isEditing, setIsEditing] = useState(false)
 	const [showReplyForm, setShowReplyForm] = useState(false)
 	const [isDeleting, startDeleteTransition] = useTransition()
 	const [showReplies, setShowReplies] = useState(level === 0)
+	const commentRef = useRef<HTMLDivElement>(null)
+	const prevReplyCountRef = useRef(comment.replies?.length || 0)
+
+	// Auto-expandir y hacer scroll cuando se agregan nuevas respuestas a comentarios de nivel 1
+	useLayoutEffect(() => {
+		const currentReplyCount = comment.replies?.length || 0
+		const hasNewReply = currentReplyCount > prevReplyCountRef.current
+
+		if (hasNewReply && level === 1) {
+			// Si este es un comentario de nivel 1 y recibió una nueva respuesta,
+			// expandir las respuestas si están ocultas
+			if (!showReplies) {
+				setShowReplies(true)
+			}
+
+			// Usar requestAnimationFrame para sincronizar con el ciclo de renderizado
+			requestAnimationFrame(() => {
+				// Doble RAF para asegurar que el layout se haya calculado
+				requestAnimationFrame(() => {
+					// Buscar el último comentario hijo (la nueva respuesta)
+					const lastReply = commentRef.current?.querySelector(
+						`.${styles.commentReplies} > .${styles.commentsList} > div:last-child`
+					)
+
+					if (lastReply) {
+						lastReply.scrollIntoView({
+							behavior: 'smooth',
+							block: 'nearest',
+						})
+					}
+				})
+			})
+		}
+
+		// Si este comentario recién se agregó como respuesta a un nivel 1, notificar al padre
+		if (level === 2 && hasNewReply && onExpandReplies) {
+			onExpandReplies()
+		}
+
+		prevReplyCountRef.current = currentReplyCount
+	}, [comment.replies?.length, level, showReplies, onExpandReplies])
 
 	const isOwner = currentUserId === comment.user_id
 	const canReply = true // Permitir responder en cualquier nivel (flat thread)
@@ -84,7 +127,7 @@ export function CommentItem({
 	}
 
 	return (
-		<div className={styles.commentItem} data-level={level}>
+		<div ref={commentRef} className={styles.commentItem} data-level={level}>
 			<div className={styles.commentHeader}>
 				<div className={styles.commentAuthor}>
 					{avatarUrl && (
@@ -201,6 +244,7 @@ export function CommentItem({
 							onCommentUpdated={onCommentUpdated}
 							onCommentAdded={onCommentAdded}
 							currentUserProfile={currentUserProfile}
+							onExpandReplies={level === 1 ? () => setShowReplies(true) : undefined}
 						/>
 					</div>
 				)}
