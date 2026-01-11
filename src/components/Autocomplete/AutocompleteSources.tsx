@@ -3,6 +3,7 @@ import { getAnimeEpisodes } from '@/api/getAnimeEpisodes'
 import { APP_ROUTES } from '@/constants'
 import type { AutocompleteItem, AutocompleteItemChilds } from '@/hooks/useAutocomplete.types'
 import blurImage from '@/public/lights-blur.webp'
+import { debounceCallback } from '@/utils/debounceCallback'
 import AppWindow from '../Icons/AppWindow'
 import type { JSX } from 'react'
 
@@ -95,30 +96,43 @@ const getAnimeItemChilds = async (animeId: AutocompleteItem['id']): Promise<Auto
 // Cache para búsqueda de animes
 const animeSearchCache = new Map<string, AutocompleteItem[]>()
 
-export const getAnimeItems = async (query: string) => {
+// Fetcher con debounce para optimizar llamadas API
+// 200ms es el balance óptimo para autocomplete: responsivo pero eficiente
+const debouncedFetchAnimes = debounceCallback(
+	async (query: string) => {
+		const animes = await getAnimesByQuery(encodeURIComponent(query), 15)
+		return animes
+	},
+	200
+)
+
+export const getAnimeItems = async (query: string): Promise<AutocompleteItem[]> => {
 	if (query.length < 1) return []
-	
+
 	const cacheKey = `anime_search_${query}`
+
+	// Verificar cache primero (retorno instantáneo)
 	if (animeSearchCache.has(cacheKey)) {
 		return animeSearchCache.get(cacheKey)!
 	}
 
+	// Cache miss - hacer debounce de la llamada API
 	try {
-		const animes = await getAnimesByQuery(encodeURIComponent(query), 15)
+		const animes = await debouncedFetchAnimes(query)
 
 		const result = animes
 			.map(anime => {
 				const descriptionTooLong = anime.description?.length > 100
 				const description = anime.description || 'Descripción no disponible'
-				const truncatedDescription = descriptionTooLong 
-					? `${description.slice(0, 100)}...` 
+				const truncatedDescription = descriptionTooLong
+					? `${description.slice(0, 100)}...`
 					: description
 
 				return {
 					id: anime.animeId,
 					title: anime.title,
-					image: anime.images?.coverImage || 
-						   anime.images?.carouselImages?.[0]?.link || 
+					image: anime.images?.coverImage ||
+						   anime.images?.carouselImages?.[0]?.link ||
 						   blurImage.src,
 					link: `/animes/${anime.animeId}`,
 					description: truncatedDescription,
@@ -129,17 +143,24 @@ export const getAnimeItems = async (query: string) => {
 				}
 			})
 			.sort((a, b) => b.rank - a.rank)
-		
+
 		animeSearchCache.set(cacheKey, result)
-		
-		// Limitar el tamaño del caché
+
+		// Limitar el tamaño del caché (evicción FIFO)
 		if (animeSearchCache.size > 50) {
 			const firstKey = animeSearchCache.keys().next().value
 			if (firstKey) animeSearchCache.delete(firstKey)
 		}
-		
+
 		return result
 	} catch (error) {
+		// Manejar cancelaciones de debounce graciosamente
+		if (error instanceof Error && error.message === 'Debounced request cancelled') {
+			// Petición cancelada por una más reciente - retornar array vacío
+			return []
+		}
+
+		// Errores reales de red
 		console.error('Error searching animes:', error)
 		return []
 	}

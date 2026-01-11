@@ -1,5 +1,4 @@
 import { getAnimeItems, getRoutesItems } from '@/components/Autocomplete/AutocompleteSources'
-import { debounceCallback } from '@/utils/debounceCallback'
 import { type AutocompleteState, type OnActiveParams, createAutocomplete } from '@algolia/autocomplete-core'
 import { useRouter } from 'next/navigation'
 import { createRef, useCallback, useId, useMemo, useRef, useState } from 'react'
@@ -37,8 +36,6 @@ export function useAutocomplete({ handleLaunchAutocomplete }: AutocompleteProps)
 	const autocompleteId = useId()
 
 	const getItemRef = useMemo(() => createItemRefGetter(), [])
-
-	const debouncedGetAnimeItems = useMemo(() => debounceCallback<string[], AutocompleteItem[]>(getAnimeItems, 300), [])
 
 	const handleActiveItem = useCallback(
 		({ item, event, state }: OnActiveParams<AutocompleteOutputItem>) => {
@@ -87,7 +84,7 @@ export function useAutocomplete({ handleLaunchAutocomplete }: AutocompleteProps)
 						getItems: async () => {
 							if (query.length < 1) return []
 
-							const animeItems = await debouncedGetAnimeItems(query)
+							const animeItems = await getAnimeItems(query)
 							return animeItems.map(animeItem => ({
 								...animeItem,
 								getItemRef,
@@ -102,7 +99,7 @@ export function useAutocomplete({ handleLaunchAutocomplete }: AutocompleteProps)
 					},
 				},
 			}),
-		[autocompleteId, router, handleLaunchAutocomplete, handleActiveItem, getItemRef, debouncedGetAnimeItems]
+		[autocompleteId, router, handleLaunchAutocomplete, handleActiveItem, getItemRef]
 	)
 
 	// Optimización de props para el formulario
