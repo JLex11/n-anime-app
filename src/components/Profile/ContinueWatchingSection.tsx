@@ -6,7 +6,7 @@ export async function ContinueWatchingSection() {
 	const continueWatching: WatchProgress[] = await getContinueWatching()
 
 	return (
-		<section style={{ marginBottom: '3rem' }}>
+		<section>
 			<h2 style={{ marginBottom: '1.5rem' }}>Continuar Viendo</h2>
 
 			{continueWatching.length === 0 ? (

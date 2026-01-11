@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { UserSection } from '@/components/Profile/UserSection'
 import { ContinueWatchingSection } from '@/components/Profile/ContinueWatchingSection'
 import { FavoritesSection } from '@/components/Profile/FavoritesSection'
+import { UserCommentsWrapper } from '@/components/Profile/UserCommentsWrapper'
 import { SkeletonBase, CardGridSkeleton } from '@/components/Skeletons'
 import styles from '@/components/Profile/Profile.module.css'
 
@@ -17,7 +18,6 @@ function UserSectionSkeleton() {
 				background: 'rgba(26, 26, 26, 0.9)',
 				padding: '2rem',
 				borderRadius: '12px',
-				marginBottom: '2rem',
 			}}
 		>
 			<SkeletonBase width='200px' height='1.2rem' style={{ marginBottom: '1rem' }} />
@@ -38,7 +38,6 @@ function ContinueWatchingSkeleton() {
 						background: 'rgba(26, 26, 26, 0.9)',
 						padding: '1.5rem',
 						borderRadius: '8px',
-						marginBottom: '1rem',
 					}}
 				>
 					<SkeletonBase width='60%' height='1.2rem' style={{ marginBottom: '1rem' }} />
@@ -51,9 +50,29 @@ function ContinueWatchingSkeleton() {
 
 function FavoritesSkeleton() {
 	return (
-		<div>
+		<div style={{ marginBottom: '3rem' }}>
 			<SkeletonBase width='200px' height='1.5rem' style={{ marginBottom: '1.5rem' }} />
 			<CardGridSkeleton count={4} width='14rem' height='250px' />
+		</div>
+	)
+}
+
+function CommentsSkeleton() {
+	return (
+		<div>
+			<SkeletonBase width='200px' height='1.5rem' style={{ marginBottom: '1.5rem' }} />
+			{Array.from({ length: 3 }).map((_, i) => (
+				<div
+					key={i}
+					style={{
+						background: 'rgba(26, 26, 26, 0.9)',
+						padding: '1.5rem',
+						borderRadius: '12px',
+						marginBottom: '1.5rem',
+						height: '150px'
+					}}
+				/>
+			))}
 		</div>
 	)
 }
@@ -73,6 +92,10 @@ export default function ProfilePage() {
 
 			<Suspense fallback={<FavoritesSkeleton />}>
 				<FavoritesSection />
+			</Suspense>
+
+			<Suspense fallback={<CommentsSkeleton />}>
+				<UserCommentsWrapper />
 			</Suspense>
 		</main>
 	)

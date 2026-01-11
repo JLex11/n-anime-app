@@ -9,6 +9,7 @@ import {
 	findRootThreadId,
 } from '@/services/commentsState'
 import { getCommentsPaginated, getThreadReplies } from '@/app/actions/comments'
+import { useViewTransition } from '@/hooks/useViewTransition'
 
 interface CommentsContextValue {
 	comments: CommentWithReplies[]
@@ -60,6 +61,7 @@ export function CommentsProvider({ children }: Props) {
 	const [isLoadingMore, setIsLoadingMore] = useState(false)
 	const [animeId, setAnimeId] = useState<string>('')
 	const [episodeId, setEpisodeId] = useState<string | null>(null)
+	const { startTransition } = useViewTransition()
 
 	const displayedComments = useMemo(() => {
 		let combined = [...comments]
@@ -88,36 +90,44 @@ export function CommentsProvider({ children }: Props) {
 		newComment: CommentWithReplies,
 		realComment?: CommentWithReplies
 	) => {
-		if (!realComment) {
-			let correctedComment = { ...newComment }
-			if (correctedComment.parent_id) {
-				const rootId = findRootThreadId(comments, correctedComment.parent_id)
-				if (rootId) {
-					correctedComment.thread_id = rootId
+		startTransition(() => {
+			if (!realComment) {
+				let correctedComment = { ...newComment }
+				if (correctedComment.parent_id) {
+					const rootId = findRootThreadId(comments, correctedComment.parent_id)
+					if (rootId) {
+						correctedComment.thread_id = rootId
+					}
 				}
+				setOptimisticQueue(prev => [...prev, correctedComment])
+			} else {
+				setOptimisticQueue(prev => prev.filter(c => c.id !== newComment.id))
+				setComments(prevComments => {
+					if (realComment.parent_id) {
+						return addReplyToThread(prevComments, realComment)
+					}
+					return [realComment, ...prevComments]
+				})
 			}
-			setOptimisticQueue(prev => [...prev, correctedComment])
-		} else {
-			setOptimisticQueue(prev => prev.filter(c => c.id !== newComment.id))
-			setComments(prevComments => {
-				if (realComment.parent_id) {
-					return addReplyToThread(prevComments, realComment)
-				}
-				return [realComment, ...prevComments]
-			})
-		}
+		})
 	}
 
 	const handleCommentError = (optimisticId: string) => {
-		setOptimisticQueue(prev => prev.filter(c => c.id !== optimisticId))
+		startTransition(() => {
+			setOptimisticQueue(prev => prev.filter(c => c.id !== optimisticId))
+		})
 	}
 
 	const handleCommentDeleted = (commentId: string) => {
-		setComments(prevComments => deleteCommentFromState(prevComments, commentId))
+		startTransition(() => {
+			setComments(prevComments => deleteCommentFromState(prevComments, commentId))
+		})
 	}
 
 	const handleCommentUpdated = (commentId: string, content: string) => {
-		setComments(prevComments => updateCommentInState(prevComments, commentId, content))
+		startTransition(() => {
+			setComments(prevComments => updateCommentInState(prevComments, commentId, content))
+		})
 	}
 
 	const handleLoadMoreComments = useCallback(async () => {
@@ -126,37 +136,41 @@ export function CommentsProvider({ children }: Props) {
 		setIsLoadingMore(true)
 		try {
 			const response = await getCommentsPaginated(animeId, episodeId, 10, nextCursor)
-			setComments(prev => [...prev, ...response.comments])
-			setHasMore(response.hasMore)
-			setNextCursor(response.nextCursor)
+			startTransition(() => {
+				setComments(prev => [...prev, ...response.comments])
+				setHasMore(response.hasMore)
+				setNextCursor(response.nextCursor)
+			})
 		} catch (error) {
 			console.error('Error loading more comments:', error)
 		} finally {
 			setIsLoadingMore(false)
 		}
-	}, [hasMore, isLoadingMore, nextCursor, animeId, episodeId])
+	}, [hasMore, isLoadingMore, nextCursor, animeId, episodeId, startTransition])
 
 	const handleLoadMoreReplies = useCallback(async (threadId: string, currentOffset: number) => {
 		try {
 			const response = await getThreadReplies(threadId, currentOffset, 10)
 
-			setComments(prev =>
-				prev.map(comment => {
-					if (comment.id === threadId) {
-						return {
-							...comment,
-							replies: [...(comment.replies || []), ...response.replies],
-							has_hidden_replies: response.hasMore,
-							loaded_reply_count: (comment.loaded_reply_count || 0) + response.replies.length,
+			startTransition(() => {
+				setComments(prev =>
+					prev.map(comment => {
+						if (comment.id === threadId) {
+							return {
+								...comment,
+								replies: [...(comment.replies || []), ...response.replies],
+								has_hidden_replies: response.hasMore,
+								loaded_reply_count: (comment.loaded_reply_count || 0) + response.replies.length,
+							}
 						}
-					}
-					return comment
-				})
-			)
+						return comment
+					})
+				)
+			})
 		} catch (error) {
 			console.error('Error loading more replies:', error)
 		}
-	}, [])
+	}, [startTransition])
 
 	const setPaginationState = useCallback((
 		hasMore: boolean,

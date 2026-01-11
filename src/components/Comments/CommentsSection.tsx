@@ -61,20 +61,15 @@ export function CommentsSection({
 	) => {
 		if (!realComment) {
 			let correctedComment = { ...newComment }
-			// Si es una respuesta, intentar corregir el thread_id al root correcto
 			if (correctedComment.parent_id) {
 				const rootId = findRootThreadId(comments, correctedComment.parent_id)
 				if (rootId) {
 					correctedComment.thread_id = rootId
 				}
 			}
-
-			// 1. Añadir optimista a la cola
 			setOptimisticQueue(prev => [...prev, correctedComment])
 		} else {
-			// 2. Reemplazo atómico: Quitar optimista y añadir real a la base
 			setOptimisticQueue(prev => prev.filter(c => c.id !== newComment.id))
-
 			setComments(prevComments => {
 				if (realComment.parent_id) {
 					return addReplyToThread(prevComments, realComment)

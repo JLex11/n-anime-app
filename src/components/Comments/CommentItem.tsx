@@ -1,16 +1,15 @@
 'use client'
 
-import { useState, useTransition, useRef, useLayoutEffect } from 'react'
-import { deleteComment } from '@/app/actions/comments'
-import { LikeButton } from './LikeButton'
+import { useRef, useLayoutEffect } from 'react'
 import { CommentForm } from './CommentForm'
 import { MarkdownRenderer } from './MarkdownRenderer'
 import { CommentsList } from './CommentsList'
-import { useCommentsContext } from './CommentsContext'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import type { CommentWithReplies } from '@/types'
 import styles from './Comments.module.css'
-import clsx from 'clsx'
+import { useCommentActions } from './hooks/useCommentActions'
+import { CommentItemHeader } from './CommentItemHeader'
+import { CommentItemFooter } from './CommentItemFooter'
 
 interface Props {
 	comment: CommentWithReplies
@@ -36,32 +35,39 @@ export function CommentItem({
 	currentUserProfile,
 	onExpandReplies,
 }: Props) {
-	const [isEditing, setIsEditing] = useState(false)
-	const [showReplyForm, setShowReplyForm] = useState(false)
-	const [isDeleting, startDeleteTransition] = useTransition()
-	const [showReplies, setShowReplies] = useState(level === 0)
-	const [isLoadingReplies, setIsLoadingReplies] = useState(false)
 	const commentRef = useRef<HTMLDivElement>(null)
 	const prevReplyCountRef = useRef(comment.replies?.length || 0)
-	const { handleLoadMoreReplies } = useCommentsContext()
 
-	// Auto-expandir y hacer scroll cuando se agregan nuevas respuestas a comentarios de nivel 1
+	const {
+		isEditing,
+		setIsEditing,
+		showReplyForm,
+		setShowReplyForm,
+		isDeleting,
+		showReplies,
+		setShowReplies,
+		isLoadingReplies,
+		handleDelete,
+		handleLoadMoreRepliesClick,
+		formatDate,
+	} = useCommentActions({ comment, onCommentDeleted, level })
+
+	const isOwner = currentUserId === comment.user_id
+	const username = comment.user_profile?.username || 'Usuario Anónimo'
+	const avatarUrl = comment.user_profile?.avatar_url
+
+	// Auto-expandir y hacer scroll cuando se agregan nuevas respuestas
 	useLayoutEffect(() => {
 		const currentReplyCount = comment.replies?.length || 0
 		const hasNewReply = currentReplyCount > prevReplyCountRef.current
 
 		if (hasNewReply && level === 1) {
-			// Si este es un comentario de nivel 1 y recibió una nueva respuesta,
-			// expandir las respuestas si están ocultas
 			if (!showReplies) {
 				setShowReplies(true)
 			}
 
-			// Usar requestAnimationFrame para sincronizar con el ciclo de renderizado
 			requestAnimationFrame(() => {
-				// Doble RAF para asegurar que el layout se haya calculado
 				requestAnimationFrame(() => {
-					// Buscar el último comentario hijo (la nueva respuesta)
 					const lastReply = commentRef.current?.querySelector(
 						`.${styles.commentReplies} > .${styles.commentsList} > div:last-child`
 					)
@@ -76,67 +82,16 @@ export function CommentItem({
 			})
 		}
 
-		// Si este comentario recién se agregó como respuesta a un nivel 1, notificar al padre
 		if (level === 2 && hasNewReply && onExpandReplies) {
 			onExpandReplies()
 		}
 
 		prevReplyCountRef.current = currentReplyCount
-	}, [comment.replies?.length, level, showReplies, onExpandReplies])
-
-	const isOwner = currentUserId === comment.user_id
-	const canReply = true // Permitir responder en cualquier nivel (flat thread)
-	const username = comment.user_profile?.username || 'Usuario Anónimo'
-	const avatarUrl = comment.user_profile?.avatar_url
-
-	const handleDelete = () => {
-		if (!confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
-			return
-		}
-
-		// Llamar al callback optimista primero
-		onCommentDeleted?.(comment.id)
-
-		startDeleteTransition(async () => {
-			await deleteComment(comment.id)
-		})
-	}
-
-	const handleLoadMoreRepliesClick = async () => {
-		if (isLoadingReplies) return
-
-		setIsLoadingReplies(true)
-		try {
-			const currentOffset = comment.loaded_reply_count || comment.replies?.length || 0
-			await handleLoadMoreReplies(comment.id, currentOffset)
-		} finally {
-			setIsLoadingReplies(false)
-		}
-	}
-
-	const formatDate = (dateString: string) => {
-		const date = new Date(dateString)
-		const now = new Date()
-		const diffMs = now.getTime() - date.getTime()
-		const diffMins = Math.floor(diffMs / 60000)
-		const diffHours = Math.floor(diffMs / 3600000)
-		const diffDays = Math.floor(diffMs / 86400000)
-
-		if (diffMins < 1) return 'Ahora'
-		if (diffMins < 60) return `Hace ${diffMins}m`
-		if (diffHours < 24) return `Hace ${diffHours}h`
-		if (diffDays < 7) return `Hace ${diffDays}d`
-
-		return date.toLocaleDateString('es-ES', {
-			day: 'numeric',
-			month: 'short',
-			year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined,
-		})
-	}
+	}, [comment.replies?.length, level, showReplies, onExpandReplies, setShowReplies])
 
 	if (isDeleting) {
 		return (
-			<div className={clsx(styles.commentItem, styles.commentDeleted)}>
+			<div className={`${styles.commentItem} ${styles.commentDeleted}`}>
 				<p>Eliminando comentario...</p>
 			</div>
 		)
@@ -149,72 +104,22 @@ export function CommentItem({
 			data-level={level}
 			data-comment-id={comment.id}
 			data-parent-id={comment.parent_id || ''}
+			style={{ 
+				viewTransitionName: `comment-${comment.id.replace(/[^a-zA-Z0-9]/g, '_')}` 
+			} as any}
 		>
-			<div className={styles.commentHeader}>
-				<div className={styles.commentAuthor}>
-					{avatarUrl && (
-						<img src={avatarUrl} alt={username} className={styles.commentAvatar} />
-					)}
-					<span className={styles.commentUsername}>{username}</span>
-					{comment.replying_to_username && (
-						<>
-							<span className={styles.replyArrow}>›</span>
-							<span 
-								className={styles.replyingTo}
-								onClick={(e) => {
-									e.preventDefault()
-									e.stopPropagation()
-									if (comment.parent_id) {
-										// Remover highlight de cualquier comentario que lo tenga actualmente
-										const allHighlighted = document.querySelectorAll(`.${styles.commentHighlight}`)
-										allHighlighted.forEach(el => el.classList.remove(styles.commentHighlight))
-										
-										const parentElement = document.querySelector(
-											`.${styles.commentItem}[data-comment-id="${comment.parent_id}"]`
-										) as HTMLElement
-										if (parentElement) {
-											// Hacer scroll al comentario padre
-											parentElement.scrollIntoView({
-												behavior: 'smooth',
-												block: 'center',
-											})
-											// Aplicar highlight
-											parentElement.classList.add(styles.commentHighlight)
-											// Remover highlight después de la animación
-											setTimeout(() => {
-												parentElement.classList.remove(styles.commentHighlight)
-											}, 1500)
-										}
-									}
-								}}
-							>
-								@{comment.replying_to_username}
-							</span>
-						</>
-					)}
-					<span className={styles.commentDate}>{formatDate(comment.created_at)}</span>
-					{comment.edited && <span className={styles.commentEdited}>(editado)</span>}
-				</div>
-
-				{isOwner && !isEditing && (
-					<div className={styles.commentActions}>
-						<button
-							onClick={() => setIsEditing(true)}
-							className={styles.commentActionButton}
-							type='button'
-						>
-							Editar
-						</button>
-						<button
-							onClick={handleDelete}
-							className={clsx(styles.commentActionButton, styles.deleteButton)}
-							type='button'
-						>
-							Eliminar
-						</button>
-					</div>
-				)}
-			</div>
+			<CommentItemHeader
+				username={username}
+				avatarUrl={avatarUrl}
+				date={formatDate(comment.created_at)}
+				edited={comment.edited}
+				replyingToUsername={comment.replying_to_username}
+				parentId={comment.parent_id}
+				isOwner={isOwner}
+				isEditing={isEditing}
+				onEditClick={() => setIsEditing(true)}
+				onDeleteClick={handleDelete}
+			/>
 
 			{isEditing ? (
 				<CommentForm
@@ -234,37 +139,20 @@ export function CommentItem({
 				</div>
 			)}
 
-			<div className={styles.commentFooter}>
-				<LikeButton
-					commentId={comment.id}
-					initialLikeCount={comment.like_count || 0}
-					initialIsLiked={comment.user_has_liked || false}
-					initialDislikeCount={comment.dislike_count || 0}
-					initialIsDisliked={comment.user_has_disliked || false}
-					isAuthenticated={!!currentUserId}
-				/>
-
-				{canReply && (
-					<button
-						onClick={() => setShowReplyForm(!showReplyForm)}
-						className={styles.replyButton}
-						type='button'
-					>
-						Responder
-					</button>
-				)}
-
-				{comment.replies && comment.replies.length > 0 && level <= 1 && (
-					<button
-						onClick={() => setShowReplies(!showReplies)}
-						className={styles.toggleRepliesButton}
-						type='button'
-					>
-						{showReplies ? 'Ocultar' : 'Ver'} {comment.replies.length} respuesta
-						{comment.replies.length !== 1 ? 's' : ''}
-					</button>
-				)}
-			</div>
+			<CommentItemFooter
+				commentId={comment.id}
+				likeCount={comment.like_count || 0}
+				userHasLiked={comment.user_has_liked || false}
+				dislikeCount={comment.dislike_count || 0}
+				userHasDisliked={comment.user_has_disliked || false}
+				isAuthenticated={!!currentUserId}
+				canReply={true}
+				onReplyClick={() => setShowReplyForm(!showReplyForm)}
+				replyCount={comment.replies?.length || 0}
+				showReplies={showReplies}
+				onToggleReplies={() => setShowReplies(!showReplies)}
+				level={level}
+			/>
 
 			{showReplyForm && (
 				<div className={styles.replyFormContainer}>

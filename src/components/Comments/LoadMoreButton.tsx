@@ -11,7 +11,10 @@ interface Props {
 
 export function LoadMoreButton({ onClick, isLoading, label }: Props) {
 	return (
-		<div className={styles.loadMoreContainer}>
+		<div 
+			className={styles.loadMoreContainer}
+			style={{ viewTransitionName: 'load-more-button' } as any}
+		>
 			<button
 				onClick={onClick}
 				disabled={isLoading}

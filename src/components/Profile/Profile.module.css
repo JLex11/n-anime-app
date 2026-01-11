@@ -3,4 +3,218 @@
 	display: flex;
 	flex-direction: column;
 	padding: 0 35px var(--global-padding);
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.title {
+	font-size: 2.5rem;
+	margin-bottom: 1.5rem;
+	background: linear-gradient(to right, #fff, #888);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.section {
+	margin-bottom: 3rem;
+	width: 100%;
+}
+
+.sectionTitle {
+	font-size: 1.5rem;
+	margin-bottom: 1.5rem;
+	color: #eee;
+	border-left: 4px solid var(--accent-color, #ff4d4d);
+	padding-left: 1rem;
+}
+
+/* Grouped Anime Comments Card */
+.commentsList {
+	gap: 1rem;
+	display: flex;
+	flex-direction: column;
+}
+
+.animeCommentsCard {
+	background: rgba(255, 255, 255, 0.02);
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	border-radius: 12px;
+	overflow: hidden;
+	transition: all 0.3s ease;
+}
+
+.animeCommentsHeader {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.8rem 1rem;
+	background: rgba(255, 255, 255, 0.03);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+	cursor: pointer;
+	user-select: none;
+}
+
+.animeCommentsImage {
+	width: 45px;
+	height: 62px;
+	border-radius: 6px;
+	overflow: hidden;
+	flex-shrink: 0;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.animeImage {
+	object-fit: cover;
+	border-radius: 6px;
+}
+
+.animeCommentsInfo {
+	display: flex;
+	flex-direction: column;
+	gap: 0.1rem;
+	flex-grow: 1;
+}
+
+.animeCommentsTitle {
+	font-weight: 600;
+	color: #fff;
+	text-decoration: none;
+	font-size: 1rem;
+	transition: color 0.2s ease;
+}
+
+.animeCommentsCount {
+	font-size: 0.75rem;
+	color: #666;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.collapseToggle {
+	background: none;
+	border: none;
+	color: #444;
+	cursor: pointer;
+	padding: 0.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.3s ease;
+	border-radius: 50%;
+}
+
+.collapseToggle:hover {
+	color: #fff;
+	background: rgba(255, 255, 255, 0.05);
+}
+
+.collapseToggleActive {
+	transform: rotate(180deg);
+	color: var(--accent-color, #ff4d4d);
+}
+
+.animeCommentsList {
+	display: flex;
+	flex-direction: column;
+	max-height: 2000px;
+	transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	opacity: 1;
+}
+
+.animeCommentsListCollapsed {
+	max-height: 0;
+	opacity: 0;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+.commentItemInner {
+	padding: 0.8rem 1rem;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+	transition: background 0.2s ease;
+}
+
+.commentItemInner:last-child {
+	border-bottom: none;
+}
+
+.commentItemInner:hover {
+	background: rgba(255, 255, 255, 0.01);
+}
+
+.commentHeader {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-bottom: 0.8rem;
+}
+
+.commentEpisodeSmall {
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: var(--accent-color, #ff4d4d);
+	background: rgba(255, 77, 77, 0.1);
+	padding: 2px 8px;
+	border-radius: 4px;
+}
+
+.commentDateSmall {
+	font-size: 0.75rem;
+	color: #666;
+}
+
+.commentExternalLinkSmall {
+	margin-left: auto;
+	color: #444;
+	transition: color 0.2s ease;
+}
+
+.commentExternalLinkSmall:hover {
+	color: #aaa;
+}
+
+.commentContentSmall {
+	color: #ccc;
+	line-height: 1.5;
+	font-size: 0.9rem;
+	margin-bottom: 0.8rem;
+}
+
+.commentFooterSmall {
+	display: flex;
+	gap: 1.2rem;
+	color: #555;
+}
+
+.commentStatSmall {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	font-size: 0.8rem;
+}
+
+.emptyState {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 4rem 2rem;
+	background: rgba(255, 255, 255, 0.02);
+	border-radius: 12px;
+	border: 1px dashed rgba(255, 255, 255, 0.1);
+	color: #666;
+	gap: 1rem;
+}
+
+.commentSkeleton {
+	height: 150px;
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 25%, rgba(255, 255, 255, 0.06) 50%, rgba(255, 255, 255, 0.03) 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 12px;
+}
+
+@keyframes shimmer {
+	0% { background-position: 200% 0; }
+	100% { background-position: -200% 0; }
 }

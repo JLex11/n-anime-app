@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { cache } from 'react'
 import type { Comment, CommentWithReplies } from '@/types'
+import { getAnime } from '@/services/fetchAnimeHelper'
 
 // =====================================================
 // HELPER FUNCTIONS
@@ -120,6 +121,7 @@ export async function createComment(
 	} else {
 		revalidatePath(`/animes/${animeId}`)
 	}
+	revalidatePath('/perfil')
 
 	return { success: true, data: comment }
 }
@@ -200,6 +202,7 @@ export async function updateComment(commentId: string, content: string) {
 	} else {
 		revalidatePath(`/animes/${existingComment.anime_id}`)
 	}
+	revalidatePath('/perfil')
 
 	return { success: true }
 }
@@ -244,6 +247,7 @@ export async function deleteComment(commentId: string) {
 	} else {
 		revalidatePath(`/animes/${existingComment.anime_id}`)
 	}
+	revalidatePath('/perfil')
 
 	return { success: true }
 }
@@ -960,6 +964,95 @@ export async function getThreadReplies(
 
 	return {
 		replies: enrichedReplies,
+		hasMore: (count || 0) > offset + limit,
+		totalCount: count || 0,
+	}
+}
+
+// =====================================================
+// GET USER COMMENTS (FOR PROFILE)
+// =====================================================
+
+export interface UserCommentsResponse {
+	comments: (Comment & {
+		anime: {
+			title: string
+			images: any
+		}
+	})[]
+	hasMore: boolean
+	totalCount: number
+}
+
+export async function getUserComments(
+	userId: string,
+	offset: number = 0,
+	limit: number = 10
+): Promise<UserCommentsResponse> {
+	const supabase = await createClient()
+
+	const { data: comments, error, count } = (await supabase
+		.from('comments')
+		.select('*', { count: 'exact' })
+		.eq('user_id', userId)
+		.order('created_at', { ascending: false })
+		.range(offset, offset + limit - 1)) as any
+
+	if (error || !comments) {
+		console.error('Error fetching user comments:', error)
+		return { comments: [], hasMore: false, totalCount: 0 }
+	}
+
+	// Fetch like/dislike counts for these comments
+	const commentIds = comments.map((c: any) => c.id)
+	const animeIds = Array.from(new Set(comments.map((c: any) => c.anime_id))) as string[]
+	
+	let likeCountMap = new Map<string, number>()
+	let dislikeCountMap = new Map<string, number>()
+	let animeMap = new Map<string, { title: string, images: any }>()
+	
+	// Fetch analytics and anime data in parallel
+	await Promise.all([
+		(async () => {
+			if (commentIds.length > 0) {
+				const { data: likesDislikesData } = await supabase.rpc('get_comment_likes_counts', {
+					comment_ids: commentIds,
+				} as any) as any
+
+				likesDislikesData?.forEach((row: any) => {
+					likeCountMap.set(row.comment_id, Number(row.like_count))
+					dislikeCountMap.set(row.comment_id, Number(row.dislike_count))
+				})
+			}
+		})(),
+		(async () => {
+			if (animeIds.length > 0) {
+				const animeResults = await Promise.all(
+					animeIds.map(id => getAnime(id))
+				)
+				animeResults.forEach((anime, index) => {
+					if (anime) {
+						animeMap.set(animeIds[index], {
+							title: anime.title,
+							images: anime.images
+						})
+					}
+				})
+			}
+		})()
+	])
+
+	const enrichedComments = comments.map((comment: any) => ({
+		...comment,
+		like_count: likeCountMap.get(comment.id) || 0,
+		dislike_count: dislikeCountMap.get(comment.id) || 0,
+		user_has_liked: false,
+		user_has_disliked: false,
+		anime: animeMap.get(comment.anime_id) || { title: 'Anime Desconocido', images: null }
+	}))
+
+	return {
+		comments: enrichedComments,
 		hasMore: (count || 0) > offset + limit,
 		totalCount: count || 0,
 	}

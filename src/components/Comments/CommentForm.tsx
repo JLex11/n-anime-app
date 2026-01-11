@@ -1,11 +1,10 @@
 'use client'
 
-import { useState, useTransition, useRef, useEffect } from 'react'
-import { createComment, updateComment } from '@/app/actions/comments'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import { MarkdownEditor } from './MarkdownEditor'
 import type { Comment, CommentWithReplies } from '@/types'
 import styles from './Comments.module.css'
+import { useCommentForm } from './hooks/useCommentForm'
 
 interface Props {
 	animeId: string
@@ -43,128 +42,42 @@ export function CommentForm({
 	replyingToUser,
 	currentUserProfile,
 }: Props) {
-	const [content, setContent] = useState(editingComment?.content || '')
-	const [error, setError] = useState<string | null>(null)
-	const [isPending, startTransition] = useTransition()
+	const {
+		content,
+		setContent,
+		error,
+		isPending,
+		handleSubmit,
+		handleKeyDown,
+	} = useCommentForm({
+		animeId,
+		episodeId,
+		parentId,
+		editingComment,
+		onSuccess,
+		onCommentAdded,
+		onCommentUpdated,
+		onCommentError,
+		isAuthenticated,
+		currentUserId,
+		replyingToUser,
+		currentUserProfile,
+	})
+
 	const editorAutoFocus = !!editingComment
 
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault()
-
-		if (!isAuthenticated) {
-			window.location.href = `/login?redirect=${window.location.pathname}`
-			return
-		}
-
-		setError(null)
-
-		if (!content.trim()) {
-			setError('El comentario no puede estar vacío')
-			return
-		}
-
-		if (editingComment) {
-			// Para ediciones, sí bloqueamos el formulario ya que es una actualización
-			startTransition(async () => {
-				// Primero hacer el optimistic update
-				if (onCommentUpdated) {
-					onCommentUpdated(editingComment.id, content)
-				}
-				
-				const result = await updateComment(editingComment.id, content)
-				
-				if (result.error) {
-					setError(result.error)
-					return
-				}
-
-				setContent('')
-				onSuccess?.()
-			})
-		} else {
-			// Para nuevos comentarios, NO bloqueamos el formulario con startTransition
-			// Crear comentario optimista
-			const tempId = `temp-${Date.now()}`
-			const contentToSend = content.trim()
-			const optimisticComment: CommentWithReplies = {
-				id: tempId,
-				user_id: currentUserId || '',
-				anime_id: animeId,
-				episode_id: episodeId || null,
-				parent_id: parentId || null,
-				thread_id: parentId || tempId,
-				replying_to_username: replyingToUser || null,
-				content: contentToSend,
-				edited: false,
-				created_at: new Date().toISOString(),
-				updated_at: new Date().toISOString(),
-				user_profile: {
-					username: currentUserProfile?.username || 'Tú',
-					avatar_url: currentUserProfile?.avatar_url || null,
-				},
-				like_count: 0,
-				dislike_count: 0,
-				user_has_liked: false,
-				user_has_disliked: false,
-				replies: [],
-			}
-			
-			// Mostrar comentario optimista inmediatamente
-			if (onCommentAdded) {
-				onCommentAdded(optimisticComment)
-			}
-			
-			// Limpiar formulario inmediatamente para permitir escribir otro comentario
-			setContent('')
-			onSuccess?.()
-			
-			// Enviar al servidor en background (sin bloquear el formulario)
-			createComment(
-				animeId,
-				contentToSend,
-				episodeId || null,
-				parentId || null
-			).then((result) => {
-				const typedResult = result as { error?: string; data?: Comment; success?: boolean }
-				
-				if (typedResult.error) {
-					if (onCommentError) {
-						onCommentError(tempId)
-					}
-					// Mostrar error pero no en el formulario actual ya que está limpio
-					console.error('Error al crear comentario:', typedResult.error)
-					return
-				}
-				
-				// Cuando llega la respuesta del servidor, actualizar con el comentario real
-				if (typedResult.data && onCommentAdded) {
-					const realComment: CommentWithReplies = {
-						...typedResult.data,
-						user_profile: typedResult.data.user_profile || {
-							username: currentUserProfile?.username || 'Tú',
-							avatar_url: currentUserProfile?.avatar_url || null,
-						},
-						like_count: 0,
-						dislike_count: 0,
-						user_has_liked: false,
-						user_has_disliked: false,
-						replies: [],
-					}
-					onCommentAdded(optimisticComment, realComment)
-				}
-			})
-		}
-	}
-
-	const handleKeyDown = (e: React.KeyboardEvent) => {
-		// Ctrl/Cmd + Enter to submit
-		if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-			handleSubmit(e as any)
-		}
-	}
-
 	return (
-		<form onSubmit={handleSubmit} className={styles.commentForm}>
+		<form 
+			onSubmit={handleSubmit} 
+			className={styles.commentForm}
+			style={{ 
+				viewTransitionName: editingComment 
+					? `edit-form-${editingComment.id.replace(/[^a-zA-Z0-9]/g, '_')}` 
+					: parentId 
+						? `reply-form-${parentId.replace(/[^a-zA-Z0-9]/g, '_')}` 
+						: 'main-comment-form' 
+			} as any}
+		>
 			<MarkdownEditor
 				value={content}
 				onChange={setContent}

@@ -11,7 +11,6 @@ export function UserInfo({ user }: UserInfoProps) {
 				background: 'rgba(26, 26, 26, 0.9)',
 				padding: '2rem',
 				borderRadius: '12px',
-				marginBottom: '2rem',
 			}}
 		>
 			<div style={{ marginBottom: '1rem' }}>
