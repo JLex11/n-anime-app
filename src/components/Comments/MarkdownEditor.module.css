@@ -7,7 +7,7 @@
 	border: 1px solid rgba(255, 255, 255, 0.2);
 	border-radius: 8px;
 	background: rgba(255, 255, 255, 0.05);
-	overflow: hidden;
+	overflow: visible;
 	transition: all 0.2s ease;
 }
 
@@ -29,11 +29,22 @@
 	border: none !important;
 	box-shadow: none !important;
 	font-family: var(--montserrat-font), 'Montserrat', sans-serif !important;
+	height: fit-content !important;
 }
 
-/* Ocultar solo el botón de fullscreen */
+.editorContent :global(.w-md-editor-content) {
+	height: fit-content !important;
+}
+
+.editorContent :global(.w-md-editor-input),
+.editorContent :global(.w-md-editor-preview) {
+	height: auto !important;
+}
+
+/* Ocultar botones de fullscreen y preview */
 .editorContent :global(.w-md-editor-toolbar li button[aria-label="fullscreen"]),
-.editorContent :global(.w-md-editor-toolbar li button[data-name="fullscreen"]) {
+.editorContent :global(.w-md-editor-toolbar li button[data-name="fullscreen"]),
+.editorContent :global(.w-md-editor-toolbar li button[data-name="preview"]) {
 	display: none !important;
 }
 

@@ -76,7 +76,7 @@ export function MarkdownEditor({
 					onChange={handleChange}
 					preview='live'
 					visibleDragbar={false}
-					height="auto"
+					height={200}
 					textareaProps={{
 						placeholder,
 						disabled,
