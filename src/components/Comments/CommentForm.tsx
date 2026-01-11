@@ -3,6 +3,7 @@
 import { useState, useTransition, useRef, useEffect } from 'react'
 import { createComment, updateComment } from '@/app/actions/comments'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
+import { MarkdownEditor } from './MarkdownEditor'
 import type { Comment, CommentWithReplies } from '@/types'
 import styles from './Comments.module.css'
 
@@ -45,13 +46,7 @@ export function CommentForm({
 	const [content, setContent] = useState(editingComment?.content || '')
 	const [error, setError] = useState<string | null>(null)
 	const [isPending, startTransition] = useTransition()
-	const textareaRef = useRef<HTMLTextAreaElement>(null)
-
-	useEffect(() => {
-		if (editingComment && textareaRef.current) {
-			textareaRef.current.focus()
-		}
-	}, [editingComment])
+	const editorAutoFocus = !!editingComment
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
@@ -151,7 +146,7 @@ export function CommentForm({
 		})
 	}
 
-	const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+	const handleKeyDown = (e: React.KeyboardEvent) => {
 		// Ctrl/Cmd + Enter to submit
 		if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
 			handleSubmit(e as any)
@@ -160,54 +155,45 @@ export function CommentForm({
 
 	return (
 		<form onSubmit={handleSubmit} className={styles.commentForm}>
-			<textarea
-				ref={textareaRef}
+			<MarkdownEditor
 				value={content}
-				onChange={e => setContent(e.target.value)}
-				onKeyDown={handleKeyDown}
+				onChange={setContent}
 				placeholder={placeholder}
 				disabled={isPending}
-				className={styles.commentTextarea}
-				rows={3}
+				onKeyDown={handleKeyDown}
+				autoFocus={editorAutoFocus}
 			/>
 
 			{error && <div className={styles.commentError}>{error}</div>}
 
-			<div className={styles.commentFormFooter}>
-				<div className={styles.commentFormHint}>
-					<span>Markdown soportado</span>
-					<span>Usa @username para mencionar</span>
-				</div>
-
-				<div className={styles.commentFormActions}>
-					{onCancel && (
-						<button
-							type='button'
-							onClick={onCancel}
-							disabled={isPending}
-							className={styles.commentCancelButton}
-						>
-							Cancelar
-						</button>
-					)}
-
+			<div className={styles.commentFormActions}>
+				{onCancel && (
 					<button
-						type='submit'
-						disabled={isPending || !content.trim()}
-						className={styles.commentSubmitButton}
+						type='button'
+						onClick={onCancel}
+						disabled={isPending}
+						className={styles.commentCancelButton}
 					>
-						{isPending ? (
-							<>
-								<LoadingIcon />
-								{editingComment ? 'Guardando...' : 'Publicando...'}
-							</>
-						) : editingComment ? (
-							'Guardar'
-						) : (
-							'Comentar'
-						)}
+						Cancelar
 					</button>
-				</div>
+				)}
+
+				<button
+					type='submit'
+					disabled={isPending || !content.trim()}
+					className={styles.commentSubmitButton}
+				>
+					{isPending ? (
+						<>
+							<LoadingIcon />
+							{editingComment ? 'Guardando...' : 'Publicando...'}
+						</>
+					) : editingComment ? (
+						'Guardar'
+					) : (
+						'Comentar'
+					)}
+				</button>
 			</div>
 		</form>
 	)

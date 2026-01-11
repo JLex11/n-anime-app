@@ -58,50 +58,13 @@
 	opacity: 1;
 }
 
-.commentTextarea {
-	width: 100%;
-	min-height: 80px;
-	padding: 0.7rem;
-	background: rgba(255, 255, 255, 0.05);
-	border: 1px solid rgba(255, 255, 255, 0.2);
-	border-radius: 8px;
-	color: #fff;
-	font-size: 0.95rem;
-	font-family: var(--montserrat-font), 'Montserrat', sans-serif;
-	resize: vertical;
-	transition: all 0.2s ease;
-}
-
-.commentTextarea:focus {
-	outline: none;
-	background: rgba(255, 255, 255, 0.08);
-	border-color: rgba(255, 255, 255, 0.4);
-}
-
-.commentTextarea:disabled {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
-
-.commentFormFooter {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-top: 0.7rem;
-	gap: 1rem;
-}
-
-.commentFormHint {
-	display: flex;
-	flex-direction: column;
-	gap: 0.25rem;
-	font-size: 0.7rem;
-	color: rgba(255, 255, 255, 0.5);
-}
+/* CommentForm actions moved to bottom */
 
 .commentFormActions {
 	display: flex;
+	justify-content: flex-end;
 	gap: 0.5rem;
+	margin-top: 0.7rem;
 }
 
 .commentSubmitButton {
