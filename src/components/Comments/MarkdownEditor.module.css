@@ -52,6 +52,15 @@
 	background-color: rgba(0, 0, 0, 0.15) !important;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 	padding: 0.5rem 0.7rem !important;
+	opacity: 0;
+	max-height: 0;
+	overflow: hidden;
+	transition: all 0.3s ease;
+}
+
+.editorContainer:focus-within .editorContent :global(.w-md-editor-toolbar) {
+	opacity: 1;
+	max-height: 100px;
 }
 
 .editorContent :global(.w-md-editor-toolbar-divider) {
@@ -229,6 +238,16 @@
 	border-top: 1px solid rgba(255, 255, 255, 0.1);
 	font-size: 0.7rem;
 	color: rgba(255, 255, 255, 0.5);
+	opacity: 0;
+	max-height: 0;
+	overflow: hidden;
+	transition: all 0.3s ease;
+}
+
+.editorContainer:focus-within .editorHint {
+	opacity: 1;
+	max-height: 50px;
+	padding: 0.5rem 0.7rem;
 }
 
 /* ===== RESPONSIVE ===== */
