@@ -86,22 +86,6 @@
 	background-color: rgba(102, 126, 234, 0.15) !important;
 }
 
-.editorContent :global(.w-md-editor-text) {
-	background-color: transparent !important;
-}
-
-.editorContent :global(.w-md-editor-text-pre),
-.editorContent :global(.w-md-editor-text-input) {
-	color: #fff !important;
-	font-size: 0.95rem !important;
-	line-height: 1.5 !important;
-	font-family: var(--montserrat-font), 'Montserrat', sans-serif !important;
-}
-
-.editorContent :global(.w-md-editor-text-input)::placeholder {
-	color: rgba(255, 255, 255, 0.4) !important;
-}
-
 /* Preview styles */
 .editorContent :global(.w-md-editor-preview) {
 	background-color: transparent !important;

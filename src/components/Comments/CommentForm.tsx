@@ -63,9 +63,10 @@ export function CommentForm({
 			return
 		}
 
-		startTransition(async () => {
-			if (editingComment) {
-				// Para ediciones, primero hacer el optimistic update
+		if (editingComment) {
+			// Para ediciones, sí bloqueamos el formulario ya que es una actualización
+			startTransition(async () => {
+				// Primero hacer el optimistic update
 				if (onCommentUpdated) {
 					onCommentUpdated(editingComment.id, content)
 				}
@@ -76,58 +77,70 @@ export function CommentForm({
 					setError(result.error)
 					return
 				}
-			} else {
-				// Para nuevos comentarios, crear optimistic primero
-				const tempId = `temp-${Date.now()}`
-				const optimisticComment: CommentWithReplies = {
-					id: tempId,
-					user_id: currentUserId || '',
-					anime_id: animeId,
-					episode_id: episodeId || null,
-					parent_id: parentId || null,
-					thread_id: parentId || tempId,
-					replying_to_username: replyingToUser || null,
-					content: content.trim(),
-					edited: false,
-					created_at: new Date().toISOString(),
-					updated_at: new Date().toISOString(),
-					user_profile: {
-						username: currentUserProfile?.username || 'Tú',
-						avatar_url: currentUserProfile?.avatar_url || null,
-					},
-					like_count: 0,
-					dislike_count: 0,
-					user_has_liked: false,
-					user_has_disliked: false,
-					replies: [],
-				}
+
+				setContent('')
+				onSuccess?.()
+			})
+		} else {
+			// Para nuevos comentarios, NO bloqueamos el formulario con startTransition
+			// Crear comentario optimista
+			const tempId = `temp-${Date.now()}`
+			const contentToSend = content.trim()
+			const optimisticComment: CommentWithReplies = {
+				id: tempId,
+				user_id: currentUserId || '',
+				anime_id: animeId,
+				episode_id: episodeId || null,
+				parent_id: parentId || null,
+				thread_id: parentId || tempId,
+				replying_to_username: replyingToUser || null,
+				content: contentToSend,
+				edited: false,
+				created_at: new Date().toISOString(),
+				updated_at: new Date().toISOString(),
+				user_profile: {
+					username: currentUserProfile?.username || 'Tú',
+					avatar_url: currentUserProfile?.avatar_url || null,
+				},
+				like_count: 0,
+				dislike_count: 0,
+				user_has_liked: false,
+				user_has_disliked: false,
+				replies: [],
+			}
+			
+			// Mostrar comentario optimista inmediatamente
+			if (onCommentAdded) {
+				onCommentAdded(optimisticComment)
+			}
+			
+			// Limpiar formulario inmediatamente para permitir escribir otro comentario
+			setContent('')
+			onSuccess?.()
+			
+			// Enviar al servidor en background (sin bloquear el formulario)
+			createComment(
+				animeId,
+				contentToSend,
+				episodeId || null,
+				parentId || null
+			).then((result) => {
+				const typedResult = result as { error?: string; data?: Comment; success?: boolean }
 				
-				// Llamar al callback optimista primero
-				if (onCommentAdded) {
-					onCommentAdded(optimisticComment)
-				}
-				
-				// Luego enviar al servidor
-				const result = (await createComment(
-					animeId,
-					content,
-					episodeId || null,
-					parentId || null
-				)) as { error?: string; data?: Comment; success?: boolean }
-				
-				if (result.error) {
+				if (typedResult.error) {
 					if (onCommentError) {
 						onCommentError(tempId)
 					}
-					setError(result.error)
+					// Mostrar error pero no en el formulario actual ya que está limpio
+					console.error('Error al crear comentario:', typedResult.error)
 					return
 				}
 				
 				// Cuando llega la respuesta del servidor, actualizar con el comentario real
-				if (result.data && onCommentAdded) {
+				if (typedResult.data && onCommentAdded) {
 					const realComment: CommentWithReplies = {
-						...result.data,
-						user_profile: result.data.user_profile || {
+						...typedResult.data,
+						user_profile: typedResult.data.user_profile || {
 							username: currentUserProfile?.username || 'Tú',
 							avatar_url: currentUserProfile?.avatar_url || null,
 						},
@@ -139,11 +152,8 @@ export function CommentForm({
 					}
 					onCommentAdded(optimisticComment, realComment)
 				}
-			}
-
-			setContent('')
-			onSuccess?.()
-		})
+			})
+		}
 	}
 
 	const handleKeyDown = (e: React.KeyboardEvent) => {
