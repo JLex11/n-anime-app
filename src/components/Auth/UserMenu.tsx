@@ -10,7 +10,7 @@ export async function UserMenu() {
 		return (
 			<Link
 				href="/login"
-				style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+				style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textWrap: 'nowrap' }}
 			>
 				<UserIcon />
 				<span>Iniciar sesión</span>
