@@ -1,5 +1,5 @@
 import { getAnime } from '@/api/getAnime'
-import { SkeletonBase } from '@/components/Skeletons'
+import { SkeletonBase, RelatedAnimesSkeleton } from '@/components/Skeletons'
 import { Suspense } from 'react'
 import { cacheLife, cacheTag } from 'next/cache'
 import styles from './Anime.module.css'
@@ -9,6 +9,7 @@ import { Description } from './DescriptionSection'
 import { Episodes } from './EpisodesSection'
 import { Genres } from './GenresSection'
 import { CommentsSection } from '../Comments';
+import { RelatedAnimes } from './RelatedAnimes'
 
 
 interface Props {
@@ -32,6 +33,9 @@ export async function AnimeMain({ animeId, favoriteButtonSlot, commentsSlot }: P
 				<AnimeHeader animeId={anime.animeId} title={anime.title} otherTitles={anime.otherTitles} />
 				{favoriteButtonSlot}
 				<Description description={anime.description} />
+				<Suspense fallback={<RelatedAnimesSkeleton />}>
+					<RelatedAnimes animeId={animeId} />
+				</Suspense>
 				<Genres genres={anime.genres} />
 				<Suspense
 					fallback={

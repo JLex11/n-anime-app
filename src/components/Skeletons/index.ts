@@ -7,4 +7,5 @@ export { AnimeMainSkeleton } from './AnimeMainSkeleton'
 export { HomeAsideSkeleton } from './HomeAsideSkeleton'
 export { EpisodeContentSkeleton } from './EpisodeContentSkeleton'
 export { FavoriteButtonSkeleton } from './FavoriteButtonSkeleton'
+export { RelatedAnimesSkeleton } from './RelatedAnimesSkeleton'
 

@@ -73,7 +73,15 @@ export interface Anime {
 	status: string
 	genres: string[] | []
 	created_at: string
+	relatedAnimes?: RelatedAnime[] | null
 }
+
+export interface RelatedAnime {
+	animeId: string
+	title: string
+	relation: string
+}
+
 
 type Enumerate<N extends number, Acc extends number[] = []> = Acc['length'] extends N
 	? Acc[number]

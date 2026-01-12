@@ -22,6 +22,7 @@ export enum APIRoutes {
 	InfoAnime = '/animes',
 	AnimeEpisodes = '/animes/:animeId/episodes',
 	SearchAnimes = '/animes/search',
+	RelatedAnimes = '/animes/:animeId/related',
 }
 
 export enum autoCompleteHotKeys {
