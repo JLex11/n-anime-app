@@ -1,14 +1,14 @@
 import { APIRoutes } from '@/enums'
-import { fetchAnimeHelper } from '@/services/fetchAnimeHelper'
+import { fetchData } from '@/services/fetchData'
 import type { RelatedAnime } from '@/types'
 import { hoursToSeconds } from '@/utils/convertTime'
 
-export const getRelatedAnimes = async (animeId: string): Promise<RelatedAnime[] | null> => {
-	return fetchAnimeHelper<RelatedAnime[]>(
+export const getRelatedAnimes = async (animeId: string): Promise<RelatedAnime[] | undefined> => {
+	return fetchData<RelatedAnime[]>(
 		APIRoutes.RelatedAnimes.replace(':animeId', animeId),
 		{
-			revalidate: hoursToSeconds(24),
-			useCache: true
+			next: { revalidate: hoursToSeconds(24) }
 		}
 	)
 }
+
