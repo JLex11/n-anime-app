@@ -1,6 +1,9 @@
+'use client'
+
 import { useAutocomplete } from '@/hooks/useAutocomplete'
 import clsx from 'clsx'
 import { useCallback, useId } from 'react'
+import { createPortal } from 'react-dom'
 import styles from './Autocomplete.module.css'
 import { CollectionsPanel } from './CollectionsPanel'
 import { AutocompleteProvider } from './Contexts'
@@ -27,7 +30,7 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
 	const resultsPanelClassName = clsx(styles.collectionsPanel, autocomplete.isOpen && styles.isOpen)
 	const formClassName = clsx(styles.form, autocomplete.isOpen && styles.isOpen)
 
-	return (
+	return createPortal(
 		<AutocompleteProvider
 			activeItemId={autocomplete.activeItemId ?? 0}
 			setActiveItemId={setActiveItemId}
@@ -57,6 +60,7 @@ export function Autocomplete({ handleLaunchAutocomplete }: Props) {
 					)}
 				</form>
 			</div>
-		</AutocompleteProvider>
+		</AutocompleteProvider>,
+		document.body
 	)
 }
