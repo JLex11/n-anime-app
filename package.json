@@ -7,7 +7,7 @@
     "tscheck": "bunx tsgo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "biome lint src/app/actions/comments.ts src/app/actions/comments-read.ts src/app/actions/favorites.ts src/app/actions/watch-progress.ts src/app/perfil/page.tsx src/components/Profile/FavoritesSection.tsx src/components/Profile/ContinueWatchingSection.tsx src/components/Profile/UserCommentsWrapper.tsx src/components/Profile/UserCommentsSection.tsx src/components/Profile/UserSection.tsx src/services/fetchData.ts src/constants.ts 'src/app/animes/[animeId]/[episode]/page.tsx' package.json biome.json",
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "preview": "next build && next start"
   },
@@ -21,7 +21,7 @@
     "clsx": "2.1.1",
     "eslint-config-next": "16.2.2",
     "next": "16.1.1",
-    "react": "19.2.3",
+    "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hotkeys-hook": "5.2.4",
     "react-markdown": "^10.1.0",

@@ -1,10 +1,16 @@
-import { getContinueWatching } from '@/app/actions/watch-progress'
+import { getContinueWatching, getContinueWatchingForUser } from '@/app/actions/watch-progress'
 import type { WatchProgress } from '@/types'
 import Link from 'next/link'
 import styles from './ContinueWatchingSection.module.css'
 
-export async function ContinueWatchingSection() {
-	const continueWatching: WatchProgress[] = await getContinueWatching()
+interface Props {
+	userId?: string
+}
+
+export async function ContinueWatchingSection({ userId }: Props) {
+	const continueWatching: WatchProgress[] = userId
+		? await getContinueWatchingForUser(userId)
+		: await getContinueWatching()
 
 	return (
 		<section className={styles.section}>

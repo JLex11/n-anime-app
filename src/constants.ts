@@ -3,6 +3,10 @@ export const RENDER_API_BASE_URL = 'https://anime-scrapper-3c3n.onrender.com/api
 export const FL0_API_BASE_URL = 'https://anime-scrapper-2rl4-dev.fl0.io/api'
 //export const API_BASE_URL = 'http://localhost:3002/api'
 
+export function getAnimeApiBaseUrl() {
+	return process.env.ANIME_API_BASE_URL || process.env.NEXT_PUBLIC_ANIME_API_BASE_URL || VERCEL_API_BASE_URL
+}
+
 export const imageDomains = [
   {
     protocol: 'http',

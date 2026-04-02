@@ -41,6 +41,9 @@
 	height: 100%;
 	overflow: hidden;
 	mask-image: linear-gradient(to top, transparent 1%, var(--primary-color) 100%);
+	transform: translateZ(0);
+	backface-visibility: hidden;
+	contain: paint;
 }
 
 .blurImage {

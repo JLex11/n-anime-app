@@ -13,12 +13,7 @@
   width: 100%;
   color: white;
   text-align: center;
-  view-transition-name: root_header;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.header::view-transition-new(root_header) {
-  background: linear-gradient(to bottom, var(--primary-color) -15%, transparent);
 }
 
 .header.scrolled {
@@ -107,7 +102,6 @@
 
 .pageItem:is(.active)::before {
   background-color: var(--page-item-bg-color);
-  view-transition-name: page-item-hover;
 }
 
 .active::after {

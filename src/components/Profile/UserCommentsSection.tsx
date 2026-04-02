@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { getUserComments } from '@/app/actions/comments'
 import { UserAnimeCommentsCard } from './UserAnimeCommentsCard'
 import { LoadMoreButton } from '@/components/Comments/LoadMoreButton'
@@ -9,40 +9,40 @@ import styles from './Profile.module.css'
 
 interface UserCommentsSectionProps {
 	userId: string
+	initialComments: Awaited<ReturnType<typeof getUserComments>>['comments']
+	initialHasMore: boolean
+	initialTotalCount: number
+	initialOffset: number
 }
 
-export function UserCommentsSection({ userId }: UserCommentsSectionProps) {
-	const [comments, setComments] = useState<any[]>([])
-	const [hasMore, setHasMore] = useState(false)
-	const [isLoading, setIsLoading] = useState(true)
+export function UserCommentsSection({
+	userId,
+	initialComments,
+	initialHasMore,
+	initialTotalCount: _initialTotalCount,
+	initialOffset,
+}: UserCommentsSectionProps) {
+	const [comments, setComments] = useState(initialComments)
+	const [hasMore, setHasMore] = useState(initialHasMore)
 	const [isLoadingMore, setIsLoadingMore] = useState(false)
-	const [offset, setOffset] = useState(0)
+	const [offset, setOffset] = useState(initialOffset)
 	const { startTransition } = useViewTransition()
-	const limit = 10 
+	const limit = 10
 
 	const fetchComments = useCallback(async (currentOffset: number) => {
 		try {
 			const res = await getUserComments(userId, currentOffset, limit)
-			
+
 			startTransition(() => {
-				if (currentOffset === 0) {
-					setComments(res.comments)
-				} else {
-					setComments(prev => [...prev, ...res.comments])
-				}
+				setComments(prev => [...prev, ...res.comments])
 				setHasMore(res.hasMore)
 			})
 		} catch (error) {
 			console.error('Error fetching user comments:', error)
 		} finally {
-			setIsLoading(false)
 			setIsLoadingMore(false)
 		}
 	}, [userId, startTransition])
-
-	useEffect(() => {
-		fetchComments(0)
-	}, [fetchComments])
 
 	const handleLoadMore = () => {
 		if (isLoadingMore || !hasMore) return
@@ -54,13 +54,14 @@ export function UserCommentsSection({ userId }: UserCommentsSectionProps) {
 
 	// Group comments by anime_id while preserving order of first appearance
 	const groupedComments = useMemo(() => {
-		const groups: { anime: any, comments: any[] }[] = []
+		const groups: { anime: { id: string; title: string; images: unknown }; comments: typeof comments }[] = []
 		const animeMap = new Map<string, number>() // anime_id -> index in groups array
 
 		comments.forEach(comment => {
 			const animeId = comment.anime_id
 			if (animeMap.has(animeId)) {
-				const index = animeMap.get(animeId)!
+				const index = animeMap.get(animeId)
+				if (index === undefined) return
 				groups[index].comments.push(comment)
 			} else {
 				animeMap.set(animeId, groups.length)
@@ -77,19 +78,6 @@ export function UserCommentsSection({ userId }: UserCommentsSectionProps) {
 		return groups
 	}, [comments])
 
-	if (isLoading && comments.length === 0) {
-		return (
-			<section className={styles.section}>
-				<h2 className={styles.sectionTitle}>Mis Comentarios</h2>
-				<div className={styles.commentsList}>
-					{Array.from({ length: 2 }).map((_, i) => (
-						<div key={i} className={styles.commentSkeleton} style={{ height: '200px' }} />
-					))}
-				</div>
-			</section>
-		)
-	}
-
 	return (
 		<section className={styles.section}>
 			<h2 className={styles.sectionTitle}>Mis Comentarios</h2>
@@ -97,6 +85,7 @@ export function UserCommentsSection({ userId }: UserCommentsSectionProps) {
 			{comments.length === 0 ? (
 				<div className={styles.emptyState}>
 					<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+						<title>Sin comentarios</title>
 						<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
 						<line x1="3" y1="3" x2="21" y2="21"></line>
 					</svg>

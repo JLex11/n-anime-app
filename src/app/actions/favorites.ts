@@ -1,8 +1,25 @@
 'use server'
 
-import { createClient } from '@/lib/supabase/server'
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { cache } from 'react'
+import { createClient } from '@/lib/supabase/server'
+import type { Database } from '@/lib/supabase/types'
+
+async function getFavoritesByUserId(userId: string) {
+	const supabase = await createClient()
+	const { data, error } = await supabase
+		.from('user_favorites')
+		.select('*')
+		.eq('user_id', userId)
+		.order('created_at', { ascending: false })
+
+	if (error) {
+		console.error('Error fetching favorites:', error)
+		return []
+	}
+
+	return data || []
+}
 
 export async function addToFavorites(
 	animeId: string,
@@ -18,14 +35,14 @@ export async function addToFavorites(
 		return { error: 'No autenticado' }
 	}
 
-	const { error } = await supabase
-		.from('user_favorites')
-		.insert({
-			user_id: user.id,
-			anime_id: animeId,
-			anime_title: animeTitle,
-			anime_image: animeImage || null,
-		} as any)
+	const favoriteToInsert = {
+		user_id: user.id,
+		anime_id: animeId,
+		anime_title: animeTitle,
+		anime_image: animeImage || null,
+	} satisfies Database['public']['Tables']['user_favorites']['Insert']
+
+	const { error } = await supabase.from('user_favorites').insert(favoriteToInsert as never)
 
 	if (error) {
 		return { error: error.message }
@@ -73,18 +90,11 @@ export async function getFavorites() {
 		return []
 	}
 
-	const { data, error } = await supabase
-		.from('user_favorites')
-		.select('*')
-		.eq('user_id', user.id)
-		.order('created_at', { ascending: false })
+	return getFavoritesByUserId(user.id)
+}
 
-	if (error) {
-		console.error('Error fetching favorites:', error)
-		return []
-	}
-
-	return data || []
+export async function getFavoritesForUser(userId: string) {
+	return getFavoritesByUserId(userId)
 }
 
 export const isFavorite = cache(async (animeId: string) => {

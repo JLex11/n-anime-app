@@ -1,11 +1,15 @@
-import { getFavorites } from '@/app/actions/favorites'
+import { getFavorites, getFavoritesForUser } from '@/app/actions/favorites'
 import type { UserFavorite } from '@/types'
 import Link from 'next/link'
 import styles from './FavoritesSection.module.css'
 import Image from 'next/image'
 
-export async function FavoritesSection() {
-	const favorites: UserFavorite[] = await getFavorites()
+interface Props {
+	userId?: string
+}
+
+export async function FavoritesSection({ userId }: Props) {
+	const favorites: UserFavorite[] = userId ? await getFavoritesForUser(userId) : await getFavorites()
 
 	return (
 		<section className={styles.section}>

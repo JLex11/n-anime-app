@@ -1,8 +1,26 @@
 'use server'
 
-import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { createClient } from '@/lib/supabase/server'
+import type { Database } from '@/lib/supabase/types'
 import type { WatchProgress } from '@/types'
+
+async function getContinueWatchingByUserId(userId: string) {
+	const supabase = await createClient()
+	const { data, error } = await supabase
+		.from('watch_progress')
+		.select('*')
+		.eq('user_id', userId)
+		.eq('completed', false)
+		.order('last_watched', { ascending: false })
+		.limit(10)
+
+	if (error) {
+		return []
+	}
+
+	return data || []
+}
 
 export async function updateWatchProgress(
 	animeId: string,
@@ -24,23 +42,20 @@ export async function updateWatchProgress(
 		? progressSeconds / durationSeconds > 0.9
 		: false
 
-	const { error } = await supabase
-		.from('watch_progress')
-		.upsert(
-			{
-				user_id: user.id,
-				anime_id: animeId,
-				episode_number: episodeNumber,
-				episode_id: episodeId,
-				progress_seconds: progressSeconds,
-				duration_seconds: durationSeconds || null,
-				completed,
-				last_watched: new Date().toISOString(),
-			} as any,
-			{
-				onConflict: 'user_id,anime_id,episode_id',
-			},
-		)
+	const watchProgressToUpsert = {
+		user_id: user.id,
+		anime_id: animeId,
+		episode_number: episodeNumber,
+		episode_id: episodeId,
+		progress_seconds: progressSeconds,
+		duration_seconds: durationSeconds || null,
+		completed,
+		last_watched: new Date().toISOString(),
+	} satisfies Database['public']['Tables']['watch_progress']['Insert']
+
+	const { error } = await supabase.from('watch_progress').upsert(watchProgressToUpsert as never, {
+		onConflict: 'user_id,anime_id,episode_id',
+	})
 
 	if (error) {
 		return { error: error.message }
@@ -103,17 +118,9 @@ export async function getContinueWatching() {
 		return []
 	}
 
-	const { data, error } = await supabase
-		.from('watch_progress')
-		.select('*')
-		.eq('user_id', user.id)
-		.eq('completed', false)
-		.order('last_watched', { ascending: false })
-		.limit(10)
+	return getContinueWatchingByUserId(user.id)
+}
 
-	if (error) {
-		return []
-	}
-
-	return data || []
+export async function getContinueWatchingForUser(userId: string) {
+	return getContinueWatchingByUserId(userId)
 }

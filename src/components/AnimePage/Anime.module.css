@@ -15,6 +15,9 @@
 	overflow: hidden;
 	height: var(--carousel-height);
 	mask-image: linear-gradient(to top, transparent 1%, var(--primary-color) 100%);
+	transform: translateZ(0);
+	backface-visibility: hidden;
+	contain: paint;
 }
 
 .aside {

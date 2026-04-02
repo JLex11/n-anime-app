@@ -28,12 +28,14 @@ function UserSectionSkeleton() {
 }
 
 function ContinueWatchingSkeleton() {
+	const skeletonItems = ['continue-1', 'continue-2', 'continue-3']
+
 	return (
 		<div style={{ marginBottom: '3rem' }}>
 			<SkeletonBase width='200px' height='1.5rem' style={{ marginBottom: '1.5rem' }} />
-			{Array.from({ length: 3 }).map((_, i) => (
+			{skeletonItems.map(itemKey => (
 				<div
-					key={i}
+					key={itemKey}
 					style={{
 						background: 'rgba(26, 26, 26, 0.9)',
 						padding: '1.5rem',
@@ -58,18 +60,20 @@ function FavoritesSkeleton() {
 }
 
 function CommentsSkeleton() {
+	const skeletonItems = ['comment-1', 'comment-2', 'comment-3']
+
 	return (
 		<div>
 			<SkeletonBase width='200px' height='1.5rem' style={{ marginBottom: '1.5rem' }} />
-			{Array.from({ length: 3 }).map((_, i) => (
+			{skeletonItems.map(itemKey => (
 				<div
-					key={i}
+					key={itemKey}
 					style={{
 						background: 'rgba(26, 26, 26, 0.9)',
 						padding: '1.5rem',
 						borderRadius: '12px',
 						marginBottom: '1.5rem',
-						height: '150px'
+						height: '150px',
 					}}
 				/>
 			))}

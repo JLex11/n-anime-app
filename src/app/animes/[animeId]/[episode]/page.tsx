@@ -81,14 +81,19 @@ export async function generateMetadata({ params }: Props) {
 	const { animeId, episode } = await params
 
 	return {
-		title: `Episodio ${episode} de ${animeId.replace(/\-/g, ' ')}`,
+		title: `Episodio ${episode} de ${animeId.replace(/-/g, ' ')}`,
 	}
 }
 
 export async function generateStaticParams() {
-	const latestEpisodes = await getLatestEpisodes()
-	return latestEpisodes.map(episode => ({
-		animeId: episode.animeId,
-		episode: episode.episode.toString(),
-	}))
+	try {
+		const latestEpisodes = await getLatestEpisodes()
+		return latestEpisodes.map(episode => ({
+			animeId: episode.animeId,
+			episode: episode.episode.toString(),
+		}))
+	} catch (error) {
+		console.warn('Skipping episode static params generation:', error)
+		return []
+	}
 }
