@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun run build:*)",
+      "Bash(for file in /home/alexander/Projects/n-anime-app/src/api/*.ts)",
+      "Bash(head:*)",
+      "Bash(done)",
+      "Bash(do)",
+      "Bash(if ! grep -q \"^''use cache''\" \"$file\")",
+      "Bash(then)",
+      "Bash(else)",
+      "Bash(fi)",
+      "Bash(bun add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
