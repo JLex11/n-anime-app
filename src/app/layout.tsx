@@ -6,7 +6,7 @@ import LocalFont from 'next/font/local'
 import Script from 'next/script'
 import { Suspense } from 'react'
 import { ViewTransition } from 'react'
-import '../globals.css'
+import '@/globals.css'
 
 export const metadata: Metadata = {
 	title: 'One Anime',
@@ -47,7 +47,7 @@ const speculationRulesJSON = JSON.stringify(speculationRulesConfig)
 
 export default function RootLayout({ children }: Props) {
 	return (
-		<ViewTransition>
+		<ViewTransition default='none'>
 			<html lang='es'>
 				<Script type='speculationrules' id='speculation-rules-script'>
 					{speculationRulesJSON}
