@@ -8,7 +8,6 @@ import { AnimeHeader } from './AnimeHeader'
 import { Description } from './DescriptionSection'
 import { Episodes } from './EpisodesSection'
 import { Genres } from './GenresSection'
-import { CommentsSection } from '../Comments';
 import { RelatedAnimes } from './RelatedAnimes'
 
 
