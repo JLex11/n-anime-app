@@ -4,8 +4,6 @@ import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 import LocalFont from 'next/font/local'
 import Script from 'next/script'
-import { Suspense } from 'react'
-import { ViewTransition } from 'react'
 import '@/globals.css'
 
 export const metadata: Metadata = {
@@ -47,18 +45,14 @@ const speculationRulesJSON = JSON.stringify(speculationRulesConfig)
 
 export default function RootLayout({ children }: Props) {
 	return (
-		<ViewTransition default='none'>
-			<html lang='es'>
-				<Script type='speculationrules' id='speculation-rules-script'>
-					{speculationRulesJSON}
-				</Script>
-				<body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
-					<Suspense fallback={null}>
-						<Header />
-					</Suspense>
-					{children}
-				</body>
-			</html>
-		</ViewTransition>
+		<html lang='es'>
+			<Script type='speculationrules' id='speculation-rules-script'>
+				{speculationRulesJSON}
+			</Script>
+			<body className={clsx(montserratFont.className, animeAceBBFont.variable)}>
+				<Header />
+				{children}
+			</body>
+		</html>
 	)
 }
