@@ -15,7 +15,7 @@ export enum APIRoutes {
 	fl0BaseUrl = 'https://anime-scrapper-2rl4-dev.fl0.io/api',
 	renderBaseUrl = 'https://anime-scrapper-3c3n.onrender.com/api',
 	LatestEpisodes = '/episodes/latest',
-	VideoStreaming = '/episodes/sources',
+	EpisodeSources = '/episodes',
 	LatestAnimes = '/animes/latest',
 	BroadcastAnimes = '/animes/broadcast',
 	RatingAnimes = '/animes/latest/rating',

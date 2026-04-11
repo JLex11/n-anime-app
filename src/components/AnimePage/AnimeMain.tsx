@@ -1,7 +1,7 @@
-import { getAnime } from '@/api/getAnime'
-import { SkeletonBase, RelatedAnimesSkeleton } from '@/components/Skeletons'
-import { Suspense } from 'react'
 import { cacheLife, cacheTag } from 'next/cache'
+import { Suspense } from 'react'
+import { getAnime } from '@/api/getAnime'
+import { RelatedAnimesSkeleton, SkeletonBase } from '@/components/Skeletons'
 import styles from './Anime.module.css'
 import { AnimeAside } from './AnimeAside'
 import { AnimeHeader } from './AnimeHeader'
@@ -9,7 +9,6 @@ import { Description } from './DescriptionSection'
 import { Episodes } from './EpisodesSection'
 import { Genres } from './GenresSection'
 import { RelatedAnimes } from './RelatedAnimes'
-
 
 interface Props {
 	animeId: string
@@ -24,18 +23,20 @@ export async function AnimeMain({ animeId, favoriteButtonSlot, commentsSlot }: P
 
 	const anime = await getAnime(animeId)
 	if (!anime || !animeId || !anime.title) return null
+	const otherTitles = Array.isArray(anime.otherTitles) ? anime.otherTitles : []
+	const genres = Array.isArray(anime.genres) ? anime.genres : []
 
 	return (
 		<main className={styles.main}>
 			<AnimeAside anime={anime} />
 			<section className={styles.content}>
-				<AnimeHeader animeId={anime.animeId} title={anime.title} otherTitles={anime.otherTitles} />
+				<AnimeHeader animeId={anime.animeId} title={anime.title} otherTitles={otherTitles} />
 				{favoriteButtonSlot}
 				<Description description={anime.description} />
 				<Suspense fallback={<RelatedAnimesSkeleton />}>
 					<RelatedAnimes animeId={animeId} />
 				</Suspense>
-				<Genres genres={anime.genres} />
+				<Genres genres={genres} />
 				<Suspense
 					fallback={
 						<div className={styles.section}>

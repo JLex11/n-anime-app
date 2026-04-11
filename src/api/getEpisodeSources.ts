@@ -8,7 +8,7 @@ export const getEpisodeSources = async (episodeId: string) => {
 		next: { revalidate: hoursToSeconds(3) },
 	}
 
-	const episodeSources = await fetchData<EpisodeSources>(`${APIRoutes.VideoStreaming}/${episodeId}`, fetchConfig).catch(error => {
+	const episodeSources = await fetchData<EpisodeSources>(`${APIRoutes.EpisodeSources}/${episodeId}/sources`, fetchConfig).catch(error => {
 		console.error('Error fetching episode sources:', error)
 		return undefined
 	})

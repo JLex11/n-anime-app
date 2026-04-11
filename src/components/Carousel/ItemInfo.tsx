@@ -6,11 +6,12 @@ import styles from './Carousel.module.css'
 interface Props {
 	animeId: string
 	title: string
-	genres: string[]
+	genres?: string[] | null
 }
 
 export function ItemInfo({ animeId, title, genres }: Props) {
-	const uniqueGenres = [...new Set(genres)]
+	const safeGenres = Array.isArray(genres) ? genres : []
+	const uniqueGenres = [...new Set(safeGenres)]
 	const mappedGenres = uniqueGenres.map(genre => ({
 		name: genre,
 		url: `/animes/?genre=${genre}`,

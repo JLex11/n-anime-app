@@ -1,9 +1,6 @@
-import { getAnime } from '@/api/getAnime'
-import { getBroadcastAnimes } from '@/api/getBroadcastAnimes'
-import { getRatingAnimes } from '@/api/getRatingAnimes'
-import type { Anime } from '@/types'
-import { normalizeAnimeId } from '@/utils/normalizeAnimeId'
 import type { Metadata } from 'next'
+import { getAnime } from '@/api/getAnime'
+import { normalizeAnimeId } from '@/utils/normalizeAnimeId'
 
 export interface PageProps {
 	params: Promise<{ animeId: string }>
@@ -12,11 +9,13 @@ export interface PageProps {
 export async function generateMetadataFromAnimeId(animeId: string): Promise<Metadata> {
 	const anime = await getAnime(animeId)
 	if (!anime) return {}
+	const genres = Array.isArray(anime.genres) ? anime.genres : []
+	const otherTitles = Array.isArray(anime.otherTitles) ? anime.otherTitles : []
 
 	return {
 		title: anime.title ?? normalizeAnimeId(animeId),
 		description: anime.description,
-		keywords: `${anime.genres.join(', ')} ${anime.title} ${anime.otherTitles.join(', ')}`,
+		keywords: `${genres.join(', ')} ${anime.title} ${otherTitles.join(', ')}`,
 	}
 }
 
