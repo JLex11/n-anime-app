@@ -131,13 +131,15 @@
 	gap: 0;
 	padding: 0 var(--global-padding);
 	width: var(--max-width);
-	pointer-events: auto;
+	/* Keep the max-width alignment without making the whole row a hit area. */
+	pointer-events: none;
 }
 
 .navigateButton {
 	display: flex;
 	position: relative;
 	z-index: var(--navigation-depth, 1);
+	pointer-events: auto;
 	will-change: transform;
 	transition:
 		transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
