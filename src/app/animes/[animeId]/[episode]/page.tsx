@@ -65,13 +65,17 @@ async function EpisodeContent({ animeId, episode, searchParams }: { animeId: str
 	)
 }
 
-export default async function EpisodePage({ params, searchParams }: Props) {
+async function EpisodeContentWithParams({ params, searchParams }: Props) {
 	const { animeId, episode } = await params
 
+	return <EpisodeContent animeId={animeId} episode={episode} searchParams={searchParams} />
+}
+
+export default function EpisodePage({ params, searchParams }: Props) {
 	return (
 		<EpisodePageContextProvider>
 			<Suspense fallback={<EpisodeContentSkeleton />}>
-				<EpisodeContent animeId={animeId} episode={episode} searchParams={searchParams} />
+				<EpisodeContentWithParams params={params} searchParams={searchParams} />
 			</Suspense>
 		</EpisodePageContextProvider>
 	)

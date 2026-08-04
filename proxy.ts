@@ -4,7 +4,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 const protectedRoutes = ['/perfil', '/favoritos', '/mi-lista']
 const authRoutes = ['/login', '/register']
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
 	const { supabaseResponse, user } = await updateSession(request)
 	const { pathname } = request.nextUrl
 

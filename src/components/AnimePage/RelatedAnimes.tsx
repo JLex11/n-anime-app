@@ -11,13 +11,20 @@ export async function RelatedAnimes({ animeId }: Props) {
 
 	if (!relatedAnimes || relatedAnimes.length === 0) return null
 
+	const uniqueRelatedAnimes = relatedAnimes.filter(
+		(anime, index, animes) =>
+			animes.findIndex(
+				(candidate) => candidate.animeId === anime.animeId && candidate.relation === anime.relation
+			) === index
+	)
+
 	return (
 		<section className={styles.section}>
 			<h2 className={styles.title}>Relacionados</h2>
 			<div className={styles.grid}>
-				{relatedAnimes.map((anime) => (
+				{uniqueRelatedAnimes.map((anime) => (
 					<Link
-						key={anime.animeId}
+						key={JSON.stringify([anime.animeId, anime.relation])}
 						href={`/animes/${anime.animeId}`}
 						className={styles.card}
 					>

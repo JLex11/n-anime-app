@@ -1,0 +1,146 @@
+.viewport {
+	position: relative;
+	isolation: isolate;
+	grid-column: 1 / -1;
+	width: 100%;
+	max-width: var(--max-width);
+	min-width: 0;
+}
+
+.scroller {
+	display: flex;
+	gap: var(--grid-gap, 1.5rem);
+	overflow-x: auto;
+	overflow-y: hidden;
+	scroll-behavior: smooth;
+	scroll-padding-inline: 0.25rem;
+	scroll-snap-type: x mandatory;
+	overscroll-behavior-inline: contain;
+	padding: 0.25rem 0.125rem 0.75rem;
+	min-width: 0;
+	outline: none;
+	-webkit-overflow-scrolling: touch;
+	overscroll-behavior-y: none;
+	scrollbar-width: none;
+}
+
+.scroller::-webkit-scrollbar {
+	display: none;
+}
+
+.scroller > * {
+	flex: 0 0 min(var(--grid-width, 14rem), 100%);
+	height: var(--grid-height, 26rem);
+	min-width: 0;
+	scroll-snap-align: start;
+	scroll-snap-stop: always;
+}
+
+.edge {
+	position: absolute;
+	top: 0;
+	bottom: 0.75rem;
+	z-index: 1;
+	width: clamp(2.5rem, 6vw, 5rem);
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 240ms ease;
+	backdrop-filter: blur(5px) saturate(115%);
+	-webkit-backdrop-filter: blur(5px) saturate(115%);
+}
+
+.edgeStart {
+	left: -0.125rem;
+	background: linear-gradient(
+		90deg,
+		rgb(19 19 25 / 0.96) 0%,
+		rgb(19 19 25 / 0.68) 42%,
+		rgb(19 19 25 / 0) 100%
+	);
+}
+
+.edgeEnd {
+	right: -0.125rem;
+	background: linear-gradient(
+		270deg,
+		rgb(19 19 25 / 0.96) 0%,
+		rgb(19 19 25 / 0.68) 42%,
+		rgb(19 19 25 / 0) 100%
+	);
+}
+
+.viewport[data-can-scroll-start="true"] .edgeStart,
+.viewport[data-can-scroll-end="true"] .edgeEnd {
+	opacity: 1;
+}
+
+.arrow {
+	display: grid;
+	position: absolute;
+	top: 50%;
+	place-items: center;
+	transform: translateY(-50%);
+	z-index: 2;
+	border: 1px solid rgb(255 255 255 / 0.2);
+	border-radius: 999px;
+	background: rgb(19 19 25 / 0.82);
+	box-shadow: 0 0.5rem 1.25rem rgb(0 0 0 / 0.28);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	cursor: pointer;
+	padding: 0;
+	width: 2.5rem;
+	height: 2.5rem;
+	color: white;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition:
+		opacity 240ms ease,
+		background-color 180ms ease,
+		border-color 180ms ease,
+		visibility 240ms ease;
+}
+
+.arrowStart {
+	left: clamp(0.35rem, 1vw, 0.8rem);
+}
+
+.arrowStart svg {
+	transform: rotate(180deg);
+}
+
+.arrowEnd {
+	right: clamp(0.35rem, 1vw, 0.8rem);
+}
+
+.viewport[data-can-scroll-start="true"] .arrowStart,
+.viewport[data-can-scroll-end="true"] .arrowEnd {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+}
+
+.arrow:hover:not(:disabled) {
+	border-color: rgb(255 255 255 / 0.42);
+	background: rgb(47 47 59 / 0.94);
+}
+
+.arrow:focus-visible {
+	outline: 2px solid rgb(255 255 255 / 0.9);
+	outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.scroller {
+		scroll-behavior: auto;
+	}
+
+	.edge {
+		transition: none;
+	}
+
+	.arrow {
+		transition: none;
+	}
+}

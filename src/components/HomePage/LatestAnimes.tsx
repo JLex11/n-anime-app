@@ -1,8 +1,9 @@
 'use cache'
 
+import { cacheLife } from 'next/cache'
 import { getLatestAnimes } from '@/api/getLatestAnimes'
 import { AnimeCard } from '../AnimeCard'
-import { cacheLife } from 'next/cache'
+import { LatestAnimesCarousel } from './LatestAnimesCarousel'
 
 export const LatestAnimes = async () => {
 	cacheLife('animeList')
@@ -30,5 +31,11 @@ export const LatestAnimes = async () => {
 		}
 	})
 
-	return animesData.map(animeData => <AnimeCard key={animeData.animeId} {...animeData} />)
+	return (
+		<LatestAnimesCarousel>
+			{animesData.map(animeData => (
+				<AnimeCard key={animeData.animeId} {...animeData} />
+			))}
+		</LatestAnimesCarousel>
+	)
 }

@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { BreadCrumb } from '@/components/Common/BreadCrumb'
 import styles from '@/components/EpisodePage/Episode.module.css'
 import { normalizeAnimeId } from '@/utils/normalizeAnimeId'
@@ -11,7 +12,7 @@ interface Props {
 	}>
 }
 
-export default async function EpisodeLayout({ children, params }: Props) {
+async function EpisodeBreadcrumb({ params }: { params: Props['params'] }) {
 	const { animeId, episode } = await params
 
 	const crumbs = [
@@ -20,10 +21,16 @@ export default async function EpisodeLayout({ children, params }: Props) {
 		{ name: `Episodio ${episode}` },
 	]
 
+	return <BreadCrumb crumbs={crumbs} />
+}
+
+export default function EpisodeLayout({ children, params }: Props) {
 	return (
 		<main className={styles.main}>
 			<nav className={styles.breadcrumb}>
-				<BreadCrumb crumbs={crumbs} />
+				<Suspense fallback={<BreadCrumb crumbs={[{ name: 'Inicio', path: '/' }]} />}>
+					<EpisodeBreadcrumb params={params} />
+				</Suspense>
 			</nav>
 			{children}
 		</main>

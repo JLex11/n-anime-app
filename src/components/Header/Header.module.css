@@ -4,20 +4,11 @@
   right: 0;
   left: 0;
   z-index: 99;
-  backdrop-filter: blur(0px);
-  transition: backdrop-filter 0.2s ease-in-out;
-  will-change: backdrop-filter, background-color, box-shadow;
-    transform: translateZ(0);
+  transform: translateZ(0);
   margin: 0 auto;
-  background: linear-gradient(to bottom, var(--primary-color) -15%, transparent);
   width: 100%;
   color: white;
   text-align: center;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.header.scrolled {
-  backdrop-filter: blur(10px);
 }
 
 .headerContainer {
@@ -25,15 +16,41 @@
   justify-content: space-between;
   align-items: center;
   gap: 30px;
-  transition: padding 0.2s ease-in-out;
-  will-change: padding;
-  margin-inline: auto;
-  padding: 2rem var(--global-padding) 0.5rem var(--global-padding);
-  width: var(--max-width);
+  margin: 0.75rem auto 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  background: rgba(19, 19, 25, 0.5);
+  padding: 0.5rem 1.5rem;
+  width: calc(100% - var(--global-padding) - var(--global-padding));
+  max-width: var(--max-width);
+  -webkit-backdrop-filter: blur(14px) saturate(145%);
+  backdrop-filter: blur(14px) saturate(145%);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.14);
+  transition:
+    transform 0.25s ease-in-out,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    backdrop-filter 0.3s ease;
+  will-change: transform, backdrop-filter, background, box-shadow;
 }
 
 .header.scrolled .headerContainer {
-  padding-block: 0.3rem;
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(19, 19, 25, 0.62);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  backdrop-filter: blur(22px) saturate(170%);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.22);
+  transform: translateY(-0.5rem);
+}
+
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  .headerContainer,
+  .header.scrolled .headerContainer {
+    background: rgba(19, 19, 25, 0.96);
+  }
 }
 
 .headerSection {
@@ -75,7 +92,7 @@
   --page-item-bg-color: white;
   --page-item-text-color: white;
   position: relative;
-  padding: 0.3rem 0.7rem;
+  padding: 0.25rem 0.55rem;
   font-weight: 400;
   color: var(--page-item-text-color);
   will-change: transform, color;
@@ -130,7 +147,7 @@
   border: none;
   border-radius: calc(var(--border-radius-multiplier) * var(--borderWidth));
   background-color: rgba(59, 59, 59, 0.8);
-  padding: 0.4rem 0.5rem;
+  padding: 0.3rem 0.4rem;
   color: white;
 }
 
@@ -187,12 +204,16 @@
   will-change: top, left;
   border-radius: 0.5rem;
   background-color: var(--primary-color);
-  padding: 0.3rem 0.7rem;
+  padding: 0.25rem 0.55rem;
   width: var(--indicator-width);
   height: var(--indicator-height);
 }
 
 @media (width <=56rem) {
+
+  .headerContainer {
+    padding-inline: 0.5rem;
+  }
 
   .headerSection,
   .pages,

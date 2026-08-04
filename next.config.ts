@@ -27,9 +27,10 @@ const nextConfig = {
     },
   },
   experimental: {
-    viewTransition: true,
     cssChunking: true,
     turbopackFileSystemCacheForDev: true,
+    turbopackRustReactCompiler: true,
+    useOffline: true,
   },
 } as NextConfig;
 
