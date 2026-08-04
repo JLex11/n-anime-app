@@ -11,7 +11,6 @@ export interface ImageProps extends Omit<React.ComponentProps<typeof Image>, 'sr
 export interface CardProps {
 	title: string
 	link: string
-	prefetch?: boolean
 	image: Omit<ImageProps, 'alt'>
 	pill?: PillProps
 	showOnHover?: React.ReactNode

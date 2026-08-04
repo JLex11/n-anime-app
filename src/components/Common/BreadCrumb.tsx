@@ -21,7 +21,7 @@ export function BreadCrumb({ crumbs }: Props) {
 				<Fragment key={path + name}>
 					<li className={createItemClass(path)}>
 						{path ? (
-							<Link href={path} className='prerender'>
+							<Link href={path}>
 								{name}
 							</Link>
 						) : (

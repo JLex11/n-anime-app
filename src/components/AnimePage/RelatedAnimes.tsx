@@ -1,5 +1,6 @@
 import { getRelatedAnimes } from '@/api/getRelatedAnimes'
 import Link from 'next/link'
+import { cacheLife, cacheTag } from 'next/cache'
 import styles from './RelatedAnimes.module.css'
 
 interface Props {
@@ -7,6 +8,10 @@ interface Props {
 }
 
 export async function RelatedAnimes({ animeId }: Props) {
+	'use cache'
+	cacheLife('animeDetails')
+	cacheTag(`anime-${animeId}`)
+
 	const relatedAnimes = await getRelatedAnimes(animeId)
 
 	if (!relatedAnimes || relatedAnimes.length === 0) return null

@@ -9,6 +9,7 @@ const nextConfig = {
   },
   reactCompiler: true,
   cacheComponents: true,
+  partialPrefetching: true,
   cacheLife: {
     animeDetails: {
       stale: 43200,      // 12 hours

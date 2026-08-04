@@ -31,7 +31,6 @@ export async function LatestEpisodes() {
 			},
 			title: episode.title,
 			link: `/animes/${episode.animeId}/${episode.episode}`,
-			prefetch: true,
 			pill: { label: `Episodio ${episode.episode}` },
 		}
 	})

@@ -27,7 +27,8 @@ export function CarouselNavigation({ buttonsData, currentSlideId, setCurrentSlid
 		const distanceFromActive = Math.abs(index - activeIndex)
 
 		return {
-			'--navigation-scale': Math.max(0.9, 1.1 - distanceFromActive * 0.055),
+			'--navigation-scale':
+				distanceFromActive === 0 ? 1.14 : Math.max(0.9, 1.1 - distanceFromActive * 0.055),
 			'--navigation-depth': buttonsData.length - distanceFromActive,
 		} as React.CSSProperties
 	}

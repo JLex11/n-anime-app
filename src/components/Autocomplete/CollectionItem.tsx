@@ -86,7 +86,7 @@ export const CollectionItem = memo(function CollectionItem({ item }: Props) {
 			<div className={collectionItemClass}>
 				<Link
 					href={item.link}
-					className={`${styles.itemContainer} ${isActive ? 'prerender' : 'prerender-hover'}`}
+					className={styles.itemContainer}
 					onClick={handleItemClick}
 				>
 					{itemImageElement}

@@ -69,6 +69,7 @@ export function Collection({ items, sourceId, query }: Props) {
 				<Link
 					href={`/animes?query=${encodeURIComponent(query)}`}
 					className={styles.viewMoreButton}
+					prefetch={true}
 					onClick={() => handleLaunchAutocomplete(false)}
 				>
 					<div className={styles.viewMoreIconContainer}>

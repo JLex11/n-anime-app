@@ -7,60 +7,134 @@ import { BackgroundBlurredImage } from '@/components/BackgroundBlurredImage'
 import { Aside } from '@/components/EpisodePage/Aside'
 import styles from '@/components/EpisodePage/Episode.module.css'
 import { VideoSection } from '@/components/VideoSection'
-import { EpisodeContentSkeleton } from '@/components/Skeletons'
+import { CommentsSection, CommentsSkeleton } from '@/components/Comments'
+import { EpisodeAsideSkeleton, EpisodeContentSkeleton, EpisodeVideoSkeleton } from '@/components/Skeletons'
 import { WatchProgressTracker } from '@/components/EpisodePage/WatchProgressTracker'
 import blurImage from '@/public/lights-blur.webp'
 import { normalizeAnimeId } from '@/utils/normalizeAnimeId'
 import { toCap } from '@/utils/textConverts'
-import clsx from 'clsx'
 import { EpisodePageContextProvider } from './PageContext'
-import { CommentsSection } from '@/components/Comments'
 
 interface Props {
 	params: Promise<{ animeId: string; episode: string }>
 	searchParams: Promise<{ limit: string }>
 }
 
-async function EpisodeContent({ animeId, episode, searchParams }: { animeId: string; episode: string; searchParams: Promise<{ limit: string }> }) {
-	const episodeId = `${animeId}-${episode}`
-	const [episodeSources, animeInfo, watchProgress] = await Promise.all([
-		getEpisodeSources(episodeId),
-		getAnime(animeId),
-		getWatchProgress(animeId, episodeId)
-	])
+interface EpisodeContentProps {
+	animeId: string
+	episode: string
+	searchParams: Promise<{ limit: string }>
+}
 
+interface EpisodeVideoContentProps {
+	animeId: string
+	episode: string
+	episodeSourcesPromise: ReturnType<typeof getEpisodeSources>
+	animeInfoPromise: ReturnType<typeof getAnime>
+}
+
+async function EpisodeVideoContent({
+	animeId,
+	episode,
+	episodeSourcesPromise,
+	animeInfoPromise,
+}: EpisodeVideoContentProps) {
+	const [episodeSources, animeInfo] = await Promise.all([episodeSourcesPromise, animeInfoPromise])
 	const animeTitle = animeInfo?.title ?? normalizeAnimeId(animeId)
-	const coverImage = animeInfo?.images?.coverImage
-	const bannerImage = animeInfo?.images?.carouselImages?.[0]?.link || coverImage || blurImage
 	const episodeWasFound = Boolean(episodeSources?.videos?.SUB)
-	const mainContentClass = clsx(styles.mainContent, !episodeWasFound && styles.episodeNotFound)
-
 	const formattedTitle = toCap(`episodio ${episode} de ${animeTitle}`)
 
 	return (
 		<>
-			<WatchProgressTracker
-				animeId={animeId}
-				episodeNumber={Number(episode)}
-				initialProgressSeconds={watchProgress?.progress_seconds || 0}
-			/>
-			<section className={mainContentClass}>
-				{episodeWasFound ? (
-					<VideoSection iframesData={episodeSources?.videos} title={formattedTitle} />
-				) : (
-					<h2>Episodio no encontrado.</h2>
-				)}
-				{!episodeWasFound && <hr />}
-				<Aside
-					searchParams={await searchParams}
-					animeId={animeId}
-					animeTitle={animeTitle}
-					animeImage={coverImage}
-					currentEpisode={Number(episode)}
-				/>
+			{episodeWasFound ? (
+				<VideoSection iframesData={episodeSources.videos} title={formattedTitle} />
+			) : (
+				<h2>Episodio no encontrado.</h2>
+			)}
+			{!episodeWasFound && <hr />}
+		</>
+	)
+}
+
+async function EpisodeWatchProgress({
+	animeId,
+	episodeNumber,
+}: {
+	animeId: string
+	episodeNumber: number
+}) {
+	const watchProgress = await getWatchProgress(animeId, `${animeId}-${episodeNumber}`)
+
+	return (
+		<WatchProgressTracker
+			animeId={animeId}
+			episodeNumber={episodeNumber}
+			initialProgressSeconds={watchProgress?.progress_seconds || 0}
+		/>
+	)
+}
+
+async function EpisodeAsideContent({
+	animeId,
+	episode,
+	searchParams,
+	animeInfoPromise,
+}: EpisodeContentProps & { animeInfoPromise: ReturnType<typeof getAnime> }) {
+	const [animeInfo, resolvedSearchParams] = await Promise.all([animeInfoPromise, searchParams])
+
+	return (
+		<Aside
+			searchParams={resolvedSearchParams}
+			animeId={animeId}
+			animeTitle={animeInfo?.title ?? normalizeAnimeId(animeId)}
+			animeImage={animeInfo?.images?.coverImage}
+			currentEpisode={Number(episode)}
+		/>
+	)
+}
+
+async function EpisodeBackground({ animeId, animeInfoPromise }: { animeId: string; animeInfoPromise: ReturnType<typeof getAnime> }) {
+	const animeInfo = await animeInfoPromise
+	const coverImage = animeInfo?.images?.coverImage
+	const bannerImage = animeInfo?.images?.carouselImages?.[0]?.link || coverImage || blurImage
+
+	return <BackgroundBlurredImage src={bannerImage} alt={normalizeAnimeId(animeId)} />
+}
+
+function EpisodeContent({ animeId, episode, searchParams }: EpisodeContentProps) {
+	const episodeId = `${animeId}-${episode}`
+	const episodeSourcesPromise = getEpisodeSources(episodeId)
+	const animeInfoPromise = getAnime(animeId)
+
+	return (
+		<>
+			<Suspense fallback={null}>
+				<EpisodeWatchProgress animeId={animeId} episodeNumber={Number(episode)} />
+			</Suspense>
+			<section className={styles.mainContent}>
+				<Suspense fallback={<EpisodeVideoSkeleton />}>
+					<EpisodeVideoContent
+						animeId={animeId}
+						episode={episode}
+						episodeSourcesPromise={episodeSourcesPromise}
+						animeInfoPromise={animeInfoPromise}
+					/>
+				</Suspense>
+				<Suspense fallback={<EpisodeAsideSkeleton />}>
+					<EpisodeAsideContent
+						animeId={animeId}
+						episode={episode}
+						searchParams={searchParams}
+						animeInfoPromise={animeInfoPromise}
+					/>
+				</Suspense>
 			</section>
-			<CommentsSection animeId={animeId} episodeId={episodeId} />
-			<BackgroundBlurredImage src={bannerImage} alt={normalizeAnimeId(animeId)} />
+			<Suspense fallback={<CommentsSkeleton />}>
+				<CommentsSection animeId={animeId} episodeId={episodeId} />
+			</Suspense>
+			<Suspense fallback={null}>
+				<EpisodeBackground animeId={animeId} animeInfoPromise={animeInfoPromise} />
+			</Suspense>
 		</>
 	)
 }

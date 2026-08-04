@@ -5,7 +5,6 @@ export { CardGridSkeleton } from './CardGridSkeleton'
 export { AnimeCardGridSkeleton } from './AnimeCardGridSkeleton'
 export { AnimeMainSkeleton } from './AnimeMainSkeleton'
 export { HomeAsideSkeleton } from './HomeAsideSkeleton'
-export { EpisodeContentSkeleton } from './EpisodeContentSkeleton'
+export { EpisodeAsideSkeleton, EpisodeContentSkeleton, EpisodeVideoSkeleton } from './EpisodeContentSkeleton'
 export { FavoriteButtonSkeleton } from './FavoriteButtonSkeleton'
 export { RelatedAnimesSkeleton } from './RelatedAnimesSkeleton'
-

@@ -15,7 +15,7 @@ interface AsideListItemProps {
 }
 
 export function ListItem({ link, episode, isSeeing, animeImage, animeTitle }: AsideListItemProps) {
-	const itemClass = clsx(styles.listItem, isSeeing && styles.active, 'prefetch')
+	const itemClass = clsx(styles.listItem, isSeeing && styles.active)
 
 	return (
 		<li>

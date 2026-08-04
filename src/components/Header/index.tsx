@@ -18,7 +18,7 @@ function NavFallback({ pages }: { pages: Page[] }) {
 			<ul className={styles.pages}>
 				{pages.map(page => (
 					<li key={page.link}>
-						<Link href={page.link} className={`${styles.pageItem} prerender`}>
+						<Link href={page.link} className={styles.pageItem}>
 							{page.name}
 						</Link>
 					</li>

@@ -20,7 +20,7 @@ export function ItemInfo({ animeId, title, genres }: Props) {
 	return (
 		<div className={styles.info}>
 			<div className={styles.content}>
-				<Link href={`/animes/${animeId}`} className='prerender' prefetch={true}>
+				<Link href={`/animes/${animeId}`}>
 					<ViewTransition name={`anime-title-${animeId}`}>
 						<h1 className={styles.infoTitle}>{title}</h1>
 					</ViewTransition>
